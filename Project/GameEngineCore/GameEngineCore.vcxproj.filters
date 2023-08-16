@@ -28,6 +28,9 @@
     <Filter Include="Vertex">
       <UniqueIdentifier>{a4fbff0d-fd33-4d7a-836c-c82b18625695}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Shader">
+      <UniqueIdentifier>{2abf651a-261e-42bf-96f1-1a9f1ad6188e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineActor.h">
@@ -81,6 +84,12 @@
     </ClInclude>
     <ClInclude Include="GameEngineInputLayOut.h">
       <Filter>Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineShader.h">
+      <Filter>Resources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertexShader.h">
+      <Filter>Resources\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +147,12 @@
     </ClCompile>
     <ClCompile Include="GameEngineInputLayOut.cpp">
       <Filter>Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineShader.cpp">
+      <Filter>Resources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertexShader.cpp">
+      <Filter>Resources\Shader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

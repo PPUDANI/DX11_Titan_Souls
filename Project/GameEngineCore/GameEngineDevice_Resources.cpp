@@ -3,13 +3,33 @@
 
 #include "GameEngineVertex.h"
 #include "GameEngineVertexBuffer.h"
+#include "GameEngineShader.h"
+#include "GameEngineVertexShader.h"
 
 void GameEngineDevice::ResourcesInit()
 {
 	// 엔진수준에서 지원해주는 가장 기초적인 리소스들은 여기에서 만들어질 겁니다.
 	// 기본 매쉬
 	// 기본 텍스처
+	// 기본 쉐이더
 	// 여기에서 자기 텍스처 로드하지마세요.
+
+	{
+		// 엔진용 쉐이더를 전부다 전부다 로드하는 코드를 친다.
+		GameEngineDirectory Dir;
+		Dir.MoveParentToExistsChild("GameEngineCoreShader");
+		Dir.MoveChild("GameEngineCoreShader");
+		std::vector<GameEngineFile> Files = Dir.GetAllFile({".fx"});
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineVertexShader::Load(Files[i].GetStringPath(), "ColorShader_VS");
+
+			// GameEngineShader::AutoCompile();
+		}
+
+	}
+
 
 	{
 		std::vector<GameEngineVertex2D> Vertex;
