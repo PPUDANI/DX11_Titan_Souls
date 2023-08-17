@@ -60,4 +60,19 @@ void GameEngineVertexShader::ShaderLoad(
 	}
 
 
+	Result = GameEngineCore::MainDevcie.GetDevice()->CreateVertexShader(
+		BinaryCode->GetBufferPointer(),
+		BinaryCode->GetBufferSize(),
+		nullptr,
+		&ShaderPtr);
+
+	if (S_OK != Result)
+	{
+		MsgBoxAssert("버텍스 쉐이더 생성에 실패했습니다.");
+	}
+}
+
+void GameEngineVertexShader::Setting()
+{
+	GameEngineCore::MainDevcie.GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
 }

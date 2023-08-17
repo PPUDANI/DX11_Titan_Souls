@@ -5,6 +5,8 @@
 // Ό³Έν :
 class GameEngineVertexShader : public GameEngineResources<GameEngineVertexShader> , public GameEngineShader
 {
+	friend class GameEngineInputLayOut;
+
 public:
 	// constrcuter destructer
 	GameEngineVertexShader();
@@ -18,9 +20,7 @@ public:
 
 	static std::shared_ptr<GameEngineVertexShader> Load(const std::string_view& _Path, const std::string_view& _EntryPoint, UINT _VersionHight = 5, UINT _VersionLow = 0)
 	{
-		GameEnginePath Path = _Path;
-		std::string Name = Path.GetFileName();
-		return Load(_Path, Name, _EntryPoint, _VersionHight, _VersionLow);
+		return Load(_Path, _EntryPoint, _EntryPoint, _VersionHight, _VersionLow);
 	}
 
 	static std::shared_ptr<GameEngineVertexShader> Load(const std::string_view& _Path, const std::string_view& _Name, const std::string_view& _EntryPoint, UINT _VersionHight = 5, UINT _VersionLow = 0)
@@ -30,10 +30,13 @@ public:
 		return Res;
 	}
 
+	void Setting();
+
 protected:
 
 private:
-	std::string EntryName;
+	std::string EntryName = "";
+	ID3D11VertexShader* ShaderPtr = nullptr;
 
 	void ShaderLoad(const std::string_view& _Path, const std::string_view& _EntryPoint, UINT _VersionHight = 5, UINT _VersionLow = 0);
 

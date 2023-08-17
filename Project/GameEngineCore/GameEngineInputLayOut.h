@@ -1,6 +1,13 @@
 #pragma once
 
-// 설명 :
+class GameEngineInputLayOutInfo 
+{
+public:
+	std::vector<D3D11_INPUT_ELEMENT_DESC> Infos;
+
+};
+
+// 설명 : 버텍스 쉐이더가 필요합니다.
 class GameEngineInputLayOut
 {
 public:
@@ -14,14 +21,18 @@ public:
 	GameEngineInputLayOut& operator=(const GameEngineInputLayOut& _Other) = delete;
 	GameEngineInputLayOut& operator=(GameEngineInputLayOut&& _Other) noexcept = delete;
 
+	void Setting();
+	void ResCreate(
+		const std::vector<D3D11_INPUT_ELEMENT_DESC>& _ArrLayOutInfo, 
+		std::shared_ptr<class GameEngineVertexShader> _Shader
+	);
+
 protected:
 
 private:
 	ID3D11InputLayout* LayOut = nullptr;
 
-	void ResCreate();
 
-	void Setting();
 
 };
 

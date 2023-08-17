@@ -9,6 +9,8 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 #include "GameEngineVertexBuffer.h"
+#include "GameEngineInputLayOut.h"
+#include "GameEngineVertexShader.h"
 
 GameEngineRenderer::GameEngineRenderer() 
 {
@@ -50,11 +52,72 @@ int A = 0;
 void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 {
 	{
+		// 인풋어셈블러1 버텍스 버퍼 세팅
 		std::shared_ptr<GameEngineVertexBuffer> VertexBuffer = GameEngineVertexBuffer::Find("Rect");
 		if (nullptr != VertexBuffer)
 		{
 			VertexBuffer->Setting();
 		}
+
+
+
+		std::shared_ptr<GameEngineVertexShader> VertexShader = GameEngineVertexShader::Find("ColorShader_VS");
+		if (nullptr != VertexShader && nullptr != VertexBuffer && nullptr == LayOut)
+		{
+			LayOut = std::make_shared<GameEngineInputLayOut>();
+
+			std::vector<D3D11_INPUT_ELEMENT_DESC> ArrLayOutInfo;
+
+			{
+				D3D11_INPUT_ELEMENT_DESC Data;
+				Data.SemanticName = "POSITION";
+				// 0바이트부터 시작하는
+				Data.AlignedByteOffset = 0;
+				// 16바이트짜리 자료형이야.
+				Data.Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
+				// 버텍스 데이터용 레이아웃이야
+				// 점세팅의 구조를 설명하기 위한 레이아웃이야.
+				Data.InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+
+				// 지금은 알아도 크게 의미 없음
+				Data.SemanticIndex = 0;
+				Data.InputSlot = 0;
+				Data.InstanceDataStepRate = 0;
+				ArrLayOutInfo.push_back(Data);
+			}
+
+			{
+				D3D11_INPUT_ELEMENT_DESC Data;
+				Data.SemanticName = "COLOR";
+				// 0바이트부터 시작하는
+				Data.AlignedByteOffset = 16;
+				// 16바이트짜리 자료형이야.
+				Data.Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
+				// 버텍스 데이터용 레이아웃이야
+				// 점세팅의 구조를 설명하기 위한 레이아웃이야.
+				Data.InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+
+				// 지금은 알아도 크게 의미 없음
+				Data.SemanticIndex = 0;
+				Data.InputSlot = 0;
+				Data.InstanceDataStepRate = 0;
+				ArrLayOutInfo.push_back(Data);
+			}
+
+			LayOut->ResCreate(ArrLayOutInfo, VertexShader);
+
+			// 레이아웃
+		}
+
+
+
+		// 버텍스 쉐이더 세팅
+		if (nullptr != VertexShader)
+		{
+			VertexShader->Setting();
+		}
+
+
 
 		std::vector<GameEngineVertex2D> Vertex;
 		Vertex.resize(4 * 6);

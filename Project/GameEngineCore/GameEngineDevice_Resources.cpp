@@ -23,11 +23,10 @@ void GameEngineDevice::ResourcesInit()
 
 		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineVertexShader::Load(Files[i].GetStringPath(), "ColorShader_VS");
-
-			// GameEngineShader::AutoCompile();
+			// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+			GameEngineFile& File = Files[i];
+			GameEngineShader::AutoCompile(File);
 		}
-
 	}
 
 

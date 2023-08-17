@@ -16,6 +16,8 @@ enum class ShaderType
 class GameEngineShader
 {
 public:
+	static bool AutoCompile(GameEngineFile& _File);
+
 	// constrcuter destructer
 	GameEngineShader();
 	~GameEngineShader();
@@ -25,6 +27,7 @@ public:
 	GameEngineShader(GameEngineShader&& _Other) noexcept = delete;
 	GameEngineShader& operator=(const GameEngineShader& _Other) = delete;
 	GameEngineShader& operator=(GameEngineShader&& _Other) noexcept = delete;
+
 
 	
 protected:

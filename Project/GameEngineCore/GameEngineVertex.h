@@ -1,17 +1,24 @@
 #pragma once
+#include "GameEngineInputLayOut.h"
+// Input LayOut이란 점 1개의 구조에요.
 
-// 설명 :
+// 설명 : 애가 제일 잘알고 있어야 합니다.
 class GameEngineVertex2D
 {
 public:
-	float4 TEXCOORD;
-	float4 COLOR;
+	static GameEngineInputLayOutInfo VertexInfo;
+
+public:
 	float4 POSITION;
+	float4 COLOR;
 };
 
 
 class GameEngine3DVertex
 {
+public:
+	static GameEngineInputLayOutInfo VertexInfo;
+
 public:
 	float4 POSITION;
 	float4 TEXCOORD;
