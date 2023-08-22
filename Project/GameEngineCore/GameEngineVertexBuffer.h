@@ -1,5 +1,4 @@
 #pragma once
-#include "GameEngineResources.h"
 #include "GameEngineDirectBuffer.h"
 
 // Ό³Έν :

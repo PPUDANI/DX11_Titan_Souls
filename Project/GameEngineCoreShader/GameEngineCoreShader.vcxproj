@@ -26,6 +26,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="TextureShader.fx" />
+    <FxCompile Include="Transform.fx" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="47기 쉐이더 규칙.txt" />

@@ -1,11 +1,14 @@
 #include "PreCompile.h"
 #include "GameEngineDevice.h"
+#include "GameEngineTransform.h"
 
 #include "GameEngineVertex.h"
 #include "GameEngineVertexBuffer.h"
 #include "GameEngineIndexBuffer.h"
 #include "GameEngineShader.h"
+#include "GameEngineRasterizer.h"
 #include "GameEngineVertexShader.h"
+#include "GameEngineConstantBuffer.h"
 
 void GameEngineDevice::ResourcesInit()
 {
@@ -85,12 +88,10 @@ void GameEngineDevice::ResourcesInit()
 		std::vector<GameEngineVertex2D> Vertex;
 		Vertex.resize(4);
 
-		GameEngineVertex2D BaseVertexs[4];
-
-		BaseVertexs[0] = { { -0.5f, -0.5f, -0.5f, 1.0f } };
-		BaseVertexs[1] = { { 0.5f, -0.5f, -0.5f, 1.0f } };
-		BaseVertexs[2] = { { 0.5f, 0.5f, -0.5f, 1.0f } };
-		BaseVertexs[3] = { { -0.5f, 0.5f, -0.5f, 1.0f } };
+		Vertex[0] = { { -0.5f, -0.5f, 0.0f, 1.0f } };
+		Vertex[1] = { { 0.5f, -0.5f, 0.0f, 1.0f } };
+		Vertex[2] = { { 0.5f, 0.5f, 0.0f, 1.0f } };
+		Vertex[3] = { { -0.5f, 0.5f, 0.0f, 1.0f } };
 
 		GameEngineVertexBuffer::Create("Rect", Vertex);
 
@@ -102,5 +103,69 @@ void GameEngineDevice::ResourcesInit()
 		};
 
 		GameEngineIndexBuffer::Create("Rect", Index);
+	}
+
+	{
+		std::vector<GameEngineVertex2D> Vertex;
+		Vertex.resize(4);
+
+		Vertex[0] = { { -1.0f, -1.0f, 0.0f, 1.0f } };
+		Vertex[1] = { { 1.0f, -1.0f, 0.0f, 1.0f } };
+		Vertex[2] = { { 1.0f, 1.0f, 0.0f, 1.0f } };
+		Vertex[3] = { { -1.0f, 1.0f, 0.0f, 1.0f } };
+
+		GameEngineVertexBuffer::Create("FullRect", Vertex);
+
+
+		std::vector<unsigned int> Index =
+		{
+			0, 1, 2,
+			0, 2, 3
+		};
+
+		GameEngineIndexBuffer::Create("FullRect", Index);
+	}
+
+	// 나중에 사라질거임
+	{
+		// 약간위험할수 있다.
+		// 그래픽카드에서의 바이트 패딩 규칙과 
+		// sizeof(TransformData) 바이트패딩 규칙이
+		// 달라서 그리가 다르다고 인식할수 있다. 
+		// 주의해야 한다.
+		GameEngineConstantBuffer::CreateAndFind(sizeof(TransformData), "TransformData", ShaderType::Vertex, 0);
+	}
+	
+	{
+
+		//D3D11_FILL_MODE FillMode;
+		// 랜더링 할때 채우기 모드를 결정한다.
+		
+		// 외적했는데 z방향이 어디냐?
+		// D3D11_CULL_NONE => 방향이 어디든 건져낸다.
+		// D3D11_CULL_BACK => z가 앞쪽인 픽셀들은 안건져 낸다.
+		// D3D11_CULL_FRONT => z가 뒤쪽인 픽셀들은 안건져 낸다.
+		// 
+		// 0, 1, 2,
+		// 0, 2, 3
+		// 인덱스 버퍼의 그리는 순서와 연관이 크다.
+
+		// 이녀석은 인덱스 버퍼
+
+		//D3D11_CULL_MODE CullMode;
+		//BOOL FrontCounterClockwise;
+		//INT DepthBias;
+		//FLOAT DepthBiasClamp;
+		//FLOAT SlopeScaledDepthBias;
+		//BOOL DepthClipEnable;
+		//BOOL ScissorEnable;
+		//BOOL MultisampleEnable;
+		//BOOL AntialiasedLineEnable;
+
+		D3D11_RASTERIZER_DESC Desc = {};
+		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		// Desc.DepthClipEnable = TRUE;
+		std::shared_ptr<GameEngineRasterizer> Rasterizer = GameEngineRasterizer::Create("EngineRasterizer", Desc);
 	}
 }

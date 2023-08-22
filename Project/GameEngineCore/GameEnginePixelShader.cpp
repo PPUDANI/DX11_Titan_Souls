@@ -1,11 +1,11 @@
 #include "PreCompile.h"
-#include "GameEngineVertexShader.h"
+#include "GameEnginePixelShader.h"
 
-GameEngineVertexShader::GameEngineVertexShader() 
+GameEnginePixelShader::GameEnginePixelShader() 
 {
 }
 
-GameEngineVertexShader::~GameEngineVertexShader() 
+GameEnginePixelShader::~GameEnginePixelShader() 
 {
 	if (nullptr != ShaderPtr)
 	{
@@ -14,7 +14,7 @@ GameEngineVertexShader::~GameEngineVertexShader()
 	}
 }
 
-void GameEngineVertexShader::ShaderLoad(
+void GameEnginePixelShader::ShaderLoad(
 	const std::string_view& _Path, 
 	const std::string_view& _EntryPoint, 
 	UINT _VersionHight, 
@@ -22,7 +22,7 @@ void GameEngineVertexShader::ShaderLoad(
 {
 	std::wstring UniPath = GameEngineString::AnsiToUnicode(_Path);
 
-	CreateVersion(ShaderType::Vertex, _VersionHight, _VersionLow);
+	CreateVersion(ShaderType::Pixel, _VersionHight, _VersionLow);
 
 	EntryName = _EntryPoint;
 
@@ -65,7 +65,7 @@ void GameEngineVertexShader::ShaderLoad(
 	}
 
 
-	Result = GameEngineCore::GetDevice()->CreateVertexShader(
+	Result = GameEngineCore::GetDevice()->CreatePixelShader(
 		BinaryCode->GetBufferPointer(),
 		BinaryCode->GetBufferSize(),
 		nullptr,
@@ -77,7 +77,7 @@ void GameEngineVertexShader::ShaderLoad(
 	}
 }
 
-void GameEngineVertexShader::Setting()
+void GameEnginePixelShader::Setting()
 {
-	GameEngineCore::GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
+	GameEngineCore::GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
 }

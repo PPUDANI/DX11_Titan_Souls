@@ -1,4 +1,5 @@
 #pragma once
+#include "GameEngineResources.h"
 
 // 설명 : 버퍼계열들은 모두다 동일한 인터페이스를 사용하고
 // 의미는 그래픽카드에게 n바이트의 공간을 할당하고 그에 대한 접근권한을 달라고.
