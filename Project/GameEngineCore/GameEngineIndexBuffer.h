@@ -18,7 +18,7 @@ public:
 	GameEngineIndexBuffer& operator=(const GameEngineIndexBuffer& _Other) = delete;
 	GameEngineIndexBuffer& operator=(GameEngineIndexBuffer&& _Other) noexcept = delete;
 
-	static std::shared_ptr<GameEngineIndexBuffer> Create(const std::string_view& _Name, const std::vector<unsigned int>& _Data)
+	static std::shared_ptr<GameEngineIndexBuffer> Create(std::string_view _Name, const std::vector<unsigned int>& _Data)
 	{
 		std::shared_ptr<GameEngineIndexBuffer> Res = GameEngineResources::CreateRes(_Name);
 		Res->ResCreate(&_Data[0], _Data.size());
@@ -26,6 +26,11 @@ public:
 	}
 
 	void Setting();
+
+	inline int GetIndexCount() 
+	{
+		return IndexCount;
+	}
 
 protected:
 

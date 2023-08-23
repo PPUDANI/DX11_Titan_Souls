@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="PreCompile.cpp" />
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
@@ -8,20 +9,15 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="PreCompile.cpp">
-      <Filter>PreCompile</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PreCompile.h" />
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="PreCompile.h">
-      <Filter>PreCompile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -30,9 +26,6 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{5149ea30-97f1-47b8-922c-87826f277675}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PreCompile">
-      <UniqueIdentifier>{c77c8daf-53c8-4647-94cb-8fc5134efda2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

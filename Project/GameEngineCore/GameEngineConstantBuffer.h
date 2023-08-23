@@ -17,7 +17,7 @@ public:
 	GameEngineConstantBuffer& operator=(const GameEngineConstantBuffer& _Other) = delete;
 	GameEngineConstantBuffer& operator=(GameEngineConstantBuffer&& _Other) noexcept = delete;
 
-	static std::shared_ptr<GameEngineConstantBuffer> CreateAndFind(int _Byte, const std::string_view& _Name, ShaderType _Type = ShaderType::None, int Slot = 0)
+	static std::shared_ptr<GameEngineConstantBuffer> CreateAndFind(int _Byte, std::string_view _Name, ShaderType _Type = ShaderType::None, int Slot = 0)
 	{
 		if (ConstantBuffers.end() == ConstantBuffers.find(_Byte))
 		{
@@ -43,6 +43,15 @@ public:
 		return Res;
 	}
 
+	template<typename DataType>
+	void ChangeData(const DataType& _Data)
+	{
+		ChangeData(&_Data, sizeof(DataType));
+	}
+
+	// 1바이트 자료형
+	void ChangeData(const void* _Data, UINT _Size);
+
 	void Setting();
 
 protected:
@@ -56,6 +65,5 @@ private:
 	static std::map<int, std::map<std::string, std::shared_ptr<GameEngineConstantBuffer>>> ConstantBuffers;
 
 	void ResCreate(int _ByteSize);
-	
 };
 

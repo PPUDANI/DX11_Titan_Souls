@@ -54,6 +54,13 @@ void GameEngineRenderer::SetViewCameraSelect(int _Order)
 
 void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 {
+	ResSetting();
+	Draw();
+}
+
+void GameEngineRenderer::ResSetting()
+{
+
 	{
 		float4x4 WorldViewProjection = Transform.GetWorldViewPorjectionMatrix();
 
@@ -73,11 +80,15 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 			LayOut->ResCreate(VertexBuffer, VertexShader);
 		}
 
-		std::shared_ptr<GameEngineConstantBuffer> Buffer = GameEngineConstantBuffer::CreateAndFind(sizeof(TransformData), "TransformData", ShaderType::Vertex, 0);
+		std::shared_ptr<GameEngineConstantBuffer> Buffer = GameEngineConstantBuffer::CreateAndFind(sizeof(TransformData), "TransformData");
 
-		const TransformData& Data = Transform.GetConstTransformDataRef();
+		if (nullptr != Buffer)
+		{
+			const TransformData& Data = Transform.GetConstTransformDataRef();
+			Buffer->ChangeData(Data);
+			Buffer->Setting();
+		}
 
-		Buffer->Setting();
 
 
 		if (nullptr != LayOut)
@@ -139,7 +150,7 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 			BackBufferRenderTarget->Setting();
 		}
 
-		
+
 
 
 		// 세팅된 버텍스 버퍼로 그려라.
@@ -148,9 +159,16 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 
 		// 그걸 다시 옵션을 줄수 있는데.
 		// 인덱스버퍼를 사용하는 경우 홏룰하는 DRAW함수이다.
-
-		GameEngineCore::GetContext()->DrawIndexed(6, 0, 0);
-		// 그린다.
-		
 	}
+}
+
+
+void GameEngineRenderer::Draw()
+{
+	std::shared_ptr<GameEngineIndexBuffer> IndexBuffer = GameEngineIndexBuffer::Find("Rect");
+	if (nullptr == IndexBuffer)
+	{
+		return;
+	}
+	GameEngineCore::GetContext()->DrawIndexed(IndexBuffer->GetIndexCount(), 0, 0);
 }

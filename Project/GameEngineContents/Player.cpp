@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineTexture.h>
 
 Player::Player() 
 {
@@ -14,25 +15,51 @@ Player::~Player()
 void Player::Start()
 {
 	{
-		std::shared_ptr<GameEngineRenderer> Renderer = CreateComponent<GameEngineRenderer>(0);
-		Renderer->Transform.SetLocalPosition({ 0, 150, 0 });
-		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
+
+		GameEngineTexture::Load("힝", "응애");
+
+		Renderer0 = CreateComponent<GameEngineSpriteRenderer>(0);
+
+		// 자동으로 내부에서 트랜스폼을 이미지 크기로 변경까지 할것이다.
+		Renderer0->SetSprite("NSet.png");
+
+		/*Renderer0->Transform.SetLocalPosition({ 0, 150, 0 });
+		Renderer0->Transform.SetLocalScale({ 50, 50, 100 });*/
+
+		// Renderer0->SetSprite("NSet.png");
+
+		// NewRender->SetSprite("AAA.png", 0);
+		{
+			//NewRender->SetConstnetbuffer("");
+			//NewRender->SetTextureSetting("");
+			//NewRender->SetTextureCurtingdataSetting("");
+			//NewRender->SetConstnetResSetting("");
+			//NewRender->SetConstnetResSetting("");
+			//NewRender->SetConstnetResSetting("");
+			//NewRender->SetConstnetResSetting("");
+			//NewRender->SetConstnetResSetting("");
+			//NewRender->SetConstnetResSetting("");
+
+		}
+
+
+
 	}
 
 	{
-		std::shared_ptr<GameEngineRenderer> Renderer = CreateComponent<GameEngineRenderer>(0);
+		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(0);
 		Renderer->Transform.SetLocalPosition({ 0, -150, 0 });
 		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
 	}
 
 	{
-		std::shared_ptr<GameEngineRenderer> Renderer = CreateComponent<GameEngineRenderer>(0);
+		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(0);
 		Renderer->Transform.SetLocalPosition({ -150, 0, 0 });
 		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
 	}
 
 	{
-		std::shared_ptr<GameEngineRenderer> Renderer = CreateComponent<GameEngineRenderer>(0);
+		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(0);
 		Renderer->Transform.SetLocalPosition({ 150, 0, 0 });
 		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
 	}
