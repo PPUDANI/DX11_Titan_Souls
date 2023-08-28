@@ -35,16 +35,16 @@
       <UniqueIdentifier>{419342b6-201f-42eb-a979-bcc041b1d56d}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty">
-      <UniqueIdentifier>{d3b096b7-a9e7-4404-89ec-f46a96364922}</UniqueIdentifier>
+      <UniqueIdentifier>{f7e2bc89-13f5-44d4-b1f0-cb94ba2717ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ThirdParty\Inc">
-      <UniqueIdentifier>{a3c4023f-6b0b-4a11-ab25-86533ccde482}</UniqueIdentifier>
+    <Filter Include="ThirdParty\inc">
+      <UniqueIdentifier>{b9c480d4-af12-4e1c-a75c-45bf66e7fc87}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty\Debug">
-      <UniqueIdentifier>{59ca5aca-e216-4f0b-a320-132f5f531ec8}</UniqueIdentifier>
+      <UniqueIdentifier>{bc67b39f-b6be-49c2-a69a-546a140127fd}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty\Release">
-      <UniqueIdentifier>{31ba8994-778b-46b3-abda-96d61aae7810}</UniqueIdentifier>
+      <UniqueIdentifier>{43fd46e5-b089-4b24-a5a9-5ac9b963b631}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,7 +125,10 @@
       <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
-      <Filter>ThirdParty\Inc</Filter>
+      <Filter>ThirdParty\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineSampler.h">
+      <Filter>Resources\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,10 +211,13 @@
     <ClCompile Include="GameEngineSpriteRenderer.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineSampler.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
-      <Filter>ThirdParty\Inc</Filter>
+      <Filter>ThirdParty\inc</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -221,11 +227,11 @@
     <Library Include="ThirdParty\DirectXTex\lib\Release\DirectXTex.lib">
       <Filter>ThirdParty\Release</Filter>
     </Library>
-    <Library Include="ThirdParty\DirectXTex\lib\Debug\DirectXTex.pdb">
-      <Filter>ThirdParty\Debug</Filter>
-    </Library>
     <Library Include="ThirdParty\DirectXTex\lib\Release\DirectXTex.pdb">
       <Filter>ThirdParty\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\DirectXTex\lib\Debug\DirectXTex.pdb">
+      <Filter>ThirdParty\Debug</Filter>
     </Library>
   </ItemGroup>
 </Project>

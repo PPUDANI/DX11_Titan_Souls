@@ -16,52 +16,9 @@ void Player::Start()
 {
 	{
 
-		GameEngineTexture::Load("힝", "응애");
+		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>();
+		MainSpriteRenderer->SetSprite("TestPlayer.png", 5);
 
-		Renderer0 = CreateComponent<GameEngineSpriteRenderer>(0);
-
-		// 자동으로 내부에서 트랜스폼을 이미지 크기로 변경까지 할것이다.
-		Renderer0->SetSprite("NSet.png");
-
-		/*Renderer0->Transform.SetLocalPosition({ 0, 150, 0 });
-		Renderer0->Transform.SetLocalScale({ 50, 50, 100 });*/
-
-		// Renderer0->SetSprite("NSet.png");
-
-		// NewRender->SetSprite("AAA.png", 0);
-		{
-			//NewRender->SetConstnetbuffer("");
-			//NewRender->SetTextureSetting("");
-			//NewRender->SetTextureCurtingdataSetting("");
-			//NewRender->SetConstnetResSetting("");
-			//NewRender->SetConstnetResSetting("");
-			//NewRender->SetConstnetResSetting("");
-			//NewRender->SetConstnetResSetting("");
-			//NewRender->SetConstnetResSetting("");
-			//NewRender->SetConstnetResSetting("");
-
-		}
-
-
-
-	}
-
-	{
-		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(0);
-		Renderer->Transform.SetLocalPosition({ 0, -150, 0 });
-		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
-	}
-
-	{
-		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(0);
-		Renderer->Transform.SetLocalPosition({ -150, 0, 0 });
-		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
-	}
-
-	{
-		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(0);
-		Renderer->Transform.SetLocalPosition({ 150, 0, 0 });
-		Renderer->Transform.SetLocalScale({ 50, 50, 100 });
 	}
 }
 
