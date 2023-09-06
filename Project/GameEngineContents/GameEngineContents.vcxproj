@@ -167,19 +167,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
+    <ClCompile Include="GolIathRoom.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="PlayLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="PlayMap.cpp">
+    <ClCompile Include="KnightElhananRoom.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -189,7 +181,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SludgeHeartRoom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StartingRuins.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="YetiRoom.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -199,25 +203,29 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ContentsEnum.h" />
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="GolIathRoom.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="PlayLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="PlayMap.h">
+    <ClInclude Include="KnightElhananRoom.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="ContentEnum.h" />
+    <ClInclude Include="SludgeHeartRoom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StartingRuins.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TitleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="YetiRoom.h">
       <SubType>
       </SubType>
     </ClInclude>
