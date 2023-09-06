@@ -60,7 +60,9 @@ private:
 	// LevelChange가 벌어질때
 	// 내가 다음 레벨이면 LevelStart
 	// 내가 그럼 End
+	// 내가 지금 현재 레벨이 되면 호출
 	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
+	// 내가 이제 다른 레벨로 이전하면 호출
 	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
 
 	// 액터관련 기능들
@@ -68,11 +70,14 @@ private:
 
 	//void Render(float _Delta);
 
-	void ActorRelease();
+	void Release() override;
+
+	void AllReleaseCheck() override;
 
 	void ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order);
 
 	void Render(float _Delta);
+
 
 	// 이미 액터가 child로 관리하고 있지만
 	// 따로 카메라도 들고 있을 겁니다.

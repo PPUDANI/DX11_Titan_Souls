@@ -167,11 +167,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayMap.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -181,9 +189,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -195,7 +212,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="TitleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

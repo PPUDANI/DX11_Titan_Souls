@@ -9,6 +9,15 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMap.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -19,6 +28,18 @@
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMap.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -26,6 +47,9 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{5149ea30-97f1-47b8-922c-87826f277675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

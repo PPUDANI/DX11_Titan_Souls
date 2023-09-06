@@ -10,7 +10,7 @@ class SpriteData
 public:
 	std::shared_ptr<GameEngineTexture> Texture;
 	// 이미지를 자르는 용도로 사용됩니다.
-	float4 SpriteData1;
+	float4 SpritePivot;
 
 	float4 GetScale();
 };
@@ -31,9 +31,18 @@ public:
 
 	// 폴더 위치 알려주면
 	// 폴더 위치내부의 텍스처를 전부다 로드해서 스프라이트로 만든다.
-	static std::shared_ptr<GameEngineSprite> CreateFolder()
+
+	static std::shared_ptr<GameEngineSprite> CreateFolder(std::string_view _Path)
 	{
-		std::shared_ptr<GameEngineSprite> NewRes = CreateRes();
+		GameEngineDirectory Dir = _Path;
+
+		return CreateFolder(Dir.GetFileName(), Dir.GetStringPath());
+	}
+
+	static std::shared_ptr<GameEngineSprite> CreateFolder(std::string_view _Name, std::string_view _Path)
+	{
+		std::shared_ptr<GameEngineSprite> NewRes = CreateRes(_Name);
+		NewRes->ResCreateFolder(_Path);
 		return NewRes;
 	}
 
@@ -51,10 +60,16 @@ public:
 		return NewRes;
 	}
 
-	const SpriteData& GetSpriteData(unsigned int _Index);
+	SpriteData GetSpriteData(unsigned int _Index);
+
+	unsigned int GetSpriteCount() 
+	{
+		return static_cast<unsigned int>(SpriteDatas.size());
+	}
 
 protected:
 	void ResCreateCut(std::string_view _Name, unsigned int _X, unsigned int _Y);
+	void ResCreateFolder(std::string_view _Path);
 
 private:
 	std::vector<SpriteData> SpriteDatas;

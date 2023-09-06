@@ -241,7 +241,7 @@ void GameEngineDevice::CreateSwapChain()
 	// 당연히 그래픽프레임이 더 빨라져야 합니다.
 	ScInfo.Windowed = true;
 
-	// 스왑체인을 만들어 내기 위해서는 _Devcie가 필요하다.
+	// 스왑체인을 만들어 내기 위해서는 _Device가 필요하다.
 	IDXGIDevice* pD = nullptr;
 	IDXGIAdapter* pA = nullptr;
 	IDXGIFactory* pF = nullptr;

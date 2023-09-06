@@ -67,23 +67,23 @@ public:
 
 	static std::shared_ptr<class GameEngineRenderTarget> GetBackBufferRenderTarget()
 	{
-		return MainDevcie.GetBackBufferRenderTarget();
+		return MainDevice.GetBackBufferRenderTarget();
 	}
 
 	static ID3D11Device* GetDevice() 
 	{
-		return MainDevcie.GetDevice();
+		return MainDevice.GetDevice();
 	}
 
 	static ID3D11DeviceContext* GetContext()
 	{
-		return MainDevcie.GetContext();
+		return MainDevice.GetContext();
 	}
 
 protected:
 
 private:
-	static GameEngineDevice MainDevcie;
+	static GameEngineDevice MainDevice;
 
 	static void EngineProcess(HINSTANCE _Inst, const std::string& _Name, float4 _Pos, float4 _Size);
 	static std::shared_ptr<GameEngineObject> CoreObject;

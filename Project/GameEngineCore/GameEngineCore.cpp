@@ -7,7 +7,7 @@
 std::shared_ptr<GameEngineObject> GameEngineCore::CoreObject;
 GameEngineTime GameEngineCore::MainTime;
 GameEngineWindow GameEngineCore::MainWindow;
-GameEngineDevice GameEngineCore::MainDevcie;
+GameEngineDevice GameEngineCore::MainDevice;
 
 std::shared_ptr<GameEngineLevel> GameEngineCore::CurLevel;
 std::shared_ptr<GameEngineLevel> GameEngineCore::NextLevel;
@@ -35,14 +35,12 @@ void GameEngineCore::Update()
 	{
 		if (nullptr != CurLevel)
 		{
-			//CurLevel->LevelEnd(NextLevel);
-			//CurLevel->ActorLevelEnd();
+			CurLevel->AllLevelEnd(NextLevel.get());
 		}
 
 		// NextLevel->OverCheck(CurLevel);
 
-		//NextLevel->LevelStart(CurLevel);
-		//NextLevel->ActorLevelStart();
+		NextLevel->AllLevelStart(CurLevel.get());
 
 		CurLevel = NextLevel;
 
@@ -52,8 +50,13 @@ void GameEngineCore::Update()
 
 	MainTime.Update();
 	float DeltaTime = MainTime.GetDeltaTime();
+
+	if (DeltaTime > 1.0f / 60.0f)
+	{
+		DeltaTime = 1.0f / 60.0f;
+	}
+
 	GameEngineSound::Update();
-	GameEngineInput::Update(DeltaTime);
 	CoreObject->Update(DeltaTime);
 
 	if (true == GameEngineWindow::IsFocus())
@@ -75,20 +78,13 @@ void GameEngineCore::Update()
 	//	Rectangle(DC, 0, 0, WinScale.iX(), WinScale.iY());
 	//}
 
-	MainDevcie.RenderStart();
+	MainDevice.RenderStart();
 
 	CurLevel->Render(DeltaTime);
 
-	MainDevcie.RenderEnd();
+	MainDevice.RenderEnd();
 
-	// GameEngineCore::MainWindow.DoubleBuffering();
-
-	// GameEngineWindow::MainWindow.ClearBackBuffer();
-	// CurLevel->ActorRender(Delta);
-	// CurLevel->Render(Delta);
-	// GameEngineWindow::MainWindow.DoubleBuffering();
-	// 프레임의 가장 마지막에 Release가 될겁니다.
-	// CurLevel->ActorRelease();
+	CurLevel->AllReleaseCheck();
 }
 
 void GameEngineCore::Release() 
@@ -99,14 +95,14 @@ void GameEngineCore::Release()
 void GameEngineCore::EngineProcess(HINSTANCE _Inst, const std::string& _WindowName, float4 _Pos, float4 _Size)
 {
 	// 릭체크 해주고
-	GameEngineDebug::LeckCheck();
+	GameEngineDebug::LeakCheck();
 
 	// 윈도우 만들고
 	MainWindow.Open(_WindowName, _Inst);
 	MainWindow.SetPosAndScale(_Pos, _Size);
 
 	// 3D 디바이스를 그 윈도우를 기반으로 만든다.
-	MainDevcie.Initiallize(MainWindow);
+	MainDevice.Initiallize(MainWindow);
 
 	// 시간이나 타임
 	GameEngineWindow::MessageLoop(_Inst, Start, Update, Release);
