@@ -1,6 +1,6 @@
 #pragma once
 
-class Player
+class Player : public GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -16,5 +16,6 @@ public:
 protected:
 
 private:
-
+	void Start() override;
+	void Update(float _Delta) override;
 };

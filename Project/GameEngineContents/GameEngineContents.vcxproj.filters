@@ -11,7 +11,7 @@
     <ClCompile Include="SludgeHeartRoom.cpp">
       <Filter>Level\02. BossRoom\01. Sludge Heart</Filter>
     </ClCompile>
-    <ClCompile Include="GolIathRoom.cpp">
+    <ClCompile Include="GollathRoom.cpp">
       <Filter>Level\02. BossRoom\02. Gol-lath</Filter>
     </ClCompile>
     <ClCompile Include="YetiRoom.cpp">
@@ -22,6 +22,9 @@
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,7 +41,7 @@
     <ClInclude Include="SludgeHeartRoom.h">
       <Filter>Level\02. BossRoom\01. Sludge Heart</Filter>
     </ClInclude>
-    <ClInclude Include="GolIathRoom.h">
+    <ClInclude Include="GollathRoom.h">
       <Filter>Level\02. BossRoom\02. Gol-lath</Filter>
     </ClInclude>
     <ClInclude Include="YetiRoom.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +90,9 @@
     </Filter>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

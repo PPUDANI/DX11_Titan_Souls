@@ -167,11 +167,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GolIathRoom.cpp">
+    <ClCompile Include="GollathRoom.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="KnightElhananRoom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -203,11 +207,15 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GolIathRoom.h">
+    <ClInclude Include="GollathRoom.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="KnightElhananRoom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <SubType>
       </SubType>
     </ClInclude>

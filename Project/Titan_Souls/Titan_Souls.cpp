@@ -3,7 +3,6 @@
 
 #pragma comment(lib, "GameEngineBase.lib")
 #pragma comment(lib, "GameEnginePlatform.lib")
-#pragma comment(lib, "GameEngineCore.lib")
 #pragma comment(lib, "GameEngineContents.lib")
 
 #include <iostream>
@@ -12,6 +11,7 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineContents/ContentsCore.h>
 
+#define AA = 3;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
