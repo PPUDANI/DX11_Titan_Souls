@@ -171,6 +171,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollisionGroup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineComponent.h">
       <SubType>
       </SubType>
@@ -267,6 +275,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineCamera.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollisionGroup.cpp">
       <SubType>
       </SubType>
     </ClCompile>

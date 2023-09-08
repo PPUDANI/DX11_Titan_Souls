@@ -7,6 +7,7 @@
 #include "YetiRoom.h"
 #include "KnightElhananRoom.h"
 #include "TitleLevel.h"
+#include "PlayLevelBase.h"
 
 ContentsCore::ContentsCore() 
 {

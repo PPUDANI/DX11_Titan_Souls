@@ -1,6 +1,6 @@
 #pragma once
 
-class StartingRuins : public GameEngineLevel
+class StartingRuins : public PlayLevelBase
 {
 public:
 	// Constructor Destructor

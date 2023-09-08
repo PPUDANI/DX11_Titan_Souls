@@ -1,6 +1,13 @@
 #pragma once
 
-enum class RendererOrder
+enum class OBJECT_ELEMENT
 {
+	Map,
+	Player,
+};
 
+enum class RENDERING_ORDER
+{
+	Map,
+	Player,
 };

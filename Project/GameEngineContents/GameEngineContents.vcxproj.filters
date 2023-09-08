@@ -24,13 +24,19 @@
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Actor</Filter>
+      <Filter>Actor\PlayerEliment</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalLoad.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevelBase.cpp">
+      <Filter>Level\00.Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentEnum.h">
-      <Filter>ContentGlobal</Filter>
+      <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
       <Filter>Level\01. Title</Filter>
@@ -54,18 +60,18 @@
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Actor</Filter>
+      <Filter>Actor\PlayerEliment</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalLoad.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevelBase.h">
+      <Filter>Level\00.Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
       <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{5149ea30-97f1-47b8-922c-87826f277675}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ContentGlobal">
-      <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
     </Filter>
     <Filter Include="Level\01. Title">
       <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
@@ -93,6 +99,15 @@
     </Filter>
     <Filter Include="Actor">
       <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\PlayerEliment">
+      <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\00.Base">
+      <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

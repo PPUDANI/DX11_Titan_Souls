@@ -18,4 +18,7 @@ protected:
 private:
 	void Start() override;
 	void Update(float _Delta) override;
+
+	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
+	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 };
