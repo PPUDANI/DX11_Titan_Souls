@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+#include <cmath>
+
 void Player::IdleStart()
 {
 	SetAnimation("Idle");
@@ -32,117 +34,132 @@ void Player::DeathStart()
 }
 
 
-void Player::IdleUpdate()
+void Player::IdleUpdate(float _Delta)
 {
 	if (true == GameEngineInput::IsDown('W') && true == GameEngineInput::IsDown('A'))
 	{
-		CurDir = PlayerDir::LeftUp;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::LeftUp;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('W') && true == GameEngineInput::IsDown('D'))
 	{
-		CurDir = PlayerDir::RightUp;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::RightUp;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('S') && true == GameEngineInput::IsDown('A'))
 	{
-		CurDir = PlayerDir::LeftDown;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::LeftDown;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('S') && true == GameEngineInput::IsDown('D'))
 	{
-		CurDir = PlayerDir::RightDown;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::RightDown;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('W'))
 	{
-		CurDir = PlayerDir::Up;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::Up;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('A'))
 	{
-		CurDir = PlayerDir::Left;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::Left;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('S'))
 	{
-		CurDir = PlayerDir::Down;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::Down;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 	else if (true == GameEngineInput::IsDown('D'))
 	{
-		CurDir = PlayerDir::Right;
-		ChangeState(PlayerState::Run);
+		CurDir = PLAYER_DIRECTION::Right;
+		ChangeState(PLAYER_STATE::Run);
 		return;
 	}
 }
 
-void Player::RunUpdate()
+void Player::RunUpdate(float _Delta)
 {
+	float4 MovePos = float4::ZERO;
+
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		CurDir = PlayerDir::LeftUp;
+		CurDir = PLAYER_DIRECTION::LeftUp;
+		MovePos = float4::GetUnitVectorFromDeg(45.0f);
+		MovePos *= {-PlayerSpeed * _Delta, PlayerSpeed * _Delta};
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		CurDir = PlayerDir::RightUp;
+		CurDir = PLAYER_DIRECTION::RightUp;
+		MovePos = float4::GetUnitVectorFromDeg(45.0f);
+		MovePos *= { PlayerSpeed * _Delta , PlayerSpeed * _Delta };
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		CurDir = PlayerDir::LeftDown;
+		CurDir = PLAYER_DIRECTION::LeftDown;
+		MovePos = float4::GetUnitVectorFromDeg(45.0f);
+		MovePos *= { -PlayerSpeed * _Delta , -PlayerSpeed  * _Delta };
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		CurDir = PlayerDir::RightDown;
+		CurDir = PLAYER_DIRECTION::RightDown;
+		MovePos = float4::GetUnitVectorFromDeg(45.0f);
+		MovePos *= { PlayerSpeed  * _Delta , -PlayerSpeed * _Delta };
 	}
 	else if (true == GameEngineInput::IsPress('W'))
 	{
-		CurDir = PlayerDir::Up;
+		CurDir = PLAYER_DIRECTION::Up;
+		MovePos = { 0.0f, PlayerSpeed * _Delta };
 	}
 	else if (true == GameEngineInput::IsPress('A'))
 	{
-		CurDir = PlayerDir::Left;
+		CurDir = PLAYER_DIRECTION::Left;
+		MovePos = { -PlayerSpeed * _Delta , 0.0f };
 	}
 	else if (true == GameEngineInput::IsPress('S'))
 	{
-		CurDir = PlayerDir::Down;
+		CurDir = PLAYER_DIRECTION::Down;
+		MovePos = { 0.0f, -PlayerSpeed * _Delta };
 	}
 	else if (true == GameEngineInput::IsPress('D'))
 	{
-		CurDir = PlayerDir::Right;
+		CurDir = PLAYER_DIRECTION::Right;
+		MovePos = { PlayerSpeed * _Delta , 0.0f };
 	}
 	else
 	{
-		ChangeState(PlayerState::Idle);
+		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 
+	Transform.AddLocalPosition(MovePos);
 	SetAnimation("Run");
 }
 
-void Player::RollUpdate()
+void Player::RollUpdate(float _Delta)
 {
 
 }
 
-void Player::AimUpdate()
+void Player::AimUpdate(float _Delta)
 {
 
 }
 
-void Player::ShotUpdate()
+void Player::ShotUpdate(float _Delta)
 {
 
 }
 
-void Player::DeathUpdate()
+void Player::DeathUpdate(float _Delta)
 {
 
 }

@@ -13,12 +13,12 @@ public:
 
 	static float4 GetStartWindowSize()
 	{
-		return {1400, 850};
+		return GlobalValue::WindowScale;
 	}
 
 	static float4 GetStartWindowPos()
 	{
-		return { 100, 50 };
+		return { 50, 30 };
 	}
 
 	// constrcuter destructer

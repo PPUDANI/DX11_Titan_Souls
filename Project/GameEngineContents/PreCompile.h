@@ -1,7 +1,7 @@
 #pragma once
-
 #include <GameEngineCore/PreCompile.h>
 
+#include <GameEngineBase/GameEngineMath.h>
 //#include <GameEngineCore/GameEngineCore.h>
 //#include <GameEngineCore/GameEngineObject.h>
 #include <GameEngineCore/GameEngineActor.h>
@@ -22,7 +22,6 @@
 // 렌더러 상속받아서 애니메이션을 만들 때 사용하는것
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
+#include "GlobalValue.h"
 #include "GlobalLoad.h"
-#include "PlayLevelBase.h"
 #include "ContentEnum.h"
-#include "Player.h"

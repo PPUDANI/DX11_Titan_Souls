@@ -20,6 +20,7 @@ protected:
 	void LevelEnd(GameEngineLevel* _PrevLevel) override;
 
 	std::shared_ptr<class Player> PlayerActor = nullptr;
-
+	std::shared_ptr<class TestMap> Map = nullptr;
 private:
+
 };

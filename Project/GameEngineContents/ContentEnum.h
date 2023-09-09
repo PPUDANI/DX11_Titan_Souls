@@ -1,6 +1,6 @@
 #pragma once
 
-enum class OBJECT_ELEMENT
+enum class UPDATE_ORDER
 {
 	Map,
 	Player,

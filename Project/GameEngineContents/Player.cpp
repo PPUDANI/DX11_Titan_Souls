@@ -13,7 +13,7 @@ void Player::Start()
 {
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	BodyRenderer->SetSprite("PlayerMove.png");
-	BodyRenderer->SetImageScale({ 32.0f, 32.0f });
+	BodyRenderer->SetImageScale(GlobalValue::StandardRatio);
 
 	// Idle
 	BodyRenderer->CreateAnimation("Right_Idle", "PlayerMove.png", 0.f, 0, 0, false);
@@ -35,31 +35,31 @@ void Player::Start()
 	BodyRenderer->CreateAnimation("LeftUp_Run", "PlayerMove.png", 0.1f, 90, 95, true);
 	BodyRenderer->CreateAnimation("RightUp_Run", "PlayerMove.png", 0.1f, 105, 110, true);
 
-	CurDir = PlayerDir::Down;
-	ChangeState(PlayerState::Idle);
+	CurDir = PLAYER_DIRECTION::Down;
+	ChangeState(PLAYER_STATE::Idle);
 }
 
 void Player::Update(float _Delta)
 {
 	switch (CurState)
 	{
-	case PlayerState::Idle:
-		IdleUpdate();
+	case PLAYER_STATE::Idle:
+		IdleUpdate(_Delta);
 		break;
-	case PlayerState::Run:
-		RunUpdate();
+	case PLAYER_STATE::Run:
+		RunUpdate(_Delta);
 		break;
-	case PlayerState::Roll:
-		RollUpdate();
+	case PLAYER_STATE::Roll:
+		RollUpdate(_Delta);
 		break;
-	case PlayerState::Aim:
-		AimUpdate();
+	case PLAYER_STATE::Aim:
+		AimUpdate(_Delta);
 		break;
-	case PlayerState::Shot:
-		ShotUpdate();
+	case PLAYER_STATE::Shot:
+		ShotUpdate(_Delta);
 		break;
-	case PlayerState::Death:
-		DeathUpdate();
+	case PLAYER_STATE::Death:
+		DeathUpdate(_Delta);
 		break;
 	default:
 		break;
@@ -72,28 +72,28 @@ void Player::SetAnimation(std::string_view _AnimName)
 
 	switch (CurDir)
 	{
-	case PlayerDir::Right:
+	case PLAYER_DIRECTION::Right:
 		AnimationName += "Right_";
 		break;
-	case PlayerDir::Up:
+	case PLAYER_DIRECTION::Up:
 		AnimationName += "Up_";
 		break;
-	case PlayerDir::Left:
+	case PLAYER_DIRECTION::Left:
 		AnimationName += "Left_";
 		break;
-	case PlayerDir::Down:
+	case PLAYER_DIRECTION::Down:
 		AnimationName += "Down_";
 		break;
-	case PlayerDir::RightDown:
+	case PLAYER_DIRECTION::RightDown:
 		AnimationName += "RightDown_";
 		break;
-	case PlayerDir::LeftDown:
+	case PLAYER_DIRECTION::LeftDown:
 		AnimationName += "LeftDown_";
 		break;
-	case PlayerDir::LeftUp:
+	case PLAYER_DIRECTION::LeftUp:
 		AnimationName += "LeftUp_";
 		break;
-	case PlayerDir::RightUp:
+	case PLAYER_DIRECTION::RightUp:
 		AnimationName += "RightUp_";
 		break;
 	default:
@@ -105,28 +105,28 @@ void Player::SetAnimation(std::string_view _AnimName)
 	BodyRenderer->ChangeAnimation(AnimationName, false);
 }
 
-void Player::ChangeState(PlayerState _State)
+void Player::ChangeState(PLAYER_STATE _State)
 {
 	CurState = _State;
 	
 	switch (CurState)
 	{
-	case PlayerState::Idle:
+	case PLAYER_STATE::Idle:
 		IdleStart();
 		break;
-	case PlayerState::Run:
+	case PLAYER_STATE::Run:
 		RunStart();
 		break;
-	case PlayerState::Roll:
+	case PLAYER_STATE::Roll:
 		RollStart();
 		break;
-	case PlayerState::Aim:
+	case PLAYER_STATE::Aim:
 		AimStart();
 		break;
-	case PlayerState::Shot:
+	case PLAYER_STATE::Shot:
 		ShotStart();
 		break;
-	case PlayerState::Death:
+	case PLAYER_STATE::Death:
 		DeathStart();
 		break;
 	default:

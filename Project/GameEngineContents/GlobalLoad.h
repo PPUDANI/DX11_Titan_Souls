@@ -14,9 +14,10 @@ public:
 	GlobalLoad& operator=(GlobalLoad&& _Other) noexcept = delete;
 
 	static void PlayerLoad();
-
+	static void MapLoad();
 protected:
 
 private:
-	
+	static bool PlayerIsLoad;
+	static bool MapIsLoad;
 };
