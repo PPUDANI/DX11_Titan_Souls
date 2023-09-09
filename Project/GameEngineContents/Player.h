@@ -3,6 +3,7 @@
 enum class PLAYER_STATE
 {
 	Idle,
+	Walk,
 	Run,
 	Roll,
 	Aim,
@@ -53,6 +54,7 @@ private:
 	void Update(float _Delta) override;
 
 	void IdleStart();
+	void WalkStart();
 	void RunStart();
 	void RollStart();
 	void AimStart();
@@ -60,6 +62,7 @@ private:
 	void DeathStart();
 
 	void IdleUpdate(float _Delta);
+	void WalkUpdate(float _Delta);
 	void RunUpdate(float _Delta);
 	void RollUpdate(float _Delta);
 	void AimUpdate(float _Delta);
@@ -69,6 +72,8 @@ private:
 	void SetAnimation(std::string_view _AnimName );
 	void ChangeState(PLAYER_STATE _State);
 
+	float4 MoveToDir(float _Speed);
+
 	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 
@@ -76,5 +81,23 @@ private:
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
 
 	// 물리 변수
-	float PlayerSpeed = 200.0f;
+	const float DefaultSpeed = 150.0f;
+	const float RollSpeed = 600.0f;
+
+	// 구르기 재사용 대기시간
+	void RollCoolDownUpdate(float _Delta)
+	{
+		if (RollCoolDown <= RollCoolDownTimer)
+		{
+			RollCoolDownTimer = 0.0f;
+			IsRollOnCooldown = false;
+		}
+		else
+		{
+			RollCoolDownTimer += _Delta;
+		}
+	}
+	bool IsRollOnCooldown = false;
+	float RollCoolDown = 0.6f;
+	float RollCoolDownTimer = 0.0f;
 };

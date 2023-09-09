@@ -15,7 +15,7 @@ void Player::Start()
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	BodyRenderer->SetSprite("Player.png");
-	BodyRenderer->SetImageScale(GlobalValue::StandardRatio);
+	BodyRenderer->SetImageScale({ 32.0f, 32.0f });
 
 	// Idle
 	BodyRenderer->CreateAnimation("Right_Idle", "Player.png", 0.f, 0, 0, false);
@@ -27,15 +27,36 @@ void Player::Start()
 	BodyRenderer->CreateAnimation("LeftUp_Idle", "Player.png", 0.1f, 150, 150, false);
 	BodyRenderer->CreateAnimation("RightUp_Idle", "Player.png", 0.1f, 175, 175, false);
 
+	// Walk
+	BodyRenderer->CreateAnimation("Right_Walk", "Player.png", 0.1f, 0, 5, true);
+	BodyRenderer->CreateAnimation("Up_Walk", "Player.png", 0.1f, 25, 30, true);
+	BodyRenderer->CreateAnimation("Left_Walk", "Player.png", 0.1f, 50, 55, true);
+	BodyRenderer->CreateAnimation("Down_Walk", "Player.png", 0.1f, 75, 80, true);
+	BodyRenderer->CreateAnimation("RightDown_Walk", "Player.png", 0.1f, 100, 105, true);
+	BodyRenderer->CreateAnimation("LeftDown_Walk", "Player.png", 0.1f, 125, 130, true);
+	BodyRenderer->CreateAnimation("LeftUp_Walk", "Player.png", 0.1f, 150, 155, true);
+	BodyRenderer->CreateAnimation("RightUp_Walk", "Player.png", 0.1f, 175, 180, true);
+
 	// Run
-	BodyRenderer->CreateAnimation("Right_Run", "Player.png", 0.1f, 0, 5, true);
-	BodyRenderer->CreateAnimation("Up_Run", "Player.png", 0.1f, 25, 30, true);
-	BodyRenderer->CreateAnimation("Left_Run", "Player.png", 0.1f, 50, 55, true);
-	BodyRenderer->CreateAnimation("Down_Run", "Player.png", 0.1f, 75, 80, true);
-	BodyRenderer->CreateAnimation("RightDown_Run", "Player.png", 0.1f, 100, 105, true);
-	BodyRenderer->CreateAnimation("LeftDown_Run", "Player.png", 0.1f, 125, 130, true);
-	BodyRenderer->CreateAnimation("LeftUp_Run", "Player.png", 0.1f, 150, 155, true);
-	BodyRenderer->CreateAnimation("RightUp_Run", "Player.png", 0.1f, 175, 180, true);
+	BodyRenderer->CreateAnimation("Right_Run", "Player.png", 0.08f, 214, 219, true);
+	BodyRenderer->CreateAnimation("Up_Run", "Player.png", 0.08f, 239, 244, true);
+	BodyRenderer->CreateAnimation("Left_Run", "Player.png", 0.08f, 264, 269, true);
+	BodyRenderer->CreateAnimation("Down_Run", "Player.png", 0.08f, 289, 294, true);
+	BodyRenderer->CreateAnimation("RightDown_Run", "Player.png", 0.08f, 314, 319, true);
+	BodyRenderer->CreateAnimation("LeftDown_Run", "Player.png", 0.08f, 339, 344, true);
+	BodyRenderer->CreateAnimation("LeftUp_Run", "Player.png", 0.08f, 364, 369, true);
+	BodyRenderer->CreateAnimation("RightUp_Run", "Player.png", 0.08f, 389, 394, true);
+
+	// Roll
+	BodyRenderer->CreateAnimation("Right_Roll", "Player.png", 0.063f, 6, 11, false);
+	BodyRenderer->CreateAnimation("Up_Roll", "Player.png", 0.063f, 31, 36, false);
+	BodyRenderer->CreateAnimation("Left_Roll", "Player.png", 0.063f, 56, 61, false);
+	BodyRenderer->CreateAnimation("Down_Roll", "Player.png", 0.063f, 81, 86, false);
+	BodyRenderer->CreateAnimation("RightDown_Roll", "Player.png", 0.063f, 106, 111, false);
+	BodyRenderer->CreateAnimation("LeftDown_Roll", "Player.png", 0.063f, 131, 136, false);
+	BodyRenderer->CreateAnimation("LeftUp_Roll", "Player.png", 0.063f, 156, 161, false);
+	BodyRenderer->CreateAnimation("RightUp_Roll", "Player.png", 0.063f, 181, 186, false);
+
 
 	CurDir = PLAYER_DIRECTION::Down;
 	ChangeState(PLAYER_STATE::Idle);
@@ -43,10 +64,18 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	if (true == IsRollOnCooldown)
+	{
+		RollCoolDownUpdate(_Delta);
+	}
+
 	switch (CurState)
 	{
 	case PLAYER_STATE::Idle:
 		IdleUpdate(_Delta);
+		break;
+	case PLAYER_STATE::Walk:
+		WalkUpdate(_Delta);
 		break;
 	case PLAYER_STATE::Run:
 		RunUpdate(_Delta);
@@ -116,6 +145,9 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Idle:
 		IdleStart();
 		break;
+	case PLAYER_STATE::Walk:
+		WalkStart();
+		break;
 	case PLAYER_STATE::Run:
 		RunStart();
 		break;
@@ -134,4 +166,40 @@ void Player::ChangeState(PLAYER_STATE _State)
 	default:
 		break;
 	}
+}
+
+float4 Player::MoveToDir(float _Speed)
+{
+	float4 MovePos = float4::ZERO;
+	switch (CurDir)
+	{
+	case PLAYER_DIRECTION::Right:
+		MovePos = float4::GetUnitVectorFromDeg(0.0f);
+		break;
+	case PLAYER_DIRECTION::Up:
+		MovePos = float4::GetUnitVectorFromDeg(90.0f);
+		break;
+	case PLAYER_DIRECTION::Left:
+		MovePos = float4::GetUnitVectorFromDeg(180.0f);
+		break;
+	case PLAYER_DIRECTION::Down:
+		MovePos = float4::GetUnitVectorFromDeg(270.0f);
+		break;
+	case PLAYER_DIRECTION::RightDown:
+		MovePos = float4::GetUnitVectorFromDeg(315.0f);
+		break;
+	case PLAYER_DIRECTION::LeftDown:
+		MovePos = float4::GetUnitVectorFromDeg(225.0f);
+		break;
+	case PLAYER_DIRECTION::LeftUp:
+		MovePos = float4::GetUnitVectorFromDeg(135.0f);
+		break;
+	case PLAYER_DIRECTION::RightUp:
+		MovePos = float4::GetUnitVectorFromDeg(45.0f);
+		break;
+	default:
+		break;
+	}
+	MovePos *= { _Speed, _Speed };
+	return MovePos;
 }
