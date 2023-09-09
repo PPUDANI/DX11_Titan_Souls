@@ -71,7 +71,7 @@ private:
 
 	void SetAnimation(std::string_view _AnimName );
 	void ChangeState(PLAYER_STATE _State);
-
+	void SetDir(PLAYER_DIRECTION _Dir, float _Delta);
 	float4 MoveToDir(float _Speed);
 
 	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
@@ -81,7 +81,8 @@ private:
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
 
 	// 물리 변수
-	const float DefaultSpeed = 150.0f;
+	const float DefaultSpeed = 200.0f;
+	const float SpeedUp = 1.5f;
 	const float RollSpeed = 600.0f;
 
 	// 구르기 재사용 대기시간
@@ -100,4 +101,6 @@ private:
 	bool IsRollOnCooldown = false;
 	float RollCoolDown = 0.5f;
 	float RollCoolDownTimer = 0.0f;
+
+	float ChangeDirCoolDownTimer = 0.0f;
 };

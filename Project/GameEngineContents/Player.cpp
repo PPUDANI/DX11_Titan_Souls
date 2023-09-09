@@ -203,3 +203,16 @@ float4 Player::MoveToDir(float _Speed)
 	MovePos *= { _Speed, _Speed };
 	return MovePos;
 }
+
+void Player::SetDir(PLAYER_DIRECTION _Dir, float _Delta)
+{
+	if (0.1f <= ChangeDirCoolDownTimer)
+	{
+		ChangeDirCoolDownTimer = 0.0f;
+		CurDir = _Dir;
+	}
+	else
+	{
+		ChangeDirCoolDownTimer += _Delta;
+	}
+}

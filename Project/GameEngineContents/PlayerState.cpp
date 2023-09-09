@@ -5,6 +5,7 @@
 
 void Player::IdleStart()
 {
+	ChangeDirCoolDownTimer = 0.0f;
 	SetAnimation("Idle");
 }
 
@@ -63,42 +64,50 @@ void Player::WalkUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		CurDir = PLAYER_DIRECTION::LeftUp;
+		SetDir(PLAYER_DIRECTION::LeftUp, _Delta);
+		//CurDir = PLAYER_DIRECTION::LeftUp;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		CurDir = PLAYER_DIRECTION::RightUp;
+		SetDir(PLAYER_DIRECTION::RightUp, _Delta);
+		//CurDir = PLAYER_DIRECTION::RightUp;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		CurDir = PLAYER_DIRECTION::LeftDown;
+		SetDir(PLAYER_DIRECTION::LeftDown, _Delta);
+		//CurDir = PLAYER_DIRECTION::LeftDown;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		CurDir = PLAYER_DIRECTION::RightDown;
+		SetDir(PLAYER_DIRECTION::RightDown, _Delta);
+		//CurDir = PLAYER_DIRECTION::RightDown;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('W'))
 	{
-		CurDir = PLAYER_DIRECTION::Up;
+		SetDir(PLAYER_DIRECTION::Up, _Delta);
+		//CurDir = PLAYER_DIRECTION::Up;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('A'))
 	{
-		CurDir = PLAYER_DIRECTION::Left;
+		SetDir(PLAYER_DIRECTION::Left, _Delta);
+		//CurDir = PLAYER_DIRECTION::Left;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('S'))
 	{
-		CurDir = PLAYER_DIRECTION::Down;
+		SetDir(PLAYER_DIRECTION::Down, _Delta);
+		//CurDir = PLAYER_DIRECTION::Down;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else if (true == GameEngineInput::IsPress('D'))
 	{
-		CurDir = PLAYER_DIRECTION::Right;
+		SetDir(PLAYER_DIRECTION::Right, _Delta);
+		//CurDir = PLAYER_DIRECTION::Right;
 		MovePos = MoveToDir(DefaultSpeed * _Delta);
 	}
 	else
@@ -117,7 +126,7 @@ void Player::WalkUpdate(float _Delta)
 	// ´Þ¸®±â
 	if (true == GameEngineInput::IsPress(VK_SHIFT))
 	{
-		MovePos *= 2.0f;
+		MovePos *= SpeedUp;
 		Transform.AddLocalPosition(MovePos);
 		SetAnimation("Run");
 	}
