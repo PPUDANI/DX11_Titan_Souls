@@ -23,7 +23,7 @@ void GlobalLoad::PlayerLoad()
 		Path.MoveParentToExistsChild("Resources");
 		Path.MoveChild("Resources\\Player\\Player.png");
 		GameEngineTexture::Load(Path.GetStringPath());
-		GameEngineSprite::CreateCut("Player.png", 15, 8);
+		GameEngineSprite::CreateCut("Player.png", 25, 19);
 	}
 }
 

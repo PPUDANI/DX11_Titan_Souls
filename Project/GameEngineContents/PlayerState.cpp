@@ -140,6 +140,11 @@ void Player::RunUpdate(float _Delta)
 		return;
 	}
 
+	if (true == GameEngineInput::IsPress(VK_SHIFT))
+	{
+		MovePos *= 2.0f;
+	}
+
 	Transform.AddLocalPosition(MovePos);
 	SetAnimation("Run");
 }

@@ -19,23 +19,23 @@ void Player::Start()
 
 	// Idle
 	BodyRenderer->CreateAnimation("Right_Idle", "Player.png", 0.f, 0, 0, false);
-	BodyRenderer->CreateAnimation("Up_Idle", "Player.png", 0.1f, 15, 15, false);
-	BodyRenderer->CreateAnimation("Left_Idle", "Player.png", 0.1f, 30, 30, false);
-	BodyRenderer->CreateAnimation("Down_Idle", "Player.png", 0.1f, 45, 45, false);
-	BodyRenderer->CreateAnimation("RightDown_Idle", "Player.png", 0.1f, 60, 60, false);
-	BodyRenderer->CreateAnimation("LeftDown_Idle", "Player.png", 0.1f, 75, 75, false);
-	BodyRenderer->CreateAnimation("LeftUp_Idle", "Player.png", 0.1f, 90, 90, false);
-	BodyRenderer->CreateAnimation("RightUp_Idle", "Player.png", 0.1f, 105, 105, false);
+	BodyRenderer->CreateAnimation("Up_Idle", "Player.png", 0.1f, 25, 25, false);
+	BodyRenderer->CreateAnimation("Left_Idle", "Player.png", 0.1f, 50, 50, false);
+	BodyRenderer->CreateAnimation("Down_Idle", "Player.png", 0.1f, 75, 75, false);
+	BodyRenderer->CreateAnimation("RightDown_Idle", "Player.png", 0.1f, 100, 100, false);
+	BodyRenderer->CreateAnimation("LeftDown_Idle", "Player.png", 0.1f, 125, 125, false);
+	BodyRenderer->CreateAnimation("LeftUp_Idle", "Player.png", 0.1f, 150, 150, false);
+	BodyRenderer->CreateAnimation("RightUp_Idle", "Player.png", 0.1f, 175, 175, false);
 
 	// Run
 	BodyRenderer->CreateAnimation("Right_Run", "Player.png", 0.1f, 0, 5, true);
-	BodyRenderer->CreateAnimation("Up_Run", "Player.png", 0.1f, 15, 20, true);
-	BodyRenderer->CreateAnimation("Left_Run", "Player.png", 0.1f, 30, 35, true);
-	BodyRenderer->CreateAnimation("Down_Run", "Player.png", 0.1f, 45, 50, true);
-	BodyRenderer->CreateAnimation("RightDown_Run", "Player.png", 0.1f, 60, 65, true);
-	BodyRenderer->CreateAnimation("LeftDown_Run", "Player.png", 0.1f, 75, 80, true);
-	BodyRenderer->CreateAnimation("LeftUp_Run", "Player.png", 0.1f, 90, 95, true);
-	BodyRenderer->CreateAnimation("RightUp_Run", "Player.png", 0.1f, 105, 110, true);
+	BodyRenderer->CreateAnimation("Up_Run", "Player.png", 0.1f, 25, 30, true);
+	BodyRenderer->CreateAnimation("Left_Run", "Player.png", 0.1f, 50, 55, true);
+	BodyRenderer->CreateAnimation("Down_Run", "Player.png", 0.1f, 75, 80, true);
+	BodyRenderer->CreateAnimation("RightDown_Run", "Player.png", 0.1f, 100, 105, true);
+	BodyRenderer->CreateAnimation("LeftDown_Run", "Player.png", 0.1f, 125, 130, true);
+	BodyRenderer->CreateAnimation("LeftUp_Run", "Player.png", 0.1f, 150, 155, true);
+	BodyRenderer->CreateAnimation("RightUp_Run", "Player.png", 0.1f, 175, 180, true);
 
 	CurDir = PLAYER_DIRECTION::Down;
 	ChangeState(PLAYER_STATE::Idle);
