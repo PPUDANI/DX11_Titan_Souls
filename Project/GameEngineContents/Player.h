@@ -98,6 +98,6 @@ private:
 		}
 	}
 	bool IsRollOnCooldown = false;
-	float RollCoolDown = 0.6f;
+	float RollCoolDown = 0.5f;
 	float RollCoolDownTimer = 0.0f;
 };
