@@ -13,12 +13,12 @@ public:
 
 	static float4 GetStartWindowSize()
 	{
-		return {1280, 720};
+		return {1400, 850};
 	}
 
 	static float4 GetStartWindowPos()
 	{
-		return { 200, 200 };
+		return { 100, 50 };
 	}
 
 	// constrcuter destructer

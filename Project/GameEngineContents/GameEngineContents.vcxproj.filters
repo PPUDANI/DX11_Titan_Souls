@@ -32,6 +32,9 @@
     <ClCompile Include="PlayLevelBase.cpp">
       <Filter>Level\00.Base</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Actor\PlayerEliment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />

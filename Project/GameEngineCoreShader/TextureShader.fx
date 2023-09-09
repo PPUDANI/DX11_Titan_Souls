@@ -31,6 +31,7 @@ PixelOutPut TextureShader_VS(GameEngineVertex2D _Input)
     PixelOutPut Result = (PixelOutPut)0;
     
     // 내가 원하는 값을 이안에 넣어줄수 있어야 한다.
+    
     Result.POSITION = mul(_Input.POSITION, WorldViewProjectionMatrix);
     // Result.TEXCOORD = _Input.TEXCOORD;
     

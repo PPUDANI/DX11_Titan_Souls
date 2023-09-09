@@ -209,6 +209,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">

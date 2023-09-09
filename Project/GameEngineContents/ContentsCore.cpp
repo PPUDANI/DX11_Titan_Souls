@@ -19,6 +19,8 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
+	GameEngineSpriteRenderer::SetDefaultSampler("POINT");
+
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<StartingRuins>("StartingRuins");
 	GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
