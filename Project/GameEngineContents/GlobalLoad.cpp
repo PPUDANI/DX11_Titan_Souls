@@ -21,11 +21,10 @@ void GlobalLoad::PlayerLoad()
 
 		GameEnginePath Path;
 		Path.MoveParentToExistsChild("Resources");
-		Path.MoveChild("Resources\\Player\\PlayerMove.png");
+		Path.MoveChild("Resources\\Player\\Player.png");
 		GameEngineTexture::Load(Path.GetStringPath());
-		GameEngineSprite::CreateCut("PlayerMove.png", 15, 8);
+		GameEngineSprite::CreateCut("Player.png", 15, 8);
 	}
-	
 }
 
 void GlobalLoad::MapLoad()

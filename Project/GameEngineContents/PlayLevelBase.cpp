@@ -12,7 +12,6 @@ PlayLevelBase::~PlayLevelBase()
 
 void PlayLevelBase::Start()
 {
-	GlobalLoad::PlayerLoad();
 	PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
 	PlayerActor->Transform.SetLocalPosition({0.0f, 0.0f});
 }
