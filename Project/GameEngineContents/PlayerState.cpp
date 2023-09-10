@@ -19,8 +19,14 @@ void Player::RunStart()
 	SetAnimation("Run");
 }
 
+void Player::StopStart()
+{
+	SetAnimation("Walk", BodyRenderer->GetCurIndex());
+}
+
 void Player::RollStart()
 {
+	RollCooldownOn = true;
 	SetAnimation("Roll");
 }
 
@@ -55,69 +61,65 @@ void Player::IdleUpdate(float _Delta)
 		return;
 	}
 
+	if (true == GameEngineInput::IsDown(VK_SPACE))
+	{
+		ChangeState(PLAYER_STATE::Roll);
+		return;
+	}
 }
 
 void Player::WalkUpdate(float _Delta)
 {
-
 	float4 MovePos = float4::ZERO;
 
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
 		SetDir(PLAYER_DIRECTION::LeftUp, _Delta);
-		//CurDir = PLAYER_DIRECTION::LeftUp;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
 		SetDir(PLAYER_DIRECTION::RightUp, _Delta);
-		//CurDir = PLAYER_DIRECTION::RightUp;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
 		SetDir(PLAYER_DIRECTION::LeftDown, _Delta);
-		//CurDir = PLAYER_DIRECTION::LeftDown;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
 		SetDir(PLAYER_DIRECTION::RightDown, _Delta);
-		//CurDir = PLAYER_DIRECTION::RightDown;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('W'))
 	{
 		SetDir(PLAYER_DIRECTION::Up, _Delta);
-		//CurDir = PLAYER_DIRECTION::Up;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('A'))
 	{
 		SetDir(PLAYER_DIRECTION::Left, _Delta);
-		//CurDir = PLAYER_DIRECTION::Left;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('S'))
 	{
 		SetDir(PLAYER_DIRECTION::Down, _Delta);
-		//CurDir = PLAYER_DIRECTION::Down;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('D'))
 	{
 		SetDir(PLAYER_DIRECTION::Right, _Delta);
-		//CurDir = PLAYER_DIRECTION::Right;
-		MovePos = MoveToDir(DefaultSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else
 	{
-		ChangeState(PLAYER_STATE::Idle);
+		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
 
 	// 구르기
-	if (true == GameEngineInput::IsPress(VK_SPACE) && false == IsRollOnCooldown)
+	if (true == GameEngineInput::IsDown(VK_SPACE) && false == RollCooldownOn)
 	{
 		ChangeState(PLAYER_STATE::Roll);
 		return;
@@ -126,14 +128,14 @@ void Player::WalkUpdate(float _Delta)
 	// 달리기
 	if (true == GameEngineInput::IsPress(VK_SHIFT))
 	{
-		MovePos *= SpeedUp;
+		MovePos *= RunForce;
 		Transform.AddLocalPosition(MovePos);
-		SetAnimation("Run");
+		SetAnimation("Run", BodyRenderer->GetCurIndex());
 	}
 	else
 	{
 		Transform.AddLocalPosition(MovePos);
-		SetAnimation("Walk");
+		SetAnimation("Walk", BodyRenderer->GetCurIndex());
 	}
 }
 
@@ -142,18 +144,55 @@ void Player::RunUpdate(float _Delta)
 
 }
 
+void Player::StopUpdate(float _Delta)
+{
+	static float StopTimer = 0.0f;
+
+	if (true == GameEngineInput::IsPress('W') ||
+		true == GameEngineInput::IsPress('A') ||
+		true == GameEngineInput::IsPress('S') ||
+		true == GameEngineInput::IsPress('D'))
+	{
+		if (true == GameEngineInput::IsPress(VK_SHIFT))
+		{
+			ChangeState(PLAYER_STATE::Run);
+		}
+		ChangeState(PLAYER_STATE::Walk);
+		return;
+	}
+	
+	if (true == GameEngineInput::IsDown(VK_SPACE))
+	{
+		ChangeState(PLAYER_STATE::Roll);
+		return;
+	}
+
+	if(0.3f < StopTimer)
+	{
+		StopTimer = 0.0f;
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
+	else
+	{
+		StopTimer += _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * StopForce * _Delta;
+		Transform.AddLocalPosition(MovePos);
+	}
+}
+
 void Player::RollUpdate(float _Delta)
 {
 	float4 MovePos = float4::ZERO;
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PLAYER_STATE::Idle);
-		IsRollOnCooldown = true;
+		RollCooldownOn = true;
 		return;
 	}
 	else
 	{
-		MovePos = MoveToDir(RollSpeed * _Delta);
+		MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
 	}
 
 	Transform.AddLocalPosition(MovePos);

@@ -24,7 +24,7 @@
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Actor\PlayerEliment</Filter>
+      <Filter>Actor\Map\PlayerEliment</Filter>
     </ClCompile>
     <ClCompile Include="GlobalLoad.cpp">
       <Filter>Global</Filter>
@@ -32,14 +32,14 @@
     <ClCompile Include="PlayLevelBase.cpp">
       <Filter>Level\00.Base</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Actor\PlayerEliment</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="TestMap.cpp">
       <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Actor\Map\PlayerEliment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +69,7 @@
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Actor\PlayerEliment</Filter>
+      <Filter>Actor\Map\PlayerEliment</Filter>
     </ClInclude>
     <ClInclude Include="GlobalLoad.h">
       <Filter>Global</Filter>
@@ -115,9 +115,6 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\PlayerEliment">
-      <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,9 @@
     </Filter>
     <Filter Include="Actor\Map">
       <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\PlayerEliment">
+      <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

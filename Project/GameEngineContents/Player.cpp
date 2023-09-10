@@ -64,7 +64,7 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	if (true == IsRollOnCooldown)
+	if (true == RollCooldownOn)
 	{
 		RollCoolDownUpdate(_Delta);
 	}
@@ -79,6 +79,9 @@ void Player::Update(float _Delta)
 		break;
 	case PLAYER_STATE::Run:
 		RunUpdate(_Delta);
+		break;
+	case PLAYER_STATE::Stop:
+		StopUpdate(_Delta);
 		break;
 	case PLAYER_STATE::Roll:
 		RollUpdate(_Delta);
@@ -97,45 +100,6 @@ void Player::Update(float _Delta)
 	}
 }
 
-void Player::SetAnimation(std::string_view _AnimName)
-{
-	std::string AnimationName = "";
-
-	switch (CurDir)
-	{
-	case PLAYER_DIRECTION::Right:
-		AnimationName += "Right_";
-		break;
-	case PLAYER_DIRECTION::Up:
-		AnimationName += "Up_";
-		break;
-	case PLAYER_DIRECTION::Left:
-		AnimationName += "Left_";
-		break;
-	case PLAYER_DIRECTION::Down:
-		AnimationName += "Down_";
-		break;
-	case PLAYER_DIRECTION::RightDown:
-		AnimationName += "RightDown_";
-		break;
-	case PLAYER_DIRECTION::LeftDown:
-		AnimationName += "LeftDown_";
-		break;
-	case PLAYER_DIRECTION::LeftUp:
-		AnimationName += "LeftUp_";
-		break;
-	case PLAYER_DIRECTION::RightUp:
-		AnimationName += "RightUp_";
-		break;
-	default:
-		break;
-	}
-
-	AnimationName += _AnimName.data();
-
-	BodyRenderer->ChangeAnimation(AnimationName, false);
-}
-
 void Player::ChangeState(PLAYER_STATE _State)
 {
 	CurState = _State;
@@ -150,6 +114,9 @@ void Player::ChangeState(PLAYER_STATE _State)
 		break;
 	case PLAYER_STATE::Run:
 		RunStart();
+		break;
+	case PLAYER_STATE::Stop:
+		StopStart();
 		break;
 	case PLAYER_STATE::Roll:
 		RollStart();
@@ -168,48 +135,87 @@ void Player::ChangeState(PLAYER_STATE _State)
 	}
 }
 
-float4 Player::MoveToDir(float _Speed)
+void Player::SetAnimation(std::string_view _AnimName, int _Frame /*= 0*/, bool _Force /*= false*/)
 {
-	float4 MovePos = float4::ZERO;
+	std::string AnimationName = "";
+
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
-		MovePos = float4::GetUnitVectorFromDeg(0.0f);
-		break;
-	case PLAYER_DIRECTION::Up:
-		MovePos = float4::GetUnitVectorFromDeg(90.0f);
-		break;
-	case PLAYER_DIRECTION::Left:
-		MovePos = float4::GetUnitVectorFromDeg(180.0f);
-		break;
-	case PLAYER_DIRECTION::Down:
-		MovePos = float4::GetUnitVectorFromDeg(270.0f);
-		break;
-	case PLAYER_DIRECTION::RightDown:
-		MovePos = float4::GetUnitVectorFromDeg(315.0f);
-		break;
-	case PLAYER_DIRECTION::LeftDown:
-		MovePos = float4::GetUnitVectorFromDeg(225.0f);
-		break;
-	case PLAYER_DIRECTION::LeftUp:
-		MovePos = float4::GetUnitVectorFromDeg(135.0f);
+		AnimationName += "Right_";
 		break;
 	case PLAYER_DIRECTION::RightUp:
-		MovePos = float4::GetUnitVectorFromDeg(45.0f);
+		AnimationName += "RightUp_";
+		break;
+	case PLAYER_DIRECTION::Up:
+		AnimationName += "Up_";
+		break;
+	case PLAYER_DIRECTION::LeftUp:
+		AnimationName += "LeftUp_";
+		break;
+	case PLAYER_DIRECTION::Left:
+		AnimationName += "Left_";
+		break;
+	case PLAYER_DIRECTION::LeftDown:
+		AnimationName += "LeftDown_";
+		break;
+	case PLAYER_DIRECTION::Down:
+		AnimationName += "Down_";
+		break;
+	case PLAYER_DIRECTION::RightDown:
+		AnimationName += "RightDown_";
 		break;
 	default:
 		break;
 	}
-	MovePos *= { _Speed, _Speed };
-	return MovePos;
+	AnimationName += _AnimName.data();
+	
+	if (0 != _Frame)
+	{
+		BodyRenderer->ChangeAnimation(AnimationName, _Force, _Frame);
+	}
+	else
+	{
+		BodyRenderer->ChangeAnimation(AnimationName, _Force);
+	}
 }
 
 void Player::SetDir(PLAYER_DIRECTION _Dir, float _Delta)
 {
-	if (0.1f <= ChangeDirCoolDownTimer)
+	if (ChangeDirCoolTime <= ChangeDirCoolDownTimer)
 	{
 		ChangeDirCoolDownTimer = 0.0f;
 		CurDir = _Dir;
+
+		switch (CurDir)
+		{
+		case PLAYER_DIRECTION::Right:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(0.0f);
+			break;
+		case PLAYER_DIRECTION::RightUp:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(45.0f);
+			break;
+		case PLAYER_DIRECTION::Up:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(90.0f);
+			break;
+		case PLAYER_DIRECTION::LeftUp:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(135.0f);
+			break;
+		case PLAYER_DIRECTION::Left:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(180.0f);
+			break;
+		case PLAYER_DIRECTION::LeftDown:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(225.0f);
+			break;
+		case PLAYER_DIRECTION::Down:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(270.0f);
+			break;
+		case PLAYER_DIRECTION::RightDown:
+			PlayerDirDeg = float4::GetUnitVectorFromDeg(315.0f);
+			break;
+		default:
+			break;
+		}
 	}
 	else
 	{

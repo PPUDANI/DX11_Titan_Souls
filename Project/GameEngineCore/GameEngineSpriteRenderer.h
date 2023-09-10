@@ -69,22 +69,41 @@ public:
 	void SetSprite(std::string_view _Name, unsigned int index = 0);
 
 	void CreateAnimation(
-		std::string_view _AnimationName, 
-		std::string_view _SpriteName, 
+		std::string_view _AnimationName,
+		std::string_view _SpriteName,
 		float _Inter = 0.1f,
 		unsigned int _Start = -1,
 		unsigned int _End = -1,
 		bool _Loop = true
 	);
 
-	void ChangeAnimation(std::string_view _AnimationName, bool _Force = false);
+	void ChangeAnimation(std::string_view _AnimationName, bool _Force = false, unsigned int _FrameIndex = 0);
 
 	void AutoSpriteSizeOn();
 	void AutoSpriteSizeOff();
 
 	inline void SetAutoScaleRatio(float _Ratio)
 	{
+		AutoScaleRatio.X = _Ratio;
+		AutoScaleRatio.Y = _Ratio;
+	}
+	inline void SetAutoScaleRatio(float4 _Ratio)
+	{
 		AutoScaleRatio = _Ratio;
+	}
+
+	void Flip()
+	{
+		AutoScaleRatio.X = -AutoScaleRatio.X;
+	}
+
+	void FlipOff()
+	{
+		AutoScaleRatio.X = abs(AutoScaleRatio.X);
+	}
+	void FlipOn()
+	{
+		AutoScaleRatio.X = -abs(AutoScaleRatio.X);
 	}
 
 	void SetSamplerState(SamplerOption _Option);
@@ -92,6 +111,11 @@ public:
 	bool IsCurAnimationEnd() 
 	{
 		return CurFrameAnimations->IsEnd;
+	}
+
+	bool IsCurAnimation(std::string_view _AnimationName)
+	{
+		return CurFrameAnimations->AnimationName == _AnimationName;
 	}
 
 	void AnimationPauseSwitch();
@@ -108,6 +132,20 @@ public:
 	void AddImageScale(const float4& _Scale);
 
 	static void SetDefaultSampler(std::string_view _SamplerName);
+	
+	std::shared_ptr<GameEngineSprite> GetSprite()
+	{
+		return Sprite;
+	}
+	const SpriteData& GetCurSprite()
+	{
+		return CurSprite;
+	}
+
+	inline unsigned int GetCurIndex() const
+	{
+		return CurFrameAnimations->CurIndex;
+	}
 
 protected:
 	void Start() override;
@@ -128,7 +166,7 @@ private:
 	static std::shared_ptr<class GameEngineSampler> DefaultSampler;
 	std::shared_ptr<class GameEngineSampler> Sampler;
 	bool IsImageSize = false;
-	float AutoScaleRatio = 1.0f;
+	float4 AutoScaleRatio = { 1.0f,1.0f,1.0f };
 	bool IsPause = false;
 
 	float4 Pivot = {0.5f, 0.5f};
