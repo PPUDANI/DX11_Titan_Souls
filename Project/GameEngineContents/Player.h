@@ -50,6 +50,7 @@ public:
 	{
 		return CurDir;
 	}
+
 protected:
 
 private:
@@ -97,10 +98,23 @@ private:
 
 private:
 	// Physics Variables
-	const float DefaultSpeed = 200.0f;
+	const float DefaultSpeed = 250.0f;
 	const float RunForce = 1.5f;
 	const float RollForce = 3.0f;
-	const float StopForce = 0.1f;
+
+	// Deceleration Variables
+	float DecelerationValue = 0.0f;
+
+	// Deceleration Functions
+	void Deceleration(float _Speed)
+	{
+		DecelerationValue -= DecelerationValue * _Speed;
+		if (0.04f > DecelerationValue)
+		{
+			DecelerationValue = 0.0f;
+		}
+	}
+
 
 private:
 	// Direction Variables
@@ -139,13 +153,18 @@ private:
 	// Roll CoolDown Variables
 	bool IsRollOnCooldown = false;
 	float RollCoolDown = 0.5f;
-	float RollCoolDownTimer = 0.5;
+	float RollCoolDownTimer = 0.0f;
 
-	inline void RollCheck()
+	inline bool RollCheck()
 	{
 		if (false == IsRollOnCooldown)
 		{
 			ChangeState(PLAYER_STATE::Roll);
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 

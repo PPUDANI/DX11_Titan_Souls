@@ -16,6 +16,7 @@ void Player::WalkStart()
 
 void Player::StopStart()
 {
+	DecelerationValue = 0.5f;
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 }
 
@@ -36,6 +37,7 @@ void Player::ShotStart()
 
 void Player::DeathStart()
 {
+	DecelerationValue = 0.5f;
 	SetAnimByDir("Death");
 }
 
@@ -49,6 +51,13 @@ void Player::SpawnStart()
 ///////  Update  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::IdleUpdate(float _Delta)
 {
+	// Death Check
+	if (true == GameEngineInput::IsPress('K'))
+	{
+		ChangeState(PLAYER_STATE::Death);
+		return;
+	}
+
 	// Walk Check
 	if (true == GameEngineInput::IsPress('W') ||
 		true == GameEngineInput::IsPress('A') ||
@@ -66,13 +75,22 @@ void Player::IdleUpdate(float _Delta)
 	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		RollCheck();
-		return;
+		if (true == RollCheck())
+		{
+			return;
+		}
 	}
 }
 
 void Player::WalkUpdate(float _Delta)
 {
+	// Death Check
+	if (true == GameEngineInput::IsPress('K'))
+	{
+		ChangeState(PLAYER_STATE::Death);
+		return;
+	}
+
 	// Walk Controll
 	float4 MovePos = float4::ZERO;
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
@@ -124,8 +142,10 @@ void Player::WalkUpdate(float _Delta)
 	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		RollCheck();
-		return;
+		if (true == RollCheck())
+		{
+			return;
+		}
 	}
 
 	// Run Check
@@ -144,8 +164,14 @@ void Player::WalkUpdate(float _Delta)
 
 void Player::StopUpdate(float _Delta)
 {
-	static float StopTimer = 0.0f;
+	// Death Check
+	if (true == GameEngineInput::IsPress('K'))
+	{
+		ChangeState(PLAYER_STATE::Death);
+		return;
+	}
 
+	// Walk Check
 	if (true == GameEngineInput::IsPress('W') ||
 		true == GameEngineInput::IsPress('A') ||
 		true == GameEngineInput::IsPress('S') ||
@@ -159,41 +185,50 @@ void Player::StopUpdate(float _Delta)
 		return;
 	}
 	
+	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		RollCheck();
-		return;
+		if (true == RollCheck())
+		{
+			return;
+		}
 	}
 
-	if(0.3f < StopTimer)
+	// Deceleration
+	if (0.0f == DecelerationValue)
 	{
-		StopTimer = 0.0f;
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 	else
 	{
-		StopTimer += _Delta;
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * StopForce * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
 		Transform.AddLocalPosition(MovePos);
+		Deceleration(10.0f * _Delta);
 	}
 }
 
 void Player::RollUpdate(float _Delta)
 {
+	// Death Check
+	if (true == GameEngineInput::IsPress('K'))
+	{
+		ChangeState(PLAYER_STATE::Death);
+		return;
+	}
+
 	float4 MovePos = float4::ZERO;
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
-		ChangeState(PLAYER_STATE::Idle);
 		IsRollOnCooldown = true;
+		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 	else
 	{
 		MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
+		Transform.AddLocalPosition(MovePos);
 	}
-
-	Transform.AddLocalPosition(MovePos);
 }
 
 void Player::AimUpdate(float _Delta)
@@ -208,7 +243,20 @@ void Player::ShotUpdate(float _Delta)
 
 void Player::DeathUpdate(float _Delta)
 {
+	if (true == GameEngineInput::IsDown('R'))
+	{
+		Transform.SetLocalPosition({0.0f, 0.0f});
+		ChangeState(PLAYER_STATE::Spawn);
+		return;
+	}
 
+	// Deceleration
+	if (0.0f != DecelerationValue)
+	{
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
+		Transform.AddLocalPosition(MovePos);
+		Deceleration(5.0f * _Delta);
+	}
 }
 
 void Player::SpawnUpadte(float _Delta)
