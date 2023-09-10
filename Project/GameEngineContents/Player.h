@@ -10,6 +10,7 @@ enum class PLAYER_STATE
 	Aim,
 	Shot,
 	Death,
+	Spawn,
 };
 
 enum class PLAYER_DIRECTION
@@ -37,6 +38,9 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
+	// static Player
+	static std::shared_ptr<Player> MainPlayer;
+
 	inline PLAYER_STATE GetState() const
 	{
 		return CurState;
@@ -46,13 +50,16 @@ public:
 	{
 		return CurDir;
 	}
-
 protected:
 
-
 private:
+	// Inheritance Functions
 	void Start() override;
 	void Update(float _Delta) override;
+
+private:
+	// FMS Functions
+	void ChangeState(PLAYER_STATE _State);
 
 	void IdleStart();
 	void WalkStart();
@@ -62,6 +69,7 @@ private:
 	void AimStart();
 	void ShotStart();
 	void DeathStart();
+	void SpawnStart();
 
 	void IdleUpdate(float _Delta);
 	void WalkUpdate(float _Delta);
@@ -71,37 +79,69 @@ private:
 	void AimUpdate(float _Delta);
 	void ShotUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
+	void SpawnUpadte(float _Delta);
 
-	void SetAnimation(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
-	void ChangeState(PLAYER_STATE _State);
-	void SetDir(PLAYER_DIRECTION _Dir, float _Delta);
-
+private:
+	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 
-	// 상태 변수
+	// Change Amimation By Direction Functions
+	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
+	
+private:
+	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
 
-	// 방향 변수
-	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
-	float4 PlayerDirDeg = float4::ZERO;
-	float ChangeDirCoolTime = 0.05f;
-	float ChangeDirCoolDownTimer = 0.0f;
-
-	// 물리 변수
+private:
+	// Physics Variables
 	const float DefaultSpeed = 200.0f;
 	const float RunForce = 1.5f;
 	const float RollForce = 3.0f;
 	const float StopForce = 0.1f;
 
-	// 구르기 재사용 대기시간
-	bool RollCooldownOn = false;
+private:
+	// Direction Variables
+	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
+	float4 PlayerDirDeg = float4::ZERO;
+	bool IsChangeDirOnCooldown = false;
+	float ChangeDirCoolTime = 0.05f;
+	float ChangeDirCoolDownTimer = 0.0f;
+
+	// Direction Functions
+	void SetDirection(PLAYER_DIRECTION _Dir);
+
+	inline void ChangeDirCheck(PLAYER_DIRECTION _Dir)
+	{
+		if (false == IsChangeDirOnCooldown)
+		{
+			IsChangeDirOnCooldown = true;
+			SetDirection(_Dir);
+		}
+	}
+
+	void ChangeDirCoolDownUpdate(float _Delta)
+	{
+		if (ChangeDirCoolTime <= ChangeDirCoolDownTimer)
+		{
+			ChangeDirCoolDownTimer = 0.0f;
+			IsChangeDirOnCooldown = false;
+		}
+		else
+		{
+			ChangeDirCoolDownTimer += _Delta;
+		}
+	}
+
+private:
+	// Roll CoolDown Variables
+	bool IsRollOnCooldown = false;
 	float RollCoolDown = 0.5f;
 	float RollCoolDownTimer = 0.5;
 
-	inline void Roll()
+	inline void RollCheck()
 	{
-		if (false == RollCooldownOn)
+		if (false == IsRollOnCooldown)
 		{
 			ChangeState(PLAYER_STATE::Roll);
 		}
@@ -112,7 +152,7 @@ private:
 		if (RollCoolDown <= RollCoolDownTimer)
 		{
 			RollCoolDownTimer = 0.0f;
-			RollCooldownOn = false;
+			IsRollOnCooldown = false;
 		}
 		else
 		{

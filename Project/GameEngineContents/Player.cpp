@@ -57,18 +57,27 @@ void Player::Start()
 	BodyRenderer->CreateAnimation("LeftUp_Roll", "Player.png", 0.063f, 156, 161, false);
 	BodyRenderer->CreateAnimation("RightUp_Roll", "Player.png", 0.063f, 181, 186, false);
 
+	// Spawn
+	BodyRenderer->CreateAnimation("Spawn", "Player.png", 0.15f, 65, 74, true);
 
-	CurDir = PLAYER_DIRECTION::Down;
-	ChangeState(PLAYER_STATE::Idle);
+	ChangeState(PLAYER_STATE::Spawn);
 }
 
 void Player::Update(float _Delta)
 {
-	if (true == RollCooldownOn)
+	// Roll CoolDown Update
+	if (true == IsRollOnCooldown)
 	{
 		RollCoolDownUpdate(_Delta);
 	}
 
+	// Change Diretion CoolDown Update
+	if (true == IsChangeDirOnCooldown)
+	{
+		ChangeDirCoolDownUpdate(_Delta);
+	}
+
+	// State Update
 	switch (CurState)
 	{
 	case PLAYER_STATE::Idle:
@@ -94,6 +103,9 @@ void Player::Update(float _Delta)
 		break;
 	case PLAYER_STATE::Death:
 		DeathUpdate(_Delta);
+		break;
+	case PLAYER_STATE::Spawn:
+		SpawnUpadte(_Delta);
 		break;
 	default:
 		break;
@@ -130,12 +142,15 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Death:
 		DeathStart();
 		break;
+	case PLAYER_STATE::Spawn:
+		SpawnStart();
+		break;
 	default:
 		break;
 	}
 }
 
-void Player::SetAnimation(std::string_view _AnimName, int _Frame /*= 0*/, bool _Force /*= false*/)
+void Player::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _Force /*= false*/)
 {
 	std::string AnimationName = "";
 
@@ -180,45 +195,36 @@ void Player::SetAnimation(std::string_view _AnimName, int _Frame /*= 0*/, bool _
 	}
 }
 
-void Player::SetDir(PLAYER_DIRECTION _Dir, float _Delta)
+void Player::SetDirection(PLAYER_DIRECTION _Dir)
 {
-	if (ChangeDirCoolTime <= ChangeDirCoolDownTimer)
+	CurDir = _Dir;
+	switch (CurDir)
 	{
-		ChangeDirCoolDownTimer = 0.0f;
-		CurDir = _Dir;
-
-		switch (CurDir)
-		{
-		case PLAYER_DIRECTION::Right:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(0.0f);
-			break;
-		case PLAYER_DIRECTION::RightUp:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(45.0f);
-			break;
-		case PLAYER_DIRECTION::Up:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(90.0f);
-			break;
-		case PLAYER_DIRECTION::LeftUp:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(135.0f);
-			break;
-		case PLAYER_DIRECTION::Left:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(180.0f);
-			break;
-		case PLAYER_DIRECTION::LeftDown:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(225.0f);
-			break;
-		case PLAYER_DIRECTION::Down:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(270.0f);
-			break;
-		case PLAYER_DIRECTION::RightDown:
-			PlayerDirDeg = float4::GetUnitVectorFromDeg(315.0f);
-			break;
-		default:
-			break;
-		}
-	}
-	else
-	{
-		ChangeDirCoolDownTimer += _Delta;
+	case PLAYER_DIRECTION::Right:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(0.0f);
+		break;
+	case PLAYER_DIRECTION::RightUp:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(45.0f);
+		break;
+	case PLAYER_DIRECTION::Up:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(90.0f);
+		break;
+	case PLAYER_DIRECTION::LeftUp:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(135.0f);
+		break;
+	case PLAYER_DIRECTION::Left:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(180.0f);
+		break;
+	case PLAYER_DIRECTION::LeftDown:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(225.0f);
+		break;
+	case PLAYER_DIRECTION::Down:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(270.0f);
+		break;
+	case PLAYER_DIRECTION::RightDown:
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(315.0f);
+		break;
+	default:
+		break;
 	}
 }

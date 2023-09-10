@@ -5,46 +5,49 @@
 
 void Player::IdleStart()
 {
-	ChangeDirCoolDownTimer = 0.0f;
-	SetAnimation("Idle");
+	SetAnimByDir("Idle");
 }
 
 void Player::WalkStart()
 {
-	SetAnimation("Walk");
+	SetAnimByDir("Walk");
 }
 
 void Player::RunStart()
 {
-	SetAnimation("Run");
+	SetAnimByDir("Run");
 }
 
 void Player::StopStart()
 {
-	SetAnimation("Walk", BodyRenderer->GetCurIndex());
+	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 }
 
 void Player::RollStart()
 {
-	RollCooldownOn = true;
-	SetAnimation("Roll");
+	SetAnimByDir("Roll");
 }
 
 void Player::AimStart()
 {
-	SetAnimation("Aim");
+	SetAnimByDir("Aim");
 }
 
 void Player::ShotStart()
 {
-	SetAnimation("Shot");
+	SetAnimByDir("Shot");
 }
 
 void Player::DeathStart()
 {
-	SetAnimation("Death");
+	SetAnimByDir("Death");
 }
 
+void Player::SpawnStart()
+{
+	SetDirection(PLAYER_DIRECTION::Up);
+	BodyRenderer->ChangeAnimation("Spawn");
+}
 
 void Player::IdleUpdate(float _Delta)
 {
@@ -63,7 +66,7 @@ void Player::IdleUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		ChangeState(PLAYER_STATE::Roll);
+		RollCheck();
 		return;
 	}
 }
@@ -74,42 +77,42 @@ void Player::WalkUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		SetDir(PLAYER_DIRECTION::LeftUp, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		SetDir(PLAYER_DIRECTION::RightUp, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		SetDir(PLAYER_DIRECTION::LeftDown, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		SetDir(PLAYER_DIRECTION::RightDown, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('W'))
 	{
-		SetDir(PLAYER_DIRECTION::Up, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::Up);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('A'))
 	{
-		SetDir(PLAYER_DIRECTION::Left, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::Left);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('S'))
 	{
-		SetDir(PLAYER_DIRECTION::Down, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::Down);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else if (true == GameEngineInput::IsPress('D'))
 	{
-		SetDir(PLAYER_DIRECTION::Right, _Delta);
+		ChangeDirCheck(PLAYER_DIRECTION::Right);
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 	}
 	else
@@ -119,9 +122,9 @@ void Player::WalkUpdate(float _Delta)
 	}
 
 	// ±¸¸£±â
-	if (true == GameEngineInput::IsDown(VK_SPACE) && false == RollCooldownOn)
+	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		ChangeState(PLAYER_STATE::Roll);
+		RollCheck();
 		return;
 	}
 
@@ -130,12 +133,12 @@ void Player::WalkUpdate(float _Delta)
 	{
 		MovePos *= RunForce;
 		Transform.AddLocalPosition(MovePos);
-		SetAnimation("Run", BodyRenderer->GetCurIndex());
+		SetAnimByDir("Run", BodyRenderer->GetCurIndex());
 	}
 	else
 	{
 		Transform.AddLocalPosition(MovePos);
-		SetAnimation("Walk", BodyRenderer->GetCurIndex());
+		SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 	}
 }
 
@@ -163,7 +166,7 @@ void Player::StopUpdate(float _Delta)
 	
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		ChangeState(PLAYER_STATE::Roll);
+		RollCheck();
 		return;
 	}
 
@@ -187,7 +190,7 @@ void Player::RollUpdate(float _Delta)
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PLAYER_STATE::Idle);
-		RollCooldownOn = true;
+		IsRollOnCooldown = true;
 		return;
 	}
 	else
@@ -211,4 +214,12 @@ void Player::ShotUpdate(float _Delta)
 void Player::DeathUpdate(float _Delta)
 {
 
+}
+
+void Player::SpawnUpadte(float _Delta)
+{
+	if (true == BodyRenderer->IsCurAnimationEnd())
+	{
+		ChangeState(PLAYER_STATE::Idle);
+	}
 }
