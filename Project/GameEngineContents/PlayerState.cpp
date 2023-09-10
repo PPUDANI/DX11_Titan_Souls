@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+///////  Start  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::IdleStart()
 {
 	SetAnimByDir("Idle");
@@ -11,11 +12,6 @@ void Player::IdleStart()
 void Player::WalkStart()
 {
 	SetAnimByDir("Walk");
-}
-
-void Player::RunStart()
-{
-	SetAnimByDir("Run");
 }
 
 void Player::StopStart()
@@ -49,8 +45,11 @@ void Player::SpawnStart()
 	BodyRenderer->ChangeAnimation("Spawn");
 }
 
+
+///////  Update  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::IdleUpdate(float _Delta)
 {
+	// Walk Check
 	if (true == GameEngineInput::IsPress('W') ||
 		true == GameEngineInput::IsPress('A') ||
 		true == GameEngineInput::IsPress('S') ||
@@ -64,6 +63,7 @@ void Player::IdleUpdate(float _Delta)
 		return;
 	}
 
+	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
 		RollCheck();
@@ -73,8 +73,8 @@ void Player::IdleUpdate(float _Delta)
 
 void Player::WalkUpdate(float _Delta)
 {
+	// Walk Controll
 	float4 MovePos = float4::ZERO;
-
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
@@ -121,14 +121,14 @@ void Player::WalkUpdate(float _Delta)
 		return;
 	}
 
-	// 구르기
+	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
 		RollCheck();
 		return;
 	}
 
-	// 달리기
+	// Run Check
 	if (true == GameEngineInput::IsPress(VK_SHIFT))
 	{
 		MovePos *= RunForce;
@@ -140,11 +140,6 @@ void Player::WalkUpdate(float _Delta)
 		Transform.AddLocalPosition(MovePos);
 		SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 	}
-}
-
-void Player::RunUpdate(float _Delta)
-{
-
 }
 
 void Player::StopUpdate(float _Delta)

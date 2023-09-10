@@ -61,9 +61,10 @@ private:
 	// FMS Functions
 	void ChangeState(PLAYER_STATE _State);
 
+	// State Start Functions
 	void IdleStart();
 	void WalkStart();
-	void RunStart();
+	/*void RunStart();*/
 	void StopStart();
 	void RollStart();
 	void AimStart();
@@ -71,9 +72,10 @@ private:
 	void DeathStart();
 	void SpawnStart();
 
+	// State Update Functions
 	void IdleUpdate(float _Delta);
 	void WalkUpdate(float _Delta);
-	void RunUpdate(float _Delta);
+	/*void RunUpdate(float _Delta);*/
 	void StopUpdate(float _Delta);
 	void RollUpdate(float _Delta);
 	void AimUpdate(float _Delta);
