@@ -115,7 +115,6 @@ private:
 		}
 	}
 
-
 private:
 	// Direction Variables
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
