@@ -17,6 +17,7 @@ public:
 	static void LoadArrowInBagTexture();
 	static void LoadBowTexture();
 	static void LoadTestMapTexture();
+	static void LoadUnderWorldTexture();
 protected:
 
 private:

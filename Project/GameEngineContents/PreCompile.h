@@ -20,8 +20,10 @@
 #include <GameEngineCore/GameEngineSprite.h>
 
 // 렌더러 상속받아서 애니메이션을 만들 때 사용하는것
+// 클라이언트는 그림을 띄울 때, 이 클래스를 사용하게 됨
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 #include "GlobalValue.h"
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
+#include "TileInfo.h"

@@ -260,6 +260,7 @@ public:
 	{
 		Parent = &_Parent;
 		Parent->Childs.push_back(this);
+		TransformUpdate();
 	}
 
 	void CalChilds();

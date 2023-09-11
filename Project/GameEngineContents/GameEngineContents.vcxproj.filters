@@ -24,7 +24,7 @@
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Actor\Map\PlayerEliment</Filter>
+      <Filter>Actor\PlayerEliment</Filter>
     </ClCompile>
     <ClCompile Include="GlobalLoad.cpp">
       <Filter>Global</Filter>
@@ -39,10 +39,16 @@
       <Filter>Actor\Map</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
-      <Filter>Actor\Map\PlayerEliment</Filter>
+      <Filter>Actor\PlayerEliment</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAnimation.cpp">
-      <Filter>Actor\Map\PlayerEliment</Filter>
+      <Filter>Actor\PlayerEliment</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="TileInfo.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +78,7 @@
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Actor\Map\PlayerEliment</Filter>
+      <Filter>Actor\PlayerEliment</Filter>
     </ClInclude>
     <ClInclude Include="GlobalLoad.h">
       <Filter>Global</Filter>
@@ -85,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="TestMap.h">
       <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="TileInfo.h">
+      <Filter>Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +139,7 @@
     <Filter Include="Actor\Map">
       <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map\PlayerEliment">
+    <Filter Include="Actor\PlayerEliment">
       <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
