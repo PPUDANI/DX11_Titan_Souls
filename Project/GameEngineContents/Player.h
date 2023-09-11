@@ -87,7 +87,16 @@ private:
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> BowRenderer = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> ArrowInBagRenderer = nullptr;
+
+
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
+
+	// Load Texture & Create Animation Functions
+	void CreatePlayerbodyAnimation();
+	void CreateBowAnimation();
+	void CreateArrowInBagAnimation();
 
 	// Change Amimation By Direction Functions
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
@@ -98,9 +107,10 @@ private:
 
 private:
 	// Physics Variables
+	const float4 PlayerSize = { 32.0f , 32.0f };
 	const float DefaultSpeed = 250.0f;
 	const float RunForce = 1.5f;
-	const float RollForce = 3.0f;
+	const float RollForce = 2.5f;
 
 	// Deceleration Variables
 	float DecelerationValue = 0.0f;

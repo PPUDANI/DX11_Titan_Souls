@@ -41,6 +41,9 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>Actor\Map\PlayerEliment</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAnimation.cpp">
+      <Filter>Actor\Map\PlayerEliment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />

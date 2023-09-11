@@ -187,6 +187,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="PlayLevelBase.cpp">
       <SubType>
       </SubType>

@@ -11,7 +11,7 @@ void Player::IdleStart()
 
 void Player::WalkStart()
 {
-	SetAnimByDir("Walk");
+	//SetAnimByDir("Walk");
 }
 
 void Player::StopStart()
@@ -45,6 +45,8 @@ void Player::SpawnStart()
 {
 	SetDirection(PLAYER_DIRECTION::Up);
 	BodyRenderer->ChangeAnimation("Spawn");
+	BowRenderer->ChangeAnimation("Spawn");
+	ArrowInBagRenderer->ChangeAnimation("Spawn");
 }
 
 
@@ -193,7 +195,7 @@ void Player::StopUpdate(float _Delta)
 			return;
 		}
 	}
-
+	
 	// Deceleration
 	if (0.0f == DecelerationValue)
 	{
@@ -221,7 +223,7 @@ void Player::RollUpdate(float _Delta)
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		IsRollOnCooldown = true;
-		ChangeState(PLAYER_STATE::Idle);
+		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
 	else

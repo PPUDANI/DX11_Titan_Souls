@@ -13,11 +13,15 @@ public:
 	GlobalLoad& operator=(const GlobalLoad& _Other) = delete;
 	GlobalLoad& operator=(GlobalLoad&& _Other) noexcept = delete;
 
-	static void PlayerLoad();
-	static void MapLoad();
+	static void LoadPlayerTexture();
+	static void LoadArrowInBagTexture();
+	static void LoadBowTexture();
+	static void LoadTestMapTexture();
 protected:
 
 private:
-	static bool PlayerIsLoad;
-	static bool MapIsLoad;
+	static bool IsLoadPlayerTexture;
+	static bool IsLoadBowTexutre;
+	static bool IsLoadArrowInBagTexture;
+	static bool IsLoadTestMapTexture;
 };
