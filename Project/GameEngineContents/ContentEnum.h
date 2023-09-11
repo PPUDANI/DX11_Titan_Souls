@@ -8,6 +8,7 @@ enum class UPDATE_ORDER
 
 enum class RENDERING_ORDER
 {
-	Map,
+	BGMap,
 	Player,
+	FGMap,
 };

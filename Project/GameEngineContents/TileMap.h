@@ -35,7 +35,7 @@ public:
 		fclose(File);
 	}
 
-	void SetTileTexture();
+	void SetTileTexture(RENDERING_ORDER _Order);
 
 protected:
 

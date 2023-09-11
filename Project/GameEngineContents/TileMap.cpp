@@ -20,7 +20,7 @@ void TileMap::TileMapInit(int _IndexX, int _IndexY, std::string_view _TextureNam
 	Tiles.assign(IndexX * IndexY, nullptr);
 }
 
-void TileMap::SetTileTexture()
+void TileMap::SetTileTexture(RENDERING_ORDER _Order)
 {
 	if (TextureName.empty())
 	{
@@ -32,7 +32,12 @@ void TileMap::SetTileTexture()
 		for (int x = 0; x < IndexX; x++)
 		{
 			int CurIndex = (IndexX * y) + x;
-			Tiles[CurIndex] = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Map);
+			if (0 == TextureIndex[CurIndex])
+			{
+				continue;
+			}
+
+			Tiles[CurIndex] = CreateComponent<GameEngineSpriteRenderer>(_Order);
 			Tiles[CurIndex]->SetSprite(TextureName, TextureIndex[CurIndex]);
 			Tiles[CurIndex]->SetImageScale({ 32.0f, 32.0f });
 			Tiles[CurIndex]->Transform.SetLocalPosition({x * 32.0f , y * -32.0f });

@@ -18,10 +18,18 @@ void StartingRuins::Start()
 	//Map->Transform.SetLocalPosition({ 0.0f, 0.0f });
 
 	GlobalLoad::LoadSpriteCut(64, 64, "Underworld.png", "Resource\\Texture\\Map\\");
-	Map = CreateActor <TileMap>(UPDATE_ORDER::Map);
-	Map->TileMapInit(60, 80, "Underworld.png");
-	Map->SetTileData("Resource\\TileMapData\\SludgeHeart\\BG.tmd");
-	Map->SetTileTexture();
+	BGMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	BGMap->TileMapInit(60, 80, "Underworld.png");
+	BGMap->SetTileData("Resource\\TileMapData\\SludgeHeart\\BG.tmd");
+	BGMap->Transform.SetLocalPosition({ -976.0f, 700.0f });
+	BGMap->SetTileTexture(RENDERING_ORDER::BGMap);
+
+	FGMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	FGMap->TileMapInit(60, 80, "Underworld.png");
+	FGMap->SetTileData("Resource\\TileMapData\\SludgeHeart\\FG.tmd");
+	FGMap->Transform.SetLocalPosition({ -976.0f, 700.0f });
+	FGMap->SetTileTexture(RENDERING_ORDER::FGMap);
+
 }
 
 void StartingRuins::Update(float _Delta)
