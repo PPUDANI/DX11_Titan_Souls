@@ -13,16 +13,11 @@ public:
 	GlobalLoad& operator=(const GlobalLoad& _Other) = delete;
 	GlobalLoad& operator=(GlobalLoad&& _Other) noexcept = delete;
 
-	static void LoadPlayerTexture();
-	static void LoadArrowInBagTexture();
-	static void LoadBowTexture();
-	static void LoadTestMapTexture();
-	static void LoadUnderWorldTexture();
+	static void LoadSpriteSingle(std::string_view _FileName, std::string_view _FilePath);
+	static void LoadSpriteCut(int _IndexX, int _IndexY, std::string_view _FileName, std::string_view _FilePath);
+
 protected:
 
 private:
-	static bool IsLoadPlayerTexture;
-	static bool IsLoadBowTexutre;
-	static bool IsLoadArrowInBagTexture;
-	static bool IsLoadTestMapTexture;
+
 };

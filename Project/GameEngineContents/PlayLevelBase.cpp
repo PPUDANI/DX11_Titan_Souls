@@ -18,7 +18,7 @@ void PlayLevelBase::Start()
 
 void PlayLevelBase::Update(float _Delta)
 {
-	GetMainCamera()->Transform.SetLocalPosition(PlayerActor->Transform.GetWorldPosition());
+	
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)

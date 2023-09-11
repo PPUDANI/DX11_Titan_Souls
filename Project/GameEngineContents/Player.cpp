@@ -66,6 +66,8 @@ void Player::Update(float _Delta)
 	default:
 		break;
 	}
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }
 
 void Player::ChangeState(PLAYER_STATE _State)
@@ -140,7 +142,7 @@ void Player::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _
 		break;
 	}
 
-	AnimationName += _AnimName.data();
+	AnimationName += _AnimName;
 	
 	if (0 != _Frame)
 	{

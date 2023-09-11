@@ -11,7 +11,7 @@ TestMap::~TestMap()
 
 void TestMap::Start()
 {
-	GlobalLoad::LoadTestMapTexture();
+	GlobalLoad::LoadSpriteSingle("TestMap.png", "Resource\\Texture\\Map\\");
 	MainRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Map);
 	MainRenderer->SetSprite("TestMap.png");
 	MainRenderer->SetImageScale(GlobalValue::WindowScale * 1.5f);

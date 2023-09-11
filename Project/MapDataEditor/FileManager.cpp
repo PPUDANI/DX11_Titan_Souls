@@ -9,7 +9,7 @@ FileManager::~FileManager()
 {
 }
 
-void FileManager::FileLoad(int MaxX, int MaxY, std::vector<unsigned int>& IndexData)
+void FileManager::FileLoad(int Max, std::vector<unsigned int>& IndexData)
 {
     GameEngineWindow MainWindow;
     std::string FilePath = "";
@@ -27,7 +27,6 @@ void FileManager::FileLoad(int MaxX, int MaxY, std::vector<unsigned int>& IndexD
     OFN.lpstrFile = lpstrFile;
     OFN.nMaxFile = 100;
     OFN.lpstrInitialDir = L".";
-
 
     while (GetOpenFileName(&OFN) != 0)
     {
@@ -39,7 +38,7 @@ void FileManager::FileLoad(int MaxX, int MaxY, std::vector<unsigned int>& IndexD
             FILE* File;
             fopen_s(&File, FilePath.c_str(), "rb");
 
-            for (int i = 0; i < MaxY * MaxX; i++)
+            for (int i = 0; i < Max; i++)
             {
                 fread(&IndexData[i], sizeof(unsigned int), 1, File);
             }
@@ -51,7 +50,7 @@ void FileManager::FileLoad(int MaxX, int MaxY, std::vector<unsigned int>& IndexD
     }
 }
 
-void FileManager::FileSave(int MaxX, int MaxY, std::vector<unsigned int>& IndexData)
+void FileManager::FileSave(int Max, std::vector<unsigned int>& IndexData)
 {
     GameEngineWindow MainWindow;
     std::string FilePath = "";
@@ -69,7 +68,6 @@ void FileManager::FileSave(int MaxX, int MaxY, std::vector<unsigned int>& IndexD
     OFN.nMaxFile = 100;
     OFN.lpstrInitialDir = L".";
 
-
     while (GetSaveFileName(&OFN) != 0)
     {
         wsprintf(filePathName, L"%s 이 파일에 저장하시겠습니까?", OFN.lpstrFile);
@@ -80,7 +78,7 @@ void FileManager::FileSave(int MaxX, int MaxY, std::vector<unsigned int>& IndexD
             FILE* File;
             fopen_s(&File, FilePath.c_str(), "wb");
 
-            for (int i = 0; i < MaxY * MaxX; i++)
+            for (int i = 0; i < Max; i++)
             {
                 fwrite(&IndexData[i], sizeof(unsigned int), 1, File);
             }

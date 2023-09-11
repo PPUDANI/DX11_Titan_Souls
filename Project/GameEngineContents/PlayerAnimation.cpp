@@ -5,7 +5,7 @@
 void Player::CreatePlayerbodyAnimation()
 {
 	// Load "Player.png" Texture
-	GlobalLoad::LoadPlayerTexture();
+	GlobalLoad::LoadSpriteCut(32, 32, "Player.png", "Resource\\Texture\\PlayerElement\\");
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	BodyRenderer->SetSprite("Player.png");
@@ -68,7 +68,7 @@ void Player::CreatePlayerbodyAnimation()
 void Player::CreateBowAnimation()
 {
 	// Load "Bow.png" Texture
-	GlobalLoad::LoadBowTexture();
+	GlobalLoad::LoadSpriteCut(32, 32, "Bow.png", "Resource\\Texture\\PlayerElement\\");
 
 	BowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	BowRenderer->SetSprite("Bow.png");
@@ -131,7 +131,7 @@ void Player::CreateBowAnimation()
 void Player::CreateArrowInBagAnimation()
 {
 	// Load "Arrow.png" Texture
-	GlobalLoad::LoadArrowInBagTexture();
+	GlobalLoad::LoadSpriteCut(32, 32, "Arrow.png", "Resource\\Texture\\PlayerElement\\");
 
 	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	ArrowInBagRenderer->SetSprite("arrow.png");

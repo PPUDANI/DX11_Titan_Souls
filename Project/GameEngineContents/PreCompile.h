@@ -2,6 +2,8 @@
 #include <GameEngineCore/PreCompile.h>
 
 #include <GameEngineBase/GameEngineMath.h>
+#include <GameEngineBase/GameEnginePath.h>
+
 //#include <GameEngineCore/GameEngineCore.h>
 //#include <GameEngineCore/GameEngineObject.h>
 #include <GameEngineCore/GameEngineActor.h>
@@ -27,3 +29,4 @@
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
 #include "TileInfo.h"
+#include "TileMap.h"
