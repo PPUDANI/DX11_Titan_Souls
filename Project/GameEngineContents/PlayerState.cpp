@@ -24,11 +24,11 @@ void Player::StopStart()
 	if (PLAYER_STATE::Run == PrevState ||
 		PLAYER_STATE::Roll == PrevState)
 	{
-		DecelerationValue = 1.0f;
+		DecelerationRatio = 1.0f;
 	}
 	else if(PLAYER_STATE::Walk == PrevState)
 	{
-		DecelerationValue = 0.5f;
+		DecelerationRatio = 0.5f;
 	}
 	
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
@@ -51,7 +51,7 @@ void Player::ShotStart()
 
 void Player::DeathStart()
 {
-	DecelerationValue = 0.5f;
+	DecelerationRatio = 0.5f;
 	SetAnimByDir("Death");
 }
 
@@ -166,12 +166,10 @@ void Player::RunUpdate(float _Delta)
 		{
 			Timer = 0.0f;
 			ChangeState(PLAYER_STATE::Walk);
+			return;
 		}
-		else
-		{
 
-		}
-		return;
+		Timer += _Delta;
 	}
 
 	// Move Check
@@ -225,14 +223,14 @@ void Player::StopUpdate(float _Delta)
 	}
 	
 	// Deceleration
-	if (0.0f == DecelerationValue)
+	if (0.0f == DecelerationRatio)
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 	else
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationRatio * _Delta;
 		Transform.AddLocalPosition(MovePos);
 		Deceleration(10.0f * _Delta);
 	}
@@ -251,7 +249,7 @@ void Player::RollUpdate(float _Delta)
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		IsRollOnCooldown = true;
-		ChangeState(PLAYER_STATE::Stop);
+		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 	else
@@ -281,9 +279,9 @@ void Player::DeathUpdate(float _Delta)
 	}
 
 	// Deceleration
-	if (0.0f != DecelerationValue)
+	if (0.0f != DecelerationRatio)
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationRatio * _Delta;
 		Transform.AddLocalPosition(MovePos);
 		Deceleration(5.0f * _Delta);
 	}

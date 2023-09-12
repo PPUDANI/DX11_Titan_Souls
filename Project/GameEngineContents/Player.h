@@ -113,15 +113,15 @@ private:
 	const float RollForce = 2.5f;
 
 	// Deceleration Variables
-	float DecelerationValue = 0.0f;
+	float DecelerationRatio = 0.0f;
 
 	// Deceleration Functions
 	void Deceleration(float _Speed)
 	{
-		DecelerationValue -= DecelerationValue * _Speed;
-		if (0.04f > DecelerationValue)
+		DecelerationRatio -= DecelerationRatio * _Speed;
+		if (0.04f > DecelerationRatio)
 		{
-			DecelerationValue = 0.0f;
+			DecelerationRatio = 0.0f;
 		}
 	}
 
