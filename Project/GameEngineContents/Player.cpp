@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+std::shared_ptr<Player> Player::MainPlayer = nullptr;
+
 Player::Player()
 {
 }
@@ -42,9 +44,9 @@ void Player::Update(float _Delta)
 	case PLAYER_STATE::Walk:
 		WalkUpdate(_Delta);
 		break;
-	/*case PLAYER_STATE::Run:
+	case PLAYER_STATE::Run:
 		RunUpdate(_Delta);
-		break;*/
+		break;
 	case PLAYER_STATE::Stop:
 		StopUpdate(_Delta);
 		break;
@@ -68,10 +70,12 @@ void Player::Update(float _Delta)
 	}
 
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
+	GetLevel()->GetMainCamera()->Transform.AddLocalPosition({0.0f, 0.0f, 0.001f});
 }
 
 void Player::ChangeState(PLAYER_STATE _State)
 {
+	PrevState = CurState;
 	CurState = _State;
 	
 	switch (CurState)
@@ -82,9 +86,9 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Walk:
 		WalkStart();
 		break;
-	/*case PLAYER_STATE::Run:
+	case PLAYER_STATE::Run:
 		RunStart();
-		break;*/
+		break;
 	case PLAYER_STATE::Stop:
 		StopStart();
 		break;
@@ -189,5 +193,53 @@ void Player::SetDirection(PLAYER_DIRECTION _Dir)
 		break;
 	default:
 		break;
+	}
+}
+
+bool Player::MoveCheck()
+{
+	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('W'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Up);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('A'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Left);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('S'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Down);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('D'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Right);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

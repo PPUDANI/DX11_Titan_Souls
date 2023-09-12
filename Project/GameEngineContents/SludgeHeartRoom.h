@@ -1,6 +1,6 @@
 #pragma once
-
-class SludgeHeartRoom : public GameEngineLevel
+#include "PlayLevelBase.h"
+class SludgeHeartRoom : public PlayLevelBase
 {
 public:
 	// Constructor Destructor

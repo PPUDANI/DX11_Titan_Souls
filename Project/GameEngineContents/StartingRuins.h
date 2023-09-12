@@ -22,10 +22,4 @@ private:
 
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
-
-	std::shared_ptr<TileMap> BGMap = nullptr;
-	std::shared_ptr<TileMap> BGAMap = nullptr;
-	std::shared_ptr<TileMap> FGMap = nullptr;
-	std::shared_ptr<TileMap> COLMap = nullptr;
-	std::shared_ptr<TileMap> MATMap = nullptr;
 };

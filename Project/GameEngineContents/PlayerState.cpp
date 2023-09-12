@@ -11,12 +11,26 @@ void Player::IdleStart()
 
 void Player::WalkStart()
 {
-	//SetAnimByDir("Walk");
+
+}
+
+void Player::RunStart()
+{
+
 }
 
 void Player::StopStart()
 {
-	DecelerationValue = 0.5f;
+	if (PLAYER_STATE::Run == PrevState ||
+		PLAYER_STATE::Roll == PrevState)
+	{
+		DecelerationValue = 1.0f;
+	}
+	else if(PLAYER_STATE::Walk == PrevState)
+	{
+		DecelerationValue = 0.5f;
+	}
+	
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 }
 
@@ -70,14 +84,17 @@ void Player::IdleUpdate(float _Delta)
 		{
 			ChangeState(PLAYER_STATE::Run);
 		}
-		ChangeState(PLAYER_STATE::Walk);
+		else
+		{
+			ChangeState(PLAYER_STATE::Walk);
+		}
 		return;
 	}
 
 	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		if (true == RollCheck())
+		if (true == RollCollDownCheck())
 		{
 			return;
 		}
@@ -93,74 +110,82 @@ void Player::WalkUpdate(float _Delta)
 		return;
 	}
 
-	// Walk Controll
-	float4 MovePos = float4::ZERO;
-	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
+	// Run Check
+	if (true == GameEngineInput::IsPress(VK_SHIFT))
 	{
-		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
+		ChangeState(PLAYER_STATE::Run);
 	}
-	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
+
+	// Roll Check
+	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
+		if (true == RollCollDownCheck())
+		{
+			return;
+		}
 	}
-	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
+
+	// Move Check
+	if(true == MoveCheck())
 	{
-		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
+		float4 MovePos = float4::ZERO;
 		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
-	}
-	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
-	{
-		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
-	}
-	else if (true == GameEngineInput::IsPress('W'))
-	{
-		ChangeDirCheck(PLAYER_DIRECTION::Up);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
-	}
-	else if (true == GameEngineInput::IsPress('A'))
-	{
-		ChangeDirCheck(PLAYER_DIRECTION::Left);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
-	}
-	else if (true == GameEngineInput::IsPress('S'))
-	{
-		ChangeDirCheck(PLAYER_DIRECTION::Down);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
-	}
-	else if (true == GameEngineInput::IsPress('D'))
-	{
-		ChangeDirCheck(PLAYER_DIRECTION::Right);
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
+		Transform.AddLocalPosition(MovePos);
+		SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 	}
 	else
 	{
 		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
+}
+
+void Player::RunUpdate(float _Delta)
+{
+	// Death Check
+	if (true == GameEngineInput::IsPress('K'))
+	{
+		ChangeState(PLAYER_STATE::Death);
+		return;
+	}
 
 	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		if (true == RollCheck())
+		if (true == RollCollDownCheck())
 		{
 			return;
 		}
 	}
 
-	// Run Check
-	if (true == GameEngineInput::IsPress(VK_SHIFT))
+	// Keep Run Check
+	static float Timer = 0.0f;
+	if (false == GameEngineInput::IsPress(VK_SHIFT))
 	{
-		MovePos *= RunForce;
+		if (0.1f <= Timer)
+		{
+			Timer = 0.0f;
+			ChangeState(PLAYER_STATE::Walk);
+		}
+		else
+		{
+
+		}
+		return;
+	}
+
+	// Move Check
+	if (true == MoveCheck())
+	{
+		float4 MovePos = float4::ZERO;
+		MovePos = PlayerDirDeg * DefaultSpeed * RunForce * _Delta;
 		Transform.AddLocalPosition(MovePos);
 		SetAnimByDir("Run", BodyRenderer->GetCurIndex());
 	}
 	else
 	{
-		Transform.AddLocalPosition(MovePos);
-		SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
+		ChangeState(PLAYER_STATE::Stop);
+		return;
 	}
 }
 
@@ -183,14 +208,17 @@ void Player::StopUpdate(float _Delta)
 		{
 			ChangeState(PLAYER_STATE::Run);
 		}
-		ChangeState(PLAYER_STATE::Walk);
+		else
+		{
+			ChangeState(PLAYER_STATE::Walk);
+		}
 		return;
 	}
 	
 	// Roll Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		if (true == RollCheck())
+		if (true == RollCollDownCheck())
 		{
 			return;
 		}

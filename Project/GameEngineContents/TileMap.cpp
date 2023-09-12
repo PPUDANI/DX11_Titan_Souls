@@ -27,9 +27,9 @@ void TileMap::SetTileTexture(RENDERING_ORDER _Order)
 		MsgBoxAssert("타일맵의 텍스처를 지정해주지 않았습니다.");
 	}
 	
-	for (int y = 0; y < IndexY; y++)
+	for (unsigned int y = 0; y < IndexY; y++)
 	{
-		for (int x = 0; x < IndexX; x++)
+		for (unsigned int x = 0; x < IndexX; x++)
 		{
 			int CurIndex = (IndexX * y) + x;
 			if (0 >= TextureIndex[CurIndex])

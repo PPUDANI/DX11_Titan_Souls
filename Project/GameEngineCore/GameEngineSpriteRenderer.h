@@ -87,9 +87,25 @@ public:
 		AutoScaleRatio.X = _Ratio;
 		AutoScaleRatio.Y = _Ratio;
 	}
+
 	inline void SetAutoScaleRatio(float4 _Ratio)
 	{
 		AutoScaleRatio = _Ratio;
+	}
+
+	bool IsRight()
+	{
+		return 0 < AutoScaleRatio.X;
+	}
+
+	void RightFlip()
+	{
+		AutoScaleRatio.X = abs(AutoScaleRatio.X);
+	}
+
+	void LeftFlip()
+	{
+		AutoScaleRatio.X = -abs(AutoScaleRatio.X);
 	}
 
 	void Flip()

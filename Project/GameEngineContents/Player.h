@@ -65,7 +65,7 @@ private:
 	// State Start Functions
 	void IdleStart();
 	void WalkStart();
-	/*void RunStart();*/
+	void RunStart();
 	void StopStart();
 	void RollStart();
 	void AimStart();
@@ -76,7 +76,7 @@ private:
 	// State Update Functions
 	void IdleUpdate(float _Delta);
 	void WalkUpdate(float _Delta);
-	/*void RunUpdate(float _Delta);*/
+	void RunUpdate(float _Delta);
 	void StopUpdate(float _Delta);
 	void RollUpdate(float _Delta);
 	void AimUpdate(float _Delta);
@@ -104,7 +104,7 @@ private:
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
-
+	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 private:
 	// Physics Variables
 	const float4 PlayerSize = { 32.0f , 32.0f };
@@ -159,12 +159,14 @@ private:
 	}
 
 private:
+	bool MoveCheck();
+
 	// Roll CoolDown Variables
 	bool IsRollOnCooldown = false;
 	float RollCoolDown = 0.5f;
 	float RollCoolDownTimer = 0.0f;
 
-	inline bool RollCheck()
+	inline bool RollCollDownCheck()
 	{
 		if (false == IsRollOnCooldown)
 		{

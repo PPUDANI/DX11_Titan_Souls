@@ -19,36 +19,51 @@ void GameEngineCollision::Start()
 
 bool GameEngineCollision::Collision(int _Order)
 {
+	if (false == GetLevel()->Collisions.contains(_Order))
+	{
+		return false;
+	}
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>());
 }
 
 bool GameEngineCollision::Collision(int _Order, const float4& _NextPos)
 {
+	if (false == GetLevel()->Collisions.contains(_Order))
+	{
+		return false;
+	}
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>(), _NextPos);
 }
 
 bool GameEngineCollision::Collision(int _Order, std::function<void(std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)> _Collision)
 {
+	if (false == GetLevel()->Collisions.contains(_Order))
+	{
+		return false;
+	}
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>(), _Collision);
 }
 
 bool GameEngineCollision::Collision(int _Order, const float4& _Next, std::function<void(std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)> _Collision)
 {
+	if (false == GetLevel()->Collisions.contains(_Order))
+	{
+		return false;
+	}
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>(), _Next, _Collision);
 }
 
 bool GameEngineCollision::CollisionEvent(int _Order, const EventParameter& _Event)
 {
-	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
-
-	if (nullptr == OtherGroup)
+	if (false == GetLevel()->Collisions.contains(_Order))
 	{
 		return false;
 	}
+	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 
 	std::set<std::shared_ptr<GameEngineCollision>>::iterator Start = Others.begin();
 	std::set<std::shared_ptr<GameEngineCollision>>::iterator End = Others.end();

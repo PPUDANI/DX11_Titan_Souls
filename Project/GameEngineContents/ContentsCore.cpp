@@ -40,6 +40,12 @@ void ContentsCore::Update(float _Delta)
 		GameEngineCore::ChangeLevel("StartingRuins");
 	}
 	
+	// 임시 레벨 변경
+	if (true == GameEngineInput::IsDown(VK_F1))
+	{
+		GameEngineCore::ChangeLevel("SludgeHeartRoom");
+	}
+
 }
 
 void ContentsCore::Release()
