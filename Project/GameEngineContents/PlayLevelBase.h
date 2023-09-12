@@ -1,5 +1,12 @@
 #pragma once
 
+enum class VIEW_MODE
+{
+	Main,
+	Collision,
+	Material,
+};
+
 class PlayLevelBase: public GameEngineLevel
 {
 public:
@@ -19,8 +26,6 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _PrevLevel) override;
 
-	void CreatePlayer();
-
 	std::shared_ptr<class Player> PlayerActor = nullptr;
 	std::shared_ptr<class TestMap> Map = nullptr; // юс╫ц ╦й
 
@@ -31,6 +36,12 @@ protected:
 	std::shared_ptr<class TileMap> COLMap = nullptr;
 	std::shared_ptr<class TileMap> MATMap = nullptr;
 
-private:
+	VIEW_MODE CurViewMode = VIEW_MODE::Main;
 
+	void SetTileView(VIEW_MODE _Mode)
+	{
+		CurViewMode = _Mode;
+	}
+private:
+	
 };

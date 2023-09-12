@@ -19,7 +19,18 @@ void PlayLevelBase::Start()
 
 void PlayLevelBase::Update(float _Delta)
 {
-	
+	// 타일맵 완성되면 뷰 모드를 세팅해야함
+	switch (CurViewMode)
+	{
+	case VIEW_MODE::Main:
+		break;
+	case VIEW_MODE::Collision:
+		break;
+	case VIEW_MODE::Material:
+		break;
+	default:
+		break;
+	}
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
