@@ -249,7 +249,7 @@ void Player::RollUpdate(float _Delta)
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		IsRollOnCooldown = true;
-		ChangeState(PLAYER_STATE::Idle);
+		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
 	else
