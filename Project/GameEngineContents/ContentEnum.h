@@ -9,6 +9,7 @@ enum class UPDATE_ORDER
 enum class RENDERING_ORDER
 {
 	BGMap,
+	BGAMap,
 	Player,
 	FGMap,
 };

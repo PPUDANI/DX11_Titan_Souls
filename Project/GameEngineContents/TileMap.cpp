@@ -32,7 +32,7 @@ void TileMap::SetTileTexture(RENDERING_ORDER _Order)
 		for (int x = 0; x < IndexX; x++)
 		{
 			int CurIndex = (IndexX * y) + x;
-			if (0 == TextureIndex[CurIndex])
+			if (0 >= TextureIndex[CurIndex])
 			{
 				continue;
 			}
@@ -42,8 +42,6 @@ void TileMap::SetTileTexture(RENDERING_ORDER _Order)
 			Tiles[CurIndex]->SetImageScale({ 32.0f, 32.0f });
 			Tiles[CurIndex]->Transform.SetLocalPosition({x * 32.0f , y * -32.0f });
 		}
-		
-		// 자리 세팅 해줘야함
 	}
 }
 

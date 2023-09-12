@@ -15,7 +15,7 @@ public:
 
 	void TileMapInit(int _IndexX, int _IndexY, std::string_view _TextureName);
 
-	void SetTileData(std::string_view _FilePath)
+	void SetTileData(std::string_view _FilePath, int _StartIndex)
 	{
 		FilePath.MoveParentToExistsChild("Resource");
 		FilePath.MoveChild(_FilePath);
@@ -29,7 +29,7 @@ public:
 			fread(&TextureIndex[i], sizeof(unsigned int), 1, File);
 			if (0 != TextureIndex[i])
 			{
-				TextureIndex[i] -= 1;
+				TextureIndex[i] -= _StartIndex;
 			}
 		}
 		fclose(File);
