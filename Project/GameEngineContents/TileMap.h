@@ -1,5 +1,14 @@
 #pragma once
 
+enum class TILE_INFO
+{
+	BG,
+    BGA,
+    FG,
+    COL,
+    MAT,
+};
+
 class TileMap : public GameEngineActor
 {
 public:
@@ -13,41 +22,29 @@ public:
 	TileMap& operator=(const TileMap& _Other) = delete;
 	TileMap& operator=(TileMap&& _Other) noexcept = delete;
 
-	void TileMapInit(int _IndexX, int _IndexY, std::string_view _TextureName);
-
-	void SetTileData(std::string_view _FilePath, int _StartIndex)
-	{
-		FilePath.MoveParentToExistsChild("Resource");
-		FilePath.MoveChild(_FilePath);
-
-		FILE* File = nullptr;
-		int Max = IndexX * IndexY;
-
-		fopen_s(&File, FilePath.GetStringPath().c_str(), "rb");
-		for (int i = 0; i < Max; i++)
-		{
-			fread(&TextureIndex[i], sizeof(unsigned int), 1, File);
-			if (0 != TextureIndex[i])
-			{
-				TextureIndex[i] -= _StartIndex;
-			}
-		}
-		fclose(File);
-	}
-
-	void SetTileTexture(RENDERING_ORDER _Order);
-
+	void Init(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName);
+	
 protected:
 
 private:
+	// override
 	void Start() override;
 	void Update(float _Delta) override;
 
+private:
+	void MapDataSetting();
+	void TileTexureSetting();
+	GameEnginePath FolderPath;
+	std::string SpriteName = "";
 	unsigned int IndexX = 0;
 	unsigned int IndexY = 0;
 
-	std::vector<std::shared_ptr<GameEngineSpriteRenderer>> Tiles;
-	std::vector<unsigned int> TextureIndex;
-	GameEnginePath FilePath;
-	std::string TextureName = "";
+	std::shared_ptr<class GameEngineTileMap> BGTileMap = nullptr;
+	std::shared_ptr<class GameEngineTileMap> BGATileMap = nullptr;
+	std::shared_ptr<class GameEngineTileMap> FGTileMap = nullptr;
+	std::shared_ptr<class GameEngineTileMap> COLTileMap = nullptr;
+	std::shared_ptr<class GameEngineTileMap> MATTileMap = nullptr;
+
+	std::vector<std::vector<class TileInfo>> TileMapInfo;
+
 };

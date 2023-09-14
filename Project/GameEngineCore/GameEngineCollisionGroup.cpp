@@ -160,10 +160,10 @@ bool GameEngineCollisionGroup::CollisionEvent(std::shared_ptr<GameEngineCollisio
 		{
 			if (_Event.Exit)
 			{
-				_Event.Exit(Collsion.get());
-				// Other->Others.erase(_Collision.get());
-				_Collision->Others.erase(Collsion);
+				_Event.Exit(_Collision.get(), Collsion.get());
 			}
+
+			_Collision->Others.erase(Collsion);
 		}
 	}
 
@@ -178,16 +178,16 @@ bool GameEngineCollisionGroup::CollisionEvent(std::shared_ptr<GameEngineCollisio
 			{
 				if (_Event.Enter)
 				{
-					_Event.Enter(Other.get());
-					//Other->Others.insert(_Collision.get());
-					_Collision->Others.insert(Other);
+					_Event.Enter(_Collision.get(), Other.get());
 				}
+
+				_Collision->Others.insert(Other);
 			}
 			else 
 			{
 				if (_Event.Stay)
 				{
-					_Event.Stay(Other.get());
+					_Event.Stay(_Collision.get(), Other.get());
 				}
 			}
 		}

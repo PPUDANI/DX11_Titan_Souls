@@ -15,20 +15,21 @@ void SludgeHeartRoom::Start()
 {
 	PlayLevelBase::Start();
 
-	GlobalLoad::LoadSpriteCut(64, 64, "Underworld.png", "Resource\\Texture\\Map\\");
-	GlobalLoad::LoadSpriteCut(16, 16, "Spectiles.png", "Resource\\Texture\\Map\\");
+	MapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	MapActor->Init(60, 80, "SludgeHeart", "Underworld.png");
 
-	BGMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
-	BGMap->TileMapInit(60, 80, "Underworld.png");
-	BGMap->SetTileData("Resource\\TileMapData\\SludgeHeart\\BG.tmd", 1);
-	BGMap->Transform.SetLocalPosition({ -976.0f, 700.0f });
-	BGMap->SetTileTexture(RENDERING_ORDER::BGMap);
 
-	FGMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
-	FGMap->TileMapInit(60, 80, "Underworld.png");
-	FGMap->SetTileData("Resource\\TileMapData\\SludgeHeart\\FG.tmd", 1);
-	FGMap->Transform.SetLocalPosition({ -976.0f, 700.0f });
-	FGMap->SetTileTexture(RENDERING_ORDER::FGMap);
+	//BGMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	//BGMap->TileMapInit(60, 80, "Underworld.png");
+	//BGMap->SetTileData("Resource\\TileMapData\\SludgeHeart\\BG.tmd", 1);
+	//BGMap->Transform.SetLocalPosition({ -976.0f, 700.0f });
+	//BGMap->SetTileTexture(RENDERING_ORDER::BGMap);
+
+	//FGMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	//FGMap->TileMapInit(60, 80, "Underworld.png");
+	//FGMap->SetTileData("Resource\\TileMapData\\SludgeHeart\\FG.tmd", 1);
+	//FGMap->Transform.SetLocalPosition({ -976.0f, 700.0f });
+	//FGMap->SetTileTexture(RENDERING_ORDER::FGMap);
 
 	//COLMap = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	//COLMap->TileMapInit(60, 80, "Spectiles.png");

@@ -8,7 +8,6 @@
 #include <GameEngineCore/GameEngineObject.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineLevel.h>
-
 #include <GameEngineCore/GameEngineCollision.h>
 
 
@@ -28,3 +27,5 @@
 #include "GlobalValue.h"
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
+#include "TileMap.h"
+#include "TileInfo.h"

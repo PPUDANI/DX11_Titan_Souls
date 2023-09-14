@@ -14,7 +14,7 @@ public:
 	GlobalValue& operator=(GlobalValue&& _Other) noexcept = delete;
 
 	static const float4 WindowScale;
-	static const float4 StandardRatio;
+	static const float4 StandardTextureScale;
 protected:
 
 private:

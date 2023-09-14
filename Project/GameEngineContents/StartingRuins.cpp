@@ -33,4 +33,6 @@ void StartingRuins::LevelStart(GameEngineLevel* _PrevLevel)
 void StartingRuins::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+	
+	PlayerActor->SetParent(_NextLevel, static_cast<int>(UPDATE_ORDER::Player));
 }

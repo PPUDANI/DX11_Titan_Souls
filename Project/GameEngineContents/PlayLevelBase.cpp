@@ -15,6 +15,8 @@ void PlayLevelBase::Start()
 {
 	PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
 	PlayerActor->Transform.SetLocalPosition({0.0f, 0.0f});
+
+	Player::MainPlayer = PlayerActor;
 }
 
 void PlayLevelBase::Update(float _Delta)

@@ -214,6 +214,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SubTileMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <SubType>
       </SubType>
@@ -272,6 +276,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TileInfo.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SubTileMap.h">
       <SubType>
       </SubType>
     </ClInclude>

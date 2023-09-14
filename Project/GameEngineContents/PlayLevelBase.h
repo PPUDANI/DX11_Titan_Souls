@@ -30,12 +30,12 @@ protected:
 	std::shared_ptr<class TestMap> Map = nullptr; // юс╫ц ╦й
 
 	// TileMap
-	std::shared_ptr<class TileMap> BGMap = nullptr;
-	std::shared_ptr<class TileMap> BGAMap = nullptr;
-	std::shared_ptr<class TileMap> FGMap = nullptr;
-	std::shared_ptr<class TileMap> COLMap = nullptr;
-	std::shared_ptr<class TileMap> MATMap = nullptr;
-
+	//std::shared_ptr<class SubTileMap> BGMap = nullptr;
+	//std::shared_ptr<class SubTileMap> BGAMap = nullptr;
+	//std::shared_ptr<class SubTileMap> FGMap = nullptr;
+	//std::shared_ptr<class SubTileMap> COLMap = nullptr;
+	//std::shared_ptr<class SubTileMap> MATMap = nullptr;
+	std::shared_ptr<class TileMap> MapActor;
 	VIEW_MODE CurViewMode = VIEW_MODE::Main;
 
 	void SetTileView(VIEW_MODE _Mode)

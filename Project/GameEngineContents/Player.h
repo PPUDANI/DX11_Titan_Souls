@@ -107,7 +107,6 @@ private:
 	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 private:
 	// Physics Variables
-	const float4 PlayerSize = { 32.0f , 32.0f };
 	const float DefaultSpeed = 250.0f;
 	const float RunForce = 1.5f;
 	const float RollForce = 2.5f;

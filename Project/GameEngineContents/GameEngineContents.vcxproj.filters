@@ -44,11 +44,14 @@
     <ClCompile Include="PlayerAnimation.cpp">
       <Filter>Actor\PlayerEliment</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.cpp">
+    <ClCompile Include="SubTileMap.cpp">
       <Filter>Actor\Map</Filter>
     </ClCompile>
     <ClCompile Include="TileInfo.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Actor\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,11 +95,14 @@
     <ClInclude Include="TestMap.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
-    <ClInclude Include="TileMap.h">
+    <ClInclude Include="SubTileMap.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
     <ClInclude Include="TileInfo.h">
       <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Actor\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
