@@ -69,6 +69,13 @@ public:
 
 	void SetSamplerState(SamplerOption _Option);
 
+	void SetTileOverRender(SamplerOption _Option);
+
+	void ExpandRenderedTileMap(int _Size)
+	{
+		TileMapExpansionSize = _Size;
+	}
+
 protected:
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
 
@@ -80,5 +87,7 @@ private:
 	std::vector<std::vector<Tile>> Tiles;
 
 	std::shared_ptr<class GameEngineSampler> Sampler;
+
+	int TileMapExpansionSize = 0;
 };
 

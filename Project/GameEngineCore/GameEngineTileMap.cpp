@@ -79,10 +79,12 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 	ScreenLeftTop.X = CameraPos.X - WindowScale.hX();
 	ScreenLeftTop.Y = CameraPos.Y + WindowScale.hY();
 
-	int StartX = static_cast<size_t>(ScreenLeftTop.X / TileData.TileScale.X);
-	int StartY = static_cast<size_t>(-ScreenLeftTop.Y / TileData.TileScale.Y);
-	int EndX = StartX + (WindowScale.X / TileData.TileScale.X);
-	int EndY = StartY + (WindowScale.Y / TileData.TileScale.Y);
+	int StartX = static_cast<int>(ScreenLeftTop.X / TileData.TileScale.X);
+	int StartY = static_cast<int>(-ScreenLeftTop.Y / TileData.TileScale.Y);
+	int EndX = StartX + static_cast<int>(WindowScale.X / TileData.TileScale.X) + TileMapExpansionSize;
+	int EndY = StartY + static_cast<int>(WindowScale.Y / TileData.TileScale.Y) + TileMapExpansionSize;
+	StartX -= TileMapExpansionSize;
+	StartY -= TileMapExpansionSize;
 
 	if (0 > StartX)
 	{

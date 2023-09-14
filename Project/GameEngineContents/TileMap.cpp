@@ -143,7 +143,7 @@ void TileMap::TileTexureSetting()
 	BGTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGMap);
 	BGTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 	BGTileMap->SetSamplerState(SamplerOption::POINT);
-
+	BGTileMap->ExpandRenderedTileMap(3);
 	//BGATileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGAMap);
 	//BGATileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 	//BGATileMap->SetSamplerState(SamplerOption::POINT);
