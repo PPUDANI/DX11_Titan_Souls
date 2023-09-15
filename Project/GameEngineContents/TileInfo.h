@@ -4,9 +4,9 @@ class TileInfo
 {
 public:
 	static TileInfo DefaultInfo;
-	unsigned int BG_Index = 0;
-	unsigned int BGA_Index = 0;
-	unsigned int FG_Index = 0;
-	unsigned int COL_Index = 0;
-	unsigned int MAT_Index = 0;
+	int BG_Index = 0;
+	int BGA_Index = 0;
+	int FG_Index = 0;
+	int COL_Index = 0;
+	int MAT_Index = 0;
 };

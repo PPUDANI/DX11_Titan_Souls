@@ -1,13 +1,13 @@
 #pragma once
 
-enum class TILE_INFO
+enum class VIEW_MODE
 {
-	BG,
-    BGA,
-    FG,
-    COL,
-    MAT,
+	DEFAULT_MODE,
+	COLLISION_MODE,
+	MATERIAL_MODE1,
+	MATERIAL_MODE2
 };
+
 
 class TileMap : public GameEngineActor
 {
@@ -24,6 +24,10 @@ public:
 
 	void Init(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName);
 	
+	void SetViewMode(VIEW_MODE _Mode);
+
+
+
 protected:
 
 private:
@@ -36,6 +40,7 @@ private:
 	void TileTexureSetting();
 	GameEnginePath FolderPath;
 	std::string SpriteName = "";
+
 	unsigned int IndexX = 0;
 	unsigned int IndexY = 0;
 
@@ -47,4 +52,5 @@ private:
 
 	std::vector<std::vector<class TileInfo>> TileMapInfo;
 
+	VIEW_MODE CurMode = VIEW_MODE::DEFAULT_MODE;
 };

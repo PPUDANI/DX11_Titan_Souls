@@ -42,14 +42,14 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("RightUp_Run", "Player.png", 0.08f, 494, 499, true);
 
 	// Roll Animations
-	BodyRenderer->CreateAnimation("Right_Roll", "Player.png", 0.063f, 6, 11, false);
-	BodyRenderer->CreateAnimation("Up_Roll", "Player.png", 0.063f, 38, 43, false);
-	BodyRenderer->CreateAnimation("Left_Roll", "Player.png", 0.063f, 70, 75, false);
-	BodyRenderer->CreateAnimation("Down_Roll", "Player.png", 0.063f, 102, 107, false);
-	BodyRenderer->CreateAnimation("RightDown_Roll", "Player.png", 0.063f, 134, 139, false);
-	BodyRenderer->CreateAnimation("LeftDown_Roll", "Player.png", 0.063f, 166, 171, false);
-	BodyRenderer->CreateAnimation("LeftUp_Roll", "Player.png", 0.063f, 198, 203, false);
-	BodyRenderer->CreateAnimation("RightUp_Roll", "Player.png", 0.063f, 230, 235, false);
+	BodyRenderer->CreateAnimation("Right_Roll", "Player.png", 0.065f, 6, 11, false);
+	BodyRenderer->CreateAnimation("Up_Roll", "Player.png", 0.065f, 38, 43, false);
+	BodyRenderer->CreateAnimation("Left_Roll", "Player.png", 0.065f, 70, 75, false);
+	BodyRenderer->CreateAnimation("Down_Roll", "Player.png", 0.065f, 102, 107, false);
+	BodyRenderer->CreateAnimation("RightDown_Roll", "Player.png", 0.065f, 134, 139, false);
+	BodyRenderer->CreateAnimation("LeftDown_Roll", "Player.png", 0.065f, 166, 171, false);
+	BodyRenderer->CreateAnimation("LeftUp_Roll", "Player.png", 0.065f, 198, 203, false);
+	BodyRenderer->CreateAnimation("RightUp_Roll", "Player.png", 0.065f, 230, 235, false);
 
 	// Death Animations
 	BodyRenderer->CreateAnimation("Right_Death", "Player.png", 1.0f, 12, 12, false);

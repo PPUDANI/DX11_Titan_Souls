@@ -131,6 +131,11 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 	{
 		for (size_t x = StartX; x < EndX; x++)
 		{
+			if (0 > Tiles[y][x].Index)
+			{
+				continue;
+			}
+
 			// 이게 100 x 100번 만큼
 			//if (카메라에 나오지 않는다면)
 			//{
@@ -170,7 +175,7 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 			}
 
 			Tiles[y][x].Data.Texture->PSSetting(0);
-
+			
 			if (nullptr == Sampler)
 			{
 				MsgBoxAssert("존재하지 않는 샘플러를 사용하려고 했습니다.");

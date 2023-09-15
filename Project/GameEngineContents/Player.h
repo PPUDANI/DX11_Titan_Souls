@@ -107,9 +107,9 @@ private:
 	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 private:
 	// Physics Variables
-	const float DefaultSpeed = 250.0f;
+	const float DefaultSpeed = 150.0f;
 	const float RunForce = 1.5f;
-	const float RollForce = 2.5f;
+	const float RollForce = 2.9f;
 
 	// Deceleration Variables
 	float DecelerationRatio = 0.0f;

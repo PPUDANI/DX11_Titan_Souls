@@ -23,7 +23,6 @@ void ContentsCore::Start()
 {
 	GlobalLoad::LoadSpriteCut(64, 64, "Underworld.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(16, 16, "Spectiles.png", "Resource\\Texture\\Map\\");
-	GlobalLoad::LoadSpriteCut(1, 1, "util.png", "Resource\\Texture\\Map\\");
 
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<StartingRuins>("StartingRuins");

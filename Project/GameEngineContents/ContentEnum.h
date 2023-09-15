@@ -10,6 +10,8 @@ enum class RENDERING_ORDER
 {
 	BGMap,
 	BGAMap,
+	COLMap,
+	MATMap,
 	Player,
 	FGMap,
 };

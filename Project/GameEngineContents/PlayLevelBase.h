@@ -1,12 +1,5 @@
 #pragma once
 
-enum class VIEW_MODE
-{
-	Main,
-	Collision,
-	Material,
-};
-
 class PlayLevelBase: public GameEngineLevel
 {
 public:
@@ -30,18 +23,7 @@ protected:
 	std::shared_ptr<class TestMap> Map = nullptr; // юс╫ц ╦й
 
 	// TileMap
-	//std::shared_ptr<class SubTileMap> BGMap = nullptr;
-	//std::shared_ptr<class SubTileMap> BGAMap = nullptr;
-	//std::shared_ptr<class SubTileMap> FGMap = nullptr;
-	//std::shared_ptr<class SubTileMap> COLMap = nullptr;
-	//std::shared_ptr<class SubTileMap> MATMap = nullptr;
-	std::shared_ptr<class TileMap> MapActor;
-	VIEW_MODE CurViewMode = VIEW_MODE::Main;
-
-	void SetTileView(VIEW_MODE _Mode)
-	{
-		CurViewMode = _Mode;
-	}
+	std::shared_ptr<class TileMap> TileMapActor;
 private:
 	
 };

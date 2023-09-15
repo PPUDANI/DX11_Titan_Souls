@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
-#include "Player.h"
 
 PlayLevelBase::PlayLevelBase()
 {
@@ -21,17 +20,21 @@ void PlayLevelBase::Start()
 
 void PlayLevelBase::Update(float _Delta)
 {
-	// 타일맵 완성되면 뷰 모드를 세팅해야함
-	switch (CurViewMode)
+	if (true == GameEngineInput::IsDown('1'))
 	{
-	case VIEW_MODE::Main:
-		break;
-	case VIEW_MODE::Collision:
-		break;
-	case VIEW_MODE::Material:
-		break;
-	default:
-		break;
+		TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
+	}
+	if (true == GameEngineInput::IsDown('2'))
+	{
+		TileMapActor->SetViewMode(VIEW_MODE::COLLISION_MODE);
+	}
+	if (true == GameEngineInput::IsDown('3'))
+	{
+		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE1);
+	}
+	if (true == GameEngineInput::IsDown('4'))
+	{
+		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE2);
 	}
 }
 
