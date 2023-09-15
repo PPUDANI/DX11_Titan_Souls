@@ -5,11 +5,11 @@
 #include "GameEngineCamera.h"
 #include "GameEngineSampler.h"
 
-GameEngineTileMap::GameEngineTileMap() 
+GameEngineTileMap::GameEngineTileMap()
 {
 }
 
-GameEngineTileMap::~GameEngineTileMap() 
+GameEngineTileMap::~GameEngineTileMap()
 {
 }
 
@@ -58,7 +58,7 @@ void GameEngineTileMap::SetTileIndex(const SetTileParameterIndex& _Parameter)
 	{
 		CurTile.Data = DefaultSprite->GetSpriteData(_Parameter.Index);
 	}
-	else 
+	else
 	{
 		std::shared_ptr<GameEngineSprite> FindSprite = GameEngineSprite::Find(_Parameter.SpriteName);
 		CurTile.Data = FindSprite->GetSpriteData(_Parameter.Index);
@@ -98,14 +98,13 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 
 	if (TileData.TileCountX < StartX)
 	{
-		StartX = TileData.TileCountX;
+		StartX = static_cast<int>(TileData.TileCountX);
 	}
 
 	if (TileData.TileCountY < StartY)
 	{
-		StartY = TileData.TileCountY;
+		StartY = static_cast<int>(TileData.TileCountY);
 	}
-
 
 	if (0 > EndX)
 	{
@@ -119,12 +118,12 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 
 	if (TileData.TileCountX < EndX)
 	{
-		EndX = TileData.TileCountX;
+		EndX = static_cast<int>(TileData.TileCountX);
 	}
 
 	if (TileData.TileCountY < EndY)
 	{
-		EndY = TileData.TileCountY;
+		EndY = static_cast<int>(TileData.TileCountY);
 	}
 
 	TransformData Data;
@@ -137,7 +136,6 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 			//{
 			//	continue;
 			//}
-
 
 			std::shared_ptr<GameEngineConstantBuffer> TransBuffer = GameEngineConstantBuffer::CreateAndFind(sizeof(TransformData), "TransformData", ShaderType::Vertex);
 
@@ -162,7 +160,7 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 				TransBuffer->Setting(0);
 			}
 
-			SpriteData& TileSprite = Tiles[y][x].Data; 
+			SpriteData& TileSprite = Tiles[y][x].Data;
 
 			std::shared_ptr<GameEngineConstantBuffer> SpriteBuffer = GameEngineConstantBuffer::CreateAndFind(sizeof(float4), "SpriteData", ShaderType::Vertex);
 			if (nullptr != SpriteBuffer)
@@ -185,14 +183,14 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 }
 
 
-void GameEngineTileMap::SetSamplerState(SamplerOption _Option)
+void GameEngineTileMap::SetSamplerState(SAMPLER_OBJECT _Option)
 {
 	switch (_Option)
 	{
-	case SamplerOption::LINEAR:
+	case SAMPLER_OBJECT::LINEAR:
 		Sampler = GameEngineSampler::Find("LINEAR");
 		break;
-	case SamplerOption::POINT:
+	case SAMPLER_OBJECT::POINT:
 		Sampler = GameEngineSampler::Find("POINT");
 		break;
 	default:

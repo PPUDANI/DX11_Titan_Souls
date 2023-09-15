@@ -2,7 +2,7 @@
 #include "GameEngineRenderer.h"
 #include "GameEngineSpriteRenderer.h"
 
-class Tile 
+class Tile
 {
 public:
 	SpriteData Data;
@@ -14,7 +14,7 @@ class CreateTileParameter
 public:
 	size_t TileCountX = 10;
 	size_t TileCountY = 10;
-	float4 TileScale = {50, 50};
+	float4 TileScale = { 50, 50 };
 	std::string_view SpriteName = "";
 };
 
@@ -39,6 +39,12 @@ public:
 		: Pos(_Pos), Index(_Index), SpriteName(_SpriteName)
 	{
 	}
+};
+
+enum class SAMPLER_OBJECT
+{
+	POINT,
+	LINEAR
 };
 
 // Ό³Έν :
@@ -67,14 +73,13 @@ public:
 
 	void SetTilePos(const SetTileParameterPos& _Parameter);
 
-	void SetSamplerState(SamplerOption _Option);
-
-	void SetTileOverRender(SamplerOption _Option);
-
 	void ExpandRenderedTileMap(int _Size)
 	{
 		TileMapExpansionSize = _Size;
 	}
+
+	void SetSamplerState(SAMPLER_OBJECT _Option);
+	std::shared_ptr<class GameEngineSampler> Sampler;
 
 protected:
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
@@ -85,8 +90,6 @@ private:
 	std::shared_ptr<GameEngineSprite> DefaultSprite;
 
 	std::vector<std::vector<Tile>> Tiles;
-
-	std::shared_ptr<class GameEngineSampler> Sampler;
 
 	int TileMapExpansionSize = 0;
 };
