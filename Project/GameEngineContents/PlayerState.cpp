@@ -55,12 +55,12 @@ void Player::DeathStart()
 	SetAnimByDir("Death");
 }
 
-void Player::SpawnStart()
+void Player::StandUpStart()
 {
 	SetDirection(PLAYER_DIRECTION::Up);
-	BodyRenderer->ChangeAnimation("Spawn");
-	BowRenderer->ChangeAnimation("Spawn");
-	ArrowInBagRenderer->ChangeAnimation("Spawn");
+	BodyRenderer->ChangeAnimation("StandUp");
+	BowRenderer->ChangeAnimation("StandUp");
+	ArrowInBagRenderer->ChangeAnimation("StandUp");
 }
 
 
@@ -273,7 +273,7 @@ void Player::DeathUpdate(float _Delta)
 	if (true == GameEngineInput::IsDown('R'))
 	{
 		Transform.SetLocalPosition({0.0f, 0.0f});
-		ChangeState(PLAYER_STATE::Spawn);
+		ChangeState(PLAYER_STATE::StandUp);
 		return;
 	}
 
@@ -286,7 +286,7 @@ void Player::DeathUpdate(float _Delta)
 	}
 }
 
-void Player::SpawnUpadte(float _Delta)
+void Player::StandUpUpadte(float _Delta)
 {
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{

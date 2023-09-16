@@ -13,5 +13,6 @@ enum class RENDERING_ORDER
 	COLMap,
 	MATMap,
 	Player,
+	Arrow,
 	FGMap,
 };

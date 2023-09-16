@@ -10,6 +10,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include <GameEngineCore/GameEngineComponent.h>
 
 // 렌더러 실제 데이터
 #include <GameEngineCore/GameEngineRenderer.h> 

@@ -19,15 +19,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-    int IndexX = 101;
-    int IndexY = 219;
+    int IndexX = 59;
+    int IndexY = 60;
 
     int Max = IndexX * IndexY;
 
     std::vector<unsigned int> LoadData(Max);
     std::vector<unsigned int> SaveData =
     {
-    
+
     };
 
     // BG.tmd

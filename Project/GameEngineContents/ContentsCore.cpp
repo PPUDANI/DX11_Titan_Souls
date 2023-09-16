@@ -1,17 +1,17 @@
 #include "PreCompile.h"
 #include "ContentsCore.h"
 
+#include <GameEngineCore/GameEngineRenderTarget.h>
+
 // All Level
 #include "TitleLevel.h"
-#include "Jam.h"
 #include "Floor1.h"
 #include "SludgeHeartRoom.h"
-#include "GollathRoom.h"
 #include "YetiRoom.h"
 #include "KnightElhananRoom.h"
-#include "TitleLevel.h"
-#include "PlayLevelBase.h"
-#include <GameEngineCore/GameEngineRenderTarget.h>
+#include "Jam.h"
+
+
 ContentsCore::ContentsCore() 
 {
 }
@@ -36,7 +36,6 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<Jam>("Jam");
 	GameEngineCore::CreateLevel<Floor1>("Floor1");
 	GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
-	GameEngineCore::CreateLevel<GollathRoom>("GollathRoom");
 	GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
 	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
 	GameEngineCore::ChangeLevel("TitleLevel");
@@ -44,12 +43,6 @@ void ContentsCore::Start()
 
 void ContentsCore::Update(float _Delta)
 {
-	// 임시 레벨 변경
-	if (true == GameEngineInput::IsDown('P'))
-	{
-		GameEngineCore::ChangeLevel("StartingRuins");
-	}
-	
 	// 임시 레벨 변경
 	if (true == GameEngineInput::IsDown(VK_F1))
 	{
@@ -61,8 +54,17 @@ void ContentsCore::Update(float _Delta)
 	}
 	if (true == GameEngineInput::IsDown(VK_F3))
 	{
+		GameEngineCore::ChangeLevel("YetiRoom");
+	}
+	if (true == GameEngineInput::IsDown(VK_F4))
+	{
+		GameEngineCore::ChangeLevel("KnightElhananRoom");
+	}
+	if (true == GameEngineInput::IsDown(VK_F6))
+	{
 		GameEngineCore::ChangeLevel("Jam");
 	}
+
 }
 
 void ContentsCore::Release()

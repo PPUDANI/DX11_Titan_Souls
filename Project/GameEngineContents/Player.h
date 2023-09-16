@@ -10,7 +10,7 @@ enum class PLAYER_STATE
 	Aim,
 	Shot,
 	Death,
-	Spawn,
+	StandUp,
 };
 
 enum class PLAYER_DIRECTION
@@ -51,6 +51,9 @@ public:
 		return CurDir;
 	}
 
+	// FMS Functions
+	void ChangeState(PLAYER_STATE _State);
+
 protected:
 
 private:
@@ -59,8 +62,6 @@ private:
 	void Update(float _Delta) override;
 
 private:
-	// FMS Functions
-	void ChangeState(PLAYER_STATE _State);
 
 	// State Start Functions
 	void IdleStart();
@@ -71,7 +72,7 @@ private:
 	void AimStart();
 	void ShotStart();
 	void DeathStart();
-	void SpawnStart();
+	void StandUpStart();
 
 	// State Update Functions
 	void IdleUpdate(float _Delta);
@@ -82,14 +83,13 @@ private:
 	void AimUpdate(float _Delta);
 	void ShotUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
-	void SpawnUpadte(float _Delta);
+	void StandUpUpadte(float _Delta);
 
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> BowRenderer = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> ArrowInBagRenderer = nullptr;
-
 
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 
@@ -105,16 +105,19 @@ private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
 	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
+
 private:
 	// Physics Variables
 	const float DefaultSpeed = 160.0f;
 	const float RunForce = 1.5f;
 	const float RollForce = 2.5f;
 
-	// Deceleration Variables
+	// Move Functions
+	bool MoveCheck();
+
+	// Deceleration
 	float DecelerationRatio = 0.0f; // 1.0f보다 클 수 없음.
 
-	// Deceleration Functions
 	void Deceleration(float _Speed)
 	{
 		DecelerationRatio -= DecelerationRatio * _Speed;
@@ -131,6 +134,7 @@ private:
 	bool IsChangeDirOnCooldown = false;
 	float ChangeDirCoolTime = 0.05f;
 	float ChangeDirCoolDownTimer = 0.0f;
+
 	// Direction Functions
 	void SetDirection(PLAYER_DIRECTION _Dir);
 
@@ -157,7 +161,7 @@ private:
 	}
 
 private:
-	bool MoveCheck();
+	
 
 	// Roll CoolDown Variables
 	bool IsRollOnCooldown = false;

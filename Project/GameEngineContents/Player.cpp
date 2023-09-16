@@ -18,7 +18,7 @@ void Player::Start()
 	CreateBowAnimation();
 	CreateArrowInBagAnimation();
 
-	ChangeState(PLAYER_STATE::Spawn);
+	ChangeState(PLAYER_STATE::StandUp);
 }
 
 void Player::Update(float _Delta)
@@ -62,8 +62,8 @@ void Player::Update(float _Delta)
 	case PLAYER_STATE::Death:
 		DeathUpdate(_Delta);
 		break;
-	case PLAYER_STATE::Spawn:
-		SpawnUpadte(_Delta);
+	case PLAYER_STATE::StandUp:
+		StandUpUpadte(_Delta);
 		break;
 	default:
 		break;
@@ -104,8 +104,8 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Death:
 		DeathStart();
 		break;
-	case PLAYER_STATE::Spawn:
-		SpawnStart();
+	case PLAYER_STATE::StandUp:
+		StandUpStart();
 		break;
 	default:
 		break;

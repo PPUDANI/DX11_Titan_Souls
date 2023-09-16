@@ -1,6 +1,6 @@
 #pragma once
 
-class YetiRoom : public GameEngineLevel
+class YetiRoom : public PlayLevelBase
 {
 public:
 	// Constructor Destructor

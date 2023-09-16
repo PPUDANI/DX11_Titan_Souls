@@ -1,6 +1,6 @@
 #pragma once
 
-class KnightElhananRoom : public GameEngineLevel
+class KnightElhananRoom : public PlayLevelBase
 {
 public:
 	// Constructor Destructor

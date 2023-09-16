@@ -3,156 +3,147 @@
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="TitleLevel.cpp">
-      <Filter>Level\01. Title</Filter>
+      <Filter>01. Level\01. Title</Filter>
     </ClCompile>
     <ClCompile Include="Jam.cpp">
-      <Filter>Level\02. MainHub</Filter>
+      <Filter>01. Level\02. MainHub</Filter>
     </ClCompile>
     <ClCompile Include="SludgeHeartRoom.cpp">
-      <Filter>Level\03. BossRoom\01. Sludge Heart</Filter>
-    </ClCompile>
-    <ClCompile Include="GollathRoom.cpp">
-      <Filter>Level\03. BossRoom\02. Gol-lath</Filter>
+      <Filter>01. Level\03. Sludge Heart</Filter>
     </ClCompile>
     <ClCompile Include="YetiRoom.cpp">
-      <Filter>Level\03. BossRoom\03. Yeti</Filter>
+      <Filter>01. Level\04. Yeti</Filter>
     </ClCompile>
     <ClCompile Include="KnightElhananRoom.cpp">
-      <Filter>Level\03. BossRoom\04. Knight Elhanan</Filter>
+      <Filter>01. Level\05. Knight Elhanan</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
-      <Filter>PreCompile</Filter>
+      <Filter>00. Global\PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Actor\PlayerEliment</Filter>
+      <Filter>02. Actor\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="GlobalLoad.cpp">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevelBase.cpp">
-      <Filter>Level\00.Base</Filter>
+      <Filter>01. Level\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClCompile>
     <ClCompile Include="TestMap.cpp">
-      <Filter>Actor\Map</Filter>
+      <Filter>02. Actor\00. Map</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
-      <Filter>Actor\PlayerEliment</Filter>
+      <Filter>02. Actor\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAnimation.cpp">
-      <Filter>Actor\PlayerEliment</Filter>
+      <Filter>02. Actor\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="SubTileMap.cpp">
-      <Filter>Actor\Map</Filter>
+      <Filter>02. Actor\00. Map</Filter>
     </ClCompile>
     <ClCompile Include="TileInfo.cpp">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
-      <Filter>Actor\Map</Filter>
+      <Filter>02. Actor\00. Map</Filter>
     </ClCompile>
     <ClCompile Include="Floor1.cpp">
-      <Filter>Level\02. MainHub</Filter>
+      <Filter>01. Level\02. MainHub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentEnum.h">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
-      <Filter>Level\01. Title</Filter>
+      <Filter>01. Level\01. Title</Filter>
     </ClInclude>
     <ClInclude Include="Jam.h">
-      <Filter>Level\02. MainHub</Filter>
+      <Filter>01. Level\02. MainHub</Filter>
     </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
-      <Filter>Level\03. BossRoom\01. Sludge Heart</Filter>
-    </ClInclude>
-    <ClInclude Include="GollathRoom.h">
-      <Filter>Level\03. BossRoom\02. Gol-lath</Filter>
+      <Filter>01. Level\03. Sludge Heart</Filter>
     </ClInclude>
     <ClInclude Include="YetiRoom.h">
-      <Filter>Level\03. BossRoom\03. Yeti</Filter>
+      <Filter>01. Level\04. Yeti</Filter>
     </ClInclude>
     <ClInclude Include="KnightElhananRoom.h">
-      <Filter>Level\03. BossRoom\04. Knight Elhanan</Filter>
+      <Filter>01. Level\05. Knight Elhanan</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
-      <Filter>PreCompile</Filter>
+      <Filter>00. Global\PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Actor\PlayerEliment</Filter>
+      <Filter>02. Actor\01. Player</Filter>
     </ClInclude>
     <ClInclude Include="GlobalLoad.h">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="PlayLevelBase.h">
-      <Filter>Level\00.Base</Filter>
+      <Filter>01. Level\00. Base</Filter>
     </ClInclude>
     <ClInclude Include="GlobalValue.h">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="TestMap.h">
-      <Filter>Actor\Map</Filter>
+      <Filter>02. Actor\00. Map</Filter>
     </ClInclude>
     <ClInclude Include="SubTileMap.h">
-      <Filter>Actor\Map</Filter>
+      <Filter>02. Actor\00. Map</Filter>
     </ClInclude>
     <ClInclude Include="TileInfo.h">
-      <Filter>Global</Filter>
+      <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
-      <Filter>Actor\Map</Filter>
+      <Filter>02. Actor\00. Map</Filter>
     </ClInclude>
     <ClInclude Include="Floor1.h">
-      <Filter>Level\02. MainHub</Filter>
+      <Filter>01. Level\02. MainHub</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Level">
-      <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PreCompile">
-      <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Global">
+    <Filter Include="00. Global">
       <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\00.Base">
+    <Filter Include="01. Level">
+      <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Level\00. Base">
       <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map">
-      <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\PlayerEliment">
-      <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\01. Title">
+    <Filter Include="01. Level\01. Title">
       <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\02. MainHub">
+    <Filter Include="01. Level\02. MainHub">
       <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. BossRoom">
-      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\03. BossRoom\01. Sludge Heart">
+    <Filter Include="01. Level\03. Sludge Heart">
       <UniqueIdentifier>{f1631e0c-c2f3-41f3-9183-8a402dcb4b87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. BossRoom\02. Gol-lath">
-      <UniqueIdentifier>{97437905-0bd0-4b7b-8fa1-66de4f4514bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\03. BossRoom\03. Yeti">
+    <Filter Include="01. Level\04. Yeti">
       <UniqueIdentifier>{d1102da3-5895-4134-8c92-fe720bc213db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. BossRoom\04. Knight Elhanan">
+    <Filter Include="01. Level\05. Knight Elhanan">
       <UniqueIdentifier>{df21c2a4-4760-4894-88b6-7c3484920700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Actor">
+      <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Actor\00. Map">
+      <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Actor\02. Boss">
+      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\PreCompile">
+      <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Actor\01. Player">
+      <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

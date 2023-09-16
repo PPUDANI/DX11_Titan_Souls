@@ -17,10 +17,10 @@ void PlayLevelBase::Start()
 
 void PlayLevelBase::Update(float _Delta)
 {
-	std::string FPS;
-	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
-	FPS += "\n";
-	OutputDebugStringA(FPS.c_str());
+	//std::string FPS;
+	//FPS = std::to_string(static_cast<int>(1.0f / _Delta));
+	//FPS += "\n";
+	//OutputDebugStringA(FPS.c_str());
 
 	if (true == GameEngineInput::IsDown('1'))
 	{
@@ -42,7 +42,7 @@ void PlayLevelBase::Update(float _Delta)
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	CreatePlayer();
+	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 }
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
