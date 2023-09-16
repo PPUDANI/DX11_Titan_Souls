@@ -107,18 +107,18 @@ private:
 	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 private:
 	// Physics Variables
-	const float DefaultSpeed = 150.0f;
+	const float DefaultSpeed = 160.0f;
 	const float RunForce = 1.5f;
-	const float RollForce = 2.9f;
+	const float RollForce = 2.5f;
 
 	// Deceleration Variables
-	float DecelerationRatio = 0.0f;
+	float DecelerationRatio = 0.0f; // 1.0f보다 클 수 없음.
 
 	// Deceleration Functions
 	void Deceleration(float _Speed)
 	{
 		DecelerationRatio -= DecelerationRatio * _Speed;
-		if (0.04f > DecelerationRatio)
+		if (0.05f > DecelerationRatio)
 		{
 			DecelerationRatio = 0.0f;
 		}
@@ -131,7 +131,6 @@ private:
 	bool IsChangeDirOnCooldown = false;
 	float ChangeDirCoolTime = 0.05f;
 	float ChangeDirCoolDownTimer = 0.0f;
-
 	// Direction Functions
 	void SetDirection(PLAYER_DIRECTION _Dir);
 
@@ -190,4 +189,8 @@ private:
 			RollCoolDownTimer += _Delta;
 		}
 	}
+private:
+	float KeepRunCoolTime = 0.1f;
+	float KeepRunCoolDownTimer = 0.0f;
+
 };

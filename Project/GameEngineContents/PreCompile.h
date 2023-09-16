@@ -27,6 +27,7 @@
 #include "GlobalValue.h"
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
+#include "PlayLevelBase.h"
 #include "Player.h"
 #include "TileMap.h"
 #include "TileInfo.h"

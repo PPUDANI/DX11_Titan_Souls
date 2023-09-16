@@ -10,6 +10,7 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	BodyRenderer->SetSprite("Player.png");
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
+	BodyRenderer->SetSamplerState(SamplerOption::POINT);
 
 	// Idle Animations
 	BodyRenderer->CreateAnimation("Right_Idle", "Player.png", 1.0f, 0, 0, false);
@@ -73,6 +74,7 @@ void Player::CreateBowAnimation()
 	BowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	BowRenderer->SetSprite("Bow.png");
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
+	BowRenderer->SetSamplerState(SamplerOption::POINT);
 
 	// Idle Animations
 	BowRenderer->CreateAnimation("Right_Idle", "Bow.png", 1.0f, 0, 0, false);
@@ -136,6 +138,7 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
 	ArrowInBagRenderer->SetSprite("arrow.png");
 	ArrowInBagRenderer->SetImageScale(GlobalValue::StandardTextureScale);
+	ArrowInBagRenderer->SetSamplerState(SamplerOption::POINT);
 
 	// Idle Animations
 	ArrowInBagRenderer->CreateAnimation("Right_Idle", "Arrow.png", 1.0f, 0, 0, false);

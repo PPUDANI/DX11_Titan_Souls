@@ -12,14 +12,16 @@ PlayLevelBase::~PlayLevelBase()
 
 void PlayLevelBase::Start()
 {
-	PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
-	PlayerActor->Transform.SetLocalPosition({0.0f, 0.0f});
-
-	Player::MainPlayer = PlayerActor;
+	CreatePlayer();
 }
 
 void PlayLevelBase::Update(float _Delta)
 {
+	std::string FPS;
+	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
+	FPS += "\n";
+	OutputDebugStringA(FPS.c_str());
+
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
@@ -40,10 +42,28 @@ void PlayLevelBase::Update(float _Delta)
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
-
+	CreatePlayer();
 }
 
-void PlayLevelBase::LevelEnd(GameEngineLevel* _PrevLevel)
+void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	
+}
 
+void PlayLevelBase::CreatePlayer()
+{
+	// PlayerActor Setting
+	if (nullptr == PlayerActor)
+	{
+		PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
+		//if (nullptr == Player::MainPlayer)
+		//{
+		//	PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
+		//	Player::MainPlayer = PlayerActor;
+		//}
+		//else
+		//{
+		//	PlayerActor = Player::MainPlayer;
+		//}
+	}
 }

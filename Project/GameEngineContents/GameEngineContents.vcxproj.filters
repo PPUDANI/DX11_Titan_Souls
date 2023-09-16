@@ -5,20 +5,20 @@
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Level\01. Title</Filter>
     </ClCompile>
-    <ClCompile Include="StartingRuins.cpp">
-      <Filter>Level\01. MainHub</Filter>
+    <ClCompile Include="Jam.cpp">
+      <Filter>Level\02. MainHub</Filter>
     </ClCompile>
     <ClCompile Include="SludgeHeartRoom.cpp">
-      <Filter>Level\02. BossRoom\01. Sludge Heart</Filter>
+      <Filter>Level\03. BossRoom\01. Sludge Heart</Filter>
     </ClCompile>
     <ClCompile Include="GollathRoom.cpp">
-      <Filter>Level\02. BossRoom\02. Gol-lath</Filter>
+      <Filter>Level\03. BossRoom\02. Gol-lath</Filter>
     </ClCompile>
     <ClCompile Include="YetiRoom.cpp">
-      <Filter>Level\02. BossRoom\03. Yeti</Filter>
+      <Filter>Level\03. BossRoom\03. Yeti</Filter>
     </ClCompile>
     <ClCompile Include="KnightElhananRoom.cpp">
-      <Filter>Level\02. BossRoom\04. Knight Elhanan</Filter>
+      <Filter>Level\03. BossRoom\04. Knight Elhanan</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
@@ -53,6 +53,9 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Actor\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Floor1.cpp">
+      <Filter>Level\02. MainHub</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -62,20 +65,20 @@
     <ClInclude Include="TitleLevel.h">
       <Filter>Level\01. Title</Filter>
     </ClInclude>
-    <ClInclude Include="StartingRuins.h">
-      <Filter>Level\01. MainHub</Filter>
+    <ClInclude Include="Jam.h">
+      <Filter>Level\02. MainHub</Filter>
     </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
-      <Filter>Level\02. BossRoom\01. Sludge Heart</Filter>
+      <Filter>Level\03. BossRoom\01. Sludge Heart</Filter>
     </ClInclude>
     <ClInclude Include="GollathRoom.h">
-      <Filter>Level\02. BossRoom\02. Gol-lath</Filter>
+      <Filter>Level\03. BossRoom\02. Gol-lath</Filter>
     </ClInclude>
     <ClInclude Include="YetiRoom.h">
-      <Filter>Level\02. BossRoom\03. Yeti</Filter>
+      <Filter>Level\03. BossRoom\03. Yeti</Filter>
     </ClInclude>
     <ClInclude Include="KnightElhananRoom.h">
-      <Filter>Level\02. BossRoom\04. Knight Elhanan</Filter>
+      <Filter>Level\03. BossRoom\04. Knight Elhanan</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
@@ -104,31 +107,13 @@
     <ClInclude Include="TileMap.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Floor1.h">
+      <Filter>Level\02. MainHub</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
       <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\01. Title">
-      <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\01. MainHub">
-      <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\02. BossRoom">
-      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\02. BossRoom\01. Sludge Heart">
-      <UniqueIdentifier>{f1631e0c-c2f3-41f3-9183-8a402dcb4b87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\02. BossRoom\02. Gol-lath">
-      <UniqueIdentifier>{97437905-0bd0-4b7b-8fa1-66de4f4514bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\02. BossRoom\03. Yeti">
-      <UniqueIdentifier>{d1102da3-5895-4134-8c92-fe720bc213db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\02. BossRoom\04. Knight Elhanan">
-      <UniqueIdentifier>{df21c2a4-4760-4894-88b6-7c3484920700}</UniqueIdentifier>
     </Filter>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
@@ -147,6 +132,27 @@
     </Filter>
     <Filter Include="Actor\PlayerEliment">
       <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\01. Title">
+      <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\02. MainHub">
+      <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossRoom">
+      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossRoom\01. Sludge Heart">
+      <UniqueIdentifier>{f1631e0c-c2f3-41f3-9183-8a402dcb4b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossRoom\02. Gol-lath">
+      <UniqueIdentifier>{97437905-0bd0-4b7b-8fa1-66de4f4514bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossRoom\03. Yeti">
+      <UniqueIdentifier>{d1102da3-5895-4134-8c92-fe720bc213db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossRoom\04. Knight Elhanan">
+      <UniqueIdentifier>{df21c2a4-4760-4894-88b6-7c3484920700}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

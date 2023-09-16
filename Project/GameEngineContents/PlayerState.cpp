@@ -16,7 +16,7 @@ void Player::WalkStart()
 
 void Player::RunStart()
 {
-
+	KeepRunCoolDownTimer = 0.0f;
 }
 
 void Player::StopStart()
@@ -159,17 +159,16 @@ void Player::RunUpdate(float _Delta)
 	}
 
 	// Keep Run Check
-	static float Timer = 0.0f;
 	if (false == GameEngineInput::IsPress(VK_SHIFT))
 	{
-		if (0.1f <= Timer)
+		if (KeepRunCoolTime <= KeepRunCoolDownTimer)
 		{
-			Timer = 0.0f;
+			KeepRunCoolDownTimer = 0.0f;
 			ChangeState(PLAYER_STATE::Walk);
 			return;
 		}
 
-		Timer += _Delta;
+		KeepRunCoolDownTimer += _Delta;
 	}
 
 	// Move Check

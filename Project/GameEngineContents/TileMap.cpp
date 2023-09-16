@@ -32,6 +32,7 @@ void TileMap::Init(int _IndexX, int _IndexY, std::string_view _FolderName, std::
 	
 	MapDataSetting();
 	TileTexureSetting();
+	SetViewMode(VIEW_MODE::DEFAULT_MODE);
 }
 
 void TileMap::SetViewMode(VIEW_MODE _Mode)
