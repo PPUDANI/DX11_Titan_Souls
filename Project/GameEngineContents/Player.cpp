@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
-
+#include "Arrow.h"
 std::shared_ptr<Player> Player::MainPlayer = nullptr;
 
 Player::Player()
@@ -19,6 +19,7 @@ void Player::Start()
 	CreateArrowInBagAnimation();
 
 	ChangeState(PLAYER_STATE::StandUp);
+
 }
 
 void Player::Update(float _Delta)
@@ -52,6 +53,9 @@ void Player::Update(float _Delta)
 		break;
 	case PLAYER_STATE::Roll:
 		RollUpdate(_Delta);
+		break;
+	case PLAYER_STATE::Blocked:
+		BlockedUpdate(_Delta);
 		break;
 	case PLAYER_STATE::Aim:
 		AimUpdate(_Delta);
@@ -94,6 +98,9 @@ void Player::ChangeState(PLAYER_STATE _State)
 		break;
 	case PLAYER_STATE::Roll:
 		RollStart();
+		break;
+	case PLAYER_STATE::Blocked:
+		BlockedStart();
 		break;
 	case PLAYER_STATE::Aim:
 		AimStart();

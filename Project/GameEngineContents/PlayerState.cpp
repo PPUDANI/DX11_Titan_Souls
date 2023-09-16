@@ -39,6 +39,11 @@ void Player::RollStart()
 	SetAnimByDir("Roll");
 }
 
+void Player::BlockedStart()
+{
+	SetAnimByDir("Blocked");
+}
+
 void Player::AimStart()
 {
 	SetAnimByDir("Aim");
@@ -256,6 +261,11 @@ void Player::RollUpdate(float _Delta)
 		MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
 		Transform.AddLocalPosition(MovePos);
 	}
+}
+
+void Player::BlockedUpdate(float _Delta)
+{
+
 }
 
 void Player::AimUpdate(float _Delta)

@@ -7,6 +7,7 @@ enum class PLAYER_STATE
 	Run,
 	Stop,
 	Roll,
+	Blocked,
 	Aim,
 	Shot,
 	Death,
@@ -69,6 +70,7 @@ private:
 	void RunStart();
 	void StopStart();
 	void RollStart();
+	void BlockedStart();
 	void AimStart();
 	void ShotStart();
 	void DeathStart();
@@ -80,6 +82,7 @@ private:
 	void RunUpdate(float _Delta);
 	void StopUpdate(float _Delta);
 	void RollUpdate(float _Delta);
+	void BlockedUpdate(float _Delta);
 	void AimUpdate(float _Delta);
 	void ShotUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
@@ -100,7 +103,10 @@ private:
 
 	// Change Amimation By Direction Functions
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
-	
+
+private:
+	// Tile Check Pos
+
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;

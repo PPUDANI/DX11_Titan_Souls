@@ -1,9 +1,6 @@
 #include "PreCompile.h"
 #include "Jam.h"
 
-#include "Player.h"
-#include "TestMap.h"
-
 Jam::Jam()
 {
 }

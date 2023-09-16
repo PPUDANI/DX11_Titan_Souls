@@ -1,9 +1,6 @@
 #include "PreCompile.h"
 #include "Floor1.h"
 
-#include "Player.h"
-#include "TestMap.h"
-
 Floor1::Floor1()
 {
 }
@@ -16,8 +13,6 @@ void Floor1::Start()
 {
 	PlayLevelBase::Start();
 
-	//Map = CreateActor<TestMap>(UPDATE_ORDER::Map);
-	//Map->Transform.SetLocalPosition({ 0.0f, 0.0f });
 	TileMapActor = CreateActor<TileMap>();
 	TileMapActor->Init(101, 219, "Floor1", "Overworld.png");
 }

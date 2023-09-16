@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "SludgeHeartRoom.h"
 
-#include "TileMap.h"
-
 SludgeHeartRoom::SludgeHeartRoom()
 {
 }

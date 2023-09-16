@@ -20,9 +20,6 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>00. Global\PreCompile</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>02. Actor\01. Player</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalLoad.cpp">
       <Filter>00. Global</Filter>
     </ClCompile>
@@ -32,18 +29,6 @@
     <ClCompile Include="GlobalValue.cpp">
       <Filter>00. Global</Filter>
     </ClCompile>
-    <ClCompile Include="TestMap.cpp">
-      <Filter>02. Actor\00. Map</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>02. Actor\01. Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAnimation.cpp">
-      <Filter>02. Actor\01. Player</Filter>
-    </ClCompile>
-    <ClCompile Include="SubTileMap.cpp">
-      <Filter>02. Actor\00. Map</Filter>
-    </ClCompile>
     <ClCompile Include="TileInfo.cpp">
       <Filter>00. Global</Filter>
     </ClCompile>
@@ -52,6 +37,21 @@
     </ClCompile>
     <ClCompile Include="Floor1.cpp">
       <Filter>01. Level\02. MainHub</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>02. Actor\01. Player Element\01. Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAnimation.cpp">
+      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowState.cpp">
+      <Filter>02. Actor\01. Player Element\01. Arrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +77,6 @@
     <ClInclude Include="PreCompile.h">
       <Filter>00. Global\PreCompile</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>02. Actor\01. Player</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalLoad.h">
       <Filter>00. Global</Filter>
     </ClInclude>
@@ -89,12 +86,6 @@
     <ClInclude Include="GlobalValue.h">
       <Filter>00. Global</Filter>
     </ClInclude>
-    <ClInclude Include="TestMap.h">
-      <Filter>02. Actor\00. Map</Filter>
-    </ClInclude>
-    <ClInclude Include="SubTileMap.h">
-      <Filter>02. Actor\00. Map</Filter>
-    </ClInclude>
     <ClInclude Include="TileInfo.h">
       <Filter>00. Global</Filter>
     </ClInclude>
@@ -103,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="Floor1.h">
       <Filter>01. Level\02. MainHub</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>02. Actor\01. Player Element\01. Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>02. Actor\01. Player Element\00. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,8 +139,14 @@
     <Filter Include="00. Global\PreCompile">
       <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Actor\01. Player">
+    <Filter Include="02. Actor\01. Player Element">
       <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Actor\01. Player Element\01. Arrow">
+      <UniqueIdentifier>{ff6998c0-0991-4c3d-b80c-4fc7c272d402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Actor\01. Player Element\00. Player">
+      <UniqueIdentifier>{cddb65d5-7fc7-4492-8665-a948bdce356c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -163,6 +163,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arrow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ArrowState.cpp" />
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
       </SubType>
@@ -206,15 +211,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TestMap.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="TileInfo.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="SubTileMap.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -233,6 +230,10 @@
     <ClCompile Include="PlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arrow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentsCore.h">
       <SubType>
       </SubType>
@@ -271,15 +272,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TestMap.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="TileInfo.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="SubTileMap.h">
       <SubType>
       </SubType>
     </ClInclude>

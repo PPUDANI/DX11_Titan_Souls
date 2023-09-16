@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
-
 PlayLevelBase::PlayLevelBase()
 {
 }
@@ -12,7 +11,7 @@ PlayLevelBase::~PlayLevelBase()
 
 void PlayLevelBase::Start()
 {
-	CreatePlayer();
+	CreatePlayerElement();
 }
 
 void PlayLevelBase::Update(float _Delta)
@@ -50,7 +49,7 @@ void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 	
 }
 
-void PlayLevelBase::CreatePlayer()
+void PlayLevelBase::CreatePlayerElement()
 {
 	// PlayerActor Setting
 	if (nullptr == PlayerActor)
@@ -66,4 +65,5 @@ void PlayLevelBase::CreatePlayer()
 		//	PlayerActor = Player::MainPlayer;
 		//}
 	}
+
 }

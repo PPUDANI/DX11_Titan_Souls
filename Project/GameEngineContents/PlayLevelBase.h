@@ -19,9 +19,10 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _PrevLevel) override;
 
-	void CreatePlayer();
+	void CreatePlayerElement();
 
 	std::shared_ptr<class Player> PlayerActor = nullptr;
+	std::shared_ptr<class Arrow> ArrowActor = nullptr;
 	std::shared_ptr<class TestMap> Map = nullptr; // юс╫ц ╦й
 
 	// TileMap

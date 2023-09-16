@@ -8,7 +8,6 @@ void Player::CreatePlayerbodyAnimation()
 	GlobalLoad::LoadSpriteCut(32, 32, "Player.png", "Resource\\Texture\\PlayerElement\\");
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
-	BodyRenderer->SetSprite("Player.png");
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	BodyRenderer->SetSamplerState(SamplerOption::POINT);
 
@@ -52,6 +51,16 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("LeftUp_Roll", "Player.png", 0.065f, 198, 203, false);
 	BodyRenderer->CreateAnimation("RightUp_Roll", "Player.png", 0.065f, 230, 235, false);
 
+	// Bolcked Animations
+	BodyRenderer->CreateAnimation("Right_Blocked", "Player.png", 0.1f, 264, 269, false);
+	BodyRenderer->CreateAnimation("Up_Blocked", "Player.png", 0.1f, 296, 301, false);
+	BodyRenderer->CreateAnimation("Left_Blocked", "Player.png", 0.1f, 328, 333, false);
+	BodyRenderer->CreateAnimation("Down_Blocked", "Player.png", 0.1f, 360, 365, false);
+	BodyRenderer->CreateAnimation("RightDown_Blocked", "Player.png", 0.1f, 392, 397, false);
+	BodyRenderer->CreateAnimation("LeftDown_Blocked", "Player.png", 0.1f, 424, 429, false);
+	BodyRenderer->CreateAnimation("LeftUp_Blocked", "Player.png", 0.1f, 456, 461, false);
+	BodyRenderer->CreateAnimation("RightUp_Blocked", "Player.png", 0.1f, 488, 493, false);
+
 	// Death Animations
 	BodyRenderer->CreateAnimation("Right_Death", "Player.png", 1.0f, 12, 12, false);
 	BodyRenderer->CreateAnimation("Up_Death", "Player.png", 1.0f, 44, 44, false);
@@ -63,7 +72,7 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("RightUp_Death", "Player.png", 1.0f, 236, 236, false);
 
 	// StandUp Animations
-	BodyRenderer->CreateAnimation("StandUp", "Player.png", 0.15f, 79, 88, true);
+	BodyRenderer->CreateAnimation("StandUp", "Player.png", 0.10f, 79, 88, true);
 }
 
 void Player::CreateBowAnimation()
@@ -72,7 +81,6 @@ void Player::CreateBowAnimation()
 	GlobalLoad::LoadSpriteCut(32, 32, "Bow.png", "Resource\\Texture\\PlayerElement\\");
 
 	BowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
-	BowRenderer->SetSprite("Bow.png");
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	BowRenderer->SetSamplerState(SamplerOption::POINT);
 
@@ -116,6 +124,16 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("LeftUp_Roll", "Bow.png", 0.063f, 198, 203, false);
 	BowRenderer->CreateAnimation("RightUp_Roll", "Bow.png", 0.063f, 230, 235, false);
 
+	// Bolcked Animations
+	BowRenderer->CreateAnimation("Right_Blocked", "Bow.png", 0.1f, 264, 269, false);
+	BowRenderer->CreateAnimation("Up_Blocked", "Bow.png", 0.1f, 296, 301, false);
+	BowRenderer->CreateAnimation("Left_Blocked", "Bow.png", 0.1f, 328, 333, false);
+	BowRenderer->CreateAnimation("Down_Blocked", "Bow.png", 0.1f, 360, 365, false);
+	BowRenderer->CreateAnimation("RightDown_Blocked", "Bow.png", 0.1f, 392, 397, false);
+	BowRenderer->CreateAnimation("LeftDown_Blocked", "Bow.png", 0.1f, 424, 429, false);
+	BowRenderer->CreateAnimation("LeftUp_Blocked", "Bow.png", 0.1f, 456, 461, false);
+	BowRenderer->CreateAnimation("RightUp_Blocked", "Bow.png", 0.1f, 488, 493, false);
+
 	// Death Animations
 	BowRenderer->CreateAnimation("Right_Death", "Bow.png", 1.0f, 12, 12, false);
 	BowRenderer->CreateAnimation("Up_Death", "Bow.png", 1.0f, 44, 44, false);
@@ -127,7 +145,7 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("RightUp_Death", "Bow.png", 1.0f, 236, 236, false);
 
 	// StandUp Animations
-	BowRenderer->CreateAnimation("StandUp", "Bow.png", 0.15f, 79, 88, true);
+	BowRenderer->CreateAnimation("StandUp", "Bow.png", 0.10f, 79, 88, true);
 }
 
 void Player::CreateArrowInBagAnimation()
@@ -136,7 +154,6 @@ void Player::CreateArrowInBagAnimation()
 	GlobalLoad::LoadSpriteCut(32, 32, "Arrow.png", "Resource\\Texture\\PlayerElement\\");
 
 	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Player);
-	ArrowInBagRenderer->SetSprite("arrow.png");
 	ArrowInBagRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	ArrowInBagRenderer->SetSamplerState(SamplerOption::POINT);
 
@@ -180,6 +197,16 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("LeftUp_Roll", "Arrow.png", 0.063f, 198, 203, false);
 	ArrowInBagRenderer->CreateAnimation("RightUp_Roll", "Arrow.png", 0.063f, 230, 235, false);
 
+	// Bolcked Animations
+	ArrowInBagRenderer->CreateAnimation("Right_Blocked", "Arrow.png", 0.1f, 264, 269, false);
+	ArrowInBagRenderer->CreateAnimation("Up_Blocked", "Arrow.png", 0.1f, 296, 301, false);
+	ArrowInBagRenderer->CreateAnimation("Left_Blocked", "Arrow.png", 0.1f, 328, 333, false);
+	ArrowInBagRenderer->CreateAnimation("Down_Blocked", "Arrow.png", 0.1f, 360, 365, false);
+	ArrowInBagRenderer->CreateAnimation("RightDown_Blocked", "Arrow.png", 0.1f, 392, 397, false);
+	ArrowInBagRenderer->CreateAnimation("LeftDown_Blocked", "Arrow.png", 0.1f, 424, 429, false);
+	ArrowInBagRenderer->CreateAnimation("LeftUp_Blocked", "Arrow.png", 0.1f, 456, 461, false);
+	ArrowInBagRenderer->CreateAnimation("RightUp_Blocked", "Arrow.png", 0.1f, 488, 493, false);
+
 	// Death Animations
 	ArrowInBagRenderer->CreateAnimation("Right_Death", "Arrow.png", 1.0f, 12, 12, false);
 	ArrowInBagRenderer->CreateAnimation("Up_Death", "Arrow.png", 1.0f, 44, 44, false);
@@ -191,5 +218,5 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("RightUp_Death", "Arrow.png", 1.0f, 236, 236, false);
 
 	// StandUp Animations
-	ArrowInBagRenderer->CreateAnimation("StandUp", "Arrow.png", 0.15f, 79, 88, true);
+	ArrowInBagRenderer->CreateAnimation("StandUp", "Arrow.png", 0.10f, 79, 88, true);
 }
