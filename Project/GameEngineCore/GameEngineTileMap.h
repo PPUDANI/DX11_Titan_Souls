@@ -81,6 +81,19 @@ public:
 	void SetSamplerState(SAMPLER_OBJECT _Option);
 	std::shared_ptr<class GameEngineSampler> Sampler;
 
+public:
+	float4 PosToIndex(float4 _Pos)
+	{
+		float4 Index = { static_cast<float>(_Pos.iX() / TileData.TileScale.iX()), static_cast<float>(_Pos.iY() / TileData.TileScale.iY()) };
+		return Index;
+	}
+
+	float4 IndexToPos(float4 _Index)
+	{
+		float4 Pos = { _Index.X * TileData.TileScale.X, _Index.Y * TileData.TileScale.Y };
+		return Pos;
+	}
+
 protected:
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
 

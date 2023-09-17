@@ -8,7 +8,6 @@ enum class VIEW_MODE
 	MATERIAL_MODE2
 };
 
-
 class TileMap : public GameEngineActor
 {
 public:
@@ -26,7 +25,7 @@ public:
 	
 	void SetViewMode(VIEW_MODE _Mode);
 
-
+	bool ColCheck(float4 _Pos);
 
 protected:
 

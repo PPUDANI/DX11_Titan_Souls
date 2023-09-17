@@ -26,6 +26,7 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+	GetMainCamera()->Transform.SetLocalPosition(PlayerActor->Transform.GetWorldPosition());
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)

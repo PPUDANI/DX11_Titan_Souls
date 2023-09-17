@@ -9,24 +9,17 @@ void Player::IdleStart()
 	SetAnimByDir("Idle");
 }
 
-void Player::WalkStart()
+void Player::MoveStart()
 {
-
-}
-
-void Player::RunStart()
-{
-	KeepRunCoolDownTimer = 0.0f;
 }
 
 void Player::StopStart()
 {
-	if (PLAYER_STATE::Run == PrevState ||
-		PLAYER_STATE::Roll == PrevState)
+	if (true == IsRunning)
 	{
 		DecelerationRatio = 1.0f;
 	}
-	else if(PLAYER_STATE::Walk == PrevState)
+	else
 	{
 		DecelerationRatio = 0.5f;
 	}
@@ -85,14 +78,7 @@ void Player::IdleUpdate(float _Delta)
 		true == GameEngineInput::IsPress('S') ||
 		true == GameEngineInput::IsPress('D'))
 	{
-		if (true == GameEngineInput::IsPress(VK_SHIFT))
-		{
-			ChangeState(PLAYER_STATE::Run);
-		}
-		else
-		{
-			ChangeState(PLAYER_STATE::Walk);
-		}
+		ChangeState(PLAYER_STATE::Move);
 		return;
 	}
 
@@ -106,70 +92,32 @@ void Player::IdleUpdate(float _Delta)
 	}
 }
 
-void Player::WalkUpdate(float _Delta)
+void Player::MoveUpdate(float _Delta)
 {
 	// Death Check
 	if (true == GameEngineInput::IsPress('K'))
 	{
 		ChangeState(PLAYER_STATE::Death);
 		return;
+	}
+
+	// Roll Check
+	if (true == GameEngineInput::IsDown(VK_SPACE))
+	{
+		if (true == RollCollDownCheck())
+		{
+			return;
+		}
 	}
 
 	// Run Check
-	if (true == GameEngineInput::IsPress(VK_SHIFT))
-	{
-		ChangeState(PLAYER_STATE::Run);
-	}
-
-	// Roll Check
-	if (true == GameEngineInput::IsDown(VK_SPACE))
-	{
-		if (true == RollCollDownCheck())
-		{
-			return;
-		}
-	}
-
-	// Move Check
-	if(true == MoveCheck())
-	{
-		float4 MovePos = float4::ZERO;
-		MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
-		Transform.AddLocalPosition(MovePos);
-		SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
-	}
-	else
-	{
-		ChangeState(PLAYER_STATE::Stop);
-		return;
-	}
-}
-
-void Player::RunUpdate(float _Delta)
-{
-	// Death Check
-	if (true == GameEngineInput::IsPress('K'))
-	{
-		ChangeState(PLAYER_STATE::Death);
-		return;
-	}
-
-	// Roll Check
-	if (true == GameEngineInput::IsDown(VK_SPACE))
-	{
-		if (true == RollCollDownCheck())
-		{
-			return;
-		}
-	}
-
-	// Keep Run Check
+		// Keep Run Check
 	if (false == GameEngineInput::IsPress(VK_SHIFT))
 	{
 		if (KeepRunCoolTime <= KeepRunCoolDownTimer)
 		{
 			KeepRunCoolDownTimer = 0.0f;
-			ChangeState(PLAYER_STATE::Walk);
+			ChangeState(PLAYER_STATE::Move);
 			return;
 		}
 
@@ -177,12 +125,33 @@ void Player::RunUpdate(float _Delta)
 	}
 
 	// Move Check
-	if (true == MoveCheck())
+	if(true == MoveCheck())
 	{
-		float4 MovePos = float4::ZERO;
-		MovePos = PlayerDirDeg * DefaultSpeed * RunForce * _Delta;
-		Transform.AddLocalPosition(MovePos);
-		SetAnimByDir("Run", BodyRenderer->GetCurIndex());
+		float4 MovePos = PlayerDirDeg * DefaultSpeed;
+		if (true == IsRunning)
+		{
+			MovePos *= RunForce;
+			SetAnimByDir("Run", BodyRenderer->GetCurIndex());
+		}
+		else
+		{
+			SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
+		}
+
+		if (true == DebugMode)
+		{
+			MovePos *= DebugModeForce;
+			Transform.AddLocalPosition(MovePos * _Delta);
+		}
+		else
+		{
+			Transform.AddLocalPosition(MovePos * _Delta);
+			if (true == TileColCheck())
+			{
+				ChangeState({ PLAYER_STATE::Blocked });
+				return;
+			}
+		}
 	}
 	else
 	{
@@ -206,14 +175,7 @@ void Player::StopUpdate(float _Delta)
 		true == GameEngineInput::IsPress('S') ||
 		true == GameEngineInput::IsPress('D'))
 	{
-		if (true == GameEngineInput::IsPress(VK_SHIFT))
-		{
-			ChangeState(PLAYER_STATE::Run);
-		}
-		else
-		{
-			ChangeState(PLAYER_STATE::Walk);
-		}
+		ChangeState(PLAYER_STATE::Move);
 		return;
 	}
 	
@@ -228,6 +190,11 @@ void Player::StopUpdate(float _Delta)
 	
 	// Deceleration
 	if (0.0f == DecelerationRatio)
+	{
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
+	else if (true == TileColCheck())
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
@@ -265,7 +232,14 @@ void Player::RollUpdate(float _Delta)
 
 void Player::BlockedUpdate(float _Delta)
 {
-
+	// Walk Check
+	if (true != GameEngineInput::IsPress('W') &&
+		true != GameEngineInput::IsPress('A') &&
+		true != GameEngineInput::IsPress('S') &&
+		true != GameEngineInput::IsPress('D'))
+	{
+		ChangeState(PLAYER_STATE::Idle);
+	}
 }
 
 void Player::AimUpdate(float _Delta)

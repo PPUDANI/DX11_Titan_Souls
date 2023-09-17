@@ -3,19 +3,19 @@
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="TitleLevel.cpp">
-      <Filter>01. Level\01. Title</Filter>
+      <Filter>02. Level\01. Title</Filter>
     </ClCompile>
     <ClCompile Include="Jam.cpp">
-      <Filter>01. Level\02. MainHub</Filter>
+      <Filter>02. Level\02. MainHub</Filter>
     </ClCompile>
     <ClCompile Include="SludgeHeartRoom.cpp">
-      <Filter>01. Level\03. Sludge Heart</Filter>
+      <Filter>02. Level\03. Sludge Heart</Filter>
     </ClCompile>
     <ClCompile Include="YetiRoom.cpp">
-      <Filter>01. Level\04. Yeti</Filter>
+      <Filter>02. Level\04. Yeti</Filter>
     </ClCompile>
     <ClCompile Include="KnightElhananRoom.cpp">
-      <Filter>01. Level\05. Knight Elhanan</Filter>
+      <Filter>02. Level\05. Knight Elhanan</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>00. Global\PreCompile</Filter>
@@ -24,34 +24,34 @@
       <Filter>00. Global</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevelBase.cpp">
-      <Filter>01. Level\00. Base</Filter>
+      <Filter>02. Level\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
       <Filter>00. Global</Filter>
     </ClCompile>
-    <ClCompile Include="TileInfo.cpp">
-      <Filter>00. Global</Filter>
-    </ClCompile>
     <ClCompile Include="TileMap.cpp">
-      <Filter>02. Actor\00. Map</Filter>
+      <Filter>01. Actor\00. Map</Filter>
     </ClCompile>
     <ClCompile Include="Floor1.cpp">
-      <Filter>01. Level\02. MainHub</Filter>
+      <Filter>02. Level\02. MainHub</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
-      <Filter>02. Actor\01. Player Element\01. Arrow</Filter>
+      <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+      <Filter>01. Actor\01. Player Element\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAnimation.cpp">
-      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+      <Filter>01. Actor\01. Player Element\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
-      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+      <Filter>01. Actor\01. Player Element\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="ArrowState.cpp">
-      <Filter>02. Actor\01. Player Element\01. Arrow</Filter>
+      <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="TileInfo.cpp">
+      <Filter>01. Actor\00. Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,93 +60,93 @@
       <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
-      <Filter>01. Level\01. Title</Filter>
+      <Filter>02. Level\01. Title</Filter>
     </ClInclude>
     <ClInclude Include="Jam.h">
-      <Filter>01. Level\02. MainHub</Filter>
+      <Filter>02. Level\02. MainHub</Filter>
     </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
-      <Filter>01. Level\03. Sludge Heart</Filter>
+      <Filter>02. Level\03. Sludge Heart</Filter>
     </ClInclude>
     <ClInclude Include="YetiRoom.h">
-      <Filter>01. Level\04. Yeti</Filter>
+      <Filter>02. Level\04. Yeti</Filter>
     </ClInclude>
     <ClInclude Include="KnightElhananRoom.h">
-      <Filter>01. Level\05. Knight Elhanan</Filter>
+      <Filter>02. Level\05. Knight Elhanan</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>00. Global\PreCompile</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalLoad.h">
-      <Filter>00. Global</Filter>
-    </ClInclude>
     <ClInclude Include="PlayLevelBase.h">
-      <Filter>01. Level\00. Base</Filter>
+      <Filter>02. Level\00. Base</Filter>
     </ClInclude>
     <ClInclude Include="GlobalValue.h">
       <Filter>00. Global</Filter>
     </ClInclude>
-    <ClInclude Include="TileInfo.h">
-      <Filter>00. Global</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>02. Actor\00. Map</Filter>
-    </ClInclude>
     <ClInclude Include="Floor1.h">
-      <Filter>01. Level\02. MainHub</Filter>
+      <Filter>02. Level\02. MainHub</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
-      <Filter>02. Actor\01. Player Element\01. Arrow</Filter>
+      <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>02. Actor\01. Player Element\00. Player</Filter>
+      <Filter>01. Actor\01. Player Element\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalLoad.h">
+      <Filter>00. Global</Filter>
+    </ClInclude>
+    <ClInclude Include="TileInfo.h">
+      <Filter>01. Actor\00. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>01. Actor\00. Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Global">
       <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Level">
-      <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Level\00. Base">
-      <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Level\01. Title">
-      <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Level\02. MainHub">
-      <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Level\03. Sludge Heart">
-      <UniqueIdentifier>{f1631e0c-c2f3-41f3-9183-8a402dcb4b87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Level\04. Yeti">
-      <UniqueIdentifier>{d1102da3-5895-4134-8c92-fe720bc213db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Level\05. Knight Elhanan">
-      <UniqueIdentifier>{df21c2a4-4760-4894-88b6-7c3484920700}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Actor">
-      <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Actor\00. Map">
-      <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Actor\02. Boss">
-      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. Global\PreCompile">
       <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Actor\01. Player Element">
+    <Filter Include="02. Level">
+      <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\00. Base">
+      <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\01. Title">
+      <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\02. MainHub">
+      <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\03. Sludge Heart">
+      <UniqueIdentifier>{f1631e0c-c2f3-41f3-9183-8a402dcb4b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\04. Yeti">
+      <UniqueIdentifier>{d1102da3-5895-4134-8c92-fe720bc213db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\05. Knight Elhanan">
+      <UniqueIdentifier>{df21c2a4-4760-4894-88b6-7c3484920700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor">
+      <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\00. Map">
+      <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\02. Boss">
+      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Player Element">
       <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Actor\01. Player Element\01. Arrow">
-      <UniqueIdentifier>{ff6998c0-0991-4c3d-b80c-4fc7c272d402}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Actor\01. Player Element\00. Player">
+    <Filter Include="01. Actor\01. Player Element\00. Player">
       <UniqueIdentifier>{cddb65d5-7fc7-4492-8665-a948bdce356c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Player Element\01. Arrow">
+      <UniqueIdentifier>{ff6998c0-0991-4c3d-b80c-4fc7c272d402}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -3,8 +3,7 @@
 enum class PLAYER_STATE
 {
 	Idle,
-	Walk,
-	Run,
+	Move,
 	Stop,
 	Roll,
 	Blocked,
@@ -41,19 +40,16 @@ public:
 
 	// static Player
 	static std::shared_ptr<Player> MainPlayer;
+	
+	// Debug Mode
+	bool DebugMode = false;
 
-	inline PLAYER_STATE GetState() const
+	// TileMap
+	std::shared_ptr<TileMap> CurMap;
+	void SetTileMap(std::shared_ptr<TileMap> _Map)
 	{
-		return CurState;
+		CurMap = _Map;
 	}
-
-	inline PLAYER_DIRECTION GetDir() const
-	{
-		return CurDir;
-	}
-
-	// FMS Functions
-	void ChangeState(PLAYER_STATE _State);
 
 protected:
 
@@ -61,13 +57,14 @@ private:
 	// Inheritance Functions
 	void Start() override;
 	void Update(float _Delta) override;
+public:
+	// FMS Functions
+	void ChangeState(PLAYER_STATE _State);
 
 private:
-
 	// State Start Functions
 	void IdleStart();
-	void WalkStart();
-	void RunStart();
+	void MoveStart();
 	void StopStart();
 	void RollStart();
 	void BlockedStart();
@@ -78,8 +75,7 @@ private:
 
 	// State Update Functions
 	void IdleUpdate(float _Delta);
-	void WalkUpdate(float _Delta);
-	void RunUpdate(float _Delta);
+	void MoveUpdate(float _Delta);
 	void StopUpdate(float _Delta);
 	void RollUpdate(float _Delta);
 	void BlockedUpdate(float _Delta);
@@ -106,7 +102,17 @@ private:
 
 private:
 	// Tile Check Pos
+	float4 LocalRightPos = { 11.0f, 0.0f };
+	float4 LocalRightUpPos = { 11.0f, 1.0f };
+	float4 LocalUpPos = { 0.0f, 1.0f };
+	float4 LocalLeftUpPos = { -11.0f, 1.0f };
+	float4 LocalLeftPos = { -11.0f, 0.0f };
+	float4 LocalLeftDownPos = { -11.0f, -1.0f };
+	float4 LocalDownPos = { 0.0f, -1.0f };
+	float4 LocalRightDownPos = { 11.0f, -1.0f };
 
+	bool TileColCheck();
+	void PosNormalization(float4 _Pos);
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
@@ -115,6 +121,7 @@ private:
 private:
 	// Physics Variables
 	const float DefaultSpeed = 160.0f;
+	const float DebugModeForce = 10.0f;
 	const float RunForce = 1.5f;
 	const float RollForce = 2.5f;
 
@@ -167,8 +174,6 @@ private:
 	}
 
 private:
-	
-
 	// Roll CoolDown Variables
 	bool IsRollOnCooldown = false;
 	float RollCoolDown = 0.5f;
@@ -199,8 +204,22 @@ private:
 			RollCoolDownTimer += _Delta;
 		}
 	}
+
 private:
+	bool IsRunning = false;
 	float KeepRunCoolTime = 0.1f;
 	float KeepRunCoolDownTimer = 0.0f;
 
+	void KeepRunCoolDownUpdate(float _Delta)
+	{
+		if (KeepRunCoolTime <= KeepRunCoolDownTimer)
+		{
+			KeepRunCoolDownTimer = 0.0f;
+			IsRunning = false;
+		}
+		else
+		{
+			KeepRunCoolDownTimer += _Delta;
+		}
+	}
 };

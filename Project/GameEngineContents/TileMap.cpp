@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "TileMap.h"
 
-#include <GameEngineCore/GameEngineTileMap.h>
-
 TileMap::TileMap()
 {
 }
@@ -71,7 +69,6 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		break;
 	}
 }
-
 
 void TileMap::MapDataSetting()
 {
@@ -217,5 +214,38 @@ void TileMap::TileTexureSetting()
 				MATTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].MAT_Index), "Spectiles.png" });
 			}
 		}
+	}
+}
+
+bool TileMap::ColCheck(float4 _Pos)
+{
+	float4 Index = COLTileMap->PosToIndex(_Pos);
+	Index.Y = -Index.Y;
+
+	int Xsize = TileMapInfo[0].size();
+	int Ysize = TileMapInfo.size();
+
+	if (Xsize < Index.iX() ||
+		0 > Index.iX())
+	{
+		return false;
+	}
+	else if(Ysize < Index.iY() ||
+		    0 > Index.iY())
+	{
+		return false;
+	}
+
+
+
+	int ColIndex = TileMapInfo[Index.iY()][Index.iX()].COL_Index;
+
+	if (252 == ColIndex)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

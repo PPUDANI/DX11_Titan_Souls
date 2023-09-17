@@ -20,6 +20,7 @@ void Player::Start()
 
 	ChangeState(PLAYER_STATE::StandUp);
 
+
 }
 
 void Player::Update(float _Delta)
@@ -36,17 +37,33 @@ void Player::Update(float _Delta)
 		ChangeDirCoolDownUpdate(_Delta);
 	}
 
+	if (true == GameEngineInput::IsDown('0'))
+	{
+		DebugMode = true;
+	}
+
+	if (true == GameEngineInput::IsPress(VK_SHIFT))
+	{
+		KeepRunCoolDownTimer = 0.0f;
+		IsRunning = true;
+	}
+	else
+	{
+		if (true == IsRunning)
+		{
+			KeepRunCoolDownUpdate(_Delta);
+		}
+	}
+	
+
 	// State Update
 	switch (CurState)
 	{
 	case PLAYER_STATE::Idle:
 		IdleUpdate(_Delta);
 		break;
-	case PLAYER_STATE::Walk:
-		WalkUpdate(_Delta);
-		break;
-	case PLAYER_STATE::Run:
-		RunUpdate(_Delta);
+	case PLAYER_STATE::Move:
+		MoveUpdate(_Delta);
 		break;
 	case PLAYER_STATE::Stop:
 		StopUpdate(_Delta);
@@ -74,7 +91,6 @@ void Player::Update(float _Delta)
 	}
 
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
-	GetLevel()->GetMainCamera()->Transform.AddLocalPosition({0.0f, 0.0f, 0.001f});
 }
 
 void Player::ChangeState(PLAYER_STATE _State)
@@ -87,11 +103,8 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Idle:
 		IdleStart();
 		break;
-	case PLAYER_STATE::Walk:
-		WalkStart();
-		break;
-	case PLAYER_STATE::Run:
-		RunStart();
+	case PLAYER_STATE::Move:
+		MoveStart();
 		break;
 	case PLAYER_STATE::Stop:
 		StopStart();
@@ -248,5 +261,73 @@ bool Player::MoveCheck()
 	else
 	{
 		return false;
+	}
+}
+
+bool Player::TileColCheck()
+{
+	switch (CurDir)
+	{
+	case PLAYER_DIRECTION::Right:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos))
+		{
+			PosNormalization(LocalRightPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::RightUp:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightUpPos))
+		{
+			PosNormalization(LocalRightUpPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::Up:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos))
+		{
+			PosNormalization(LocalUpPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::LeftUp:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftUpPos))
+		{
+			PosNormalization(LocalLeftUpPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::Left:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos))
+		{
+			PosNormalization(LocalLeftPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::LeftDown:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftDownPos))
+		{
+			PosNormalization(LocalLeftDownPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::Down:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos))
+		{
+			PosNormalization(LocalDownPos);
+			return true;
+		}
+	case PLAYER_DIRECTION::RightDown:
+		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightDownPos))
+		{
+			PosNormalization(LocalRightDownPos);
+			return true;
+		}
+	default:
+		break;
+	}
+	
+	return false;
+}
+
+void Player::PosNormalization(float4 _Pos)
+{
+	while (true == CurMap->ColCheck(Transform.GetWorldPosition() + _Pos))
+	{
+		float4 MovePos = -PlayerDirDeg;
+		Transform.AddLocalPosition(MovePos);
 	}
 }
