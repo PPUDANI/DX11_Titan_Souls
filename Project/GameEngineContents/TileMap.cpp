@@ -222,8 +222,8 @@ bool TileMap::ColCheck(float4 _Pos)
 	float4 Index = COLTileMap->PosToIndex(_Pos);
 	Index.Y = -Index.Y;
 
-	int Xsize = TileMapInfo[0].size();
-	int Ysize = TileMapInfo.size();
+	int Xsize = static_cast<int>(TileMapInfo[0].size());
+	int Ysize = static_cast<int>(TileMapInfo.size());
 
 	if (Xsize < Index.iX() ||
 		0 > Index.iX())

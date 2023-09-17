@@ -39,7 +39,7 @@ void Player::Update(float _Delta)
 
 	if (true == GameEngineInput::IsDown('0'))
 	{
-		DebugMode = true;
+		DebugingModeSwitch();
 	}
 
 	if (true == GameEngineInput::IsPress(VK_SHIFT))
@@ -325,9 +325,11 @@ bool Player::TileColCheck()
 
 void Player::PosNormalization(float4 _Pos)
 {
+	float4 MovePos;
 	while (true == CurMap->ColCheck(Transform.GetWorldPosition() + _Pos))
 	{
-		float4 MovePos = -PlayerDirDeg;
+		MovePos = -PlayerDirDeg;
 		Transform.AddLocalPosition(MovePos);
 	}
+	Transform.AddLocalPosition(-MovePos);
 }

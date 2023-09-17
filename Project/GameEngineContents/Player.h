@@ -41,8 +41,12 @@ public:
 	// static Player
 	static std::shared_ptr<Player> MainPlayer;
 	
-	// Debug Mode
-	bool DebugMode = false;
+	// Debuging Mode
+	void DebugingModeSwitch()
+	{
+		DebugingMode = !DebugingMode;
+	}
+	bool DebugingMode = false;
 
 	// TileMap
 	std::shared_ptr<TileMap> CurMap;

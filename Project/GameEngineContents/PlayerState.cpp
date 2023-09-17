@@ -138,7 +138,7 @@ void Player::MoveUpdate(float _Delta)
 			SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 		}
 
-		if (true == DebugMode)
+		if (true == DebugingMode)
 		{
 			MovePos *= DebugModeForce;
 			Transform.AddLocalPosition(MovePos * _Delta);
@@ -233,12 +233,11 @@ void Player::RollUpdate(float _Delta)
 void Player::BlockedUpdate(float _Delta)
 {
 	// Walk Check
-	if (true != GameEngineInput::IsPress('W') &&
-		true != GameEngineInput::IsPress('A') &&
-		true != GameEngineInput::IsPress('S') &&
-		true != GameEngineInput::IsPress('D'))
+	if (false == MoveCheck() ||
+		false == TileColCheck())
 	{
 		ChangeState(PLAYER_STATE::Idle);
+		return;
 	}
 }
 
