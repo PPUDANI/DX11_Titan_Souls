@@ -236,8 +236,6 @@ bool TileMap::ColCheck(float4 _Pos)
 		return false;
 	}
 
-
-
 	int ColIndex = TileMapInfo[Index.iY()][Index.iX()].COL_Index;
 
 	if (252 == ColIndex)
