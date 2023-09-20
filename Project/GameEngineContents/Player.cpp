@@ -54,7 +54,8 @@ void Player::Update(float _Delta)
 			KeepRunCoolDownUpdate(_Delta);
 		}
 	}
-	
+
+	TileColCheck();
 
 	// State Update
 	switch (CurState)
@@ -90,6 +91,7 @@ void Player::Update(float _Delta)
 		break;
 	}
 
+	PosNormalization();
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }
 
@@ -218,45 +220,139 @@ void Player::SetDirection(PLAYER_DIRECTION _Dir)
 
 bool Player::MoveCheck()
 {
+	float4 MoveCheck = float4::ZERO;
+
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
+		if (false == ColInfo.LeftCheck)
+		{
+			if (false == ColInfo.UpCheck)
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
+				return true;
+			}
+			else
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::Left);
+				return true;
+			}
+		}
+		else if (false == ColInfo.UpCheck)
+		{
+			ChangeDirCheck(PLAYER_DIRECTION::Up);
+			return true;
+		}
+
 		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
-		return true;
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
+		if (false == ColInfo.RightCheck)
+		{
+			if (false == ColInfo.UpCheck)
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::RightUp);
+				return true;
+			}
+			else
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::Right);
+				return true;
+			}
+		}
+		else if (false == ColInfo.UpCheck)
+		{
+			ChangeDirCheck(PLAYER_DIRECTION::Up);
+			return true;
+		}
+
 		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
-		return true;
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
+		if (false == ColInfo.LeftCheck)
+		{
+			if (false == ColInfo.DownCheck)
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
+				return true;
+			}
+			else
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::Left);
+				return true;
+			}
+		}
+		else if (false == ColInfo.DownCheck)
+		{
+			ChangeDirCheck(PLAYER_DIRECTION::Down);
+			return true;
+		}
+
 		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
-		return true;
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
+		if (false == ColInfo.RightCheck)
+		{
+			if (false == ColInfo.DownCheck)
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::RightDown);
+				return true;
+			}
+			else
+			{
+				ChangeDirCheck(PLAYER_DIRECTION::Right);
+				return true;
+			}
+		}
+		else if (false == ColInfo.DownCheck)
+		{
+			ChangeDirCheck(PLAYER_DIRECTION::Down);
+			return true;
+		}
+
 		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
-		return true;
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('W'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Up);
-		return true;
+		if (false == ColInfo.UpCheck)
+		{
+			return true;
+		}
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('A'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Left);
-		return true;
+		if (false == ColInfo.LeftCheck)
+		{
+			return true;
+		}
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Down);
-		return true;
+		if (false == ColInfo.DownCheck)
+		{
+			return true;
+		}
+		return false;
 	}
 	else if (true == GameEngineInput::IsPress('D'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Right);
-		return true;
+		if (false == ColInfo.RightCheck)
+		{
+			return true;
+		}
+		return false;
 	}
 	else
 	{
@@ -264,72 +360,64 @@ bool Player::MoveCheck()
 	}
 }
 
-bool Player::TileColCheck()
+void Player::TileColCheck()
 {
-	switch (CurDir)
-	{
-	case PLAYER_DIRECTION::Right:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos))
-		{
-			PosNormalization(LocalRightPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::RightUp:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightUpPos))
-		{
-			PosNormalization(LocalRightUpPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::Up:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos))
-		{
-			PosNormalization(LocalUpPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::LeftUp:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftUpPos))
-		{
-			PosNormalization(LocalLeftUpPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::Left:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos))
-		{
-			PosNormalization(LocalLeftPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::LeftDown:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftDownPos))
-		{
-			PosNormalization(LocalLeftDownPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::Down:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos))
-		{
-			PosNormalization(LocalDownPos);
-			return true;
-		}
-	case PLAYER_DIRECTION::RightDown:
-		if (true == CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightDownPos))
-		{
-			PosNormalization(LocalRightDownPos);
-			return true;
-		}
-	default:
-		break;
-	}
-	
-	return false;
+	ColInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos);
+	ColInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos);
+	ColInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos);
+	ColInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos);
 }
 
-void Player::PosNormalization(float4 _Pos)
+void Player::TileColCheckNormal()
 {
-	float4 MovePos;
-	while (true == CurMap->ColCheck(Transform.GetWorldPosition() + _Pos))
+	ColNormalInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT);
+	ColNormalInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT);
+	ColNormalInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP);
+	ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
+}
+
+void Player::PosNormalization()
+{
+	TileColCheckNormal();
+
+	if (true == ColNormalInfo.UpCheck)
 	{
-		MovePos = -PlayerDirDeg;
-		Transform.AddLocalPosition(MovePos);
+		while (true == ColInfo.UpCheck)
+		{
+			Transform.AddLocalPosition(float4::DOWN);
+			TileColCheck();
+		}
+		Transform.AddLocalPosition(float4::UP);
 	}
-	Transform.AddLocalPosition(-MovePos);
+
+	if (true == ColNormalInfo.DownCheck)
+	{
+		while (true == ColInfo.DownCheck)
+		{
+			Transform.AddLocalPosition(float4::UP);
+			TileColCheck();
+		}
+		Transform.AddLocalPosition(float4::DOWN);
+	}
+
+	if (true == ColNormalInfo.LeftCheck)
+	{
+		while (true == ColInfo.LeftCheck)
+		{
+			Transform.AddLocalPosition(float4::RIGHT);
+			TileColCheck();
+		}
+		Transform.AddLocalPosition(float4::LEFT);
+	}
+	
+	if (true == ColNormalInfo.RightCheck)
+	{
+		while (true == ColInfo.RightCheck)
+		{
+			Transform.AddLocalPosition(float4::LEFT);
+			TileColCheck();
+		}
+		Transform.AddLocalPosition(float4::RIGHT);
+	}
+
 }

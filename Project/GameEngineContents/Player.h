@@ -25,6 +25,15 @@ enum class PLAYER_DIRECTION
 	RightDown,
 };
 
+class ColCheckInfo
+{
+public:
+	bool LeftCheck = false;
+	bool RightCheck = false;
+	bool UpCheck = false;
+	bool DownCheck = false;
+};
+
 class Player : public GameEngineActor
 {
 public:
@@ -106,17 +115,17 @@ private:
 
 private:
 	// Tile Check Pos
-	float4 LocalRightPos = { 11.0f, 0.0f };
-	float4 LocalRightUpPos = { 11.0f, 1.0f };
-	float4 LocalUpPos = { 0.0f, 1.0f };
-	float4 LocalLeftUpPos = { -11.0f, 1.0f };
-	float4 LocalLeftPos = { -11.0f, 0.0f };
-	float4 LocalLeftDownPos = { -11.0f, -1.0f };
-	float4 LocalDownPos = { 0.0f, -1.0f };
-	float4 LocalRightDownPos = { 11.0f, -1.0f };
+	float4 LocalLeftPos = { -8.0f, -9.0f };
+	float4 LocalRightPos = { 8.0f, -9.0f };
+	float4 LocalUpPos = { 0.0f, 2.0f };
+	float4 LocalDownPos = { 0.0f, -16.0f };
 
-	bool TileColCheck();
-	void PosNormalization(float4 _Pos);
+	ColCheckInfo ColInfo;
+	ColCheckInfo ColNormalInfo;
+	void TileColCheck();
+	void TileColCheckNormal();
+	void PosNormalization();
+
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;

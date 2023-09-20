@@ -23,6 +23,14 @@ void Player::StopStart()
 	{
 		DecelerationRatio = 0.5f;
 	}
+
+	if (ColInfo.LeftCheck ||
+		ColInfo.RightCheck ||
+		ColInfo.UpCheck ||
+		ColInfo.DownCheck)
+	{
+		DecelerationRatio = 0.0f;
+	}
 	
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 }
@@ -34,7 +42,6 @@ void Player::RollStart()
 
 void Player::BlockedStart()
 {
-	SetAnimByDir("Blocked");
 }
 
 void Player::AimStart()
@@ -111,7 +118,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 
 	// Run Check
-		// Keep Run Check
+	// Keep Run Check
 	if (false == GameEngineInput::IsPress(VK_SHIFT))
 	{
 		if (KeepRunCoolTime <= KeepRunCoolDownTimer)
@@ -141,17 +148,8 @@ void Player::MoveUpdate(float _Delta)
 		if (true == DebugingMode)
 		{
 			MovePos *= DebugModeForce;
-			Transform.AddLocalPosition(MovePos * _Delta);
 		}
-		else
-		{
-			Transform.AddLocalPosition(MovePos * _Delta);
-			if (true == TileColCheck())
-			{
-				ChangeState({ PLAYER_STATE::Blocked });
-				return;
-			}
-		}
+		Transform.AddLocalPosition(MovePos * _Delta);
 	}
 	else
 	{
@@ -194,11 +192,6 @@ void Player::StopUpdate(float _Delta)
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
-	else if (true == TileColCheck())
-	{
-		ChangeState(PLAYER_STATE::Idle);
-		return;
-	}
 	else
 	{
 		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationRatio * _Delta;
@@ -232,13 +225,6 @@ void Player::RollUpdate(float _Delta)
 
 void Player::BlockedUpdate(float _Delta)
 {
-	// Walk Check
-	if (false == MoveCheck() ||
-		false == TileColCheck())
-	{
-		ChangeState(PLAYER_STATE::Idle);
-		return;
-	}
 }
 
 void Player::AimUpdate(float _Delta)
