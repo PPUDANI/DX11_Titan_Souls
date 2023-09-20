@@ -17,7 +17,7 @@ void PlayLevelBase::Start()
 void PlayLevelBase::Update(float _Delta)
 {
 	std::string FPS;
-	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
+	FPS = std::to_string(static_cast<float>(1.0f / _Delta));
 	FPS += "\n";
 	OutputDebugStringA(FPS.c_str());
 

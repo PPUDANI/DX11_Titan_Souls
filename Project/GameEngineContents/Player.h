@@ -115,14 +115,18 @@ private:
 
 private:
 	// Tile Check Pos
-	float4 LocalLeftPos = { -8.0f, -9.0f };
-	float4 LocalRightPos = { 8.0f, -9.0f };
+	float4 LocalLeftPos = { -9.0f, -9.0f };
+	float4 LocalRightPos = { 9.0f, -9.0f };
 	float4 LocalUpPos = { 0.0f, 2.0f };
 	float4 LocalDownPos = { 0.0f, -16.0f };
 
 	ColCheckInfo ColInfo;
 	ColCheckInfo ColNormalInfo;
 	void TileColCheck();
+	bool AllColCheck();
+	bool CurDirColCheck();
+
+	// Nomaliaztion
 	void TileColCheckNormal();
 	void PosNormalization();
 
@@ -136,10 +140,18 @@ private:
 	const float DefaultSpeed = 160.0f;
 	const float DebugModeForce = 10.0f;
 	const float RunForce = 1.5f;
-	const float RollForce = 2.5f;
+	const float RollForce = 2.6f;
 
 	// Move Functions
 	bool MoveCheck();
+
+	inline float4 MovePosInt(float4 _Pos)
+	{
+		int X = _Pos.iX();
+		int Y = _Pos.iY();
+
+		return { static_cast<float>(X), static_cast<float>(Y) };
+	}
 
 	// Deceleration
 	float DecelerationRatio = 0.0f; // 1.0f보다 클 수 없음.
@@ -158,8 +170,8 @@ private:
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
 	float4 PlayerDirDeg = float4::ZERO;
 	bool IsChangeDirOnCooldown = false;
-	float ChangeDirCoolTime = 0.05f;
-	float ChangeDirCoolDownTimer = 0.0f;
+	float ChangeDirCoolTime = 0.0f;
+	float ChangeDirCooldownTimer = 0.0f;
 
 	// Direction Functions
 	void SetDirection(PLAYER_DIRECTION _Dir);
@@ -175,22 +187,25 @@ private:
 
 	void ChangeDirCoolDownUpdate(float _Delta)
 	{
-		if (ChangeDirCoolTime <= ChangeDirCoolDownTimer)
+		if (ChangeDirCoolTime <= ChangeDirCooldownTimer)
 		{
-			ChangeDirCoolDownTimer = 0.0f;
+			ChangeDirCooldownTimer = 0.0f;
 			IsChangeDirOnCooldown = false;
 		}
 		else
 		{
-			ChangeDirCoolDownTimer += _Delta;
+			ChangeDirCooldownTimer += _Delta;
 		}
 	}
 
 private:
+	// Roll Variables
+	bool IsRollingBlocked = false;
+
 	// Roll CoolDown Variables
 	bool IsRollOnCooldown = false;
-	float RollCoolDown = 0.5f;
-	float RollCoolDownTimer = 0.0f;
+	float RollCooldown = 0.5f;
+	float RollCooldownTimer = 0.0f;
 
 	inline bool RollCollDownCheck()
 	{
@@ -207,14 +222,14 @@ private:
 
 	void RollCoolDownUpdate(float _Delta)
 	{
-		if (RollCoolDown <= RollCoolDownTimer)
+		if (RollCooldown <= RollCooldownTimer)
 		{
-			RollCoolDownTimer = 0.0f;
+			RollCooldownTimer = 0.0f;
 			IsRollOnCooldown = false;
 		}
 		else
 		{
-			RollCoolDownTimer += _Delta;
+			RollCooldownTimer += _Delta;
 		}
 	}
 

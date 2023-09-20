@@ -51,10 +51,10 @@ void GameEngineCore::Update()
 	MainTime.Update();
 	float DeltaTime = MainTime.GetDeltaTime();
 
-	//if (DeltaTime > 1.0f / 60.0f)
-	//{
-	//	DeltaTime = 1.0f / 60.0f;
-	//}
+	if (DeltaTime > 0.2f)
+	{
+		DeltaTime = 0.0f;
+	}
 
 	GameEngineSound::Update();
 	CoreObject->Update(DeltaTime);
@@ -85,6 +85,7 @@ void GameEngineCore::Update()
 	MainDevice.RenderEnd();
 
 	CurLevel->AllReleaseCheck();
+
 }
 
 void GameEngineCore::Release() 

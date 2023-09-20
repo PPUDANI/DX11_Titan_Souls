@@ -23,20 +23,14 @@ void Player::StopStart()
 	{
 		DecelerationRatio = 0.5f;
 	}
-
-	if (ColInfo.LeftCheck ||
-		ColInfo.RightCheck ||
-		ColInfo.UpCheck ||
-		ColInfo.DownCheck)
-	{
-		DecelerationRatio = 0.0f;
-	}
 	
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 }
 
 void Player::RollStart()
 {
+	IsRollingBlocked = false;
+	DecelerationRatio = 0.8f;
 	SetAnimByDir("Roll");
 }
 
@@ -117,24 +111,10 @@ void Player::MoveUpdate(float _Delta)
 		}
 	}
 
-	// Run Check
-	// Keep Run Check
-	if (false == GameEngineInput::IsPress(VK_SHIFT))
-	{
-		if (KeepRunCoolTime <= KeepRunCoolDownTimer)
-		{
-			KeepRunCoolDownTimer = 0.0f;
-			ChangeState(PLAYER_STATE::Move);
-			return;
-		}
-
-		KeepRunCoolDownTimer += _Delta;
-	}
-
 	// Move Check
 	if(true == MoveCheck())
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 		if (true == IsRunning)
 		{
 			MovePos *= RunForce;
@@ -149,7 +129,8 @@ void Player::MoveUpdate(float _Delta)
 		{
 			MovePos *= DebugModeForce;
 		}
-		Transform.AddLocalPosition(MovePos * _Delta);
+
+		Transform.AddLocalPosition(MovePos);
 	}
 	else
 	{
@@ -195,7 +176,10 @@ void Player::StopUpdate(float _Delta)
 	else
 	{
 		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationRatio * _Delta;
-		Transform.AddLocalPosition(MovePos);
+		if (false == CurDirColCheck())
+		{
+			Transform.AddLocalPosition(MovePos);
+		}
 		Deceleration(10.0f * _Delta);
 	}
 }
@@ -209,18 +193,29 @@ void Player::RollUpdate(float _Delta)
 		return;
 	}
 
-	float4 MovePos = float4::ZERO;
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		IsRollOnCooldown = true;
 		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
-	else
+
+	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
+	if (false == IsRollingBlocked &&
+		true == CurDirColCheck())
 	{
-		MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
-		Transform.AddLocalPosition(MovePos);
+		IsRollingBlocked = true;
+		SetAnimByDir("Roll", 0, true);
 	}
+
+	if (true == IsRollingBlocked)
+	{
+		// incidence, reflection 추가하기
+		MovePos = -MovePos * DecelerationRatio;
+		Deceleration(5.0f * _Delta);
+	}
+
+	Transform.AddLocalPosition(MovePos);
 }
 
 void Player::BlockedUpdate(float _Delta)

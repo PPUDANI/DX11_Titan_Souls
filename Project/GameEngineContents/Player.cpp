@@ -187,6 +187,7 @@ void Player::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _
 void Player::SetDirection(PLAYER_DIRECTION _Dir)
 {
 	CurDir = _Dir;
+
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
@@ -376,6 +377,36 @@ void Player::TileColCheckNormal()
 	ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
 }
 
+bool Player::AllColCheck()
+{
+	return ColInfo.LeftCheck || ColInfo.RightCheck || ColInfo.UpCheck || ColInfo.DownCheck;
+}
+
+bool Player::CurDirColCheck()
+{
+	switch (CurDir)
+	{
+	case PLAYER_DIRECTION::Right:
+		return ColInfo.RightCheck;
+	case PLAYER_DIRECTION::RightUp:
+		return ColInfo.RightCheck || ColInfo.UpCheck;
+	case PLAYER_DIRECTION::Up:
+		return ColInfo.UpCheck;
+	case PLAYER_DIRECTION::LeftUp:
+		return ColInfo.LeftCheck || ColInfo.UpCheck;
+	case PLAYER_DIRECTION::Left:
+		return ColInfo.LeftCheck;
+	case PLAYER_DIRECTION::LeftDown:
+		return ColInfo.LeftCheck || ColInfo.DownCheck;
+	case PLAYER_DIRECTION::Down:
+		return ColInfo.DownCheck;
+	case PLAYER_DIRECTION::RightDown:
+		return ColInfo.RightCheck || ColInfo.DownCheck;
+	default:
+		return false;
+	}
+}
+
 void Player::PosNormalization()
 {
 	TileColCheckNormal();
@@ -419,5 +450,4 @@ void Player::PosNormalization()
 		}
 		Transform.AddLocalPosition(float4::RIGHT);
 	}
-
 }
