@@ -67,6 +67,11 @@ void GameEngineTileMap::SetTileIndex(const SetTileParameterIndex& _Parameter)
 	CurTile.Index = _Parameter.Index;
 }
 
+void GameEngineTileMap::Start()
+{
+	GameEngineRenderer::Start();
+}
+
 void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 {
 	ResSetting();

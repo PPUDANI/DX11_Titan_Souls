@@ -17,11 +17,11 @@ void Player::StopStart()
 {
 	if (true == IsRunning)
 	{
-		DecelerationRatio = 1.0f;
+		DecelerationValue = 1.0f;
 	}
 	else
 	{
-		DecelerationRatio = 0.5f;
+		DecelerationValue = 0.5f;
 	}
 	
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
@@ -30,7 +30,7 @@ void Player::StopStart()
 void Player::RollStart()
 {
 	IsRollingBlocked = false;
-	DecelerationRatio = 0.8f;
+	DecelerationValue = 0.8f;
 	SetAnimByDir("Roll");
 }
 
@@ -50,7 +50,7 @@ void Player::ShotStart()
 
 void Player::DeathStart()
 {
-	DecelerationRatio = 0.5f;
+	DecelerationValue = 0.5f;
 	SetAnimByDir("Death");
 }
 
@@ -168,14 +168,14 @@ void Player::StopUpdate(float _Delta)
 	}
 	
 	// Deceleration
-	if (0.0f == DecelerationRatio)
+	if (0.0f == DecelerationValue)
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 	else
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationRatio * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
 		if (false == CurDirColCheck())
 		{
 			Transform.AddLocalPosition(MovePos);
@@ -201,17 +201,19 @@ void Player::RollUpdate(float _Delta)
 	}
 
 	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
-	if (false == IsRollingBlocked &&
-		true == CurDirColCheck())
+	if (true == CurDirColCheck() &&
+		false == IsRollingBlocked)
 	{
 		IsRollingBlocked = true;
+
+		// 임시 애니메이션
 		SetAnimByDir("Roll", 0, true);
 	}
 
 	if (true == IsRollingBlocked)
 	{
-		// incidence, reflection 추가하기
-		MovePos = -MovePos * DecelerationRatio;
+		// Specular Reflection 추가하기
+		MovePos = -MovePos * DecelerationValue;
 		Deceleration(5.0f * _Delta);
 	}
 
@@ -234,17 +236,10 @@ void Player::ShotUpdate(float _Delta)
 
 void Player::DeathUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsDown('R'))
-	{
-		Transform.SetLocalPosition({0.0f, 0.0f});
-		ChangeState(PLAYER_STATE::StandUp);
-		return;
-	}
-
 	// Deceleration
-	if (0.0f != DecelerationRatio)
+	if (0.0f != DecelerationValue)
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationRatio * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
 		Transform.AddLocalPosition(MovePos);
 		Deceleration(5.0f * _Delta);
 	}

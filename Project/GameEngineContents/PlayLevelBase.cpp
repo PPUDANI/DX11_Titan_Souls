@@ -17,7 +17,7 @@ void PlayLevelBase::Start()
 void PlayLevelBase::Update(float _Delta)
 {
 	std::string FPS;
-	FPS = std::to_string(static_cast<float>(1.0f / _Delta));
+	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
 	FPS += "\n";
 	OutputDebugStringA(FPS.c_str());
 
@@ -37,12 +37,18 @@ void PlayLevelBase::Update(float _Delta)
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE2);
 	}
+
+	if (true == GameEngineInput::IsDown('R'))
+	{
+		SpawnPlayer();
+	}
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	PlayerActor->SetTileMap(TileMapActor);
+	SpawnPlayer();
 }
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
@@ -67,4 +73,11 @@ void PlayLevelBase::CreatePlayerElement()
 		//}
 	}
 
+}
+
+void PlayLevelBase::SpawnPlayer()
+{
+	PlayerActor->Transform.SetLocalPosition(PlayerSpawnPos);
+	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+	return;
 }

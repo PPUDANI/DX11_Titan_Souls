@@ -95,6 +95,7 @@ public:
 	}
 
 protected:
+	void Start() override;
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
 
 private:

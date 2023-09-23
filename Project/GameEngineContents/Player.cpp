@@ -91,7 +91,11 @@ void Player::Update(float _Delta)
 		break;
 	}
 
-	PosNormalization();
+	if (PLAYER_STATE::Move == CurState)
+	{
+		AdjustPosByCol();
+	}
+	
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }
 
@@ -407,11 +411,14 @@ bool Player::CurDirColCheck()
 	}
 }
 
-void Player::PosNormalization()
+void Player::AdjustPosByCol()
 {
 	TileColCheckNormal();
 
-	if (true == ColNormalInfo.UpCheck)
+	if (true == ColNormalInfo.UpCheck &&
+		(PLAYER_DIRECTION::Up == CurDir ||
+		PLAYER_DIRECTION::LeftUp == CurDir ||
+		PLAYER_DIRECTION::RightUp == CurDir))
 	{
 		while (true == ColInfo.UpCheck)
 		{
@@ -421,7 +428,10 @@ void Player::PosNormalization()
 		Transform.AddLocalPosition(float4::UP);
 	}
 
-	if (true == ColNormalInfo.DownCheck)
+	if (true == ColNormalInfo.DownCheck &&
+		(PLAYER_DIRECTION::Down == CurDir ||
+		PLAYER_DIRECTION::LeftDown == CurDir ||
+		PLAYER_DIRECTION::RightDown == CurDir))
 	{
 		while (true == ColInfo.DownCheck)
 		{
@@ -431,7 +441,10 @@ void Player::PosNormalization()
 		Transform.AddLocalPosition(float4::DOWN);
 	}
 
-	if (true == ColNormalInfo.LeftCheck)
+	if (true == ColNormalInfo.LeftCheck &&
+		(PLAYER_DIRECTION::Up == CurDir ||
+		PLAYER_DIRECTION::LeftUp == CurDir ||
+		PLAYER_DIRECTION::LeftDown == CurDir))
 	{
 		while (true == ColInfo.LeftCheck)
 		{
@@ -441,7 +454,10 @@ void Player::PosNormalization()
 		Transform.AddLocalPosition(float4::LEFT);
 	}
 	
-	if (true == ColNormalInfo.RightCheck)
+	if (true == ColNormalInfo.RightCheck &&
+		(PLAYER_DIRECTION::Down == CurDir ||
+		PLAYER_DIRECTION::RightUp == CurDir ||
+		PLAYER_DIRECTION::RightDown == CurDir))
 	{
 		while (true == ColInfo.RightCheck)
 		{
@@ -450,4 +466,6 @@ void Player::PosNormalization()
 		}
 		Transform.AddLocalPosition(float4::RIGHT);
 	}
+
+	TileColCheck();
 }

@@ -128,8 +128,7 @@ private:
 
 	// Nomaliaztion
 	void TileColCheckNormal();
-	void PosNormalization();
-
+	void AdjustPosByCol();
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
@@ -154,14 +153,14 @@ private:
 	}
 
 	// Deceleration
-	float DecelerationRatio = 0.0f; // 1.0f보다 클 수 없음.
+	float DecelerationValue = 0.0f; // 1.0f보다 클 수 없음.
 
 	void Deceleration(float _Speed)
 	{
-		DecelerationRatio -= DecelerationRatio * _Speed;
-		if (0.05f > DecelerationRatio)
+		DecelerationValue -= DecelerationValue * _Speed;
+		if (0.05f > DecelerationValue)
 		{
-			DecelerationRatio = 0.0f;
+			DecelerationValue = 0.0f;
 		}
 	}
 
