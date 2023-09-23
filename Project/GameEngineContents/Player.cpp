@@ -367,18 +367,18 @@ bool Player::MoveCheck()
 
 void Player::TileColCheck()
 {
-	ColInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos);
-	ColInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos);
-	ColInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos);
-	ColInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos);
+	//ColInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos);
+	//ColInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos);
+	//ColInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos);
+	//ColInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos);
 }
 
 void Player::TileColCheckNormal()
 {
-	ColNormalInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT);
-	ColNormalInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT);
-	ColNormalInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP);
-	ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
+	//ColNormalInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT);
+	//ColNormalInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT);
+	//ColNormalInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP);
+	//ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
 }
 
 bool Player::AllColCheck()
@@ -569,4 +569,34 @@ void Player::AdjustPosByCol()
 	}
 
 	TileColCheck();
+}
+
+void Player::DirSpecularReflection()
+{
+	switch (CurDir)
+	{
+	case PLAYER_DIRECTION::Right:
+		if (true == ColInfo.RightCheck)
+		{
+			SetDirection(PLAYER_DIRECTION::Left);
+		}
+		
+		break;
+	case PLAYER_DIRECTION::RightUp:
+		break;
+	case PLAYER_DIRECTION::Up:
+		break;
+	case PLAYER_DIRECTION::LeftUp:
+		break;
+	case PLAYER_DIRECTION::Left:
+		break;
+	case PLAYER_DIRECTION::LeftDown:
+		break;
+	case PLAYER_DIRECTION::Down:
+		break;
+	case PLAYER_DIRECTION::RightDown:
+		break;
+	default:
+		break;
+	}
 }

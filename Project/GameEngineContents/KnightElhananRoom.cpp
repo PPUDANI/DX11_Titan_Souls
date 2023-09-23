@@ -14,7 +14,7 @@ void KnightElhananRoom::Start()
 	PlayLevelBase::Start();
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-	TileMapActor->Init(59, 60, "KnightElhanan", "Underworld.png");
+	TileMapActor->BaseSetting(59, 60, "KnightElhanan", "Underworld.png");
 }
 
 void KnightElhananRoom::Update(float _Delta)

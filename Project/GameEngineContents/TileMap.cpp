@@ -13,7 +13,6 @@ void TileMap::Start()
 {
 	FolderPath.MoveParentToExistsChild("Resource");
 	FolderPath.MoveChild("Resource\\TileMapData");
-
 }
 
 void TileMap::Update(float _Delta)
@@ -21,49 +20,210 @@ void TileMap::Update(float _Delta)
 
 }
 
-void TileMap::Init(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName)
+void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName)
 {
 	FolderPath.MoveChild(_FolderName);
+	FolderPathString = FolderPath.GetStringPath();
+	FolderPathString += "\\";
 	IndexX = _IndexX;
 	IndexY = _IndexY;
 	SpriteName = _SpriteName;
 	
-	MapDataSetting();
-	TileTexureSetting();
-	SetViewMode(VIEW_MODE::DEFAULT_MODE);
 }
+
+void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
+{
+	FILE* File = nullptr;
+
+	std::vector<std::vector<int>> Info;
+	Info.assign(IndexY, std::vector<int>(IndexX, 0));
+
+	// Load
+	std::string Path = FolderPathString;
+
+	Path += _FileName;
+	fopen_s(&File, Path.c_str(), "rb");
+
+	if (nullptr == File)
+	{
+		return;
+	}
+	
+	int Nomalizer = 1;
+	if (TILE_TYPE::COL == _Type ||
+		TILE_TYPE::COLA == _Type || 
+		TILE_TYPE::MAT == _Type)
+	{
+		Nomalizer = 4097;
+	}
+
+	for (unsigned int y = 0; y < IndexY; ++y)
+	{
+		for (unsigned int x = 0; x < IndexX; ++x)
+		{
+			fread(&Info[y][x], sizeof(int), 1, File);
+			Info[y][x] -= Nomalizer;
+		}
+	}
+
+	fclose(File);
+
+	switch (_Type)
+	{
+	case TILE_TYPE::BG:
+		BGTileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::BGA:
+		BGATileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::FG:
+		FGTileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::WALL:
+		WALLTileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::COL:
+		COLTileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::COLA:
+		COLATileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::MAT:
+		MATTileMapInfos.push_back(Info);
+		break;
+	default:
+		break;
+	}
+}
+
 
 void TileMap::SetViewMode(VIEW_MODE _Mode)
 {
 	switch (_Mode)
 	{
 	case VIEW_MODE::DEFAULT_MODE:
-		BGTileMap->On();
-		BGATileMap->On();
-		FGTileMap->On();
-		COLTileMap->Off();
-		MATTileMap->Off();
+		for (size_t i = 0; i < BGTileMaps.size(); i++)
+		{
+			BGTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < BGATileMaps.size(); i++)
+		{
+			BGATileMaps[i]->On();
+		}
+		for (size_t i = 0; i < WALLTileMaps.size(); i++)
+		{
+			WALLTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < FGTileMaps.size(); i++)
+		{
+			FGTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < COLTileMaps.size(); i++)
+		{
+			COLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		{
+			COLATileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < MATTileMaps.size(); i++)
+		{
+			MATTileMaps[i]->Off();
+		}
 		break;
+
 	case VIEW_MODE::COLLISION_MODE:
-		BGTileMap->Off();
-		BGATileMap->Off();
-		FGTileMap->Off();
-		COLTileMap->On();
-		MATTileMap->Off();
+		for (size_t i = 0; i < BGTileMaps.size(); i++)
+		{
+			BGTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < BGATileMaps.size(); i++)
+		{
+			BGATileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < WALLTileMaps.size(); i++)
+		{
+			WALLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < FGTileMaps.size(); i++)
+		{
+			FGTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < COLTileMaps.size(); i++)
+		{
+			COLTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		{
+			COLATileMaps[i]->On();
+		}
+		for (size_t i = 0; i < MATTileMaps.size(); i++)
+		{
+			MATTileMaps[i]->Off();
+		}
+
 		break;
 	case VIEW_MODE::MATERIAL_MODE1:
-		BGTileMap->On();
-		BGATileMap->Off();
-		FGTileMap->Off();
-		COLTileMap->Off();
-		MATTileMap->On();
+		for (size_t i = 0; i < BGTileMaps.size(); i++)
+		{
+			BGTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < BGATileMaps.size(); i++)
+		{
+			BGATileMaps[i]->On();
+		}
+		for (size_t i = 0; i < WALLTileMaps.size(); i++)
+		{
+			WALLTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < FGTileMaps.size(); i++)
+		{
+			FGTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < COLTileMaps.size(); i++)
+		{
+			COLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		{
+			COLATileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < MATTileMaps.size(); i++)
+		{
+			MATTileMaps[i]->On();
+		}
 		break;
+
 	case VIEW_MODE::MATERIAL_MODE2:
-		BGTileMap->On();
-		BGATileMap->Off();
-		FGTileMap->On();
-		COLTileMap->Off();
-		MATTileMap->On();
+		for (size_t i = 0; i < BGTileMaps.size(); i++)
+		{
+			BGTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < BGATileMaps.size(); i++)
+		{
+			BGATileMaps[i]->On();
+		}
+		for (size_t i = 0; i < WALLTileMaps.size(); i++)
+		{
+			WALLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < FGTileMaps.size(); i++)
+		{
+			FGTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < COLTileMaps.size(); i++)
+		{
+			COLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		{
+			COLATileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < MATTileMaps.size(); i++)
+		{
+			MATTileMaps[i]->Off();
+		}
+
 		break;
 	default:
 		break;
@@ -76,83 +236,109 @@ void TileMap::MapDataSetting()
 
 	TileMapInfo.assign(IndexY, std::vector<TileInfo>(IndexX));
 
-
 	// BackGround Load
-	fopen_s(&File, FolderPath.PlusFilePath("BG.tmd").c_str(), "rb");
-	if (nullptr == File)
+	std::string Path = FolderPathString;
+	Path += "\\BG.tmd";
+	fopen_s(&File, Path.c_str(), "rb");
+	if (nullptr != File)
 	{
-		MsgBoxAssert("BG.tmd 파일을 열지 못했습니다.")
-	}
-	for (unsigned int y = 0; y < IndexY; ++y)
-	{
-		for (unsigned int x = 0; x < IndexX; ++x)
+		for (unsigned int y = 0; y < IndexY; ++y)
 		{
-			fread(&TileMapInfo[y][x].BG_Index, sizeof(int), 1, File);
-			TileMapInfo[y][x].BG_Index -= 1;
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].BG_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].BG_Index -= 1;
+			}
 		}
 	}
 	fclose(File);
 
 	// BackGround Animation Load
 	fopen_s(&File, FolderPath.PlusFilePath("BGA.tmd").c_str(), "rb");
-	if (nullptr == File)
+	if (nullptr != File)
 	{
-		MsgBoxAssert("BGA.tmd 파일을 열지 못했습니다.")
-	}
-	for (unsigned int y = 0; y < IndexY; ++y)
-	{
-		for (unsigned int x = 0; x < IndexX; ++x)
+		for (unsigned int y = 0; y < IndexY; ++y)
 		{
-			fread(&TileMapInfo[y][x].BGA_Index, sizeof(int), 1, File);
-			TileMapInfo[y][x].BGA_Index -= 1;
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].BGA_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].BGA_Index -= 1;
+			}
 		}
 	}
 	fclose(File);
 
 	// ForeGround Load
 	fopen_s(&File, FolderPath.PlusFilePath("FG.tmd").c_str(), "rb");
-	if (nullptr == File)
+	if (nullptr != File)
 	{
-		MsgBoxAssert("FG.tmd 파일을 열지 못했습니다.")
-	}
-	for (unsigned int y = 0; y < IndexY; ++y)
-	{
-		for (unsigned int x = 0; x < IndexX; ++x)
+		for (unsigned int y = 0; y < IndexY; ++y)
 		{
-			fread(&TileMapInfo[y][x].FG_Index, sizeof(int), 1, File);
-			TileMapInfo[y][x].FG_Index -= 1;
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].FG_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].FG_Index -= 1;
+			}
 		}
 	}
 	fclose(File);
 
 	// Collision Load
 	fopen_s(&File, FolderPath.PlusFilePath("COL.tmd").c_str(), "rb");
-	if (nullptr == File)
+	if (nullptr != File)
 	{
-		MsgBoxAssert("COL.tmd 파일을 열지 못했습니다.")
-	}
-	for (unsigned int y = 0; y < IndexY; ++y)
-	{
-		for (unsigned int x = 0; x < IndexX; ++x)
+		for (unsigned int y = 0; y < IndexY; ++y)
 		{
-			fread(&TileMapInfo[y][x].COL_Index, sizeof(int), 1, File);
-			TileMapInfo[y][x].COL_Index -= 4097;
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].COL_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].COL_Index -= 4097;
+			}
+		}
+	}
+	fclose(File);
+
+	// Collision Load
+	fopen_s(&File, FolderPath.PlusFilePath("COL2.tmd").c_str(), "rb");
+	if (nullptr != File)
+	{
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].COL2_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].COL2_Index -= 4097;
+			}
+		}
+	}
+	fclose(File);
+
+	// Collision Load
+	fopen_s(&File, FolderPath.PlusFilePath("COLA.tmd").c_str(), "rb");
+	if (nullptr != File)
+	{
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].COLA_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].COLA_Index -= 4097;
+			}
 		}
 	}
 	fclose(File);
 
 	// Material Load
 	fopen_s(&File, FolderPath.PlusFilePath("MAT.tmd").c_str(), "rb");
-	if (nullptr == File)
+	if (nullptr != File)
 	{
-		MsgBoxAssert("MAT.tmd 파일을 열지 못했습니다.")
-	}
-	for (unsigned int y = 0; y < IndexY; ++y)
-	{
-		for (unsigned int x = 0; x < IndexX; ++x)
+		for (unsigned int y = 0; y < IndexY; ++y)
 		{
-			fread(&TileMapInfo[y][x].MAT_Index, sizeof(int), 1, File);
-			TileMapInfo[y][x].MAT_Index -= 4097;
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				fread(&TileMapInfo[y][x].MAT_Index, sizeof(int), 1, File);
+				TileMapInfo[y][x].MAT_Index -= 4097;
+			}
 		}
 	}
 	fclose(File);
@@ -160,32 +346,176 @@ void TileMap::MapDataSetting()
 
 void TileMap::TileTexureSetting()
 {
-	BGTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGMap);
-	BGTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-	BGTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
-	BGTileMap->ExpandRenderedTileMap(3);
+	// Background Create & Texture Setting
+	for (int i = 0; i < BGTileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-	BGATileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGAMap);
-	BGATileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-	BGATileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
-	BGATileMap->ExpandRenderedTileMap(3);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
 
-	FGTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::FGMap);
-	FGTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-	FGTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
-	FGTileMap->ExpandRenderedTileMap(3);
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= BGTileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(BGTileMapInfos[i][y][x]), SpriteName });
+				}
+			}
+		}
+		NewTileMap->Off();
+		BGTileMaps.push_back(NewTileMap);
+	}
 
-	COLTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
-	COLTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
-	COLTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
-	COLTileMap->ExpandRenderedTileMap(3);
+	// Background Animation Create & Texture Setting
+	for (int i = 0; i < BGATileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-	MATTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::MATMap);
-	MATTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
-	MATTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
-	MATTileMap->ExpandRenderedTileMap(3);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGAMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
 
-	for (unsigned int y = 0; y < IndexY; ++y)
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= BGATileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(BGATileMapInfos[i][y][x]), SpriteName});
+				}
+			}
+		}
+		NewTileMap->Off();
+		BGATileMaps.push_back(NewTileMap);
+	}
+
+	// Foreground Create & Texture Setting
+	for (int i = 0; i < FGTileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
+
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::FGMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
+
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= FGTileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(FGTileMapInfos[i][y][x]), SpriteName });
+				}
+			}
+		}
+		NewTileMap->Off();
+		FGTileMaps.push_back(NewTileMap);
+	}
+
+	// Wall Create & Texture Setting
+	for (int i = 0; i < WALLTileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
+
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::WALLMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
+
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= WALLTileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(WALLTileMapInfos[i][y][x]), SpriteName });
+				}
+			}
+		}
+		NewTileMap->Off();
+		WALLTileMaps.push_back(NewTileMap);
+	}
+
+	// Collision Create & Texture Setting
+	for (int i = 0; i < COLTileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
+
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
+
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= COLTileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(COLTileMapInfos[i][y][x]), "Spectiles.png" });
+				}
+			}
+		}
+		NewTileMap->Off();
+		COLTileMaps.push_back(NewTileMap);
+	}
+
+	// Collision Air Create & Texture Setting
+	for (int i = 0; i < COLATileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
+
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
+
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= COLATileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(COLATileMapInfos[i][y][x]), "Spectiles.png" });
+				}
+			}
+		}
+		NewTileMap->Off();
+		COLATileMaps.push_back(NewTileMap);
+	}
+
+	// Material Create & Texture Setting
+	for (int i = 0; i < MATTileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
+
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::MATMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
+
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= MATTileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(MATTileMapInfos[i][y][x]), "Spectiles.png" });
+				}
+			}
+		}
+		NewTileMap->Off();
+		MATTileMaps.push_back(NewTileMap);
+	}
+
+
+	/*for (unsigned int y = 0; y < IndexY; ++y)
 	{
 		for (unsigned int x = 0; x < IndexX; ++x)
 		{
@@ -208,41 +538,51 @@ void TileMap::TileTexureSetting()
 			{
 				COLTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].COL_Index), "Spectiles.png" });
 			}
-			
+
+			if (0 <= TileMapInfo[y][x].COL2_Index)
+			{
+				COL2TileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].COL2_Index), "Spectiles.png" });
+			}
+
+			if (0 <= TileMapInfo[y][x].COLA_Index)
+			{
+				COLATileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].COLA_Index), "Spectiles.png" });
+			}
+
 			if (0 <= TileMapInfo[y][x].MAT_Index)
 			{
 				MATTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].MAT_Index), "Spectiles.png" });
 			}
 		}
-	}
+	}*/
 }
 
 bool TileMap::ColCheck(float4 _Pos)
 {
-	float4 Index = COLTileMap->PosToIndex(_Pos);
-	Index.Y = -Index.Y;
+	//float4 Index = COLTileMap->PosToIndex(_Pos);
+	//Index.Y = -Index.Y;
 
-	int Xsize = static_cast<int>(TileMapInfo[0].size());
-	int Ysize = static_cast<int>(TileMapInfo.size());
+	//int Xsize = static_cast<int>(TileMapInfo[0].size());
+	//int Ysize = static_cast<int>(TileMapInfo.size());
 
-	if (Xsize < Index.iX() ||
-		0 > Index.iX())
-	{
-		return false;
-	}
-	else if(Ysize < Index.iY() ||
-		    0 > Index.iY())
-	{
-		return false;
-	}
+	//if (Xsize < Index.iX() ||
+	//	0 > Index.iX())
+	//{
+	//	return false;
+	//}
+	//else if(Ysize < Index.iY() ||
+	//	    0 > Index.iY())
+	//{
+	//	return false;
+	//}
 
-	int ColIndex = TileMapInfo[Index.iY()][Index.iX()].COL_Index;
+	//int ColIndex = TileMapInfo[Index.iY()][Index.iX()].COL_Index;
 
-	if (252 == ColIndex)
-	{
-		return true;
-	}
-	else
+	//if (252 == ColIndex)
+	//{
+	//	return true;
+	//}
+	//else
 	{
 		return false;
 	}

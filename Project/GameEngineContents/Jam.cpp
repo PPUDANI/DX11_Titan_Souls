@@ -17,7 +17,7 @@ void Jam::Start()
 	//Map->Transform.SetLocalPosition({ 0.0f, 0.0f });
 
 	TileMapActor = CreateActor<TileMap>();
-	TileMapActor->Init(185, 160, "Jam", "Jam.png");
+	//TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");
 }
 
 void Jam::Update(float _Delta)

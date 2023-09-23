@@ -14,7 +14,7 @@ void YetiRoom::Start()
 	PlayLevelBase::Start();
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-	TileMapActor->Init(60, 60, "Yeti", "Underworld.png");
+	TileMapActor->BaseSetting(60, 60, "Yeti", "Underworld.png");
 }
 
 void YetiRoom::Update(float _Delta)

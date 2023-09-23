@@ -33,11 +33,12 @@ void ContentsCore::Start()
 
 	// Create Level
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
-	GameEngineCore::CreateLevel<Jam>("Jam");
 	GameEngineCore::CreateLevel<Floor1>("Floor1");
-	GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
-	GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
-	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
+	//GameEngineCore::CreateLevel<Jam>("Jam");
+	//GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
+	//GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
+	//GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
+
 	GameEngineCore::ChangeLevel("TitleLevel");
 }
 

@@ -213,6 +213,7 @@ void Player::RollUpdate(float _Delta)
 	if (true == IsRollingBlocked)
 	{
 		// Specular Reflection 추가하기
+		DirSpecularReflection();
 		MovePos = -MovePos * DecelerationValue;
 		Deceleration(5.0f * _Delta);
 	}

@@ -14,7 +14,7 @@ void SludgeHeartRoom::Start()
 	PlayLevelBase::Start();
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-	TileMapActor->Init(60, 80, "SludgeHeart", "Underworld.png");
+	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
 }
 
 void SludgeHeartRoom::Update(float _Delta)

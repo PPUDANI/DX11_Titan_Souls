@@ -26,5 +26,7 @@ public:
 	int BGA_Index = 0;
 	int FG_Index = 0;
 	int COL_Index = 0;
+	int COL2_Index = 0;
+	int COLA_Index = 0;
 	int MAT_Index = 0;
 };

@@ -122,9 +122,11 @@ private:
 
 	ColCheckInfo ColInfo;
 	ColCheckInfo ColNormalInfo;
+
 	void TileColCheck();
 	bool AllColCheck();
 	bool CurDirColCheck();
+	void DirSpecularReflection();
 
 	// Nomaliaztion
 	void TileColCheckNormal();
