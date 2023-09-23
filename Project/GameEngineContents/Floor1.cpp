@@ -17,7 +17,6 @@ void Floor1::Start()
 	TileMapActor = CreateActor<TileMap>();
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
-	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG2.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::WALL, "WALL.tmd");

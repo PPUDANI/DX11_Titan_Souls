@@ -31,20 +31,9 @@ void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName
 
 void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
 {
-	FILE* File = nullptr;
-
 	std::vector<std::vector<int>> Info;
 	Info.assign(IndexY, std::vector<int>(IndexX, 0));
 
-	// Load
-
-	fopen_s(&File, FolderPath.PlusFilePath(_FileName).c_str(), "rb");
-
-	if (nullptr == File)
-	{
-		return;
-	}
-	
 	// 현재 제작한 엔진 구조의 Sprite Data Index 시작값은 0이다.
 	// 하지만 분석한 타일의 TextureIndex 시작값이 1이므로 수정이 필요하다.
 	// 받아온 정보들을 전부 1만큼 빼주는데 Info가 음수가 될 가능성이 있다.
@@ -61,6 +50,15 @@ void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
 		TILE_TYPE::MAT == _Type)
 	{
 		Nomalizer = 4097;
+	}
+
+	// Load
+	FILE* File = nullptr;
+	fopen_s(&File, FolderPath.PlusFilePath(_FileName).c_str(), "rb");
+
+	if (nullptr == File)
+	{
+		return;
 	}
 
 	for (unsigned int y = 0; y < IndexY; ++y)
@@ -236,120 +234,6 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 	}
 }
 
-void TileMap::MapDataSetting()
-{
-	FILE* File = nullptr;
-
-	TileMapInfo.assign(IndexY, std::vector<TileInfo>(IndexX));
-
-	// BackGround Load
-	std::string Path = FolderPathString;
-	Path += "\\BG.tmd";
-	fopen_s(&File, Path.c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].BG_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].BG_Index -= 1;
-			}
-		}
-	}
-	fclose(File);
-
-	// BackGround Animation Load
-	fopen_s(&File, FolderPath.PlusFilePath("BGA.tmd").c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].BGA_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].BGA_Index -= 1;
-			}
-		}
-	}
-	fclose(File);
-
-	// ForeGround Load
-	fopen_s(&File, FolderPath.PlusFilePath("FG.tmd").c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].FG_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].FG_Index -= 1;
-			}
-		}
-	}
-	fclose(File);
-
-	// Collision Load
-	fopen_s(&File, FolderPath.PlusFilePath("COL.tmd").c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].COL_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].COL_Index -= 4097;
-			}
-		}
-	}
-	fclose(File);
-
-	// Collision Load
-	fopen_s(&File, FolderPath.PlusFilePath("COL2.tmd").c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].COL2_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].COL2_Index -= 4097;
-			}
-		}
-	}
-	fclose(File);
-
-	// Collision Load
-	fopen_s(&File, FolderPath.PlusFilePath("COLA.tmd").c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].COLA_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].COLA_Index -= 4097;
-			}
-		}
-	}
-	fclose(File);
-
-	// Material Load
-	fopen_s(&File, FolderPath.PlusFilePath("MAT.tmd").c_str(), "rb");
-	if (nullptr != File)
-	{
-		for (unsigned int y = 0; y < IndexY; ++y)
-		{
-			for (unsigned int x = 0; x < IndexX; ++x)
-			{
-				fread(&TileMapInfo[y][x].MAT_Index, sizeof(int), 1, File);
-				TileMapInfo[y][x].MAT_Index -= 4097;
-			}
-		}
-	}
-	fclose(File);
-}
-
 void TileMap::TileTexureSetting()
 {
 	// Background Create & Texture Setting
@@ -519,76 +403,34 @@ void TileMap::TileTexureSetting()
 		NewTileMap->Off();
 		MATTileMaps.push_back(NewTileMap);
 	}
-
-
-	/*for (unsigned int y = 0; y < IndexY; ++y)
-	{
-		for (unsigned int x = 0; x < IndexX; ++x)
-		{
-			if (0 <= TileMapInfo[y][x].BG_Index)
-			{
-				BGTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].BG_Index), SpriteName });
-			}
-
-			if (0 <= TileMapInfo[y][x].BGA_Index)
-			{
-				BGATileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].BGA_Index), SpriteName });
-			}
-
-			if (0 <= TileMapInfo[y][x].FG_Index)
-			{
-				FGTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].FG_Index), SpriteName });
-			}
-
-			if (0 <= TileMapInfo[y][x].COL_Index)
-			{
-				COLTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].COL_Index), "Spectiles.png" });
-			}
-
-			if (0 <= TileMapInfo[y][x].COL2_Index)
-			{
-				COL2TileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].COL2_Index), "Spectiles.png" });
-			}
-
-			if (0 <= TileMapInfo[y][x].COLA_Index)
-			{
-				COLATileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].COLA_Index), "Spectiles.png" });
-			}
-
-			if (0 <= TileMapInfo[y][x].MAT_Index)
-			{
-				MATTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TileMapInfo[y][x].MAT_Index), "Spectiles.png" });
-			}
-		}
-	}*/
 }
 
 bool TileMap::ColCheck(float4 _Pos)
 {
-	//float4 Index = COLTileMap->PosToIndex(_Pos);
-	//Index.Y = -Index.Y;
+	float4 Index = COLTileMaps[0]->PosToIndex(_Pos);
+	Index.Y = -Index.Y;
 
-	//int Xsize = static_cast<int>(TileMapInfo[0].size());
-	//int Ysize = static_cast<int>(TileMapInfo.size());
+	int Xsize = static_cast<int>(COLTileMapInfos[0][0].size());
+	int Ysize = static_cast<int>(COLTileMapInfos[0].size());
 
-	//if (Xsize < Index.iX() ||
-	//	0 > Index.iX())
-	//{
-	//	return false;
-	//}
-	//else if(Ysize < Index.iY() ||
-	//	    0 > Index.iY())
-	//{
-	//	return false;
-	//}
+	if (Xsize < Index.iX() ||
+		0 > Index.iX())
+	{
+		return false;
+	}
+	else if(Ysize < Index.iY() ||
+		    0 > Index.iY())
+	{
+		return false;
+	}
 
-	//int ColIndex = TileMapInfo[Index.iY()][Index.iX()].COL_Index;
+	int ColIndex = COLTileMapInfos[0][Index.iY()][Index.iX()];
 
-	//if (252 == ColIndex)
-	//{
-	//	return true;
-	//}
-	//else
+	if (252 == ColIndex)
+	{
+		return true;
+	}
+	else
 	{
 		return false;
 	}

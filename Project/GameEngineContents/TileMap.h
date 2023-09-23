@@ -48,7 +48,6 @@ private:
 	void Update(float _Delta) override;
 
 private:
-	void MapDataSetting();
 
 	GameEnginePath FolderPath;
 	std::string FolderPathString = "";

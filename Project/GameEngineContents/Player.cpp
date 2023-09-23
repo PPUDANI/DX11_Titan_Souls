@@ -367,18 +367,18 @@ bool Player::MoveCheck()
 
 void Player::TileColCheck()
 {
-	//ColInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos);
-	//ColInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos);
-	//ColInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos);
-	//ColInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos);
+	ColInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos);
+	ColInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos);
+	ColInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos);
+	ColInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos);
 }
 
 void Player::TileColCheckNormal()
 {
-	//ColNormalInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT);
-	//ColNormalInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT);
-	//ColNormalInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP);
-	//ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
+	ColNormalInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT);
+	ColNormalInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT);
+	ColNormalInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP);
+	ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
 }
 
 bool Player::AllColCheck()
