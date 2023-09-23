@@ -23,8 +23,6 @@ void TileMap::Update(float _Delta)
 void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName)
 {
 	FolderPath.MoveChild(_FolderName);
-	FolderPathString = FolderPath.GetStringPath();
-	FolderPathString += "\\";
 	IndexX = _IndexX;
 	IndexY = _IndexY;
 	SpriteName = _SpriteName;
@@ -39,17 +37,25 @@ void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
 	Info.assign(IndexY, std::vector<int>(IndexX, 0));
 
 	// Load
-	std::string Path = FolderPathString;
 
-	Path += _FileName;
-	fopen_s(&File, Path.c_str(), "rb");
+	fopen_s(&File, FolderPath.PlusFilePath(_FileName).c_str(), "rb");
 
 	if (nullptr == File)
 	{
 		return;
 	}
 	
+	// 현재 제작한 엔진 구조의 Sprite Data Index 시작값은 0이다.
+	// 하지만 분석한 타일의 TextureIndex 시작값이 1이므로 수정이 필요하다.
+	// 받아온 정보들을 전부 1만큼 빼주는데 Info가 음수가 될 가능성이 있다.
+	// 만약 음수일 경우 출력 되지 않게 했다.
+
 	int Nomalizer = 1;
+
+	// 타일 데이터 중 Collision, Material은 TextureIndex 시작값이 4097이다.
+    // 타일의 정보 아틀라스가 16X16으로 따로 저장되어 있기 때문에 엔진 구조상 4097을 빼주어 표준화 하였다.
+	// 마찬가지로 음수일 경우 출력되지 않는다.
+
 	if (TILE_TYPE::COL == _Type ||
 		TILE_TYPE::COLA == _Type || 
 		TILE_TYPE::MAT == _Type)
