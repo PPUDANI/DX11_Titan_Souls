@@ -30,6 +30,5 @@
 #include "ContentEnum.h"
 #include "PlayLevelBase.h"
 #include "TileMap.h"
-#include "TileInfo.h"
 #include "Player.h"
 #include "Arrow.h"

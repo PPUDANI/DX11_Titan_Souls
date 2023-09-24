@@ -46,7 +46,8 @@ void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
 	// 마찬가지로 음수일 경우 출력되지 않는다.
 
 	if (TILE_TYPE::COL == _Type ||
-		TILE_TYPE::COLA == _Type || 
+		TILE_TYPE::TCOL == _Type ||
+		TILE_TYPE::ACOL == _Type ||
 		TILE_TYPE::MAT == _Type)
 	{
 		Nomalizer = 4097;
@@ -89,8 +90,11 @@ void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
 	case TILE_TYPE::COL:
 		COLTileMapInfos.push_back(Info);
 		break;
-	case TILE_TYPE::COLA:
-		COLATileMapInfos.push_back(Info);
+	case TILE_TYPE::TCOL:
+		TCOLTileMapInfos.push_back(Info);
+		break;
+	case TILE_TYPE::ACOL:
+		ACOLTileMapInfos.push_back(Info);
 		break;
 	case TILE_TYPE::MAT:
 		MATTileMapInfos.push_back(Info);
@@ -126,9 +130,13 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		{
 			COLTileMaps[i]->Off();
 		}
-		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		for (size_t i = 0; i < TCOLTileMaps.size(); i++)
 		{
-			COLATileMaps[i]->Off();
+			TCOLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < ACOLTileMaps.size(); i++)
+		{
+			ACOLTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < MATTileMaps.size(); i++)
 		{
@@ -157,9 +165,13 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		{
 			COLTileMaps[i]->On();
 		}
-		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		for (size_t i = 0; i < TCOLTileMaps.size(); i++)
 		{
-			COLATileMaps[i]->On();
+			TCOLTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < ACOLTileMaps.size(); i++)
+		{
+			ACOLTileMaps[i]->On();
 		}
 		for (size_t i = 0; i < MATTileMaps.size(); i++)
 		{
@@ -170,27 +182,31 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 	case VIEW_MODE::MATERIAL_MODE1:
 		for (size_t i = 0; i < BGTileMaps.size(); i++)
 		{
-			BGTileMaps[i]->On();
+			BGTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < BGATileMaps.size(); i++)
 		{
-			BGATileMaps[i]->On();
+			BGATileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < WALLTileMaps.size(); i++)
 		{
-			WALLTileMaps[i]->On();
+			WALLTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < FGTileMaps.size(); i++)
 		{
-			FGTileMaps[i]->On();
+			FGTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < COLTileMaps.size(); i++)
 		{
 			COLTileMaps[i]->Off();
 		}
-		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		for (size_t i = 0; i < TCOLTileMaps.size(); i++)
 		{
-			COLATileMaps[i]->Off();
+			TCOLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < ACOLTileMaps.size(); i++)
+		{
+			ACOLTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < MATTileMaps.size(); i++)
 		{
@@ -205,7 +221,7 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		}
 		for (size_t i = 0; i < BGATileMaps.size(); i++)
 		{
-			BGATileMaps[i]->On();
+			BGATileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < WALLTileMaps.size(); i++)
 		{
@@ -219,15 +235,18 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		{
 			COLTileMaps[i]->Off();
 		}
-		for (size_t i = 0; i < COLATileMaps.size(); i++)
+		for (size_t i = 0; i < TCOLTileMaps.size(); i++)
 		{
-			COLATileMaps[i]->Off();
+			TCOLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < ACOLTileMaps.size(); i++)
+		{
+			ACOLTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < MATTileMaps.size(); i++)
 		{
 			MATTileMaps[i]->Off();
 		}
-
 		break;
 	default:
 		break;
@@ -237,7 +256,7 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 void TileMap::TileTexureSetting()
 {
 	// Background Create & Texture Setting
-	for (int i = 0; i < BGTileMapInfos.size(); ++i)
+	for (size_t i = 0; i < BGTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -261,7 +280,7 @@ void TileMap::TileTexureSetting()
 	}
 
 	// Background Animation Create & Texture Setting
-	for (int i = 0; i < BGATileMapInfos.size(); ++i)
+	for (size_t i = 0; i < BGATileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -285,7 +304,7 @@ void TileMap::TileTexureSetting()
 	}
 
 	// Foreground Create & Texture Setting
-	for (int i = 0; i < FGTileMapInfos.size(); ++i)
+	for (size_t i = 0; i < FGTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -309,7 +328,7 @@ void TileMap::TileTexureSetting()
 	}
 
 	// Wall Create & Texture Setting
-	for (int i = 0; i < WALLTileMapInfos.size(); ++i)
+	for (size_t i = 0; i < WALLTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -333,7 +352,7 @@ void TileMap::TileTexureSetting()
 	}
 
 	// Collision Create & Texture Setting
-	for (int i = 0; i < COLTileMapInfos.size(); ++i)
+	for (size_t i = 0; i < COLTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -356,8 +375,8 @@ void TileMap::TileTexureSetting()
 		COLTileMaps.push_back(NewTileMap);
 	}
 
-	// Collision Air Create & Texture Setting
-	for (int i = 0; i < COLATileMapInfos.size(); ++i)
+	// Triangle Collision Create & Texture Setting
+	for (size_t i = 0; i < TCOLTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -370,18 +389,42 @@ void TileMap::TileTexureSetting()
 		{
 			for (unsigned int x = 0; x < IndexX; ++x)
 			{
-				if (0 <= COLATileMapInfos[i][y][x])
+				if (0 <= TCOLTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(COLATileMapInfos[i][y][x]), "Spectiles.png" });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TCOLTileMapInfos[i][y][x]), "Spectiles.png" });
 				}
 			}
 		}
 		NewTileMap->Off();
-		COLATileMaps.push_back(NewTileMap);
+		TCOLTileMaps.push_back(NewTileMap);
+	}
+
+	// Air Collision Create & Texture Setting
+	for (size_t i = 0; i < ACOLTileMapInfos.size(); ++i)
+	{
+		std::shared_ptr<GameEngineTileMap> NewTileMap;
+
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
+		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
+		NewTileMap->ExpandRenderedTileMap(3);
+
+		for (unsigned int y = 0; y < IndexY; ++y)
+		{
+			for (unsigned int x = 0; x < IndexX; ++x)
+			{
+				if (0 <= ACOLTileMapInfos[i][y][x])
+				{
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(ACOLTileMapInfos[i][y][x]), "Spectiles.png" });
+				}
+			}
+		}
+		NewTileMap->Off();
+		ACOLTileMaps.push_back(NewTileMap);
 	}
 
 	// Material Create & Texture Setting
-	for (int i = 0; i < MATTileMapInfos.size(); ++i)
+	for (size_t i = 0; i < MATTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
@@ -405,33 +448,163 @@ void TileMap::TileTexureSetting()
 	}
 }
 
-bool TileMap::ColCheck(float4 _Pos)
+
+bool TileMap::AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
 {
-	float4 Index = COLTileMaps[0]->PosToIndex(_Pos);
-	Index.Y = -Index.Y;
-
-	int Xsize = static_cast<int>(COLTileMapInfos[0][0].size());
-	int Ysize = static_cast<int>(COLTileMapInfos[0].size());
-
-	if (Xsize < Index.iX() ||
-		0 > Index.iX())
-	{
-		return false;
-	}
-	else if(Ysize < Index.iY() ||
-		    0 > Index.iY())
-	{
-		return false;
-	}
-
-	int ColIndex = COLTileMapInfos[0][Index.iY()][Index.iX()];
-
-	if (252 == ColIndex)
+	if (true == ColCheck(_Pos, _TypeBuffer))
 	{
 		return true;
 	}
-	else
+
+	if (true == AirColCheck(_Pos, _TypeBuffer))
 	{
-		return false;
+		return true;
 	}
+
+	if (true == TriangleColCheck(_Pos, _TypeBuffer))
+	{
+		return true;
+	}
+
+	_TypeBuffer = COLLISION_TYPE::EMPTY;
+	return false;
+}
+
+bool TileMap::ColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
+{
+	// COL 타일이 중복된 곳은 없기 때문에 중간에 return해도 상관 없음.
+	for (size_t i = 0; i < COLTileMaps.size(); ++i)
+	{
+		float4 CheckIndex = COLTileMaps[i]->PosToIndex(_Pos);
+		CheckIndex.Y = -CheckIndex.Y;
+
+		if (static_cast<int>(IndexX) < CheckIndex.iX() ||
+			0 > CheckIndex.iX())
+		{
+			_TypeBuffer = COLLISION_TYPE::EMPTY;
+			return false;
+		}
+		else if (static_cast<int>(IndexY) < CheckIndex.iY() ||
+			0 > CheckIndex.iY())
+		{
+			_TypeBuffer = COLLISION_TYPE::EMPTY;
+			return false;
+		}
+
+		int IndexColInfo = COLTileMapInfos[i][CheckIndex.iY()][CheckIndex.iX()];
+
+		if (0 > IndexColInfo ||
+			255 < IndexColInfo)
+		{
+			IndexColInfo = 0;
+		}
+
+		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
+		{
+		case COLLISION_TYPE::EMPTY:
+			_TypeBuffer = static_cast<COLLISION_TYPE>(IndexColInfo);
+			break;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+			_TypeBuffer = static_cast<COLLISION_TYPE>(IndexColInfo);
+			return true;
+		default:
+			MsgBoxAssert("Rect Collision에서처리되지 않은 Collision Type 입니다.")
+		}
+	}
+	return false;
+}
+
+bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
+{
+	// COL 타일이 중복된 곳은 없기 때문에 중간에 return해도 상관 없음.
+	for (size_t i = 0; i < TCOLTileMaps.size(); ++i)
+	{
+		float4 CheckIndex = TCOLTileMaps[i]->PosToIndex(_Pos);
+		CheckIndex.Y = -CheckIndex.Y;
+
+		if (static_cast<int>(IndexX) < CheckIndex.iX() ||
+			0 > CheckIndex.iX())
+		{
+			_TypeBuffer = COLLISION_TYPE::EMPTY;
+			return false;
+		}
+		else if (static_cast<int>(IndexY) < CheckIndex.iY() ||
+			0 > CheckIndex.iY())
+		{
+			_TypeBuffer = COLLISION_TYPE::EMPTY;
+			return false;
+		}
+
+		int IndexColInfo = TCOLTileMapInfos[i][CheckIndex.iY()][CheckIndex.iX()];
+
+		if (0 > IndexColInfo ||
+			255 < IndexColInfo)
+		{
+			IndexColInfo = 0;
+		}
+
+		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
+		{
+		case COLLISION_TYPE::EMPTY:
+			_TypeBuffer = static_cast<COLLISION_TYPE>(IndexColInfo);
+			break;
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+			_TypeBuffer = static_cast<COLLISION_TYPE>(IndexColInfo);
+			return true;
+		default:
+			MsgBoxAssert("Triangle Collision에서 처리되지 않은 Collision Type 입니다.")
+		}
+	}
+	return false;
+}
+
+bool TileMap::AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
+{
+	// COL 타일이 중복된 곳은 없기 때문에 중간에 return해도 상관 없음.
+	for (size_t i = 0; i < ACOLTileMaps.size(); ++i)
+	{
+		float4 CheckIndex = ACOLTileMaps[i]->PosToIndex(_Pos);
+		CheckIndex.Y = -CheckIndex.Y;
+
+		if (static_cast<int>(IndexX) < CheckIndex.iX() ||
+			0 > CheckIndex.iX())
+		{
+			_TypeBuffer = COLLISION_TYPE::EMPTY;
+			return false;
+		}
+		else if (static_cast<int>(IndexY) < CheckIndex.iY() ||
+			0 > CheckIndex.iY())
+		{
+			_TypeBuffer = COLLISION_TYPE::EMPTY;
+			return false;
+		}
+
+		int IndexColInfo = ACOLTileMapInfos[i][CheckIndex.iY()][CheckIndex.iX()];
+
+		if (0 > IndexColInfo ||
+			255 < IndexColInfo)
+		{
+			IndexColInfo = 0;
+		}
+
+		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
+		{
+		case COLLISION_TYPE::EMPTY:
+			_TypeBuffer = static_cast<COLLISION_TYPE>(IndexColInfo);
+			break;
+		case COLLISION_TYPE::RECT:
+			_TypeBuffer = static_cast<COLLISION_TYPE>(IndexColInfo);
+			return true;
+		default:
+			MsgBoxAssert("Air Collision에서 처리되지 않은 Collision Type 입니다.")
+		}
+	}
+	return false;
 }

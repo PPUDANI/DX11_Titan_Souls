@@ -13,6 +13,17 @@ void Player::MoveStart()
 {
 }
 
+void Player::RollStart()
+{
+	IsRollingBlocked = false;
+	DecelerationValue = 0.8f;
+	SetAnimByDir("Roll");
+}
+
+void Player::BlockedStart()
+{
+}
+
 void Player::StopStart()
 {
 	if (true == IsRunning)
@@ -23,19 +34,8 @@ void Player::StopStart()
 	{
 		DecelerationValue = 0.5f;
 	}
-	
+
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
-}
-
-void Player::RollStart()
-{
-	IsRollingBlocked = false;
-	DecelerationValue = 0.8f;
-	SetAnimByDir("Roll");
-}
-
-void Player::BlockedStart()
-{
 }
 
 void Player::AimStart()
@@ -139,51 +139,6 @@ void Player::MoveUpdate(float _Delta)
 	}
 }
 
-void Player::StopUpdate(float _Delta)
-{
-	// Death Check
-	if (true == GameEngineInput::IsPress('K'))
-	{
-		ChangeState(PLAYER_STATE::Death);
-		return;
-	}
-
-	// Walk Check
-	if (true == GameEngineInput::IsPress('W') ||
-		true == GameEngineInput::IsPress('A') ||
-		true == GameEngineInput::IsPress('S') ||
-		true == GameEngineInput::IsPress('D'))
-	{
-		ChangeState(PLAYER_STATE::Move);
-		return;
-	}
-	
-	// Roll Check
-	if (true == GameEngineInput::IsDown(VK_SPACE))
-	{
-		if (true == RollCollDownCheck())
-		{
-			return;
-		}
-	}
-	
-	// Deceleration
-	if (0.0f == DecelerationValue)
-	{
-		ChangeState(PLAYER_STATE::Idle);
-		return;
-	}
-	else
-	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
-		if (false == CurDirColCheck())
-		{
-			Transform.AddLocalPosition(MovePos);
-		}
-		Deceleration(10.0f * _Delta);
-	}
-}
-
 void Player::RollUpdate(float _Delta)
 {
 	// Death Check
@@ -213,7 +168,7 @@ void Player::RollUpdate(float _Delta)
 	if (true == IsRollingBlocked)
 	{
 		// Specular Reflection 추가하기
-		DirSpecularReflection();
+		//DirSpecularReflection();
 		MovePos = -MovePos * DecelerationValue;
 		Deceleration(5.0f * _Delta);
 	}
@@ -223,6 +178,51 @@ void Player::RollUpdate(float _Delta)
 
 void Player::BlockedUpdate(float _Delta)
 {
+}
+
+void Player::StopUpdate(float _Delta)
+{
+	// Death Check
+	if (true == GameEngineInput::IsPress('K'))
+	{
+		ChangeState(PLAYER_STATE::Death);
+		return;
+	}
+
+	// Walk Check
+	if (true == GameEngineInput::IsPress('W') ||
+		true == GameEngineInput::IsPress('A') ||
+		true == GameEngineInput::IsPress('S') ||
+		true == GameEngineInput::IsPress('D'))
+	{
+		ChangeState(PLAYER_STATE::Move);
+		return;
+	}
+
+	// Roll Check
+	if (true == GameEngineInput::IsDown(VK_SPACE))
+	{
+		if (true == RollCollDownCheck())
+		{
+			return;
+		}
+	}
+
+	// Deceleration
+	if (0.0f == DecelerationValue)
+	{
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
+	else
+	{
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
+		if (false == CurDirColCheck())
+		{
+			Transform.AddLocalPosition(MovePos);
+		}
+		Deceleration(10.0f * _Delta);
+	}
 }
 
 void Player::AimUpdate(float _Delta)

@@ -50,9 +50,6 @@
     <ClCompile Include="ArrowState.cpp">
       <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
     </ClCompile>
-    <ClCompile Include="TileInfo.cpp">
-      <Filter>01. Actor\00. Map</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -94,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="GlobalLoad.h">
       <Filter>00. Global</Filter>
-    </ClInclude>
-    <ClInclude Include="TileInfo.h">
-      <Filter>01. Actor\00. Map</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>01. Actor\00. Map</Filter>

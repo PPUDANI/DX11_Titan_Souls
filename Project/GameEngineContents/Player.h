@@ -32,6 +32,11 @@ public:
 	bool RightCheck = false;
 	bool UpCheck = false;
 	bool DownCheck = false;
+
+	COLLISION_TYPE LeftColType = COLLISION_TYPE::EMPTY;
+	COLLISION_TYPE RightColType = COLLISION_TYPE::EMPTY;
+	COLLISION_TYPE UpColType = COLLISION_TYPE::EMPTY;
+	COLLISION_TYPE DownColType = COLLISION_TYPE::EMPTY;
 };
 
 class Player : public GameEngineActor
@@ -124,7 +129,7 @@ private:
 	ColCheckInfo ColNormalInfo;
 
 	void TileColCheck();
-	bool AllColCheck();
+	void TriangleColCheck();
 	bool CurDirColCheck();
 	void DirSpecularReflection();
 

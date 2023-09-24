@@ -13,11 +13,21 @@ void Jam::Start()
 {
 	PlayLevelBase::Start();
 
-	//Map = CreateActor<TestMap>(UPDATE_ORDER::Map);
-	//Map->Transform.SetLocalPosition({ 0.0f, 0.0f });
+	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 
-	TileMapActor = CreateActor<TileMap>();
-	//TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");
+	TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");
+	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BG2.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BG3.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG2.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::WALL, "WALL.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::COL, "COL.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::TCOL, "COL2.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::MAT, "MAT.tmd");
+
+	TileMapActor->TileTexureSetting();
+	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
 }
 
 void Jam::Update(float _Delta)

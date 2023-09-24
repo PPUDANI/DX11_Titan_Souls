@@ -367,24 +367,47 @@ bool Player::MoveCheck()
 
 void Player::TileColCheck()
 {
-	ColInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos);
-	ColInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos);
-	ColInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos);
-	ColInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos);
+	ColInfo.LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos, ColInfo.LeftColType);
+	ColInfo.RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos, ColInfo.RightColType);
+	ColInfo.UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos, ColInfo.UpColType);
+	ColInfo.DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos, ColInfo.DownColType);
+	//TriangleColCheck();
 }
 
 void Player::TileColCheckNormal()
 {
-	ColNormalInfo.LeftCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT);
-	ColNormalInfo.RightCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT);
-	ColNormalInfo.UpCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP);
-	ColNormalInfo.DownCheck = CurMap->ColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN);
+	ColNormalInfo.LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT, ColInfo.LeftColType);
+	ColNormalInfo.RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT, ColInfo.RightColType);
+	ColNormalInfo.UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP, ColInfo.UpColType);
+	ColNormalInfo.DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN, ColInfo.DownColType);
 }
 
-bool Player::AllColCheck()
+void Player::TriangleColCheck()
 {
-	return ColInfo.LeftCheck || ColInfo.RightCheck || ColInfo.UpCheck || ColInfo.DownCheck;
+	/*if (true == ColInfo.LeftCheck)
+	{
+		switch (ColInfo.LeftColType)
+		{
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+
+			break;
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+
+			break;
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+
+			break;
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+
+			break;
+		case COLLISION_TYPE::EMPTY:
+		case COLLISION_TYPE::RECT:
+		default:
+			return;
+		}
+	}*/
 }
+
 
 bool Player::CurDirColCheck()
 {

@@ -3,10 +3,6 @@
 class GlobalValue
 {
 public:
-	// Constructor Destructor
-	GlobalValue();
-	~GlobalValue();
-
 	// Delete Function
 	GlobalValue(const GlobalValue& _Other) = delete;
 	GlobalValue(GlobalValue&& _Other) noexcept = delete;
@@ -15,6 +11,7 @@ public:
 
 	static const float4 WindowScale;
 	static const float4 StandardTextureScale;
+
 protected:
 
 private:

@@ -34,10 +34,10 @@ void ContentsCore::Start()
 	// Create Level
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<Floor1>("Floor1");
-	//GameEngineCore::CreateLevel<Jam>("Jam");
-	//GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
-	//GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
-	//GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
+	GameEngineCore::CreateLevel<Jam>("Jam");
+	GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
+	GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
+	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
 
 	GameEngineCore::ChangeLevel("TitleLevel");
 }
@@ -61,7 +61,7 @@ void ContentsCore::Update(float _Delta)
 	{
 		GameEngineCore::ChangeLevel("KnightElhananRoom");
 	}
-	if (true == GameEngineInput::IsDown(VK_F6))
+	if (true == GameEngineInput::IsDown(VK_F5))
 	{
 		GameEngineCore::ChangeLevel("Jam");
 	}

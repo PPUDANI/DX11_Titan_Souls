@@ -1,22 +1,32 @@
 #pragma once
-
-enum class TILE_TYPE
-{
-	BG,
-	BGA,
-	FG,
-	WALL,
-	COL,
-	COLA,
-	MAT
-};
-
 enum class VIEW_MODE
 {
 	DEFAULT_MODE,
 	COLLISION_MODE,
 	MATERIAL_MODE1,
 	MATERIAL_MODE2
+};
+
+enum class TILE_TYPE
+{
+	BG, // Background
+	BGA, // background Animation
+	FG, // Foreground
+	WALL, // Wall
+	COL, // Collision
+	TCOL, // Triangle Collision 
+	ACOL, // Air Collision (Movable Arrow Only)
+	MAT // Material
+};
+
+enum class COLLISION_TYPE
+{
+	EMPTY = 0,
+	RECT = 252,
+	LEFTUP_TRIANGLE = 224,
+	RIGHTUP_TRIANGLE = 225,
+	LEFTDOWN_TRIANGLE = 226,
+	RIGHTDOWN_TRIANGLE = 227,
 };
 
 class TileMap : public GameEngineActor
@@ -38,8 +48,11 @@ public:
 
 	void SetViewMode(VIEW_MODE _Mode);
 
-	bool ColCheck(float4 _Pos);
-	
+	bool AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
+	bool ColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
+	bool TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
+	bool AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
+
 protected:
 
 private:
@@ -61,7 +74,8 @@ private:
 	std::vector<std::shared_ptr<class GameEngineTileMap>> FGTileMaps;
 	std::vector<std::shared_ptr<class GameEngineTileMap>> WALLTileMaps;
 	std::vector<std::shared_ptr<class GameEngineTileMap>> COLTileMaps;
-	std::vector<std::shared_ptr<class GameEngineTileMap>> COLATileMaps;
+	std::vector<std::shared_ptr<class GameEngineTileMap>> TCOLTileMaps;
+	std::vector<std::shared_ptr<class GameEngineTileMap>> ACOLTileMaps;
 	std::vector<std::shared_ptr<class GameEngineTileMap>> MATTileMaps;
 
 	std::vector<std::vector<std::vector<int>>> BGTileMapInfos;
@@ -69,7 +83,8 @@ private:
 	std::vector<std::vector<std::vector<int>>> FGTileMapInfos;
 	std::vector<std::vector<std::vector<int>>> WALLTileMapInfos;
 	std::vector<std::vector<std::vector<int>>> COLTileMapInfos;
-	std::vector<std::vector<std::vector<int>>> COLATileMapInfos;
+	std::vector<std::vector<std::vector<int>>> TCOLTileMapInfos;
+	std::vector<std::vector<std::vector<int>>> ACOLTileMapInfos;
 	std::vector<std::vector<std::vector<int>>> MATTileMapInfos;
 
 	//std::shared_ptr<class GameEngineTileMap> BGTileMap = nullptr;
@@ -79,8 +94,6 @@ private:
 	//std::shared_ptr<class GameEngineTileMap> COL2TileMap = nullptr;
 	//std::shared_ptr<class GameEngineTileMap> COLATileMap = nullptr;
 	//std::shared_ptr<class GameEngineTileMap> MATTileMap = nullptr;
-
-	std::vector<std::vector<class TileInfo>> TileMapInfo;
 
 	VIEW_MODE CurMode = VIEW_MODE::DEFAULT_MODE;
 };

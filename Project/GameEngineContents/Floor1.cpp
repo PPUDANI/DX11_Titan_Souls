@@ -14,16 +14,18 @@ void Floor1::Start()
 	PlayLevelBase::Start();
 	PlayerSpawnPos = { 1616.0f, -6560.0f };
 
-	TileMapActor = CreateActor<TileMap>();
+	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
+
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::WALL, "WALL.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::COL, "COL.tmd");
-	TileMapActor->CreateTileMap(TILE_TYPE::COL, "COL2.tmd");
-	TileMapActor->CreateTileMap(TILE_TYPE::COLA, "COLA.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::TCOL, "TCOL.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::ACOL, "ACOL.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::MAT, "MAT.tmd");
+
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
 }

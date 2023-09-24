@@ -14,7 +14,17 @@ void SludgeHeartRoom::Start()
 	PlayLevelBase::Start();
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
+
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
+	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::COL, "COL.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::ACOL, "ACOL.tmd");
+	TileMapActor->CreateTileMap(TILE_TYPE::MAT, "MAT.tmd");
+
+	TileMapActor->TileTexureSetting();
+	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
 }
 
 void SludgeHeartRoom::Update(float _Delta)
