@@ -41,14 +41,9 @@ public:
 	}
 };
 
-enum class SAMPLER_OBJECT
-{
-	POINT,
-	LINEAR
-};
 
 // Ό³Έν :
-class GameEngineTileMap : public GameEngineRenderer
+class GameEngineTileMap : public GameEngineSpriteRenderer
 {
 public:
 	// constrcuter destructer
@@ -78,10 +73,8 @@ public:
 		TileMapExpansionSize = _Size;
 	}
 
-	void SetSamplerState(SAMPLER_OBJECT _Option);
 	std::shared_ptr<class GameEngineSampler> Sampler;
 
-public:
 	float4 PosToIndex(float4 _Pos)
 	{
 		float4 Index = { static_cast<float>(_Pos.iX() / TileData.TileScale.iX()), static_cast<float>(_Pos.iY() / TileData.TileScale.iY()) };
@@ -95,7 +88,7 @@ public:
 	}
 
 protected:
-	void Start() override;
+	void Start();
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
 
 private:

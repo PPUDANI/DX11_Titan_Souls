@@ -28,6 +28,11 @@ void GameEngineTileMap::CreateTileMap(const CreateTileParameter& _Parameter)
 	TileData.TileScale.Z = 1.0f;
 }
 
+void GameEngineTileMap::Start()
+{
+	GameEngineSpriteRenderer::Start();
+}
+
 void GameEngineTileMap::SetTilePos(const SetTileParameterPos& _Parameter)
 {
 
@@ -67,14 +72,8 @@ void GameEngineTileMap::SetTileIndex(const SetTileParameterIndex& _Parameter)
 	CurTile.Index = _Parameter.Index;
 }
 
-void GameEngineTileMap::Start()
-{
-	GameEngineRenderer::Start();
-}
-
 void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 {
-	ResSetting();
 
 	float4 CameraPos = _Camera->Transform.GetWorldPosition();
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale();
@@ -132,78 +131,37 @@ void GameEngineTileMap::Render(GameEngineCamera* _Camera, float _Delta)
 	}
 
 	TransformData Data;
+	ShaderResHelper.SetConstantBufferLink("TransformData", Data);
+
 	for (size_t y = StartY; y < EndY; y++)
 	{
 		for (size_t x = StartX; x < EndX; x++)
 		{
+
 			if (0 > Tiles[y][x].Index)
 			{
 				continue;
 			}
 
-			// 이게 100 x 100번 만큼
-			//if (카메라에 나오지 않는다면)
-			//{
-			//	continue;
-			//}
+			float4 Pos;
+			Pos = Transform.GetWorldPosition();
+			Pos.X += TileData.TileScale.X * x + TileData.TileScale.hX();
+			Pos.Y -= TileData.TileScale.Y * y + TileData.TileScale.hY();
 
-			std::shared_ptr<GameEngineConstantBuffer> TransBuffer = GameEngineConstantBuffer::CreateAndFind(sizeof(TransformData), "TransformData", ShaderType::Vertex);
+			Data = Transform.GetConstTransformDataRef();
+			Data.Position = Pos;
+			Data.Scale = TileData.TileScale;
+			Data.LocalCalculation(); // 로컬 월드 생성
 
-			if (nullptr != TransBuffer)
-			{
-				float4 Pos;
-				Pos = Transform.GetWorldPosition();
-				Pos.X += TileData.TileScale.X * x + TileData.TileScale.hX();
-				Pos.Y -= TileData.TileScale.Y * y + TileData.TileScale.hY();
+			Data.ParentMatrix = Transform.GetConstTransformDataRef().WorldMatrix;
+			Data.WorldMatrix = Data.LocalWorldMatrix * Data.ParentMatrix;
+			Data.WorldViewProjectionCalculation();
 
-				Data = Transform.GetConstTransformDataRef();
-				Data.Position = Pos;
-				Data.Scale = TileData.TileScale;
-				Data.LocalCalculation(); // 로컬 월드 생성
+			ShaderResHelper.SetConstantBufferLink("SpriteData", Tiles[y][x].Data.SpritePivot);
+			SpriteData TileSprite = DefaultSprite->GetSpriteData(static_cast<unsigned int>(Tiles[y][x].Index));
+			ShaderResHelper.SetTexture("DiffuseTex", TileSprite.Texture);
 
-				Data.ParentMatrix = Transform.GetConstTransformDataRef().WorldMatrix;
-				Data.WorldMatrix = Data.LocalWorldMatrix * Data.ParentMatrix;
-				Data.WorldViewProjectionCalculation();
-				// 내 행렬을 전부다 계산하고 넘긴다.
-
-				TransBuffer->ChangeData(Data);
-				TransBuffer->Setting(0);
-			}
-
-			SpriteData& TileSprite = Tiles[y][x].Data;
-
-			std::shared_ptr<GameEngineConstantBuffer> SpriteBuffer = GameEngineConstantBuffer::CreateAndFind(sizeof(float4), "SpriteData", ShaderType::Vertex);
-			if (nullptr != SpriteBuffer)
-			{
-				SpriteBuffer->ChangeData(TileSprite.SpritePivot);
-				SpriteBuffer->Setting(1);
-			}
-
-			Tiles[y][x].Data.Texture->PSSetting(0);
-			
-			if (nullptr == Sampler)
-			{
-				MsgBoxAssert("존재하지 않는 샘플러를 사용하려고 했습니다.");
-			}
-			Sampler->PSSetting(0);
-
-			Draw();
+			GameEngineRenderer::Render(_Camera, _Delta);
 		}
-	}
-}
-
-
-void GameEngineTileMap::SetSamplerState(SAMPLER_OBJECT _Option)
-{
-	switch (_Option)
-	{
-	case SAMPLER_OBJECT::LINEAR:
-		Sampler = GameEngineSampler::Find("LINEAR");
-		break;
-	case SAMPLER_OBJECT::POINT:
-		Sampler = GameEngineSampler::Find("POINT");
-		break;
-	default:
-		break;
 	}
 }

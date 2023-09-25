@@ -156,6 +156,13 @@ public:
 		return ReturnValue;
 	}
 
+	float4 EulerDegToQuaternion()
+	{
+		float4 Return = DirectXVector;
+		Return *= GameEngineMath::D2R;
+		Return = DirectX::XMQuaternionRotationRollPitchYawFromVector(Return.DirectXVector);
+		return Return;
+	}
 
 	float4 QuaternionToEulerDeg()
 	{
@@ -320,7 +327,7 @@ public:
 		DirectXVector = DirectX::XMVector3Normalize(DirectXVector);
 	}
 
-	inline float4 NormalizeReturn()
+	inline float4 NormalizeReturn() const
 	{
 		float4 Result = *this;
 		Result.Normalize();
@@ -344,6 +351,11 @@ public:
 	POINT WindowPOINT()
 	{
 		return POINT{ iX(), iY() };
+	}
+
+	std::string ToString(std::string_view _Next = "")
+	{
+		return "X : " + std::to_string(X) + " Y : " + std::to_string(Y) + " Z : " + std::to_string(Z) + _Next.data();
 	}
 
 
@@ -644,6 +656,22 @@ public:
 		DirectXMatrix = (X * Y * Z).DirectXMatrix;
 	}
 
+	void Compose(float4& _Scale, float4& _RotQuaternion, float4& _Pos)
+	{
+		// 우리가 알고 있는 크자이공부가
+		// 적용된 행렬을 worldMatrix => 정식용어로 아핀행렬이라고 합니다.
+
+		//float4x4 Scale;
+		//float4x4 Rot;
+		//float4x4 Pos;
+		//Scale.Scale(_Scale);
+		//Rot.RotationDeg(_RotQuaternion.QuaternionToEulerDeg());
+		//Pos.Position(_Pos);
+		//*this = Scale * Rot * Pos;
+
+		DirectXMatrix = DirectX::XMMatrixAffineTransformation(_Scale.DirectXVector, _RotQuaternion.DirectXVector, _RotQuaternion.DirectXVector, _Pos.DirectXVector);
+	}
+
 	void Decompose(float4& _Scale, float4& _RotQuaternion, float4& _Pos) const
 	{
 		// DirectX::XMVectorLerp
@@ -699,6 +727,13 @@ public:
 	void RotationZDeg(const float _Value)
 	{
 		RotationZRad(_Value * GameEngineMath::D2R);
+	}
+
+	float4x4 InverseReturn() const
+	{
+		float4x4 Result;
+		Result.DirectXMatrix = DirectX::XMMatrixInverse(nullptr, DirectXMatrix);
+		return Result;
 	}
 
 	void RotationZRad(const float _Value)

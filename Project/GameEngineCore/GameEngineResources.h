@@ -4,7 +4,7 @@
 
 // Ό³Έν :
 template<typename ResourcesType>
-class GameEngineResources
+class GameEngineResources 
 {
 public:
 	// constrcuter destructer
@@ -55,6 +55,11 @@ public:
 	void SetName(std::string_view _Name)
 	{
 		Name = _Name;
+	}
+
+	std::string_view GetName()
+	{
+		return Name;
 	}
 
 

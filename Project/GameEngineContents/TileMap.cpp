@@ -262,7 +262,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -271,7 +270,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= BGTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(BGTileMapInfos[i][y][x]), SpriteName });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(BGTileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -286,7 +285,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGAMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -295,7 +293,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= BGATileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(BGATileMapInfos[i][y][x]), SpriteName});
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(BGATileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -310,7 +308,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::FGMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -319,7 +316,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= FGTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(FGTileMapInfos[i][y][x]), SpriteName });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(FGTileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -334,7 +331,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::WALLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -343,7 +339,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= WALLTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(WALLTileMapInfos[i][y][x]), SpriteName });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(WALLTileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -358,7 +354,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -367,7 +362,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= COLTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(COLTileMapInfos[i][y][x]), "Spectiles.png" });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(COLTileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -382,7 +377,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -391,7 +385,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= TCOLTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TCOLTileMapInfos[i][y][x]), "Spectiles.png" });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(TCOLTileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -406,7 +400,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -415,7 +408,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= ACOLTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(ACOLTileMapInfos[i][y][x]), "Spectiles.png" });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(ACOLTileMapInfos[i][y][x])});
 				}
 			}
 		}
@@ -430,7 +423,6 @@ void TileMap::TileTexureSetting()
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::MATMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
-		NewTileMap->SetSamplerState(SAMPLER_OBJECT::POINT);
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -439,7 +431,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= MATTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(MATTileMapInfos[i][y][x]), "Spectiles.png" });
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(MATTileMapInfos[i][y][x])});
 				}
 			}
 		}

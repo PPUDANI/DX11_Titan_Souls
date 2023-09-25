@@ -1,8 +1,18 @@
 #pragma once
 #include "GameEngineObject.h"
 #include "GameEngineComponent.h"
+#include "GameEngineMesh.h"
+#include "GameEngineMaterial.h"
+#include "GameEngineShaderResHelper.h"
 
 // 설명 : GameEngineRenderer에게 Order는 랜더링 되는 순서를 의미합니다.
+// 엔진에서 지원해주는 랜더링
+// 코드를 짜다보면 그냥 랜더링 그자체를 이요해야 하는 경우가 많아진다.
+// 랜더러가 컴포넌트인게 문제이다.
+// 그래서 랜더링의 최소단위 랜더링에 가장 중요한 요소만 모아놓은
+// 랜더 유니트가 주체가 되고
+// 값형으로도 사용할수 있을 정도로 
+// 간단한 구조를 가질것이다.
 class GameEngineRenderer : public GameEngineComponent
 {
 	friend class GameEngineCamera;
@@ -42,7 +52,14 @@ public:
 	}
 
 
+	void SetCameraOrder(ECAMERAORDER _Order)
+	{
+		SetCameraOrder(static_cast<int>(_Order));
+	}
 	void SetCameraOrder(int _Order);
+
+	void SetMesh(std::string_view _Name);
+	void SetMaterial(std::string_view _Name);
 
 protected:
 	void Start();
@@ -51,13 +68,14 @@ protected:
 	void ResSetting();
 	void Draw();
 
-	// 분명히 자신의 랜더링 순서이다.
+	std::shared_ptr<class GameEngineInputLayOut> LayOut;
+	std::shared_ptr<class GameEngineMesh> Mesh;
+	std::shared_ptr<class GameEngineMaterial> Material;
+	GameEngineShaderResHelper ShaderResHelper;
 
-	GameEngineTransform* DataTransform;
+	// std::vector<std::shared_ptr<GameEngineRenderUnit>> Units;
 
 private:
 	class GameEngineCamera* Camera = nullptr;
-	std::shared_ptr<class GameEngineInputLayOut> LayOut = nullptr;
-	// int CameraOrder = 0;
 };
 

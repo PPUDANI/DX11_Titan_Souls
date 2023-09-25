@@ -43,6 +43,12 @@ void GameEngineShader::CreateVersion(ShaderType _Type, UINT _VersionHigh, UINT _
 	// "vs_5_0"
 }
 
+
+void GameEngineShader::ShaderResCheck()
+{
+	ResHelper.ShaderResCheck(EntryName, this, BinaryCode);
+}
+
 // 부모가 자식클래스를 알고 있는 경우라 조금 선생님 타입
 #include "GameEngineVertexShader.h"
 #include "GameEnginePixelShader.h"
@@ -98,3 +104,4 @@ bool GameEngineShader::AutoCompile(GameEngineFile& _File)
 
 	return true;
 }
+
