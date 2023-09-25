@@ -139,7 +139,6 @@ private:
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
-	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 
 private:
 	// Physics Variables
@@ -176,7 +175,7 @@ private:
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
 	float4 PlayerDirDeg = float4::ZERO;
 	bool IsChangeDirOnCooldown = false;
-	float ChangeDirCoolTime = 0.0f;
+	float ChangeDirCoolTime = 0.05f;
 	float ChangeDirCooldownTimer = 0.0f;
 
 	// Direction Functions

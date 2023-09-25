@@ -74,10 +74,7 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// Walk Check
-	if (true == GameEngineInput::IsPress('W') ||
-		true == GameEngineInput::IsPress('A') ||
-		true == GameEngineInput::IsPress('S') ||
-		true == GameEngineInput::IsPress('D'))
+	if (true == MoveCheck())
 	{
 		ChangeState(PLAYER_STATE::Move);
 		return;
@@ -112,7 +109,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 
 	// Move Check
-	if(true == MoveCheck())
+	if (true == MoveCheck())
 	{
 		float4 MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
 		if (true == IsRunning)
@@ -190,10 +187,7 @@ void Player::StopUpdate(float _Delta)
 	}
 
 	// Walk Check
-	if (true == GameEngineInput::IsPress('W') ||
-		true == GameEngineInput::IsPress('A') ||
-		true == GameEngineInput::IsPress('S') ||
-		true == GameEngineInput::IsPress('D'))
+	if (true == MoveCheck())
 	{
 		ChangeState(PLAYER_STATE::Move);
 		return;

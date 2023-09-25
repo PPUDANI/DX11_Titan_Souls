@@ -101,7 +101,6 @@ void Player::Update(float _Delta)
 
 void Player::ChangeState(PLAYER_STATE _State)
 {
-	PrevState = CurState;
 	CurState = _State;
 	
 	switch (CurState)
