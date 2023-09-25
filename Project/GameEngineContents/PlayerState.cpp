@@ -74,7 +74,7 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// Walk Check
-	if (true == MoveCheck())
+	if (true == MoveCheckInIdle())
 	{
 		ChangeState(PLAYER_STATE::Move);
 		return;
@@ -131,6 +131,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 	else
 	{
+		// Blocked·Î ¹Ù²ã¾ßÇÔ.
 		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
@@ -187,7 +188,7 @@ void Player::StopUpdate(float _Delta)
 	}
 
 	// Walk Check
-	if (true == MoveCheck())
+	if (true == MoveCheckInIdle())
 	{
 		ChangeState(PLAYER_STATE::Move);
 		return;

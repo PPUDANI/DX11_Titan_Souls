@@ -470,13 +470,13 @@ bool TileMap::ColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
 		float4 CheckIndex = COLTileMaps[i]->PosToIndex(_Pos);
 		CheckIndex.Y = -CheckIndex.Y;
 
-		if (static_cast<int>(IndexX) < CheckIndex.iX() ||
+		if (static_cast<int>(IndexX - 1) < CheckIndex.iX() ||
 			0 > CheckIndex.iX())
 		{
 			_TypeBuffer = COLLISION_TYPE::EMPTY;
 			return false;
 		}
-		else if (static_cast<int>(IndexY) < CheckIndex.iY() ||
+		else if (static_cast<int>(IndexY - 1) < CheckIndex.iY() ||
 			0 > CheckIndex.iY())
 		{
 			_TypeBuffer = COLLISION_TYPE::EMPTY;
@@ -518,13 +518,13 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
 		float4 CheckIndex = TCOLTileMaps[i]->PosToIndex(_Pos);
 		CheckIndex.Y = -CheckIndex.Y;
 
-		if (static_cast<int>(IndexX) < CheckIndex.iX() ||
+		if (static_cast<int>(IndexX - 1) < CheckIndex.iX() ||
 			0 > CheckIndex.iX())
 		{
 			_TypeBuffer = COLLISION_TYPE::EMPTY;
 			return false;
 		}
-		else if (static_cast<int>(IndexY) < CheckIndex.iY() ||
+		else if (static_cast<int>(IndexY - 1) < CheckIndex.iY() ||
 			0 > CheckIndex.iY())
 		{
 			_TypeBuffer = COLLISION_TYPE::EMPTY;
@@ -565,13 +565,13 @@ bool TileMap::AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer)
 		float4 CheckIndex = ACOLTileMaps[i]->PosToIndex(_Pos);
 		CheckIndex.Y = -CheckIndex.Y;
 
-		if (static_cast<int>(IndexX) < CheckIndex.iX() ||
+		if (static_cast<int>(IndexX - 1) < CheckIndex.iX() ||
 			0 > CheckIndex.iX())
 		{
 			_TypeBuffer = COLLISION_TYPE::EMPTY;
 			return false;
 		}
-		else if (static_cast<int>(IndexY) < CheckIndex.iY() ||
+		else if (static_cast<int>(IndexY - 1) < CheckIndex.iY() ||
 			0 > CheckIndex.iY())
 		{
 			_TypeBuffer = COLLISION_TYPE::EMPTY;

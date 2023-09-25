@@ -54,8 +54,10 @@ void Player::Update(float _Delta)
 			KeepRunCoolDownUpdate(_Delta);
 		}
 	}
-
-	TileColCheck();
+	if (false == DebugingMode)
+	{
+		TileColCheck();
+	}
 
 	// State Update
 	switch (CurState)
@@ -91,11 +93,12 @@ void Player::Update(float _Delta)
 		break;
 	}
 
-	if (PLAYER_STATE::Move == CurState)
+	if (PLAYER_STATE::Move == CurState ||
+		true != DebugingMode)
 	{
 		AdjustPosByCol();
 	}
-	
+
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }
 
@@ -219,6 +222,56 @@ void Player::SetDirection(PLAYER_DIRECTION _Dir)
 		break;
 	default:
 		break;
+	}
+}
+
+bool Player::MoveCheckInIdle()
+{
+	float4 MoveCheck = float4::ZERO;
+
+	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('W'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Up);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('A'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Left);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('S'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Down);
+		return true;
+	}
+	else if (true == GameEngineInput::IsPress('D'))
+	{
+		ChangeDirCheck(PLAYER_DIRECTION::Right);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -368,17 +421,27 @@ void Player::TileColCheck()
 {
 	ColInfo.LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos, ColInfo.LeftColType);
 	ColInfo.RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos, ColInfo.RightColType);
-	ColInfo.UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos, ColInfo.UpColType);
-	ColInfo.DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos, ColInfo.DownColType);
-	//TriangleColCheck();
+
+	ColInfo.UpCheck =
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos, ColInfo.UpColType) ||
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos, ColInfo.UpColType);
+	ColInfo.DownCheck =
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos, ColInfo.DownColType) ||
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos, ColInfo.DownColType);
 }
 
 void Player::TileColCheckNormal()
 {
 	ColNormalInfo.LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos + float4::LEFT, ColInfo.LeftColType);
 	ColNormalInfo.RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos + float4::RIGHT, ColInfo.RightColType);
-	ColNormalInfo.UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP, ColInfo.UpColType);
-	ColNormalInfo.DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN, ColInfo.DownColType);
+
+	ColNormalInfo.UpCheck =
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP, ColInfo.UpColType) ||
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos + float4::UP, ColInfo.UpColType);
+
+	ColNormalInfo.DownCheck =
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN, ColInfo.DownColType) ||
+		CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos + float4::DOWN, ColInfo.DownColType);
 }
 
 void Player::TriangleColCheck()
@@ -436,161 +499,207 @@ bool Player::CurDirColCheck()
 void Player::AdjustPosByCol()
 {
 	TileColCheckNormal();
-	switch (CurDir)
+
+	if (true == ColNormalInfo.RightCheck || 
+		true == ColNormalInfo.UpCheck ||
+		true == ColNormalInfo.LeftCheck ||
+		true == ColNormalInfo.DownCheck)
 	{
-	case PLAYER_DIRECTION::Right:
-		// Adjust Right
-		if (true == ColNormalInfo.RightCheck)
+		while (true == ColInfo.RightCheck ||
+			   true == ColInfo.UpCheck ||
+			   true == ColInfo.LeftCheck ||
+			   true == ColInfo.DownCheck)
 		{
-			while (true == ColInfo.RightCheck)
+			if (true == ColInfo.RightCheck)
 			{
 				Transform.AddLocalPosition(float4::LEFT);
-				TileColCheck();
 			}
-			Transform.AddLocalPosition(float4::RIGHT);
-		}
-		break;
 
-	case PLAYER_DIRECTION::RightUp:
-		// Adjust Up
-		if (true == ColNormalInfo.UpCheck)
-		{
-			while (true == ColInfo.UpCheck)
+			if (true == ColInfo.UpCheck)
 			{
 				Transform.AddLocalPosition(float4::DOWN);
-				TileColCheck();
 			}
-			Transform.AddLocalPosition(float4::UP);
-		}
 
-		// Adjust Right
-		if (true == ColNormalInfo.RightCheck)
-		{
-			while (true == ColInfo.RightCheck)
-			{
-				Transform.AddLocalPosition(float4::LEFT);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::RIGHT);
-		}
-		break;
-
-	case PLAYER_DIRECTION::Up:
-		// Adjust Up
-		if (true == ColNormalInfo.UpCheck)
-		{
-			while (true == ColInfo.UpCheck)
-			{
-				Transform.AddLocalPosition(float4::DOWN);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::UP);
-		}
-		break;
-
-	case PLAYER_DIRECTION::LeftUp:
-		// Adjust Up
-		if (true == ColNormalInfo.UpCheck)
-		{
-			while (true == ColInfo.UpCheck)
-			{
-				Transform.AddLocalPosition(float4::DOWN);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::UP);
-		}
-
-		// Adjust Left
-		if (true == ColNormalInfo.LeftCheck)
-		{
-			while (true == ColInfo.LeftCheck)
+			if (true == ColInfo.LeftCheck)
 			{
 				Transform.AddLocalPosition(float4::RIGHT);
-				TileColCheck();
 			}
-			Transform.AddLocalPosition(float4::LEFT);
-		}
-		break;
 
-	case PLAYER_DIRECTION::Left:
-		// Adjust Left
-		if (true == ColNormalInfo.LeftCheck)
-		{
-			while (true == ColInfo.LeftCheck)
-			{
-				Transform.AddLocalPosition(float4::RIGHT);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::LEFT);
-		}
-		break;
-
-	case PLAYER_DIRECTION::LeftDown:
-		// Adjust Down
-		if (true == ColNormalInfo.DownCheck)
-		{
-			while (true == ColInfo.DownCheck)
+			if (true == ColInfo.DownCheck)
 			{
 				Transform.AddLocalPosition(float4::UP);
-				TileColCheck();
 			}
-			Transform.AddLocalPosition(float4::DOWN);
-		}
 
-		// Adjust Left
-		if (true == ColNormalInfo.LeftCheck)
-		{
-			while (true == ColInfo.LeftCheck)
-			{
-				Transform.AddLocalPosition(float4::RIGHT);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::LEFT);
+			TileColCheck();
 		}
-		break;
-
-	case PLAYER_DIRECTION::Down:
-		// Adjust Down
-		if (true == ColNormalInfo.DownCheck)
-		{
-			while (true == ColInfo.DownCheck)
-			{
-				Transform.AddLocalPosition(float4::UP);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::DOWN);
-		}
-		break;
-
-	case PLAYER_DIRECTION::RightDown:
-		// Adjust Down
-		if (true == ColNormalInfo.DownCheck)
-		{
-			while (true == ColInfo.DownCheck)
-			{
-				Transform.AddLocalPosition(float4::UP);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::DOWN);
-		}
-
-		// Adjust Right
-		if (true == ColNormalInfo.RightCheck)
-		{
-			while (true == ColInfo.RightCheck)
-			{
-				Transform.AddLocalPosition(float4::LEFT);
-				TileColCheck();
-			}
-			Transform.AddLocalPosition(float4::RIGHT);
-		}
-		break;
-
-	default:
-		break;
 	}
 
-	TileColCheck();
+	TileColCheckNormal();
+
+	if (true == ColNormalInfo.RightCheck)
+	{
+		Transform.AddLocalPosition(float4::RIGHT);
+	}
+
+	if (true == ColNormalInfo.UpCheck)
+	{
+		Transform.AddLocalPosition(float4::UP);
+	}
+
+	if (true == ColNormalInfo.LeftCheck)
+	{
+		Transform.AddLocalPosition(float4::LEFT);
+	}
+
+	if (true == ColNormalInfo.DownCheck)
+	{
+		Transform.AddLocalPosition(float4::DOWN);
+	}
+
+	//switch (CurDir)
+	//{
+	//case PLAYER_DIRECTION::Right:
+	//	if (true == ColNormalInfo.RightCheck)
+	//	{
+	//		while (true == ColInfo.RightCheck)
+	//		{
+	//			Transform.AddLocalPosition(float4::LEFT);
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::RIGHT);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::RightUp:
+	//	if (true == ColNormalInfo.RightCheck || true == ColNormalInfo.UpCheck)
+	//	{
+	//		while (true == ColInfo.RightCheck || true == ColInfo.UpCheck)
+	//		{
+	//			if (true == ColInfo.RightCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::LEFT);
+	//			}
+
+	//			if (true == ColInfo.UpCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::DOWN);
+	//			}
+
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::RIGHT);
+	//		Transform.AddLocalPosition(float4::UP);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::Up:
+	//	if (true == ColNormalInfo.UpCheck)
+	//	{
+	//		while (true == ColInfo.UpCheck)
+	//		{
+	//			Transform.AddLocalPosition(float4::DOWN);
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::UP);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::LeftUp:
+	//	if (true == ColNormalInfo.LeftCheck || true == ColNormalInfo.UpCheck)
+	//	{
+	//		while (true == ColInfo.LeftCheck || true == ColInfo.UpCheck)
+	//		{
+	//			if (true == ColInfo.LeftCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::RIGHT);
+	//			}
+
+	//			if (true == ColInfo.UpCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::DOWN);
+	//			}
+	//			
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::LEFT);
+	//		Transform.AddLocalPosition(float4::UP);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::Left:
+	//	if (true == ColNormalInfo.LeftCheck)
+	//	{
+	//		while (true == ColInfo.LeftCheck)
+	//		{
+	//			Transform.AddLocalPosition(float4::RIGHT);
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::LEFT);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::LeftDown:
+	//	if (true == ColNormalInfo.LeftCheck || true == ColNormalInfo.DownCheck)
+	//	{
+	//		while (true == ColInfo.LeftCheck || true == ColInfo.DownCheck)
+	//		{
+	//			if (true == ColInfo.LeftCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::RIGHT);
+	//			}
+
+	//			if (true == ColInfo.DownCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::UP);
+	//			}
+
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::LEFT);
+	//		Transform.AddLocalPosition(float4::DOWN);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::Down:
+	//	// Adjust Down
+	//	if (true == ColNormalInfo.DownCheck)
+	//	{
+	//		while (true == ColInfo.DownCheck)
+	//		{
+	//			Transform.AddLocalPosition(float4::UP);
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::DOWN);
+	//	}
+	//	break;
+
+	//case PLAYER_DIRECTION::RightDown:
+
+	//	if (true == ColNormalInfo.RightCheck || true == ColNormalInfo.DownCheck)
+	//	{
+	//		while (true == ColInfo.RightCheck || true == ColInfo.DownCheck)
+	//		{
+	//			if (true == ColInfo.RightCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::LEFT);
+	//			}
+
+	//			if (true == ColInfo.DownCheck)
+	//			{
+	//				Transform.AddLocalPosition(float4::UP);
+	//			}
+
+	//			TileColCheck();
+	//		}
+	//		Transform.AddLocalPosition(float4::RIGHT);
+	//		Transform.AddLocalPosition(float4::DOWN);
+	//	}
+	//	break;
+	//default:
+	//	break;
+	//}
+
+	//TileColCheck();
 }
 
 void Player::DirSpecularReflection()

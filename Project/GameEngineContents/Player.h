@@ -122,9 +122,10 @@ private:
 	// Tile Check Pos
 	float4 LocalLeftPos = { -9.0f, -9.0f };
 	float4 LocalRightPos = { 9.0f, -9.0f };
-	float4 LocalUpPos = { 0.0f, 2.0f };
-	float4 LocalDownPos = { 0.0f, -16.0f };
-
+	float4 LocalUpPos = { -6.0f, 2.0f };
+	float4 LocalUpPos2 = { 6.0f, 2.0f };
+	float4 LocalDownPos = { -6.0f, -16.0f };
+	float4 LocalDownPos2 = { 6.0f, -16.0f };
 	ColCheckInfo ColInfo;
 	ColCheckInfo ColNormalInfo;
 
@@ -148,6 +149,7 @@ private:
 	const float RollForce = 2.6f;
 
 	// Move Functions
+	bool MoveCheckInIdle();
 	bool MoveCheck();
 
 	inline float4 MovePosInt(float4 _Pos)
