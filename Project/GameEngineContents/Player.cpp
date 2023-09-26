@@ -561,27 +561,20 @@ void Player::AdjustPosByCol()
 	case PLAYER_DIRECTION::Right:
 		if (true == ColNormalInfo.RightCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.RightCheck)
 			{
-				Adjusted = true;
 				Transform.AddLocalPosition(float4::LEFT);
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::RIGHT);
-			}
+			Transform.AddLocalPosition(float4::RIGHT);
 		}
 		break;
 
 	case PLAYER_DIRECTION::RightUp:
 		if (true == ColNormalInfo.RightCheck || true == ColNormalInfo.UpCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.RightCheck || true == ColInfo.UpCheck)
 			{
-				Adjusted = true;
 				if (true == ColInfo.RightCheck)
 				{
 					Transform.AddLocalPosition(float4::LEFT);
@@ -594,38 +587,28 @@ void Player::AdjustPosByCol()
 
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::RIGHT);
-				Transform.AddLocalPosition(float4::UP);
-			}
+			Transform.AddLocalPosition(float4::RIGHT);
+			Transform.AddLocalPosition(float4::UP);
 		}
 		break;
 
 	case PLAYER_DIRECTION::Up:
 		if (true == ColNormalInfo.UpCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.UpCheck)
 			{
-				Adjusted = true;
 				Transform.AddLocalPosition(float4::DOWN);
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::UP);
-			}
+			Transform.AddLocalPosition(float4::UP);
 		}
 		break;
 
 	case PLAYER_DIRECTION::LeftUp:
 		if (true == ColNormalInfo.LeftCheck || true == ColNormalInfo.UpCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.LeftCheck || true == ColInfo.UpCheck)
 			{
-				Adjusted = true;
 				if (true == ColInfo.LeftCheck)
 				{
 					Transform.AddLocalPosition(float4::RIGHT);
@@ -638,38 +621,28 @@ void Player::AdjustPosByCol()
 				
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::LEFT);
-				Transform.AddLocalPosition(float4::UP);
-			}
+			Transform.AddLocalPosition(float4::LEFT);
+			Transform.AddLocalPosition(float4::UP);
 		}
 		break;
 
 	case PLAYER_DIRECTION::Left:
 		if (true == ColNormalInfo.LeftCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.LeftCheck)
 			{
-				Adjusted = true;
 				Transform.AddLocalPosition(float4::RIGHT);
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::LEFT);
-			}
+			Transform.AddLocalPosition(float4::LEFT);
 		}
 		break;
 
 	case PLAYER_DIRECTION::LeftDown:
 		if (true == ColNormalInfo.LeftCheck || true == ColNormalInfo.DownCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.LeftCheck || true == ColInfo.DownCheck)
 			{
-				Adjusted = true;
 				if (true == ColInfo.LeftCheck)
 				{
 					Transform.AddLocalPosition(float4::RIGHT);
@@ -682,11 +655,8 @@ void Player::AdjustPosByCol()
 
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::LEFT);
-				Transform.AddLocalPosition(float4::DOWN);
-			}
+			Transform.AddLocalPosition(float4::LEFT);
+			Transform.AddLocalPosition(float4::DOWN);
 		}
 		break;
 
@@ -694,17 +664,12 @@ void Player::AdjustPosByCol()
 		// Adjust Down
 		if (true == ColNormalInfo.DownCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.DownCheck)
 			{
-				Adjusted = true;
 				Transform.AddLocalPosition(float4::UP);
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::DOWN);
-			}
+			Transform.AddLocalPosition(float4::DOWN);
 		}
 		break;
 
@@ -712,10 +677,8 @@ void Player::AdjustPosByCol()
 
 		if (true == ColNormalInfo.RightCheck || true == ColNormalInfo.DownCheck)
 		{
-			bool Adjusted = false;
 			while (true == ColInfo.RightCheck || true == ColInfo.DownCheck)
 			{
-				Adjusted = true;
 				if (true == ColInfo.RightCheck)
 				{
 					Transform.AddLocalPosition(float4::LEFT);
@@ -728,11 +691,8 @@ void Player::AdjustPosByCol()
 
 				TileColCheck();
 			}
-			if (true == Adjusted)
-			{
-				Transform.AddLocalPosition(float4::RIGHT);
-				Transform.AddLocalPosition(float4::DOWN);
-			}
+			Transform.AddLocalPosition(float4::RIGHT);
+			Transform.AddLocalPosition(float4::DOWN);
 		}
 		break;
 	default:
