@@ -177,7 +177,7 @@ private:
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
 	float4 PlayerDirDeg = float4::ZERO;
 	bool IsChangeDirOnCooldown = false;
-	float ChangeDirCoolTime = 0.05f;
+	const float ChangeDirCoolTime = 0.05f;
 	float ChangeDirCooldownTimer = 0.0f;
 
 	// Direction Functions
@@ -211,7 +211,7 @@ private:
 
 	// Roll CoolDown Variables
 	bool IsRollOnCooldown = false;
-	float RollCooldown = 0.5f;
+	const float RollCooldown = 0.5f;
 	float RollCooldownTimer = 0.0f;
 
 	inline bool RollCollDownCheck()
@@ -242,7 +242,7 @@ private:
 
 private:
 	bool IsRunning = false;
-	float KeepRunCoolTime = 0.1f;
+	const float KeepRunCoolTime = 0.1f;
 	float KeepRunCoolDownTimer = 0.0f;
 
 	void KeepRunCoolDownUpdate(float _Delta)

@@ -3,7 +3,7 @@
 #include "GameEngineComponent.h"
 #include "GameEngineMesh.h"
 #include "GameEngineMaterial.h"
-#include "GameEngineShaderResHelper.h"
+#include "GameEngineRenderUnit.h"
 
 // 설명 : GameEngineRenderer에게 Order는 랜더링 되는 순서를 의미합니다.
 // 엔진에서 지원해주는 랜더링
@@ -58,22 +58,26 @@ public:
 	}
 	void SetCameraOrder(int _Order);
 
-	void SetMesh(std::string_view _Name);
-	void SetMaterial(std::string_view _Name);
+	// Create PushBack형식이 아닙니다.
+	// 0번 랜더 유니트를 만든다고 치면 0번째에 랜더 유니트가 만들어 집니다.
+	// 8번을 하면 vector가 확장되고 8번째에 랜더 유니트를 만들게 됩니다.
+	std::shared_ptr<GameEngineRenderUnit> CreateAndFindRenderUnit(int _Index = 0);
+
+	void SetMesh(std::string_view _Name, int _Index = 0);
+	void SetMaterial(std::string_view _Name, int _Index = 0);
+
+	GameEngineShaderResHelper& GetShaderResHelper(int _Index = 0);
 
 protected:
 	void Start();
 	virtual void Render(class GameEngineCamera* _Camera, float _Delta);
 
-	void ResSetting();
-	void Draw();
+	//std::shared_ptr<class GameEngineInputLayOut> LayOut;
+	//std::shared_ptr<class GameEngineMesh> Mesh;
+	//std::shared_ptr<class GameEngineMaterial> Material;
+	//GameEngineShaderResHelper ShaderResHelper;
 
-	std::shared_ptr<class GameEngineInputLayOut> LayOut;
-	std::shared_ptr<class GameEngineMesh> Mesh;
-	std::shared_ptr<class GameEngineMaterial> Material;
-	GameEngineShaderResHelper ShaderResHelper;
-
-	// std::vector<std::shared_ptr<GameEngineRenderUnit>> Units;
+	std::vector<std::shared_ptr<GameEngineRenderUnit>> Units;
 
 private:
 	class GameEngineCamera* Camera = nullptr;

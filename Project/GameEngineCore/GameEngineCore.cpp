@@ -51,11 +51,6 @@ void GameEngineCore::Update()
 	MainTime.Update();
 	float DeltaTime = MainTime.GetDeltaTime();
 
-	if (DeltaTime > 0.1f)
-	{
-		DeltaTime = 0.0f;
-	}
-
 	GameEngineSound::Update();
 	CoreObject->Update(DeltaTime);
 
