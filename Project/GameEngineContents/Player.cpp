@@ -283,9 +283,9 @@ bool Player::MoveCheck()
 
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == ColTileInfo.LeftCheck)
+		if (false == TileColInfo.LeftCheck)
 		{
-			if (false == ColTileInfo.UpCheck)
+			if (false == TileColInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
 				return true;
@@ -296,7 +296,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColTileInfo.UpCheck)
+		else if (false == TileColInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
@@ -307,9 +307,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == ColTileInfo.RightCheck)
+		if (false == TileColInfo.RightCheck)
 		{
-			if (false == ColTileInfo.UpCheck)
+			if (false == TileColInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightUp);
 				return true;
@@ -320,7 +320,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColTileInfo.UpCheck)
+		else if (false == TileColInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
@@ -331,9 +331,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == ColTileInfo.LeftCheck)
+		if (false == TileColInfo.LeftCheck)
 		{
-			if (false == ColTileInfo.DownCheck)
+			if (false == TileColInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
 				return true;
@@ -344,7 +344,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColTileInfo.DownCheck)
+		else if (false == TileColInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
@@ -355,9 +355,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == ColTileInfo.RightCheck)
+		if (false == TileColInfo.RightCheck)
 		{
-			if (false == ColTileInfo.DownCheck)
+			if (false == TileColInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightDown);
 				return true;
@@ -368,7 +368,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColTileInfo.DownCheck)
+		else if (false == TileColInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
@@ -380,12 +380,12 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('W'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Up);
-		if (false == ColTileInfo.UpCheck)
+		if (false == TileColInfo.UpCheck)
 		{
 			return true;
 		}
 
-		switch (ColTileInfo.UpColType)
+		switch (TileColInfo.UpColType)
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
@@ -398,6 +398,16 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::LeftUp);
 			return true;
 		case COLLISION_TYPE::RECT:
+			if (COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.LeftColType)
+			{
+				SetDirection(PLAYER_DIRECTION::RightUp);
+				return true;
+			}
+			else if (COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.RightColType)
+			{
+				SetDirection(PLAYER_DIRECTION::LeftUp);
+				return true;
+			}
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
@@ -407,12 +417,12 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('A'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Left);
-		if (false == ColTileInfo.LeftCheck)
+		if (false == TileColInfo.LeftCheck)
 		{
 			return true;
 		}
 
-		switch (ColTileInfo.LeftColType)
+		switch (TileColInfo.LeftColType)
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
@@ -425,6 +435,16 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::LeftUp);
 			return true;
 		case COLLISION_TYPE::RECT:
+			if (COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.UpColType)
+			{
+				SetDirection(PLAYER_DIRECTION::LeftDown);
+				return true;
+			}
+			else if (COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.DownColType)
+			{
+				SetDirection(PLAYER_DIRECTION::LeftUp);
+				return true;
+			}
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
@@ -434,12 +454,12 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('S'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Down);
-		if (false == ColTileInfo.DownCheck)
+		if (false == TileColInfo.DownCheck)
 		{
 			return true;
 		}
 
-		switch (ColTileInfo.DownColType)
+		switch (TileColInfo.DownColType)
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
@@ -452,9 +472,18 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::LeftDown);
 			return true;
 		case COLLISION_TYPE::RECT:
+			if (COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.LeftColType)
+			{
+				SetDirection(PLAYER_DIRECTION::RightDown);
+				return true;
+			}
+			else if (COLLISION_TYPE::RIGHTDOWN_TRIANGLE == TileColInfo.RightColType)
+			{
+				SetDirection(PLAYER_DIRECTION::LeftDown);
+				return true;
+			}
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
-
 		default:
 			return false;
 		}
@@ -462,12 +491,12 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('D'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Right);
-		if (false == ColTileInfo.RightCheck)
+		if (false == TileColInfo.RightCheck)
 		{
 			return true;
 		}
 		
-		switch (ColTileInfo.RightColType)
+		switch (TileColInfo.RightColType)
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
@@ -480,6 +509,16 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::RightUp);
 			return true;
 		case COLLISION_TYPE::RECT:
+			if (COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.UpColType)
+			{
+				SetDirection(PLAYER_DIRECTION::RightDown);
+				return true;
+			}
+			else if (COLLISION_TYPE::RIGHTDOWN_TRIANGLE == TileColInfo.DownColType)
+			{
+				SetDirection(PLAYER_DIRECTION::RightUp);
+				return true;
+			}
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
@@ -535,24 +574,23 @@ void Player::BodyColCheck()
 	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos);
 	bool DownCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos2);
 
-	ColInfo.UpCheck = UpCheck || UpCheck2;
-	ColInfo.DownCheck = DownCheck || DownCheck2;
-	ColInfo.LeftCheck = LeftCheck || LeftCheck2;
-	ColInfo.RightCheck = RightCheck || RightCheck2;
-
+	BodyColInfo.UpCheck = UpCheck || UpCheck2;
+	BodyColInfo.DownCheck = DownCheck || DownCheck2;
+	BodyColInfo.LeftCheck = LeftCheck || LeftCheck2;
+	BodyColInfo.RightCheck = RightCheck || RightCheck2;
 }
 
 void Player::TileColCheck()
 {
-	bool LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileLeftPos, ColTileInfo.LeftColType);
-	bool RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileRightPos, ColTileInfo.RightColType);
-	bool UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileUpPos, ColTileInfo.UpColType);
-	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileDownPos, ColTileInfo.DownColType);
+	bool LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileLeftPos, TileColInfo.LeftColType);
+	bool RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileRightPos, TileColInfo.RightColType);
+	bool UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileUpPos, TileColInfo.UpColType);
+	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileDownPos, TileColInfo.DownColType);
 
-	ColTileInfo.UpCheck = UpCheck;
-	ColTileInfo.DownCheck = DownCheck;
-	ColTileInfo.LeftCheck = LeftCheck;
-	ColTileInfo.RightCheck = RightCheck;
+	TileColInfo.UpCheck = UpCheck;
+	TileColInfo.DownCheck = DownCheck;
+	TileColInfo.LeftCheck = LeftCheck;
+	TileColInfo.RightCheck = RightCheck;
 }
 
 void Player::TriangleColCheck()
@@ -587,21 +625,21 @@ bool Player::CurDirColCheck()
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
-		return ColInfo.RightCheck;
+		return BodyColInfo.RightCheck;
 	case PLAYER_DIRECTION::RightUp:
-		return ColInfo.RightCheck || ColInfo.UpCheck;
+		return BodyColInfo.RightCheck || BodyColInfo.UpCheck;
 	case PLAYER_DIRECTION::Up:
-		return ColInfo.UpCheck;
+		return BodyColInfo.UpCheck;
 	case PLAYER_DIRECTION::LeftUp:
-		return ColInfo.LeftCheck || ColInfo.UpCheck;
+		return BodyColInfo.LeftCheck || BodyColInfo.UpCheck;
 	case PLAYER_DIRECTION::Left:
-		return ColInfo.LeftCheck;
+		return BodyColInfo.LeftCheck;
 	case PLAYER_DIRECTION::LeftDown:
-		return ColInfo.LeftCheck || ColInfo.DownCheck;
+		return BodyColInfo.LeftCheck || BodyColInfo.DownCheck;
 	case PLAYER_DIRECTION::Down:
-		return ColInfo.DownCheck;
+		return BodyColInfo.DownCheck;
 	case PLAYER_DIRECTION::RightDown:
-		return ColInfo.RightCheck || ColInfo.DownCheck;
+		return BodyColInfo.RightCheck || BodyColInfo.DownCheck;
 	default:
 		return false;
 	}
@@ -613,9 +651,9 @@ void Player::AdjustPosByCol()
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
-		if (true == ColTileInfo.RightCheck)
+		if (true == TileColInfo.RightCheck)
 		{
-			while (true == ColInfo.RightCheck)
+			while (true == BodyColInfo.RightCheck)
 			{
 				Transform.AddLocalPosition(float4::LEFT);
 				BodyColCheck();
@@ -625,11 +663,11 @@ void Player::AdjustPosByCol()
 		break;
 
 	case PLAYER_DIRECTION::RightUp:
-		if (true == ColTileInfo.RightCheck)
+		if (true == TileColInfo.RightCheck)
 		{
-			if (true == ColTileInfo.UpCheck)
+			if (true == TileColInfo.UpCheck)
 			{
-				while (true == ColInfo.RightCheck || true == ColInfo.UpCheck)
+				while (true == BodyColInfo.RightCheck || true == BodyColInfo.UpCheck)
 				{
 					Transform.AddLocalPosition(float4::LEFT);
 					Transform.AddLocalPosition(float4::DOWN);
@@ -640,7 +678,7 @@ void Player::AdjustPosByCol()
 			}
 			else
 			{
-				while (true == ColInfo.RightCheck)
+				while (true == BodyColInfo.RightCheck)
 				{
 					Transform.AddLocalPosition(float4::LEFT);
 					BodyColCheck();
@@ -648,9 +686,9 @@ void Player::AdjustPosByCol()
 				Transform.AddLocalPosition(float4::RIGHT);
 			}
 		}
-		else if (true == ColTileInfo.UpCheck)
+		else if (true == TileColInfo.UpCheck)
 		{
-			while (true == ColInfo.UpCheck)
+			while (true == BodyColInfo.UpCheck)
 			{
 				Transform.AddLocalPosition(float4::DOWN);
 				BodyColCheck();
@@ -660,9 +698,9 @@ void Player::AdjustPosByCol()
 		break;
 
 	case PLAYER_DIRECTION::Up:
-		if (true == ColTileInfo.UpCheck)
+		if (true == TileColInfo.UpCheck)
 		{
-			while (true == ColInfo.UpCheck)
+			while (true == BodyColInfo.UpCheck)
 			{
 				Transform.AddLocalPosition(float4::DOWN);
 				BodyColCheck();
@@ -672,11 +710,11 @@ void Player::AdjustPosByCol()
 		break;
 
 	case PLAYER_DIRECTION::LeftUp:
-		if (true == ColTileInfo.LeftCheck)
+		if (true == TileColInfo.LeftCheck)
 		{
-			if (true == ColTileInfo.UpCheck)
+			if (true == TileColInfo.UpCheck)
 			{
-				while (true == ColInfo.LeftCheck || true == ColInfo.UpCheck)
+				while (true == BodyColInfo.LeftCheck || true == BodyColInfo.UpCheck)
 				{
 					Transform.AddLocalPosition(float4::RIGHT);
 					Transform.AddLocalPosition(float4::DOWN);
@@ -687,7 +725,7 @@ void Player::AdjustPosByCol()
 			}
 			else
 			{
-				while (true == ColInfo.LeftCheck)
+				while (true == BodyColInfo.LeftCheck)
 				{
 					Transform.AddLocalPosition(float4::RIGHT);
 					BodyColCheck();
@@ -695,9 +733,9 @@ void Player::AdjustPosByCol()
 				Transform.AddLocalPosition(float4::LEFT);
 			}
 		}
-		else if (true == ColTileInfo.UpCheck)
+		else if (true == TileColInfo.UpCheck)
 		{
-			while (true == ColInfo.UpCheck)
+			while (true == BodyColInfo.UpCheck)
 			{
 				Transform.AddLocalPosition(float4::DOWN);
 				BodyColCheck();
@@ -707,9 +745,9 @@ void Player::AdjustPosByCol()
 		break;
 
 	case PLAYER_DIRECTION::Left:
-		if (true == ColTileInfo.LeftCheck)
+		if (true == TileColInfo.LeftCheck)
 		{
-			while (true == ColInfo.LeftCheck)
+			while (true == BodyColInfo.LeftCheck)
 			{
 				Transform.AddLocalPosition(float4::RIGHT);
 				BodyColCheck();
@@ -718,18 +756,18 @@ void Player::AdjustPosByCol()
 		}
 		break;
 	case PLAYER_DIRECTION::LeftDown:
-		if (true == ColTileInfo.LeftCheck)
+		if (true == TileColInfo.LeftCheck)
 		{
-			if (true == ColTileInfo.DownCheck)
+			if (true == TileColInfo.DownCheck)
 			{
-				while (true == ColInfo.LeftCheck || true == ColInfo.DownCheck)
+				while (true == BodyColInfo.LeftCheck || true == BodyColInfo.DownCheck)
 				{
-					if (true == ColInfo.LeftCheck)
+					if (true == BodyColInfo.LeftCheck)
 					{
 						Transform.AddLocalPosition(float4::RIGHT);
 					}
 
-					if (true == ColInfo.DownCheck)
+					if (true == BodyColInfo.DownCheck)
 					{
 						Transform.AddLocalPosition(float4::UP);
 					}
@@ -741,7 +779,7 @@ void Player::AdjustPosByCol()
 			}
 			else
 			{
-				while (true == ColInfo.LeftCheck)
+				while (true == BodyColInfo.LeftCheck)
 				{
 					Transform.AddLocalPosition(float4::RIGHT);
 					BodyColCheck();
@@ -749,9 +787,9 @@ void Player::AdjustPosByCol()
 				Transform.AddLocalPosition(float4::LEFT);
 			}
 		}
-		else if (true == ColTileInfo.DownCheck)
+		else if (true == TileColInfo.DownCheck)
 		{
-			while (true == ColInfo.DownCheck)
+			while (true == BodyColInfo.DownCheck)
 			{
 				Transform.AddLocalPosition(float4::UP);
 				BodyColCheck();
@@ -760,9 +798,9 @@ void Player::AdjustPosByCol()
 		}
 		break;
 	case PLAYER_DIRECTION::Down:
-		if (true == ColTileInfo.DownCheck)
+		if (true == TileColInfo.DownCheck)
 		{
-			while (true == ColInfo.DownCheck)
+			while (true == BodyColInfo.DownCheck)
 			{
 				Transform.AddLocalPosition(float4::UP);
 				BodyColCheck();
@@ -771,11 +809,11 @@ void Player::AdjustPosByCol()
 		}
 		break;
 	case PLAYER_DIRECTION::RightDown:
-		if (true == ColTileInfo.RightCheck)
+		if (true == TileColInfo.RightCheck)
 		{
-			if (true == ColTileInfo.DownCheck)
+			if (true == TileColInfo.DownCheck)
 			{
-				while (true == ColInfo.RightCheck || true == ColInfo.DownCheck)
+				while (true == BodyColInfo.RightCheck || true == BodyColInfo.DownCheck)
 				{
 					Transform.AddLocalPosition(float4::LEFT);
 					Transform.AddLocalPosition(float4::UP);
@@ -786,7 +824,7 @@ void Player::AdjustPosByCol()
 			}
 			else
 			{
-				while (true == ColInfo.RightCheck)
+				while (true == BodyColInfo.RightCheck)
 				{
 					Transform.AddLocalPosition(float4::LEFT);
 					BodyColCheck();
@@ -794,9 +832,9 @@ void Player::AdjustPosByCol()
 				Transform.AddLocalPosition(float4::RIGHT);
 			}
 		}
-		else if (true == ColTileInfo.DownCheck)
+		else if (true == TileColInfo.DownCheck)
 		{
-			while (true == ColInfo.DownCheck)
+			while (true == BodyColInfo.DownCheck)
 			{
 				Transform.AddLocalPosition(float4::UP);
 				BodyColCheck();

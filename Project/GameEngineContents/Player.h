@@ -130,13 +130,13 @@ private:
 	float4 LocalDownPos2 = { 3.0f, -17.0f };
 
 	// Tile Check
-	float4 TileLeftPos = { -9.0f, -11.0f };
-	float4 TileRightPos = { 9.0f, -11.0f };
-	float4 TileUpPos = { 0.0f, -3.0f };
-	float4 TileDownPos = { 0.0f, -19.0f };
+	float4 TileLeftPos = { -11.0f, -11.0f };
+	float4 TileRightPos = { 11.0f, -11.0f };
+	float4 TileUpPos = { 0.0f, -0.0f };
+	float4 TileDownPos = { 0.0f, -22.0f };
 
-	ColCheckInfo ColInfo;
-	ColCheckInfo ColTileInfo;
+	ColCheckInfo BodyColInfo;
+	ColCheckInfo TileColInfo;
 
 	void BodyColCheck();
 	void TriangleColCheck();

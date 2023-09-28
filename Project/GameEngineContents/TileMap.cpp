@@ -555,17 +555,49 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 			IndexColInfo = 0;
 		}
 
+		_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
+
+		float4 StandardPos = GlobalValue::StandardTextureScale;
+		float StandardLength = StandardPos.X;
+		float4 PosInTile = _Pos % StandardPos;
+		PosInTile.X = abs(PosInTile.X);
+		PosInTile.Y = abs(PosInTile.Y);
+
 		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
 		{
 		case COLLISION_TYPE::EMPTY:
-			_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
 			break;
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		{
+			float res = PosInTile.X + PosInTile.Y;
+			if (StandardLength > res)
+			{
+				return true;
+			}
+		}
+			
+			break;
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		{
+			float res = StandardPos.X - PosInTile.X + PosInTile.Y;
+			if (StandardLength > res)
+			{
+				return true;
+			}
+		}
+			break;
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+			if (StandardLength < StandardPos.X - PosInTile.X + PosInTile.Y)
+			{
+				return true;
+			}
+			break;
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
-			_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
-			return true;
+			if (StandardLength < PosInTile.X + PosInTile.Y)
+			{
+				return true;
+			}
+			break;
 		default:
 			MsgBoxAssert("Triangle Collision에서 처리되지 않은 Collision Type 입니다.")
 		}
