@@ -89,19 +89,19 @@ void Player::Update(float _Delta)
 		break;
 	}
 
-	if (false == DebugingMode)
-	{
-		BodyColCheck();
-	}
+	BodyColCheck();
 
-	if (PLAYER_STATE::Move == CurState ||
-		true != DebugingMode)
+	if (PLAYER_STATE::Move == CurState)
 	{
 		AdjustPosByCol();
 	}
+	
+	if (true == DebugingMode)
+	{
+		DebugRender();
+	}
 
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
-	DebugRender();
 }
 
 void Player::ChangeState(PLAYER_STATE _State)
@@ -283,9 +283,9 @@ bool Player::MoveCheck()
 
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == ColInfo.LeftCheck)
+		if (false == ColTileInfo.LeftCheck)
 		{
-			if (false == ColInfo.UpCheck)
+			if (false == ColTileInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
 				return true;
@@ -296,7 +296,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColInfo.UpCheck)
+		else if (false == ColTileInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
@@ -307,9 +307,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == ColInfo.RightCheck)
+		if (false == ColTileInfo.RightCheck)
 		{
-			if (false == ColInfo.UpCheck)
+			if (false == ColTileInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightUp);
 				return true;
@@ -320,7 +320,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColInfo.UpCheck)
+		else if (false == ColTileInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
@@ -331,9 +331,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == ColInfo.LeftCheck)
+		if (false == ColTileInfo.LeftCheck)
 		{
-			if (false == ColInfo.DownCheck)
+			if (false == ColTileInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
 				return true;
@@ -344,7 +344,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColInfo.DownCheck)
+		else if (false == ColTileInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
@@ -355,9 +355,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == ColInfo.RightCheck)
+		if (false == ColTileInfo.RightCheck)
 		{
-			if (false == ColInfo.DownCheck)
+			if (false == ColTileInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightDown);
 				return true;
@@ -368,7 +368,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == ColInfo.DownCheck)
+		else if (false == ColTileInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
@@ -380,38 +380,111 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('W'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Up);
-		if (false == ColInfo.UpCheck)
+		if (false == ColTileInfo.UpCheck)
 		{
 			return true;
 		}
-		return false;
+
+		switch (ColTileInfo.UpColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("UpCheck : 충돌한 상태인데 UpColType값이 \"COLLISION_TYPE::EMPTY\"입니다.");
+		}
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::RightUp);
+			return true;
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::LeftUp);
+			return true;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		default:
+			return false;
+		}
 	}
 	else if (true == GameEngineInput::IsPress('A'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Left);
-		if (false == ColInfo.LeftCheck)
+		if (false == ColTileInfo.LeftCheck)
 		{
 			return true;
 		}
-		return false;
+
+		switch (ColTileInfo.LeftColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("LeftCheck : 충돌한 상태인데 LeftColType값이 \"COLLISION_TYPE::EMPTY\"입니다.");
+		}
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::LeftDown);
+			return true;
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::LeftUp);
+			return true;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		default:
+			return false;
+		}
 	}
 	else if (true == GameEngineInput::IsPress('S'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Down);
-		if (false == ColInfo.DownCheck)
+		if (false == ColTileInfo.DownCheck)
 		{
 			return true;
 		}
-		return false;
+
+		switch (ColTileInfo.DownColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("DownCheck : 충돌한 상태인데 DownColType값이 \"COLLISION_TYPE::EMPTY\"입니다.");
+		}
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::RightDown);
+			return true;
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::LeftDown);
+			return true;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+
+		default:
+			return false;
+		}
 	}
 	else if (true == GameEngineInput::IsPress('D'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Right);
-		if (false == ColInfo.RightCheck)
+		if (false == ColTileInfo.RightCheck)
 		{
 			return true;
 		}
-		return false;
+		
+		switch (ColTileInfo.RightColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("RightCheck : 충돌한 상태인데 RightColType이 \"COLLISION_TYPE::EMPTY\"가나왔습니다.");
+		}
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::RightDown);
+			return true;
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::RightUp);
+			return true;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		default:
+			return false;
+		}
 	}
 	else
 	{
@@ -453,14 +526,14 @@ bool Player::MoveCheck()
 
 void Player::BodyColCheck()
 {
-	bool LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos, ColInfo.LeftColType);
-	bool LeftCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos2, ColInfo.LeftColType);
-	bool RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos, ColInfo.RightColType);
-	bool RightCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos2, ColInfo.RightColType);
-	bool UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos, ColInfo.UpColType);
-	bool UpCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos2, ColInfo.UpColType);
-	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos, ColInfo.DownColType);
-	bool DownCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos2, ColInfo.DownColType);
+	bool LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos);
+	bool LeftCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos2);
+	bool RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos);
+	bool RightCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos2);
+	bool UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos);
+	bool UpCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos2);
+	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos);
+	bool DownCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos2);
 
 	ColInfo.UpCheck = UpCheck || UpCheck2;
 	ColInfo.DownCheck = DownCheck || DownCheck2;
@@ -735,6 +808,7 @@ void Player::AdjustPosByCol()
 		break;
 	}
 
+	TileColCheck();
 	BodyColCheck();
 }
 

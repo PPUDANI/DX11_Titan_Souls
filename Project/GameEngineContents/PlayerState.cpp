@@ -111,7 +111,7 @@ void Player::MoveUpdate(float _Delta)
 	// Move Check
 	if (true == MoveCheck())
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * SpeedUpForce;
 		if (true == IsRunning)
 		{
 			MovePos *= RunForce;
@@ -122,12 +122,7 @@ void Player::MoveUpdate(float _Delta)
 			SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 		}
 
-		if (true == DebugingMode)
-		{
-			MovePos *= DebugModeForce;
-		}
-
-		Transform.AddLocalPosition(MovePos);
+		Transform.AddLocalPosition(MovePos * _Delta);
 	}
 	else
 	{
@@ -153,7 +148,7 @@ void Player::RollUpdate(float _Delta)
 		return;
 	}
 
-	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce * _Delta;
+	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce;
 	if (true == CurDirColCheck() &&
 		false == IsRollingBlocked)
 	{
@@ -166,12 +161,12 @@ void Player::RollUpdate(float _Delta)
 	if (true == IsRollingBlocked)
 	{
 		// Specular Reflection 추가하기
-		//DirSpecularReflection();
+		// DirSpecularReflection();
 		MovePos = -MovePos * DecelerationValue;
 		Deceleration(5.0f * _Delta);
 	}
 
-	Transform.AddLocalPosition(MovePos);
+	Transform.AddLocalPosition(MovePos * _Delta);
 }
 
 void Player::BlockedUpdate(float _Delta)
@@ -211,10 +206,10 @@ void Player::StopUpdate(float _Delta)
 	}
 	else
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue;
 		if (false == CurDirColCheck())
 		{
-			Transform.AddLocalPosition(MovePos);
+			Transform.AddLocalPosition(MovePos * _Delta);
 		}
 		Deceleration(10.0f * _Delta);
 	}
@@ -235,8 +230,8 @@ void Player::DeathUpdate(float _Delta)
 	// Deceleration
 	if (0.0f != DecelerationValue)
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue * _Delta;
-		Transform.AddLocalPosition(MovePos);
+		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue;
+		Transform.AddLocalPosition(MovePos * _Delta);
 		Deceleration(5.0f * _Delta);
 	}
 }

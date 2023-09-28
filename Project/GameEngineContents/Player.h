@@ -118,26 +118,22 @@ private:
 
 	// Change Amimation By Direction Functions
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
-
 private:
 	// Collision Check Pos
 	float4 LocalLeftPos = { -7.0f, -8.0f };
-	float4 LocalLeftPos2 = { -7.0f, -13.0f };
-
+	float4 LocalLeftPos2 = { -7.0f, -14.0f };
 	float4 LocalRightPos = { 7.0f, -8.0f };
-	float4 LocalRightPos2 = { 7.0f, -13.0f };
-
+	float4 LocalRightPos2 = { 7.0f, -14.0f };
 	float4 LocalUpPos = { -3.0f, -5.0f };
 	float4 LocalUpPos2 = { 3.0f, -5.0f };
-
-	float4 LocalDownPos = { -3.0f, -16.0f };
-	float4 LocalDownPos2 = { 3.0f, -16.0f };
+	float4 LocalDownPos = { -3.0f, -17.0f };
+	float4 LocalDownPos2 = { 3.0f, -17.0f };
 
 	// Tile Check
-	float4 TileLeftPos = { -8.0f, -11.0f };
-	float4 TileRightPos = { 8.0f, -11.0f };
-	float4 TileUpPos = { 0.0f, -4.0f };
-	float4 TileDownPos = { 0.0f, -17.0f };
+	float4 TileLeftPos = { -9.0f, -11.0f };
+	float4 TileRightPos = { 9.0f, -11.0f };
+	float4 TileUpPos = { 0.0f, -3.0f };
+	float4 TileDownPos = { 0.0f, -19.0f };
 
 	ColCheckInfo ColInfo;
 	ColCheckInfo ColTileInfo;
@@ -159,6 +155,7 @@ private:
 	const float DefaultSpeed = 160.0f;
 	const float DebugModeForce = 10.0f;
 	const float RunForce = 1.5f;
+	const float SpeedUpForce = 1.0f;
 	const float RollForce = 2.6f;
 
 	// Move Functions

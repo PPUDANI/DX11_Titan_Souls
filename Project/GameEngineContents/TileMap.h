@@ -19,16 +19,6 @@ enum class TILE_TYPE
 	MAT // Material
 };
 
-enum class COLLISION_TYPE
-{
-	EMPTY = 0,
-	RECT = 252,
-	LEFTUP_TRIANGLE = 224,
-	RIGHTUP_TRIANGLE = 225,
-	LEFTDOWN_TRIANGLE = 226,
-	RIGHTDOWN_TRIANGLE = 227,
-};
-
 class TileMap : public GameEngineActor
 {
 public:
@@ -48,10 +38,12 @@ public:
 
 	void SetViewMode(VIEW_MODE _Mode);
 
-	bool AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
-	bool ColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
-	bool TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
-	bool AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeBuffer);
+	bool AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeData);
+	bool AllColCheck(float4 _Pos);
+	bool ColCheck(float4 _Pos, COLLISION_TYPE& _TypeData);
+	bool TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData);
+	bool AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeData);
+	
 
 protected:
 
