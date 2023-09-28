@@ -56,6 +56,7 @@ public:
 	static std::shared_ptr<Player> MainPlayer;
 	
 	// Debuging Mode
+	void DebugRender();
 	void DebugingModeSwitch()
 	{
 		DebugingMode = !DebugingMode;
@@ -119,23 +120,35 @@ private:
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
 
 private:
-	// Tile Check Pos
-	float4 LocalLeftPos = { -9.0f, -9.0f };
-	float4 LocalRightPos = { 9.0f, -9.0f };
-	float4 LocalUpPos = { -6.0f, 2.0f };
-	float4 LocalUpPos2 = { 6.0f, 2.0f };
-	float4 LocalDownPos = { -6.0f, -16.0f };
-	float4 LocalDownPos2 = { 6.0f, -16.0f };
-	ColCheckInfo ColInfo;
-	ColCheckInfo ColNormalInfo;
+	// Collision Check Pos
+	float4 LocalLeftPos = { -7.0f, -8.0f };
+	float4 LocalLeftPos2 = { -7.0f, -13.0f };
 
-	void TileColCheck();
+	float4 LocalRightPos = { 7.0f, -8.0f };
+	float4 LocalRightPos2 = { 7.0f, -13.0f };
+
+	float4 LocalUpPos = { -3.0f, -5.0f };
+	float4 LocalUpPos2 = { 3.0f, -5.0f };
+
+	float4 LocalDownPos = { -3.0f, -16.0f };
+	float4 LocalDownPos2 = { 3.0f, -16.0f };
+
+	// Tile Check
+	float4 TileLeftPos = { -8.0f, -11.0f };
+	float4 TileRightPos = { 8.0f, -11.0f };
+	float4 TileUpPos = { 0.0f, -4.0f };
+	float4 TileDownPos = { 0.0f, -17.0f };
+
+	ColCheckInfo ColInfo;
+	ColCheckInfo ColTileInfo;
+
+	void BodyColCheck();
 	void TriangleColCheck();
 	bool CurDirColCheck();
 	void DirSpecularReflection();
 
 	// Nomaliaztion
-	void TileColCheckNormal();
+	void TileColCheck();
 	void AdjustPosByCol();
 private:
 	// State Variables

@@ -43,6 +43,7 @@ public:
 enum class PivotType
 {
 	Center,
+	Top,
 	Bottom,
 	Left,
 	LeftTop,
@@ -176,6 +177,11 @@ public:
 	inline unsigned int GetCurIndex() const
 	{
 		return CurFrameAnimations->CurIndex;
+	}
+
+	inline GameEngineTransform& GetImageTransform()
+	{
+		return ImageTransform;
 	}
 
 protected:

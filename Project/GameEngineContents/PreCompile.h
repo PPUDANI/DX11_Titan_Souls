@@ -11,6 +11,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineComponent.h>
+#include <GameEngineCore/GameEngineTransform.h>
 
 // 렌더러 실제 데이터
 #include <GameEngineCore/GameEngineRenderer.h> 

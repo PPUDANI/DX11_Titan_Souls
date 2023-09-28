@@ -10,6 +10,11 @@ class GameEngineLevel : public GameEngineObject
 	friend class GameEngineCollision;
 
 public:
+	static bool IsDebug;
+
+	static void OnDebug() { IsDebug = true; }
+	static void OffDebug() { IsDebug = false; }
+
 	// constrcuter destructer
 	GameEngineLevel();
 	~GameEngineLevel();

@@ -12,12 +12,6 @@ public:
 	GameEngineRenderUnit();
 	~GameEngineRenderUnit();
 
-	// delete Function
-	GameEngineRenderUnit(const GameEngineRenderUnit& _Other) = delete;
-	GameEngineRenderUnit(GameEngineRenderUnit&& _Other) noexcept = delete;
-	GameEngineRenderUnit& operator=(const GameEngineRenderUnit& _Other) = delete;
-	GameEngineRenderUnit& operator=(GameEngineRenderUnit&& _Other) noexcept = delete;
-
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 
@@ -37,7 +31,7 @@ public:
 	GameEngineShaderResHelper ShaderResHelper;
 
 private:
-	class GameEngineRenderer* ParentRenderer;
+	class GameEngineRenderer* ParentRenderer = nullptr;
 
 	// 최적화 대상이 될수 있다.
 	// 이걸 어떻게든 관리할 방법을 찾는게 맞다.
