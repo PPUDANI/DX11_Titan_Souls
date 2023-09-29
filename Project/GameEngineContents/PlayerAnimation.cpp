@@ -40,25 +40,25 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("LeftUp_Run", "Player.png", 0.08f, 462, 467, true);
 	BodyRenderer->CreateAnimation("RightUp_Run", "Player.png", 0.08f, 494, 499, true);
 
-	// Roll Animations
-	BodyRenderer->CreateAnimation("Right_Roll", "Player.png", 0.065f, 6, 11, true);
-	BodyRenderer->CreateAnimation("Up_Roll", "Player.png", 0.065f, 38, 43, true);
-	BodyRenderer->CreateAnimation("Left_Roll", "Player.png", 0.065f, 70, 75, true);
-	BodyRenderer->CreateAnimation("Down_Roll", "Player.png", 0.065f, 102, 107, true);
-	BodyRenderer->CreateAnimation("RightDown_Roll", "Player.png", 0.065f, 134, 139, true);
-	BodyRenderer->CreateAnimation("LeftDown_Roll", "Player.png", 0.065f, 166, 171, true);
-	BodyRenderer->CreateAnimation("LeftUp_Roll", "Player.png", 0.065f, 198, 203, true);
-	BodyRenderer->CreateAnimation("RightUp_Roll", "Player.png", 0.065f, 230, 235, true);
+	// Rolling Animations
+	BodyRenderer->CreateAnimation("Right_Rolling", "Player.png", 0.07f, 6, 11, true);
+	BodyRenderer->CreateAnimation("Up_Rolling", "Player.png", 0.07f, 38, 43, true);
+	BodyRenderer->CreateAnimation("Left_Rolling", "Player.png", 0.07f, 70, 75, true);
+	BodyRenderer->CreateAnimation("Down_Rolling", "Player.png", 0.07f, 102, 107, true);
+	BodyRenderer->CreateAnimation("RightDown_Rolling", "Player.png", 0.07f, 134, 139, true);
+	BodyRenderer->CreateAnimation("LeftDown_Rolling", "Player.png", 0.07f, 166, 171, true);
+	BodyRenderer->CreateAnimation("LeftUp_Rolling", "Player.png", 0.07f, 198, 203, true);
+	BodyRenderer->CreateAnimation("RightUp_Rolling", "Player.png", 0.07f, 230, 235, true);
 
-	//// ReverseRoll Animations
-	//ArrowInBagRenderer->CreateAnimation("Right_ReverseRoll", "Player.png", 0.063f, 11, 6, false);
-	//ArrowInBagRenderer->CreateAnimation("Up_ReverseRoll", "Player.png", 0.063f, 43, 38, false);
-	//ArrowInBagRenderer->CreateAnimation("Left_ReverseRoll", "Player.png", 0.063f, 75, 70, false);
-	//ArrowInBagRenderer->CreateAnimation("Down_ReverseRoll", "Player.png", 0.063f, 107, 102, false);
-	//ArrowInBagRenderer->CreateAnimation("RightDown_ReverseRoll", "Player.png", 0.063f, 139, 134, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftDown_ReverseRoll", "Player.png", 0.063f, 171, 166, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftUp_ReverseRoll", "Player.png", 0.063f, 203, 198, false);
-	//ArrowInBagRenderer->CreateAnimation("RightUp_ReverseRoll", "Player.png", 0.063f, 235, 230, false);
+	//// RollingBlocked Animations
+	//BodyRenderer->CreateAnimation("Right_RollingBlocked", "Player.png", 0.07f, 11, 6, false);
+	//BodyRenderer->CreateAnimation("Up_RollingBlocked", "Player.png", 0.07f, 43, 38, false);
+	//BodyRenderer->CreateAnimation("Left_RollingBlocked", "Player.png", 0.07f, 75, 70, false);
+	//BodyRenderer->CreateAnimation("Down_RollingBlocked", "Player.png", 0.07f, 107, 102, false);
+	//BodyRenderer->CreateAnimation("RightDown_RollingBlocked", "Player.png", 0.07f, 139, 134, false);
+	//BodyRenderer->CreateAnimation("LeftDown_RollingBlocked", "Player.png", 0.07f, 171, 166, false);
+	//BodyRenderer->CreateAnimation("LeftUp_RollingBlocked", "Player.png", 0.07f, 203, 198, false);
+	//BodyRenderer->CreateAnimation("RightUp_RollingBlocked", "Player.png", 0.07f, 235, 230, false);
 
 	// Bolcked Animations
 	BodyRenderer->CreateAnimation("Right_Blocked", "Player.png", 0.1f, 264, 269, true);
@@ -122,25 +122,25 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("LeftUp_Run", "Bow.png", 0.08f, 462, 467, true);
 	BowRenderer->CreateAnimation("RightUp_Run", "Bow.png", 0.08f, 494, 499, true);
 
-	// Roll Animations
-	BowRenderer->CreateAnimation("Right_Roll", "Bow.png", 0.063f, 6, 11, true);
-	BowRenderer->CreateAnimation("Up_Roll", "Bow.png", 0.063f, 38, 43, true);
-	BowRenderer->CreateAnimation("Left_Roll", "Bow.png", 0.063f, 70, 75, true);
-	BowRenderer->CreateAnimation("Down_Roll", "Bow.png", 0.063f, 102, 107, true);
-	BowRenderer->CreateAnimation("RightDown_Roll", "Bow.png", 0.063f, 134, 139, true);
-	BowRenderer->CreateAnimation("LeftDown_Roll", "Bow.png", 0.063f, 166, 171, true);
-	BowRenderer->CreateAnimation("LeftUp_Roll", "Bow.png", 0.063f, 198, 203, true);
-	BowRenderer->CreateAnimation("RightUp_Roll", "Bow.png", 0.063f, 230, 235, true);
+	// Rolling Animations
+	BowRenderer->CreateAnimation("Right_Rolling", "Bow.png", 0.07f, 6, 11, true);
+	BowRenderer->CreateAnimation("Up_Rolling", "Bow.png", 0.07f, 38, 43, true);
+	BowRenderer->CreateAnimation("Left_Rolling", "Bow.png", 0.07f, 70, 75, true);
+	BowRenderer->CreateAnimation("Down_Rolling", "Bow.png", 0.07f, 102, 107, true);
+	BowRenderer->CreateAnimation("RightDown_Rolling", "Bow.png", 0.07f, 134, 139, true);
+	BowRenderer->CreateAnimation("LeftDown_Rolling", "Bow.png", 0.07f, 166, 171, true);
+	BowRenderer->CreateAnimation("LeftUp_Rolling", "Bow.png", 0.07f, 198, 203, true);
+	BowRenderer->CreateAnimation("RightUp_Rolling", "Bow.png", 0.07f, 230, 235, true);
 
-	//// ReverseRoll Animations
-	//ArrowInBagRenderer->CreateAnimation("Right_ReverseRoll", "Bow.png", 0.063f, 11, 6, false);
-	//ArrowInBagRenderer->CreateAnimation("Up_ReverseRoll", "Bow.png", 0.063f, 43, 38, false);
-	//ArrowInBagRenderer->CreateAnimation("Left_ReverseRoll", "Bow.png", 0.063f, 75, 70, false);
-	//ArrowInBagRenderer->CreateAnimation("Down_ReverseRoll", "Bow.png", 0.063f, 107, 102, false);
-	//ArrowInBagRenderer->CreateAnimation("RightDown_ReverseRoll", "Bow.png", 0.063f, 139, 134, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftDown_ReverseRoll", "Bow.png", 0.063f, 171, 166, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftUp_ReverseRoll", "Bow.png", 0.063f, 203, 198, false);
-	//ArrowInBagRenderer->CreateAnimation("RightUp_ReverseRoll", "Bow.png", 0.063f, 235, 230, false);
+	//// RollingBlocked Animations
+	//BowRenderer->CreateAnimation("Right_RollingBlocked", "Bow.png", 0.07f, 11, 6, false);
+	//BowRenderer->CreateAnimation("Up_RollingBlocked", "Bow.png", 0.07f, 43, 38, false);
+	//BowRenderer->CreateAnimation("Left_RollingBlocked", "Bow.png", 0.07f, 75, 70, false);
+	//BowRenderer->CreateAnimation("Down_RollingBlocked", "Bow.png", 0.07f, 107, 102, false);
+	//BowRenderer->CreateAnimation("RightDown_RollingBlocked", "Bow.png", 0.07f, 139, 134, false);
+	//BowRenderer->CreateAnimation("LeftDown_RollingBlocked", "Bow.png", 0.07f, 171, 166, false);
+	//BowRenderer->CreateAnimation("LeftUp_RollingBlocked", "Bow.png", 0.07f, 203, 198, false);
+	//BowRenderer->CreateAnimation("RightUp_RollingBlocked", "Bow.png", 0.07f, 235, 230, false);
 
 	// Bolcked Animations
 	BowRenderer->CreateAnimation("Right_Blocked", "Bow.png", 0.1f, 264, 269, true);
@@ -204,25 +204,25 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("LeftUp_Run", "Arrow.png", 0.08f, 462, 467, true);
 	ArrowInBagRenderer->CreateAnimation("RightUp_Run", "Arrow.png", 0.08f, 494, 499, true);
 
-	// Roll Animations
-	ArrowInBagRenderer->CreateAnimation("Right_Roll", "Arrow.png", 0.05f, 6, 11, true);
-	ArrowInBagRenderer->CreateAnimation("Up_Roll", "Arrow.png", 0.05f, 38, 43, true);
-	ArrowInBagRenderer->CreateAnimation("Left_Roll", "Arrow.png", 0.05f, 70, 75, true);
-	ArrowInBagRenderer->CreateAnimation("Down_Roll", "Arrow.png", 0.05f, 102, 107, true);
-	ArrowInBagRenderer->CreateAnimation("RightDown_Roll", "Arrow.png", 0.05f, 134, 139, true);
-	ArrowInBagRenderer->CreateAnimation("LeftDown_Roll", "Arrow.png", 0.05f, 166, 171, true);
-	ArrowInBagRenderer->CreateAnimation("LeftUp_Roll", "Arrow.png", 0.05f, 198, 203, true);
-	ArrowInBagRenderer->CreateAnimation("RightUp_Roll", "Arrow.png", 0.05f, 230, 235, true);
+	// Rolling Animations
+	ArrowInBagRenderer->CreateAnimation("Right_Rolling", "Arrow.png", 0.07f, 6, 11, true);
+	ArrowInBagRenderer->CreateAnimation("Up_Rolling", "Arrow.png", 0.07f, 38, 43, true);
+	ArrowInBagRenderer->CreateAnimation("Left_Rolling", "Arrow.png", 0.07f, 70, 75, true);
+	ArrowInBagRenderer->CreateAnimation("Down_Rolling", "Arrow.png", 0.07f, 102, 107, true);
+	ArrowInBagRenderer->CreateAnimation("RightDown_Rolling", "Arrow.png", 0.07f, 134, 139, true);
+	ArrowInBagRenderer->CreateAnimation("LeftDown_Rolling", "Arrow.png", 0.07f, 166, 171, true);
+	ArrowInBagRenderer->CreateAnimation("LeftUp_Rolling", "Arrow.png", 0.07f, 198, 203, true);
+	ArrowInBagRenderer->CreateAnimation("RightUp_Rolling", "Arrow.png", 0.07f, 230, 235, true);
 
-	//// ReverseRoll Animations
-	//ArrowInBagRenderer->CreateAnimation("Right_ReverseRoll", "Arrow.png", 0.063f, 11, 6, false);
-	//ArrowInBagRenderer->CreateAnimation("Up_ReverseRoll", "Arrow.png", 0.063f, 43, 38, false);
-	//ArrowInBagRenderer->CreateAnimation("Left_ReverseRoll", "Arrow.png", 0.063f, 75, 70, false);
-	//ArrowInBagRenderer->CreateAnimation("Down_ReverseRoll", "Arrow.png", 0.063f, 107, 102, false);
-	//ArrowInBagRenderer->CreateAnimation("RightDown_ReverseRoll", "Arrow.png", 0.063f, 139, 134, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftDown_ReverseRoll", "Arrow.png", 0.063f, 171, 166, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftUp_ReverseRoll", "Arrow.png", 0.063f, 203, 198, false);
-	//ArrowInBagRenderer->CreateAnimation("RightUp_ReverseRoll", "Arrow.png", 0.063f, 235, 230, false);
+	//// RollingBlocked Animations
+	//ArrowInBagRenderer->CreateAnimation("Right_RollingBlocked", "Arrow.png", 0.07f, 11, 6, false);
+	//ArrowInBagRenderer->CreateAnimation("Up_RollingBlocked", "Arrow.png", 0.07f, 43, 38, false);
+	//ArrowInBagRenderer->CreateAnimation("Left_RollingBlocked", "Arrow.png", 0.07f, 75, 70, false);
+	//ArrowInBagRenderer->CreateAnimation("Down_RollingBlocked", "Arrow.png", 0.07f, 107, 102, false);
+	//ArrowInBagRenderer->CreateAnimation("RightDown_RollingBlocked", "Arrow.png", 0.07f, 139, 134, false);
+	//ArrowInBagRenderer->CreateAnimation("LeftDown_RollingBlocked", "Arrow.png", 0.07f, 171, 166, false);
+	//ArrowInBagRenderer->CreateAnimation("LeftUp_RollingBlocked", "Arrow.png", 0.07f, 203, 198, false);
+	//ArrowInBagRenderer->CreateAnimation("RightUp_RollingBlocked", "Arrow.png", 0.07f, 235, 230, false);
 
 	// Bolcked Animations
 	ArrowInBagRenderer->CreateAnimation("Right_Blocked", "Arrow.png", 0.1f, 264, 269, true);

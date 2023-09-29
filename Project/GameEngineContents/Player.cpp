@@ -23,10 +23,10 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	// Roll CoolDown Update
-	if (true == IsRollOnCooldown)
+	// Rolling CoolDown Update
+	if (true == IsRollingOnCooldown)
 	{
-		RollCoolDownUpdate(_Delta);
+		RollingCoolDownUpdate(_Delta);
 	}
 
 	// Change Diretion CoolDown Update
@@ -65,8 +65,8 @@ void Player::Update(float _Delta)
 	case PLAYER_STATE::Stop:
 		StopUpdate(_Delta);
 		break;
-	case PLAYER_STATE::Roll:
-		RollUpdate(_Delta);
+	case PLAYER_STATE::Rolling:
+		RollingUpdate(_Delta);
 		break;
 	case PLAYER_STATE::Blocked:
 		BlockedUpdate(_Delta);
@@ -114,8 +114,8 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Stop:
 		StopStart();
 		break;
-	case PLAYER_STATE::Roll:
-		RollStart();
+	case PLAYER_STATE::Rolling:
+		RollingStart();
 		break;
 	case PLAYER_STATE::Blocked:
 		BlockedStart();

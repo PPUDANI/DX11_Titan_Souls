@@ -13,11 +13,11 @@ void Player::MoveStart()
 {
 }
 
-void Player::RollStart()
+void Player::RollingStart()
 {
-	IsRollingBlocked = false;
-	DecelerationValue = 0.8f;
-	SetAnimByDir("Roll");
+	IsRollingingBlocked = false;
+	DecelerationValue = 1.0f;
+	SetAnimByDir("Rolling");
 }
 
 void Player::BlockedStart()
@@ -80,10 +80,10 @@ void Player::IdleUpdate(float _Delta)
 		return;
 	}
 
-	// Roll Check
+	// Rolling Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		if (true == RollCollDownCheck())
+		if (true == RollingCollDownCheck())
 		{
 			return;
 		}
@@ -99,10 +99,10 @@ void Player::MoveUpdate(float _Delta)
 		return;
 	}
 
-	// Roll Check
+	// Rolling Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		if (true == RollCollDownCheck())
+		if (true == RollingCollDownCheck())
 		{
 			return;
 		}
@@ -126,7 +126,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 }
 
-void Player::RollUpdate(float _Delta)
+void Player::RollingUpdate(float _Delta)
 {
 	// Death Check
 	if (true == GameEngineInput::IsPress('K'))
@@ -137,22 +137,22 @@ void Player::RollUpdate(float _Delta)
 
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
-		IsRollOnCooldown = true;
+		IsRollingOnCooldown = true;
 		ChangeState(PLAYER_STATE::Stop);
 		return;
 	}
 
 	if (true == CurDirColCheck())
 	{
-		IsRollingBlocked = true;
+		IsRollingingBlocked = true;
 		DirSpecularReflection();
 		// 임시 애니메이션
-		SetAnimByDir("Roll", 0, true);
+		SetAnimByDir("Rolling", BodyRenderer->GetCurIndex(), true);
 	}
 
-	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce;
+	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollingForce;
 
-	if (true == IsRollingBlocked)
+	if (true == IsRollingingBlocked)
 	{
 		// Specular Reflection 추가하기
 		MovePos *= DecelerationValue;
@@ -182,10 +182,10 @@ void Player::StopUpdate(float _Delta)
 		return;
 	}
 
-	// Roll Check
+	// Rolling Check
 	if (true == GameEngineInput::IsDown(VK_SPACE))
 	{
-		if (true == RollCollDownCheck())
+		if (true == RollingCollDownCheck())
 		{
 			return;
 		}

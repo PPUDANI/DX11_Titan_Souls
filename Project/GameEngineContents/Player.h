@@ -5,7 +5,7 @@ enum class PLAYER_STATE
 	Idle,
 	Move,
 	Stop,
-	Roll,
+	Rolling,
 	Blocked,
 	Aim,
 	Shot,
@@ -85,7 +85,7 @@ private:
 	void IdleStart();
 	void MoveStart();
 	void StopStart();
-	void RollStart();
+	void RollingStart();
 	void BlockedStart();
 	void AimStart();
 	void ShotStart();
@@ -96,7 +96,7 @@ private:
 	void IdleUpdate(float _Delta);
 	void MoveUpdate(float _Delta);
 	void StopUpdate(float _Delta);
-	void RollUpdate(float _Delta);
+	void RollingUpdate(float _Delta);
 	void BlockedUpdate(float _Delta);
 	void AimUpdate(float _Delta);
 	void ShotUpdate(float _Delta);
@@ -159,7 +159,7 @@ private:
 	const float DebugModeForce = 10.0f;
 	const float RunForce = 1.5f;
 	const float SpeedUpForce = 1.0f;
-	const float RollForce = 2.6f;
+	const float RollingForce = 2.5f;
 
 	// Move Functions
 	bool MoveCheckInIdle();
@@ -219,19 +219,19 @@ private:
 	}
 
 private:
-	// Roll Variables
-	bool IsRollingBlocked = false;
+	// Rolling Variables
+	bool IsRollingingBlocked = false;
 
-	// Roll CoolDown Variables
-	bool IsRollOnCooldown = false;
-	const float RollCooldown = 0.5f;
-	float RollCooldownTimer = 0.0f;
+	// Rolling CoolDown Variables
+	bool IsRollingOnCooldown = false;
+	const float RollingCooldown = 0.5f;
+	float RollingCooldownTimer = 0.0f;
 
-	inline bool RollCollDownCheck()
+	inline bool RollingCollDownCheck()
 	{
-		if (false == IsRollOnCooldown)
+		if (false == IsRollingOnCooldown)
 		{
-			ChangeState(PLAYER_STATE::Roll);
+			ChangeState(PLAYER_STATE::Rolling);
 			return true;
 		}
 		else
@@ -240,16 +240,16 @@ private:
 		}
 	}
 
-	void RollCoolDownUpdate(float _Delta)
+	void RollingCoolDownUpdate(float _Delta)
 	{
-		if (RollCooldown <= RollCooldownTimer)
+		if (RollingCooldown <= RollingCooldownTimer)
 		{
-			RollCooldownTimer = 0.0f;
-			IsRollOnCooldown = false;
+			RollingCooldownTimer = 0.0f;
+			IsRollingOnCooldown = false;
 		}
 		else
 		{
-			RollCooldownTimer += _Delta;
+			RollingCooldownTimer += _Delta;
 		}
 	}
 
