@@ -12,6 +12,7 @@ YetiRoom::~YetiRoom()
 void YetiRoom::Start()
 {
 	PlayLevelBase::Start();
+	PlayerSpawnPos = { 1008.0f, -1824.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 
@@ -37,7 +38,7 @@ void YetiRoom::Update(float _Delta)
 void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1824.0f });
+
 }
 
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)

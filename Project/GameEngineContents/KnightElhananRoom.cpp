@@ -12,6 +12,7 @@ KnightElhananRoom::~KnightElhananRoom()
 void KnightElhananRoom::Start()
 {
 	PlayLevelBase::Start();
+	PlayerSpawnPos = { 944.0f, -1760.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 
@@ -36,7 +37,6 @@ void KnightElhananRoom::Update(float _Delta)
 void KnightElhananRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	PlayerActor->Transform.SetLocalPosition({ 944.0f, -1760.0f });
 }
 
 void KnightElhananRoom::LevelEnd(GameEngineLevel* _NextLevel)

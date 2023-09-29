@@ -12,6 +12,7 @@ Jam::~Jam()
 void Jam::Start()
 {
 	PlayLevelBase::Start();
+	PlayerSpawnPos = { 2768.0f, -2688.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 
@@ -38,7 +39,6 @@ void Jam::Update(float _Delta)
 void Jam::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	PlayerActor->Transform.SetLocalPosition({ 2768.0f, -2688.0f });
 }
 
 void Jam::LevelEnd(GameEngineLevel* _NextLevel)

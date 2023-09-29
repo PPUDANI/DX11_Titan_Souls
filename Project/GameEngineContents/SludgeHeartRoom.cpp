@@ -12,6 +12,7 @@ SludgeHeartRoom::~SludgeHeartRoom()
 void SludgeHeartRoom::Start()
 {
 	PlayLevelBase::Start();
+	PlayerSpawnPos = { 1008.0f, -1856.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 
@@ -35,8 +36,6 @@ void SludgeHeartRoom::Update(float _Delta)
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
-	GetMainCamera()->Transform.SetLocalPosition(PlayerActor->Transform.GetWorldPosition());
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
