@@ -141,7 +141,10 @@ private:
 	void BodyColCheck();
 	void TriangleColCheck();
 	bool CurDirColCheck();
+
+	// Reflection
 	void DirSpecularReflection();
+	void ReflectionByCol(COLLISION_TYPE _Type);
 
 	// Nomaliaztion
 	void TileColCheck();

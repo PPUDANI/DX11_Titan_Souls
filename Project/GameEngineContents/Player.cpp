@@ -19,8 +19,6 @@ void Player::Start()
 	CreateArrowInBagAnimation();
 
 	ChangeState(PLAYER_STATE::StandUp);
-
-
 }
 
 void Player::Update(float _Delta)
@@ -89,12 +87,9 @@ void Player::Update(float _Delta)
 		break;
 	}
 
+	TileColCheck();
 	BodyColCheck();
-
-	if (PLAYER_STATE::Move == CurState)
-	{
-		AdjustPosByCol();
-	}
+	AdjustPosByCol();
 	
 	if (true == DebugingMode)
 	{
@@ -634,6 +629,7 @@ void Player::TriangleColCheck()
 
 bool Player::CurDirColCheck()
 {
+	BodyColCheck();
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
@@ -659,9 +655,6 @@ bool Player::CurDirColCheck()
 
 void Player::AdjustPosByCol()
 {
-	TileColCheck();
-	BodyColCheck();
-
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
@@ -866,28 +859,168 @@ void Player::AdjustPosByCol()
 
 void Player::DirSpecularReflection()
 {
-	//switch (CurDir)
-	//{
-	//case PLAYER_DIRECTION::Right:
-	//	break;
-	//case PLAYER_DIRECTION::RightUp:
-	//	break;
-	//case PLAYER_DIRECTION::Up:
-	//	break;
-	//case PLAYER_DIRECTION::LeftUp:
-	//	break;
-	//case PLAYER_DIRECTION::Left:
-	//	break;
-	//case PLAYER_DIRECTION::LeftDown:
-	//	break;
-	//case PLAYER_DIRECTION::Down:
-	//	break;
-	//case PLAYER_DIRECTION::RightDown:
-	//	break;
-	//default:
-	//	break;
-	//}
+	TileColCheck();
+	//AdjustPosByCol();
+
+	switch (CurDir)
+	{
+	case PLAYER_DIRECTION::RightUp:
+		if (true == TileColInfo.RightCheck)
+		{
+			if (true == TileColInfo.UpCheck)
+			{
+				SetDirection(PLAYER_DIRECTION::LeftDown);
+			}
+			else
+			{
+				SetDirection(PLAYER_DIRECTION::LeftUp);
+			}
+		}
+		else if (true == TileColInfo.UpCheck)
+		{
+			SetDirection(PLAYER_DIRECTION::RightDown);
+		}
+		return;
+	case PLAYER_DIRECTION::LeftUp:
+		if (true == TileColInfo.LeftCheck)
+		{
+			if (true == TileColInfo.UpCheck)
+			{
+				SetDirection(PLAYER_DIRECTION::RightDown);
+			}
+			else
+			{
+				SetDirection(PLAYER_DIRECTION::RightUp);
+			}
+		}
+		else if (true == TileColInfo.UpCheck)
+		{
+			SetDirection(PLAYER_DIRECTION::LeftDown);
+		}
+		return;
+	case PLAYER_DIRECTION::RightDown:
+		if (true == TileColInfo.RightCheck)
+		{
+			if (true == TileColInfo.DownCheck)
+			{
+				SetDirection(PLAYER_DIRECTION::LeftUp);
+			}
+			else
+			{
+				SetDirection(PLAYER_DIRECTION::LeftDown);
+			}
+		}
+		else if (true == TileColInfo.DownCheck)
+		{
+			SetDirection(PLAYER_DIRECTION::RightUp);
+		}
+		return;
+	case PLAYER_DIRECTION::LeftDown:
+		if (true == TileColInfo.LeftCheck)
+		{
+			if (true == TileColInfo.DownCheck)
+			{
+				SetDirection(PLAYER_DIRECTION::RightUp);
+			}
+			else
+			{
+				SetDirection(PLAYER_DIRECTION::RightDown);
+			}
+		}
+		else if (true == TileColInfo.DownCheck)
+		{
+			SetDirection(PLAYER_DIRECTION::LeftUp);
+		}
+		return;
+	case PLAYER_DIRECTION::Right:
+		switch (TileColInfo.RightColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
+			return;
+		}
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Down);
+			return;
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Down);
+			return;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		default:
+			SetDirection(PLAYER_DIRECTION::Left);
+			return;
+		}
+	case PLAYER_DIRECTION::Up:
+		switch (TileColInfo.UpColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
+			return;
+		}
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Right);
+			return;
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Left);
+			return;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		default:
+			SetDirection(PLAYER_DIRECTION::Down);
+			return;
+		}
+	case PLAYER_DIRECTION::Left:
+		switch (TileColInfo.LeftColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
+			return;
+		}
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Down);
+			return;
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Up);
+			return;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		default:
+			SetDirection(PLAYER_DIRECTION::Right);
+			return;
+		}
+	case PLAYER_DIRECTION::Down:
+		switch (TileColInfo.DownColType)
+		{
+		case COLLISION_TYPE::EMPTY:
+		{
+			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
+			return;
+		}
+		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Right);
+			return;
+		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+			SetDirection(PLAYER_DIRECTION::Left);
+			return;
+		case COLLISION_TYPE::RECT:
+		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		default:
+			SetDirection(PLAYER_DIRECTION::Up);
+			return;
+		}
+	default:
+		break;
+	}
 }
+
 void Player::DebugRender()
 {
 	GameEngineTransform TData;

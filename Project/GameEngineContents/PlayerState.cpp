@@ -142,21 +142,20 @@ void Player::RollUpdate(float _Delta)
 		return;
 	}
 
-	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce;
-	if (true == CurDirColCheck() &&
-		false == IsRollingBlocked)
+	if (true == CurDirColCheck())
 	{
 		IsRollingBlocked = true;
-
+		DirSpecularReflection();
 		// 임시 애니메이션
 		SetAnimByDir("Roll", 0, true);
 	}
 
+	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollForce;
+
 	if (true == IsRollingBlocked)
 	{
 		// Specular Reflection 추가하기
-		// DirSpecularReflection();
-		MovePos = -MovePos * DecelerationValue;
+		MovePos *= DecelerationValue;
 		Deceleration(5.0f * _Delta);
 	}
 
