@@ -442,6 +442,7 @@ void TileMap::TileTexureSetting()
 
 bool TileMap::AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 {
+	_TypeData = COLLISION_TYPE::EMPTY;
 	if (true == ColCheck(_Pos, _TypeData))
 	{
 		return true;
@@ -457,7 +458,6 @@ bool TileMap::AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 		return true;
 	}
 
-	_TypeData = COLLISION_TYPE::EMPTY;
 	return false;
 }
 

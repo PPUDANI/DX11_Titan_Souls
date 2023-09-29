@@ -280,7 +280,6 @@ bool Player::MoveCheckInIdle()
 bool Player::MoveCheck()
 {
 	float4 MoveCheck = float4::ZERO;
-
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
 		if (false == TileColInfo.LeftCheck)
@@ -398,6 +397,7 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::LeftUp);
 			return true;
 		case COLLISION_TYPE::RECT:
+			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
 			if (COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.LeftColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightUp);
@@ -435,6 +435,7 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::LeftUp);
 			return true;
 		case COLLISION_TYPE::RECT:
+			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
 			if (COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.UpColType)
 			{
 				SetDirection(PLAYER_DIRECTION::LeftDown);
@@ -472,6 +473,7 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::LeftDown);
 			return true;
 		case COLLISION_TYPE::RECT:
+			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
 			if (COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.LeftColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightDown);
@@ -509,6 +511,7 @@ bool Player::MoveCheck()
 			SetDirection(PLAYER_DIRECTION::RightUp);
 			return true;
 		case COLLISION_TYPE::RECT:
+			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
 			if (COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.UpColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightDown);
@@ -648,6 +651,8 @@ bool Player::CurDirColCheck()
 void Player::AdjustPosByCol()
 {
 	TileColCheck();
+	BodyColCheck();
+
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:

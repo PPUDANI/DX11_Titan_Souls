@@ -130,10 +130,10 @@ private:
 	float4 LocalDownPos2 = { 3.0f, -17.0f };
 
 	// Tile Check
-	float4 TileLeftPos = { -11.0f, -11.0f };
-	float4 TileRightPos = { 11.0f, -11.0f };
-	float4 TileUpPos = { 0.0f, -0.0f };
-	float4 TileDownPos = { 0.0f, -22.0f };
+	float4 TileLeftPos = { -10.0f, -11.0f };
+	float4 TileRightPos = { 10.0f, -11.0f };
+	float4 TileUpPos = { 0.0f, -2.0f };
+	float4 TileDownPos = { 0.0f, -20.0f };
 
 	ColCheckInfo BodyColInfo;
 	ColCheckInfo TileColInfo;
