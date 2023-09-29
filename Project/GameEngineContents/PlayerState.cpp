@@ -124,12 +124,6 @@ void Player::MoveUpdate(float _Delta)
 
 		Transform.AddLocalPosition(MovePos * _Delta);
 	}
-	else
-	{
-		// Blocked·Î ¹Ù²ã¾ßÇÔ.
-		ChangeState(PLAYER_STATE::Stop);
-		return;
-	}
 }
 
 void Player::RollUpdate(float _Delta)

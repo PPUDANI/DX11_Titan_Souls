@@ -120,20 +120,20 @@ private:
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
 private:
 	// Collision Check Pos
-	float4 LocalLeftPos = { -7.0f, -8.0f };
-	float4 LocalLeftPos2 = { -7.0f, -14.0f };
-	float4 LocalRightPos = { 7.0f, -8.0f };
-	float4 LocalRightPos2 = { 7.0f, -14.0f };
+	float4 LocalLeftPos = { -9.0f, -8.0f };
+	float4 LocalLeftPos2 = { -9.0f, -14.0f };
+	float4 LocalRightPos = { 9.0f, -8.0f };
+	float4 LocalRightPos2 = { 9.0f, -14.0f };
 	float4 LocalUpPos = { -3.0f, -5.0f };
 	float4 LocalUpPos2 = { 3.0f, -5.0f };
 	float4 LocalDownPos = { -3.0f, -17.0f };
 	float4 LocalDownPos2 = { 3.0f, -17.0f };
 
 	// Tile Check
-	float4 TileLeftPos = { -10.0f, -11.0f };
-	float4 TileRightPos = { 10.0f, -11.0f };
-	float4 TileUpPos = { 0.0f, -2.0f };
-	float4 TileDownPos = { 0.0f, -20.0f };
+	float4 TileLeftPos = { -12.0f, -11.0f };
+	float4 TileRightPos = { 12.0f, -11.0f };
+	float4 TileUpPos = { 0.0f, 1.0f };
+	float4 TileDownPos = { 0.0f, -22.0f };
 
 	ColCheckInfo BodyColInfo;
 	ColCheckInfo TileColInfo;
@@ -149,7 +149,7 @@ private:
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
-
+	bool IsBlocked = false;
 private:
 	// Physics Variables
 	const float DefaultSpeed = 160.0f;

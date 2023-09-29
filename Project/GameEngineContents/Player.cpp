@@ -302,6 +302,7 @@ bool Player::MoveCheck()
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
+		SetAnimByDir("Blocked");
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
@@ -326,6 +327,7 @@ bool Player::MoveCheck()
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
+		SetAnimByDir("Blocked");
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
@@ -350,6 +352,7 @@ bool Player::MoveCheck()
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
+		SetAnimByDir("Blocked");
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
@@ -374,6 +377,7 @@ bool Player::MoveCheck()
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
+		SetAnimByDir("Blocked");
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('W'))
@@ -411,6 +415,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
+			SetAnimByDir("Blocked");
 			return false;
 		}
 	}
@@ -449,6 +454,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
+			SetAnimByDir("Blocked");
 			return false;
 		}
 	}
@@ -487,6 +493,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		default:
+			SetAnimByDir("Blocked");
 			return false;
 		}
 	}
@@ -525,11 +532,13 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
+			SetAnimByDir("Blocked");
 			return false;
 		}
 	}
 	else
 	{
+		ChangeState(PLAYER_STATE::Stop);
 		return false;
 	}
 	//  Up¿œ ∂ß
