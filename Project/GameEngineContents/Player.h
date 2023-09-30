@@ -124,27 +124,30 @@ private:
 	float4 LocalLeftPos2 = { -9.0f, -14.0f };
 	float4 LocalRightPos = { 9.0f, -8.0f };
 	float4 LocalRightPos2 = { 9.0f, -14.0f };
-	float4 LocalUpPos = { -3.0f, -5.0f };
-	float4 LocalUpPos2 = { 3.0f, -5.0f };
-	float4 LocalDownPos = { -3.0f, -17.0f };
-	float4 LocalDownPos2 = { 3.0f, -17.0f };
+	float4 LocalUpPos = { -3.0f, -3.0f };
+	float4 LocalUpPos2 = { 3.0f, -3.0f };
+	float4 LocalDownPos = { -3.0f, -19.0f };
+	float4 LocalDownPos2 = { 3.0f, -19.0f };
 
 	// Tile Check
 	float4 TileLeftPos = { -12.0f, -11.0f };
 	float4 TileRightPos = { 12.0f, -11.0f };
 	float4 TileUpPos = { 0.0f, 1.0f };
-	float4 TileDownPos = { 0.0f, -22.0f };
+	float4 TileDownPos = { 0.0f, -23.0f };
 
 	ColCheckInfo BodyColInfo;
 	ColCheckInfo TileColInfo;
 
 	void BodyColCheck();
-	void TriangleColCheck();
 	bool CurDirColCheck();
+	bool AnyDirColCheck();
+	bool AllDirColCheck();
+
+	// 모든 방향 충돌이 일어난 경우(충돌 타일에 낀 상태) 안전장치 함수
+	void ResolveCollisionSticking();
 
 	// Reflection
 	void DirSpecularReflection();
-	void ReflectionByCol(COLLISION_TYPE _Type);
 
 	// Nomaliaztion
 	void TileColCheck();
@@ -179,7 +182,7 @@ private:
 	void Deceleration(float _Speed)
 	{
 		DecelerationValue -= DecelerationValue * _Speed;
-		if (0.05f > DecelerationValue)
+		if (0.01f > DecelerationValue)
 		{
 			DecelerationValue = 0.0f;
 		}
@@ -188,6 +191,7 @@ private:
 private:
 	// Direction Variables
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
+	PLAYER_DIRECTION PrevDir = PLAYER_DIRECTION::Down;
 	float4 PlayerDirDeg = float4::ZERO;
 	bool IsChangeDirOnCooldown = false;
 	const float ChangeDirCoolTime = 0.05f;

@@ -277,9 +277,9 @@ bool Player::MoveCheck()
 	float4 MoveCheck = float4::ZERO;
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == TileColInfo.LeftCheck)
+		if (false == BodyColInfo.LeftCheck)
 		{
-			if (false == TileColInfo.UpCheck)
+			if (false == BodyColInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
 				return true;
@@ -290,7 +290,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == TileColInfo.UpCheck)
+		else if (false == BodyColInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
@@ -302,9 +302,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == TileColInfo.RightCheck)
+		if (false == BodyColInfo.RightCheck)
 		{
-			if (false == TileColInfo.UpCheck)
+			if (false == BodyColInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightUp);
 				return true;
@@ -315,7 +315,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == TileColInfo.UpCheck)
+		else if (false == BodyColInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
@@ -327,9 +327,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == TileColInfo.LeftCheck)
+		if (false == BodyColInfo.LeftCheck)
 		{
-			if (false == TileColInfo.DownCheck)
+			if (false == BodyColInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
 				return true;
@@ -340,7 +340,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == TileColInfo.DownCheck)
+		else if (false == BodyColInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
@@ -352,9 +352,9 @@ bool Player::MoveCheck()
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == TileColInfo.RightCheck)
+		if (false == BodyColInfo.RightCheck)
 		{
-			if (false == TileColInfo.DownCheck)
+			if (false == BodyColInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightDown);
 				return true;
@@ -365,7 +365,7 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == TileColInfo.DownCheck)
+		else if (false == BodyColInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
@@ -378,7 +378,7 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('W'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Up);
-		if (false == TileColInfo.UpCheck)
+		if (false == BodyColInfo.UpCheck)
 		{
 			return true;
 		}
@@ -387,7 +387,7 @@ bool Player::MoveCheck()
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
-			MsgBoxAssert("UpCheck : 충돌한 상태인데 UpColType값이 \"COLLISION_TYPE::EMPTY\"입니다.");
+			return true;
 		}
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightUp);
@@ -417,7 +417,7 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('A'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Left);
-		if (false == TileColInfo.LeftCheck)
+		if (false == BodyColInfo.LeftCheck)
 		{
 			return true;
 		}
@@ -426,7 +426,7 @@ bool Player::MoveCheck()
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
-			MsgBoxAssert("LeftCheck : 충돌한 상태인데 LeftColType값이 \"COLLISION_TYPE::EMPTY\"입니다.");
+			return true;
 		}
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::LeftDown);
@@ -456,7 +456,7 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('S'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Down);
-		if (false == TileColInfo.DownCheck)
+		if (false == BodyColInfo.DownCheck)
 		{
 			return true;
 		}
@@ -465,7 +465,7 @@ bool Player::MoveCheck()
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
-			MsgBoxAssert("DownCheck : 충돌한 상태인데 DownColType값이 \"COLLISION_TYPE::EMPTY\"입니다.");
+			return true;
 		}
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightDown);
@@ -495,7 +495,7 @@ bool Player::MoveCheck()
 	else if (true == GameEngineInput::IsPress('D'))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Right);
-		if (false == TileColInfo.RightCheck)
+		if (false == BodyColInfo.RightCheck)
 		{
 			return true;
 		}
@@ -504,7 +504,7 @@ bool Player::MoveCheck()
 		{
 		case COLLISION_TYPE::EMPTY:
 		{
-			MsgBoxAssert("RightCheck : 충돌한 상태인데 RightColType이 \"COLLISION_TYPE::EMPTY\"가나왔습니다.");
+			return true;
 		}
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightDown);
@@ -600,33 +600,6 @@ void Player::TileColCheck()
 	TileColInfo.RightCheck = RightCheck;
 }
 
-void Player::TriangleColCheck()
-{
-	/*if (true == ColInfo.LeftCheck)
-	{
-		switch (ColInfo.LeftColType)
-		{
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
-
-			break;
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
-
-			break;
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
-
-			break;
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
-
-			break;
-		case COLLISION_TYPE::EMPTY:
-		case COLLISION_TYPE::RECT:
-		default:
-			return;
-		}
-	}*/
-}
-
-
 bool Player::CurDirColCheck()
 {
 	BodyColCheck();
@@ -653,205 +626,161 @@ bool Player::CurDirColCheck()
 	}
 }
 
-void Player::AdjustPosByCol()
+
+bool Player::AnyDirColCheck()
 {
-	switch (CurDir)
+	return true == BodyColInfo.UpCheck   ||
+		   true == BodyColInfo.DownCheck ||
+		   true == BodyColInfo.LeftCheck ||
+		   true == BodyColInfo.RightCheck;
+}
+
+bool Player::AllDirColCheck()
+{
+	return true == BodyColInfo.UpCheck &&
+		true == BodyColInfo.DownCheck &&
+		true == BodyColInfo.LeftCheck &&
+		true == BodyColInfo.RightCheck;
+}
+
+void Player::ResolveCollisionSticking()
+{
+	switch (PrevDir)
 	{
 	case PLAYER_DIRECTION::Right:
-		if (true == TileColInfo.RightCheck)
+		while (true == BodyColInfo.RightCheck)
 		{
-			while (true == BodyColInfo.RightCheck)
-			{
-				Transform.AddLocalPosition(float4::LEFT);
-				BodyColCheck();
-			}
- 			Transform.AddLocalPosition(float4::RIGHT);
-		}
-		break;
-
-	case PLAYER_DIRECTION::RightUp:
-		if (true == TileColInfo.RightCheck)
-		{
-			if (true == TileColInfo.UpCheck)
-			{
-				while (true == BodyColInfo.RightCheck || true == BodyColInfo.UpCheck)
-				{
-					Transform.AddLocalPosition(float4::LEFT);
-					Transform.AddLocalPosition(float4::DOWN);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::RIGHT);
-				Transform.AddLocalPosition(float4::UP);
-			}
-			else
-			{
-				while (true == BodyColInfo.RightCheck)
-				{
-					Transform.AddLocalPosition(float4::LEFT);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::RIGHT);
-			}
-		}
-		else if (true == TileColInfo.UpCheck)
-		{
-			while (true == BodyColInfo.UpCheck)
-			{
-				Transform.AddLocalPosition(float4::DOWN);
-				BodyColCheck();
-			}
-			Transform.AddLocalPosition(float4::UP);
-		}
-		break;
-
-	case PLAYER_DIRECTION::Up:
-		if (true == TileColInfo.UpCheck)
-		{
-			while (true == BodyColInfo.UpCheck)
-			{
-				Transform.AddLocalPosition(float4::DOWN);
-				BodyColCheck();
-			}
-			Transform.AddLocalPosition(float4::UP);
-		}
-		break;
-
-	case PLAYER_DIRECTION::LeftUp:
-		if (true == TileColInfo.LeftCheck)
-		{
-			if (true == TileColInfo.UpCheck)
-			{
-				while (true == BodyColInfo.LeftCheck || true == BodyColInfo.UpCheck)
-				{
-					Transform.AddLocalPosition(float4::RIGHT);
-					Transform.AddLocalPosition(float4::DOWN);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::LEFT);
-				Transform.AddLocalPosition(float4::UP);
-			}
-			else
-			{
-				while (true == BodyColInfo.LeftCheck)
-				{
-					Transform.AddLocalPosition(float4::RIGHT);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::LEFT);
-			}
-		}
-		else if (true == TileColInfo.UpCheck)
-		{
-			while (true == BodyColInfo.UpCheck)
-			{
-				Transform.AddLocalPosition(float4::DOWN);
-				BodyColCheck();
-			}
-			Transform.AddLocalPosition(float4::UP);
-		}
-		break;
-
-	case PLAYER_DIRECTION::Left:
-		if (true == TileColInfo.LeftCheck)
-		{
-			while (true == BodyColInfo.LeftCheck)
-			{
-				Transform.AddLocalPosition(float4::RIGHT);
-				BodyColCheck();
-			}
 			Transform.AddLocalPosition(float4::LEFT);
+			BodyColCheck();
 		}
+		Transform.AddLocalPosition(float4::RIGHT);
+		break;
+	case PLAYER_DIRECTION::RightUp:
+		while (true == BodyColInfo.RightCheck || true == BodyColInfo.UpCheck)
+		{
+			Transform.AddLocalPosition(float4::LEFT);
+			Transform.AddLocalPosition(float4::DOWN);
+			BodyColCheck();
+		}
+		Transform.AddLocalPosition(float4::RIGHT);
+		Transform.AddLocalPosition(float4::UP);
+	case PLAYER_DIRECTION::Up:
+		while (true == BodyColInfo.UpCheck)
+		{
+			Transform.AddLocalPosition(float4::DOWN);
+			BodyColCheck();
+		}
+		Transform.AddLocalPosition(float4::UP);
+		break;
+	case PLAYER_DIRECTION::LeftUp:
+		while (true == BodyColInfo.LeftCheck || true == BodyColInfo.UpCheck)
+		{
+			Transform.AddLocalPosition(float4::RIGHT);
+			Transform.AddLocalPosition(float4::DOWN);
+			BodyColCheck();
+		}
+		Transform.AddLocalPosition(float4::LEFT);
+		Transform.AddLocalPosition(float4::UP);
+		break;
+	case PLAYER_DIRECTION::Left:
+		while (true == BodyColInfo.LeftCheck)
+		{
+			Transform.AddLocalPosition(float4::RIGHT);
+			BodyColCheck();
+		}
+		Transform.AddLocalPosition(float4::LEFT);
 		break;
 	case PLAYER_DIRECTION::LeftDown:
-		if (true == TileColInfo.LeftCheck)
+		while (true == BodyColInfo.LeftCheck || true == BodyColInfo.DownCheck)
 		{
-			if (true == TileColInfo.DownCheck)
-			{
-				while (true == BodyColInfo.LeftCheck || true == BodyColInfo.DownCheck)
-				{
-					if (true == BodyColInfo.LeftCheck)
-					{
-						Transform.AddLocalPosition(float4::RIGHT);
-					}
-
-					if (true == BodyColInfo.DownCheck)
-					{
-						Transform.AddLocalPosition(float4::UP);
-					}
-					
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::LEFT);
-				Transform.AddLocalPosition(float4::DOWN);
-			}
-			else
-			{
-				while (true == BodyColInfo.LeftCheck)
-				{
-					Transform.AddLocalPosition(float4::RIGHT);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::LEFT);
-			}
+			Transform.AddLocalPosition(float4::RIGHT);
+			Transform.AddLocalPosition(float4::UP);
+			BodyColCheck();
 		}
-		else if (true == TileColInfo.DownCheck)
-		{
-			while (true == BodyColInfo.DownCheck)
-			{
-				Transform.AddLocalPosition(float4::UP);
-				BodyColCheck();
-			}
-			Transform.AddLocalPosition(float4::DOWN);
-		}
+		Transform.AddLocalPosition(float4::LEFT);
+		Transform.AddLocalPosition(float4::DOWN);
 		break;
 	case PLAYER_DIRECTION::Down:
-		if (true == TileColInfo.DownCheck)
+		while (true == BodyColInfo.DownCheck)
 		{
-			while (true == BodyColInfo.DownCheck)
-			{
-				Transform.AddLocalPosition(float4::UP);
-				BodyColCheck();
-			}
-			Transform.AddLocalPosition(float4::DOWN);
+			Transform.AddLocalPosition(float4::UP);
+			BodyColCheck();
 		}
+		Transform.AddLocalPosition(float4::DOWN);
 		break;
 	case PLAYER_DIRECTION::RightDown:
-		if (true == TileColInfo.RightCheck)
+		while (true == BodyColInfo.RightCheck || true == BodyColInfo.DownCheck)
 		{
-			if (true == TileColInfo.DownCheck)
-			{
-				while (true == BodyColInfo.RightCheck || true == BodyColInfo.DownCheck)
-				{
-					Transform.AddLocalPosition(float4::LEFT);
-					Transform.AddLocalPosition(float4::UP);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::RIGHT);
-				Transform.AddLocalPosition(float4::DOWN);
-			}
-			else
-			{
-				while (true == BodyColInfo.RightCheck)
-				{
-					Transform.AddLocalPosition(float4::LEFT);
-					BodyColCheck();
-				}
-				Transform.AddLocalPosition(float4::RIGHT);
-			}
+			Transform.AddLocalPosition(float4::LEFT);
+			Transform.AddLocalPosition(float4::UP);
+			BodyColCheck();
 		}
-		else if (true == TileColInfo.DownCheck)
-		{
-			while (true == BodyColInfo.DownCheck)
-			{
-				Transform.AddLocalPosition(float4::UP);
-				BodyColCheck();
-			}
-			Transform.AddLocalPosition(float4::DOWN);
-		}
+		Transform.AddLocalPosition(float4::RIGHT);
+		Transform.AddLocalPosition(float4::DOWN);
 		break;
 	default:
 		break;
 	}
+}
+void Player::AdjustPosByCol()
+{
+	bool AdjustLeft = false;
+	bool AdjustRight = false;
+	bool AdjustUp = false;
+	bool AdjustDown = false;
+
+	if (true == AllDirColCheck())
+	{
+		ResolveCollisionSticking();
+	}
+	else
+	{
+		while (true == AnyDirColCheck())
+		{
+			if (true == BodyColInfo.LeftCheck)
+			{
+				Transform.AddLocalPosition(float4::RIGHT);
+				AdjustLeft = true;
+			}
+
+			if (true == BodyColInfo.RightCheck)
+			{
+				Transform.AddLocalPosition(float4::LEFT);
+				AdjustRight = true;
+			}
+
+			if (true == BodyColInfo.UpCheck)
+			{
+				Transform.AddLocalPosition(float4::DOWN);
+				AdjustUp = true;
+			}
+
+			if (true == BodyColInfo.DownCheck)
+			{
+				Transform.AddLocalPosition(float4::UP);
+				AdjustDown = true;
+			}
+			BodyColCheck();
+		}
+
+		if (true == AdjustLeft)
+		{
+			Transform.AddLocalPosition(float4::LEFT);
+		}
+		if (true == AdjustRight)
+		{
+			Transform.AddLocalPosition(float4::RIGHT);
+		}
+		if (true == AdjustUp)
+		{
+			Transform.AddLocalPosition(float4::UP);
+		}
+		if (true == AdjustDown)
+		{
+			Transform.AddLocalPosition(float4::DOWN);
+		}
+	}
+	
 
 	TileColCheck();
 	BodyColCheck();
@@ -860,8 +789,7 @@ void Player::AdjustPosByCol()
 void Player::DirSpecularReflection()
 {
 	TileColCheck();
-	//AdjustPosByCol();
-
+	PrevDir = CurDir;
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::RightUp:
@@ -936,15 +864,12 @@ void Player::DirSpecularReflection()
 		switch (TileColInfo.RightColType)
 		{
 		case COLLISION_TYPE::EMPTY:
-		{
-			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
 			return;
-		}
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Down);
 			return;
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
-			SetDirection(PLAYER_DIRECTION::Down);
+			SetDirection(PLAYER_DIRECTION::Up);
 			return;
 		case COLLISION_TYPE::RECT:
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
@@ -957,10 +882,7 @@ void Player::DirSpecularReflection()
 		switch (TileColInfo.UpColType)
 		{
 		case COLLISION_TYPE::EMPTY:
-		{
-			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
 			return;
-		}
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Right);
 			return;
@@ -978,10 +900,7 @@ void Player::DirSpecularReflection()
 		switch (TileColInfo.LeftColType)
 		{
 		case COLLISION_TYPE::EMPTY:
-		{
-			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
 			return;
-		}
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Down);
 			return;
@@ -999,10 +918,7 @@ void Player::DirSpecularReflection()
 		switch (TileColInfo.DownColType)
 		{
 		case COLLISION_TYPE::EMPTY:
-		{
-			MsgBoxAssert("Reflection : 충돌이 일어났는데 ColType이 COLLISION_TYPE::EMPTY입니다.");
 			return;
-		}
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Right);
 			return;
