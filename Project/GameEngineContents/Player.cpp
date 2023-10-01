@@ -277,9 +277,9 @@ bool Player::MoveCheck()
 	float4 MoveCheck = float4::ZERO;
 	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == BodyColInfo.LeftCheck)
+		if (false == TileColInfo.LeftCheck)
 		{
-			if (false == BodyColInfo.UpCheck)
+			if (false == TileColInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
 				return true;
@@ -290,21 +290,21 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == BodyColInfo.UpCheck)
+		else if (false == TileColInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
-		SetAnimByDir("Blocked");
+		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == BodyColInfo.RightCheck)
+		if (false == TileColInfo.RightCheck)
 		{
-			if (false == BodyColInfo.UpCheck)
+			if (false == TileColInfo.UpCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightUp);
 				return true;
@@ -315,21 +315,21 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == BodyColInfo.UpCheck)
+		else if (false == TileColInfo.UpCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Up);
 			return true;
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
-		SetAnimByDir("Blocked");
+		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
 	{
-		if (false == BodyColInfo.LeftCheck)
+		if (false == TileColInfo.LeftCheck)
 		{
-			if (false == BodyColInfo.DownCheck)
+			if (false == TileColInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
 				return true;
@@ -340,21 +340,21 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == BodyColInfo.DownCheck)
+		else if (false == TileColInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
-		SetAnimByDir("Blocked");
+		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
 	{
-		if (false == BodyColInfo.RightCheck)
+		if (false == TileColInfo.RightCheck)
 		{
-			if (false == BodyColInfo.DownCheck)
+			if (false == TileColInfo.DownCheck)
 			{
 				ChangeDirCheck(PLAYER_DIRECTION::RightDown);
 				return true;
@@ -365,14 +365,14 @@ bool Player::MoveCheck()
 				return true;
 			}
 		}
-		else if (false == BodyColInfo.DownCheck)
+		else if (false == TileColInfo.DownCheck)
 		{
 			ChangeDirCheck(PLAYER_DIRECTION::Down);
 			return true;
 		}
 
 		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
-		SetAnimByDir("Blocked");
+		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
 	else if (true == GameEngineInput::IsPress('W'))
@@ -410,7 +410,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
-			SetAnimByDir("Blocked");
+			ChangeState(PLAYER_STATE::Blocked);
 			return false;
 		}
 	}
@@ -449,7 +449,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
-			SetAnimByDir("Blocked");
+			ChangeState(PLAYER_STATE::Blocked);
 			return false;
 		}
 	}
@@ -488,7 +488,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		default:
-			SetAnimByDir("Blocked");
+			ChangeState(PLAYER_STATE::Blocked);
 			return false;
 		}
 	}
@@ -527,7 +527,7 @@ bool Player::MoveCheck()
 		case COLLISION_TYPE::LEFTUP_TRIANGLE:
 		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
-			SetAnimByDir("Blocked");
+			ChangeState(PLAYER_STATE::Blocked);
 			return false;
 		}
 	}
@@ -763,6 +763,7 @@ void Player::AdjustPosByCol()
 			BodyColCheck();
 		}
 
+		
 		if (true == AdjustLeft)
 		{
 			Transform.AddLocalPosition(float4::LEFT);

@@ -11,6 +11,7 @@ void Player::IdleStart()
 
 void Player::MoveStart()
 {
+	SetAnimByDir("Walk");
 }
 
 void Player::RollingStart()
@@ -22,6 +23,7 @@ void Player::RollingStart()
 
 void Player::BlockedStart()
 {
+	SetAnimByDir("Blocked", BodyRenderer->GetCurIndex());
 }
 
 void Player::StopStart()
@@ -164,6 +166,19 @@ void Player::RollingUpdate(float _Delta)
 
 void Player::BlockedUpdate(float _Delta)
 {
+	if (true == MoveCheck())
+	{
+		ChangeState(PLAYER_STATE::Move);
+	}
+	
+	if (true == MoveCheckInIdle())
+	{
+		SetAnimByDir("Blocked");
+	}
+	else
+	{
+		ChangeState(PLAYER_STATE::Idle);
+	}
 }
 
 void Player::StopUpdate(float _Delta)
