@@ -11,15 +11,14 @@ PlayLevelBase::~PlayLevelBase()
 
 void PlayLevelBase::Start()
 {
+	LevelBase::Start();
+
 	CreatePlayerElement();
 }
 
 void PlayLevelBase::Update(float _Delta)
 {
-	std::string FPS;
-	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
-	FPS += "\n";
-	OutputDebugStringA(FPS.c_str());
+	LevelBase::Update(_Delta);
 
 	if (true == GameEngineInput::IsDown('1'))
 	{
@@ -46,6 +45,7 @@ void PlayLevelBase::Update(float _Delta)
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	LevelBase::LevelStart(_PrevLevel);
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	PlayerActor->SetTileMap(TileMapActor);
 	SpawnPlayer();
@@ -53,7 +53,7 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	
+	LevelBase::LevelEnd(_NextLevel);
 }
 
 void PlayLevelBase::CreatePlayerElement()
@@ -62,22 +62,14 @@ void PlayLevelBase::CreatePlayerElement()
 	if (nullptr == PlayerActor)
 	{
 		PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
-		//if (nullptr == Player::MainPlayer)
-		//{
-		//	PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
-		//	Player::MainPlayer = PlayerActor;
-		//}
-		//else
-		//{
-		//	PlayerActor = Player::MainPlayer;
-		//}
+		ArrowActor = CreateActor<Arrow>(UPDATE_ORDER::Player);
 	}
-
 }
 
 void PlayLevelBase::SpawnPlayer()
 {
 	PlayerActor->Transform.SetLocalPosition(PlayerSpawnPos);
+	ArrowActor->Transform.SetLocalPosition(PlayerSpawnPos);
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
 }

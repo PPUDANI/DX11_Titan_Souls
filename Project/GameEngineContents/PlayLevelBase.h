@@ -1,6 +1,6 @@
 #pragma once
 
-class PlayLevelBase: public GameEngineLevel
+class PlayLevelBase: public LevelBase
 {
 public:
 	// Constructor Destructor
@@ -22,7 +22,6 @@ protected:
 
 	std::shared_ptr<class Player> PlayerActor = nullptr;
 	std::shared_ptr<class Arrow> ArrowActor = nullptr;
-	std::shared_ptr<class TestMap> Map = nullptr; // юс╫ц ╦й
 
 	// TileMap
 	std::shared_ptr<class TileMap> TileMapActor;

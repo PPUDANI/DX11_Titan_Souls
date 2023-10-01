@@ -4,6 +4,7 @@ enum class UPDATE_ORDER
 {
 	Map,
 	Player,
+	UI,
 };
 
 enum class RENDERING_ORDER
@@ -16,6 +17,7 @@ enum class RENDERING_ORDER
 	Player,
 	Arrow,
 	FGMap,
+	UI,
 };
 
 enum class COLLISION_TYPE

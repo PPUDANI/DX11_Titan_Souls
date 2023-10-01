@@ -50,6 +50,12 @@
     <ClCompile Include="ArrowState.cpp">
       <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
     </ClCompile>
+    <ClCompile Include="MouseCursor.cpp">
+      <Filter>03.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBase.cpp">
+      <Filter>02. Level\00. Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -94,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>01. Actor\00. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCursor.h">
+      <Filter>03.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelBase.h">
+      <Filter>02. Level\00. Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +153,9 @@
     </Filter>
     <Filter Include="01. Actor\01. Player Element\01. Arrow">
       <UniqueIdentifier>{ff6998c0-0991-4c3d-b80c-4fc7c272d402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UI">
+      <UniqueIdentifier>{bff1805d-5edb-49ee-a1a1-0e04756237a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

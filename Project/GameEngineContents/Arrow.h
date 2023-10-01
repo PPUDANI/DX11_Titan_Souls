@@ -3,11 +3,13 @@
 enum class ARROW_STATE
 {
 	Hold,
+	Zoom,
 	Flying,
 	Drop,
+	PickUp,
 };
 
-class Arrow : GameEngineActor
+class Arrow : public GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -20,9 +22,7 @@ public:
 	Arrow& operator=(const Arrow& _Other) = delete;
 	Arrow& operator=(Arrow&& _Other) noexcept = delete;
 
-	static std::shared_ptr<Arrow> MainArrow;
-
-	static void ShotArrow(float);
+	void ChangeState(ARROW_STATE _State);
 
 protected:
 
@@ -41,10 +41,14 @@ private:
 	ARROW_STATE CurState = ARROW_STATE::Hold;
 
 	void HoldStart();
+	void ZoomStart();
 	void FlyingStart();
 	void DropStart();
+	void PickUpStart();
 
 	void HoldUpdate(float _Delta);
+	void ZoomUpdate(float _Delta);
 	void FlyingUpdate(float _Delta);
 	void DropUpdate(float _Delta);
+	void PickUpUpdate(float _Delta);
 };

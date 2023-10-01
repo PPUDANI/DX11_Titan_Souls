@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "Arrow.h"
 
-std::shared_ptr<Arrow> Arrow::MainArrow = nullptr;
-
 Arrow::Arrow()
 {
 }
@@ -14,11 +12,12 @@ Arrow::~Arrow()
 void Arrow::Start()
 {
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Arrow);
-	Renderer->SetSprite("Player.png", 63);
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
 
-	Renderer->CreateAnimation("Get", "PlayLevel.png", 0.05f, 189, 191, false);
+	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
+	Renderer->CreateAnimation("Get", "Player.png", 0.25f, 220, 223, false);
 
+	Renderer->ChangeAnimation("Idle");
 }
 
 void Arrow::Update(float _Delta)
@@ -28,14 +27,45 @@ void Arrow::Update(float _Delta)
 	case ARROW_STATE::Hold:
 		HoldUpdate(_Delta);
 		break;
+	case ARROW_STATE::Zoom:
+		ZoomUpdate(_Delta);
+		break;
 	case ARROW_STATE::Flying:
 		FlyingUpdate(_Delta);
 		break;
 	case ARROW_STATE::Drop:
 		DropUpdate(_Delta);
 		break;
+	case ARROW_STATE::PickUp:
+		PickUpUpdate(_Delta);
+		break;
 	default:
 		break;
 	}
 }
 
+void Arrow::ChangeState(ARROW_STATE _State)
+{
+	CurState = _State;
+
+	switch (CurState)
+	{
+	case ARROW_STATE::Hold:
+		HoldStart();
+		break;
+	case ARROW_STATE::Zoom:
+		ZoomStart();
+		break;
+	case ARROW_STATE::Flying:
+		FlyingStart();
+		break;
+	case ARROW_STATE::Drop:
+		DropStart();
+		break;
+	case ARROW_STATE::PickUp:
+		PickUpStart();
+		break;
+	default:
+		break;
+	}
+}

@@ -40,6 +40,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
 
 	GameEngineCore::ChangeLevel("TitleLevel");
+
 }
 
 void ContentsCore::Update(float _Delta)
