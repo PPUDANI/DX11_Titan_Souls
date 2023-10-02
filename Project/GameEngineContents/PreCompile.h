@@ -41,4 +41,5 @@
 #include "Arrow.h"
 
 // UI
+#include <GameEngineCore/GameEngineUIRenderer.h>
 #include "MouseCursor.h"

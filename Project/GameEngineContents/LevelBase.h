@@ -19,7 +19,7 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
-private:
-	std::shared_ptr<class MouseCursor> Cursor = nullptr;
+	std::shared_ptr<class MouseCursor> CursurActor = nullptr;
 
+private:
 };

@@ -11,7 +11,7 @@ LevelBase::~LevelBase()
 
 void LevelBase::Start()
 {
-	Cursor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
+	CursurActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
 	GameEngineCore::MainWindow.CursorOff();
 }
 
