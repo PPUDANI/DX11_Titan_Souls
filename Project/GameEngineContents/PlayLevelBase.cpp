@@ -56,17 +56,12 @@ void PlayLevelBase::Update(float _Delta)
 		GetMainCamera()->SetZoomValue(1.5f);
 	}
 
-	// Arrow Direction Rotation
-	float4 PlayerPos = PlayerActor->Transform.GetWorldPosition();
-	float4 CursorPos = CursurActor->Transform.GetLocalPosition();
+	if (PLAYER_STATE::Aim == PlayerActor->GetCurState())
+	{
+		ArrowActor->ChangeState(ARROW_STATE::Aim);
+	}
 
-	float4 PlayerFromArrow = CursorPos - PlayerPos;
-	float Degree = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
-	float4 Deg = float4::ZERO;
-	Deg.Z = Degree + 90.0f;
-	CursurActor->Transform.SetLocalRotation(Deg);
-	ArrowActor->Transform.SetLocalRotation(Deg);
-
+	ArrowDirectionRotation();
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
@@ -89,6 +84,7 @@ void PlayLevelBase::CreatePlayerElement()
 	{
 		PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
 		ArrowActor = CreateActor<Arrow>(UPDATE_ORDER::Player);
+		ArrowActor->OwnerPlayerSetting(PlayerActor);
 	}
 }
 
@@ -98,4 +94,16 @@ void PlayLevelBase::SpawnPlayer()
 	ArrowActor->Transform.SetLocalPosition(PlayerSpawnPos);
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
+}
+
+void PlayLevelBase::ArrowDirectionRotation()
+{
+	// Arrow Direction Rotation
+	float4 PlayerFromArrow = CursurActor->Transform.GetLocalPosition() - PlayerActor->Transform.GetWorldPosition();
+	float Degree = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
+	float4 Deg = float4::ZERO;
+
+	Deg.Z = Degree + 90.0f;
+	CursurActor->Transform.SetLocalRotation(Deg);
+	ArrowActor->SetArrowDeg(Deg.Z);
 }

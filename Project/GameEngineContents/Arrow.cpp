@@ -27,8 +27,8 @@ void Arrow::Update(float _Delta)
 	case ARROW_STATE::Hold:
 		HoldUpdate(_Delta);
 		break;
-	case ARROW_STATE::Zoom:
-		ZoomUpdate(_Delta);
+	case ARROW_STATE::Aim:
+		AimUpdate(_Delta);
 		break;
 	case ARROW_STATE::Flying:
 		FlyingUpdate(_Delta);
@@ -53,8 +53,8 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	case ARROW_STATE::Hold:
 		HoldStart();
 		break;
-	case ARROW_STATE::Zoom:
-		ZoomStart();
+	case ARROW_STATE::Aim:
+		AimStart();
 		break;
 	case ARROW_STATE::Flying:
 		FlyingStart();

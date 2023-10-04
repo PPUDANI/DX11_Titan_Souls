@@ -53,11 +53,6 @@ void Player::Update(float _Delta)
 			KeepRunCoolDownUpdate(_Delta);
 		}
 	}
-	
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		ChangeState(PLAYER_STATE::Aim);
-	}
 
 	// State Update
 	switch (CurState)

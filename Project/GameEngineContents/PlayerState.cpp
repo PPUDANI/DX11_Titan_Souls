@@ -83,12 +83,19 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// Rolling Check
-	if (true == GameEngineInput::IsDown(VK_SPACE))
+	if (true == GameEngineInput::IsPress(VK_SPACE))
 	{
 		if (true == RollingCollDownCheck())
 		{
 			return;
 		}
+	}
+
+	// Aim Check
+	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Aim);
+		return;
 	}
 }
 
@@ -102,7 +109,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 
 	// Rolling Check
-	if (true == GameEngineInput::IsDown(VK_SPACE))
+	if (true == GameEngineInput::IsPress(VK_SPACE))
 	{
 		if (true == RollingCollDownCheck())
 		{
@@ -110,10 +117,17 @@ void Player::MoveUpdate(float _Delta)
 		}
 	}
 
+	// Aim Check
+	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Aim);
+		return;
+	}
+
 	// Move Check
 	if (true == MoveCheck())
 	{
-		float4 MovePos = PlayerDirDeg * DefaultSpeed * SpeedUpForce;
+		float4 MovePos = PlayerDirDeg * DefaultSpeed;
 		if (true == IsRunning)
 		{
 			MovePos *= RunForce;
@@ -170,7 +184,14 @@ void Player::BlockedUpdate(float _Delta)
 	{
 		ChangeState(PLAYER_STATE::Move);
 	}
-	
+
+	// Aim Check
+	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Aim);
+		return;
+	}
+
 	if (true == MoveCheckInIdle())
 	{
 		SetAnimByDir("Blocked");
@@ -198,12 +219,19 @@ void Player::StopUpdate(float _Delta)
 	}
 
 	// Rolling Check
-	if (true == GameEngineInput::IsDown(VK_SPACE))
+	if (true == GameEngineInput::IsPress(VK_SPACE))
 	{
 		if (true == RollingCollDownCheck())
 		{
 			return;
 		}
+	}
+
+	// Aim Check
+	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Aim);
+		return;
 	}
 
 	// Deceleration

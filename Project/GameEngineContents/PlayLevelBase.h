@@ -28,7 +28,7 @@ protected:
 
 	void CreatePlayerElement();
 	void SpawnPlayer();
-
+	void ArrowDirectionRotation();
 	float4 PlayerSpawnPos = float4::ZERO;
 private:
 	

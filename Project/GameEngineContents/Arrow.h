@@ -3,7 +3,7 @@
 enum class ARROW_STATE
 {
 	Hold,
-	Zoom,
+	Aim,
 	Flying,
 	Drop,
 	PickUp,
@@ -24,6 +24,16 @@ public:
 
 	void ChangeState(ARROW_STATE _State);
 
+	inline void OwnerPlayerSetting(std::shared_ptr<class Player> _Player)
+	{
+		ArrowOwnerPlayer = _Player;
+	}
+
+	inline void SetArrowDeg(float& _Deg)
+	{
+		ArrowDegree = _Deg;
+	}
+
 protected:
 
 private:
@@ -37,17 +47,24 @@ private:
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
 private:
+	// Physics Valuable
+	float ArrowDegree = 0.0f;
+
+	// Timer
+	float AimTime = 0.0f;
+private:
 	//FSM Functions
 	ARROW_STATE CurState = ARROW_STATE::Hold;
+	std::shared_ptr<class Player> ArrowOwnerPlayer = nullptr;
 
 	void HoldStart();
-	void ZoomStart();
+	void AimStart();
 	void FlyingStart();
 	void DropStart();
 	void PickUpStart();
 
 	void HoldUpdate(float _Delta);
-	void ZoomUpdate(float _Delta);
+	void AimUpdate(float _Delta);
 	void FlyingUpdate(float _Delta);
 	void DropUpdate(float _Delta);
 	void PickUpUpdate(float _Delta);

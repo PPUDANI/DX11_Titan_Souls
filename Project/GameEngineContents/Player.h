@@ -76,9 +76,19 @@ private:
 	// Inheritance Functions
 	void Start() override;
 	void Update(float _Delta) override;
+
+private:
+	// State Variables
+	PLAYER_STATE CurState = PLAYER_STATE::Idle;
+	bool IsBlocked = false;
+
 public:
 	// FMS Functions
 	void ChangeState(PLAYER_STATE _State);
+	PLAYER_STATE GetCurState()
+	{
+		return CurState;
+	}
 
 private:
 	// State Start Functions
@@ -118,6 +128,7 @@ private:
 
 	// Change Amimation By Direction Functions
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
+
 private:
 	// Collision Check Pos
 	const float4 LocalLeftPos = { -9.0f, -8.0f };
@@ -152,16 +163,12 @@ private:
 	// Nomaliaztion
 	void TileColCheck();
 	void AdjustPosByCol();
-private:
-	// State Variables
-	PLAYER_STATE CurState = PLAYER_STATE::Idle;
-	bool IsBlocked = false;
+
 private:
 	// Physics Variables
 	const float DefaultSpeed = 160.0f;
 	const float DebugModeForce = 10.0f;
 	const float RunForce = 1.5f;
-	const float SpeedUpForce = 1.0f;
 	const float RollingForce = 2.5f;
 
 	// Move Functions
