@@ -11,7 +11,7 @@ void Arrow::HoldStart()
 void Arrow::AimStart()
 {
 	Renderer->On();
-	AimTime = 0.0f;
+	PullingForce = 0.0f;
 }
 
 void Arrow::FlyingStart()
@@ -48,19 +48,13 @@ void Arrow::AimUpdate(float _Delta)
 	Deg.Z = ArrowDegree;
 	Transform.SetWorldRotation(Deg);
 
-	float PullingForce = 16.0f;
-	AimTime += _Delta;
-	if (0.1f < AimTime)
+	if (MaxPullingForce > PullingForce)
 	{
-		PullingForce = 12.0f;
-	}
-	else if (0.2f < AimTime)
-	{
-		PullingForce = 8.0f;
+		PullingForce += _Delta * PullingForceIncreaseSpeed;
 	}
 
 	float4 SpawnPos = ArrowOwnerPlayer->Transform.GetWorldPosition();
-	SpawnPos += float4::GetUnitVectorFromDeg(ArrowDegree - 90.0f) * PullingForce;
+	SpawnPos += float4::GetUnitVectorFromDeg(ArrowDegree - 90.0f) * (18.0f - PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetWorldPosition(SpawnPos);
 }

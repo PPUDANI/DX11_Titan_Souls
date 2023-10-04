@@ -46,6 +46,11 @@ void Arrow::Update(float _Delta)
 
 void Arrow::ChangeState(ARROW_STATE _State)
 {
+	if (CurState == _State)
+	{
+		return;
+	}
+
 	CurState = _State;
 
 	switch (CurState)

@@ -49,12 +49,12 @@ private:
 private:
 	// Physics Valuable
 	float ArrowDegree = 0.0f;
-
-	// Timer
-	float AimTime = 0.0f;
+	float PullingForce = 0.0f;
+	float MaxPullingForce = 4.0f;
+	float PullingForceIncreaseSpeed = 6.0f;
 private:
 	//FSM Functions
-	ARROW_STATE CurState = ARROW_STATE::Hold;
+	ARROW_STATE CurState;
 	std::shared_ptr<class Player> ArrowOwnerPlayer = nullptr;
 
 	void HoldStart();
