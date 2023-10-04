@@ -11,10 +11,10 @@ MouseCursor::~MouseCursor()
 
 void MouseCursor::Start()
 {
-	GlobalLoad::LoadSpriteCut(1, 1, "Cursor6.png", "Resource\\Texture\\UI\\MouseCursor\\");
+	GlobalLoad::LoadSpriteCut(1, 1, "Cursor15.png", "Resource\\Texture\\UI\\MouseCursor\\");
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
-	Renderer->SetImageScale({32.0f, 32.0f });
-	Renderer->CreateAnimation("Idle", "Cursor6.png", 1.0f, 0, 0, false);
+	Renderer->SetImageScale({ 32.0f, 32.0f });
+	Renderer->CreateAnimation("Idle", "Cursor15.png", 1.0f, 0, 0, false);
 	Renderer->ChangeAnimation("Idle");
 }
 

@@ -40,6 +40,7 @@ void Player::Update(float _Delta)
 		DebugingModeSwitch();
 	}
 
+	// Run Check
 	if (true == GameEngineInput::IsPress(VK_SHIFT))
 	{
 		KeepRunCoolDownTimer = 0.0f;
@@ -53,6 +54,11 @@ void Player::Update(float _Delta)
 		}
 	}
 	
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Aim);
+	}
+
 	// State Update
 	switch (CurState)
 	{

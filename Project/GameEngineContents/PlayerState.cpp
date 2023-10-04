@@ -225,7 +225,11 @@ void Player::StopUpdate(float _Delta)
 
 void Player::AimUpdate(float _Delta)
 {
-
+	if (true == GameEngineInput::IsFree(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
 }
 
 void Player::ShotUpdate(float _Delta)

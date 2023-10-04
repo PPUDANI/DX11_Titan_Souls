@@ -80,6 +80,16 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("LeftUp_Death", "Player.png", 1.0f, 204, 204, false);
 	BodyRenderer->CreateAnimation("RightUp_Death", "Player.png", 1.0f, 236, 236, false);
 
+	// Aim Animations
+	BodyRenderer->CreateAnimation("Right_Aim", "Player.png", 1.0f, 13, 13, false);
+	BodyRenderer->CreateAnimation("Up_Aim", "Player.png", 1.0f, 45, 45, false);
+	BodyRenderer->CreateAnimation("Left_Aim", "Player.png", 1.0f, 77, 77, false);
+	BodyRenderer->CreateAnimation("Down_Aim", "Player.png", 1.0f, 109, 109, false);
+	BodyRenderer->CreateAnimation("RightDown_Aim", "Player.png", 1.0f, 141, 141, false);
+	BodyRenderer->CreateAnimation("LeftDown_Aim", "Player.png", 1.0f, 173, 173, false);
+	BodyRenderer->CreateAnimation("LeftUp_Aim", "Player.png", 1.0f, 205, 205, false);
+	BodyRenderer->CreateAnimation("RightUp_Aim", "Player.png", 1.0f, 237, 237, false);
+
 	// StandUp Animations
 	BodyRenderer->CreateAnimation("StandUp", "Player.png", 0.10f, 79, 88, true);
 }
@@ -162,6 +172,16 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("LeftUp_Death", "Bow.png", 1.0f, 204, 204, false);
 	BowRenderer->CreateAnimation("RightUp_Death", "Bow.png", 1.0f, 236, 236, false);
 
+	// Aim Animations
+	BowRenderer->CreateAnimation("Right_Aim", "Bow.png", 1.0f, 13, 13, false);
+	BowRenderer->CreateAnimation("Up_Aim", "Bow.png", 1.0f, 45, 45, false);
+	BowRenderer->CreateAnimation("Left_Aim", "Bow.png", 1.0f, 77, 77, false);
+	BowRenderer->CreateAnimation("Down_Aim", "Bow.png", 1.0f, 109, 109, false);
+	BowRenderer->CreateAnimation("RightDown_Aim", "Bow.png", 1.0f, 141, 141, false);
+	BowRenderer->CreateAnimation("LeftDown_Aim", "Bow.png", 1.0f, 173, 173, false);
+	BowRenderer->CreateAnimation("LeftUp_Aim", "Bow.png", 1.0f, 205, 205, false);
+	BowRenderer->CreateAnimation("RightUp_Aim", "Bow.png", 1.0f, 237, 237, false);
+
 	// StandUp Animations
 	BowRenderer->CreateAnimation("StandUp", "Bow.png", 0.10f, 79, 88, true);
 }
@@ -243,6 +263,16 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("LeftDown_Death", "Arrow.png", 1.0f, 172, 172, false);
 	ArrowInBagRenderer->CreateAnimation("LeftUp_Death", "Arrow.png", 1.0f, 204, 204, false);
 	ArrowInBagRenderer->CreateAnimation("RightUp_Death", "Arrow.png", 1.0f, 236, 236, false);
+
+	// Aim Animations
+	ArrowInBagRenderer->CreateAnimation("Right_Aim", "Arrow.png", 1.0f, 13, 13, false);
+	ArrowInBagRenderer->CreateAnimation("Up_Aim", "Arrow.png", 1.0f, 45, 45, false);
+	ArrowInBagRenderer->CreateAnimation("Left_Aim", "Arrow.png", 1.0f, 77, 77, false);
+	ArrowInBagRenderer->CreateAnimation("Down_Aim", "Arrow.png", 1.0f, 109, 109, false);
+	ArrowInBagRenderer->CreateAnimation("RightDown_Aim", "Arrow.png", 1.0f, 141, 141, false);
+	ArrowInBagRenderer->CreateAnimation("LeftDown_Aim", "Arrow.png", 1.0f, 173, 173, false);
+	ArrowInBagRenderer->CreateAnimation("LeftUp_Aim", "Arrow.png", 1.0f, 205, 205, false);
+	ArrowInBagRenderer->CreateAnimation("RightUp_Aim", "Arrow.png", 1.0f, 237, 237, false);
 
 	// StandUp Animations
 	ArrowInBagRenderer->CreateAnimation("StandUp", "Arrow.png", 0.10f, 79, 88, true);

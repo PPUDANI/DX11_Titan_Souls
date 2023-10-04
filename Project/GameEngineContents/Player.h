@@ -120,20 +120,20 @@ private:
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
 private:
 	// Collision Check Pos
-	float4 LocalLeftPos = { -9.0f, -8.0f };
-	float4 LocalLeftPos2 = { -9.0f, -14.0f };
-	float4 LocalRightPos = { 9.0f, -8.0f };
-	float4 LocalRightPos2 = { 9.0f, -14.0f };
-	float4 LocalUpPos = { -3.0f, -3.0f };
-	float4 LocalUpPos2 = { 3.0f, -3.0f };
-	float4 LocalDownPos = { -3.0f, -19.0f };
-	float4 LocalDownPos2 = { 3.0f, -19.0f };
+	const float4 LocalLeftPos = { -9.0f, -8.0f };
+	const float4 LocalLeftPos2 = { -9.0f, -14.0f };
+	const float4 LocalRightPos = { 9.0f, -8.0f };
+	const float4 LocalRightPos2 = { 9.0f, -14.0f };
+	const float4 LocalUpPos = { -3.0f, -3.0f };
+	const float4 LocalUpPos2 = { 3.0f, -3.0f };
+	const float4 LocalDownPos = { -3.0f, -19.0f };
+	const float4 LocalDownPos2 = { 3.0f, -19.0f };
 
 	// Tile Check
-	float4 TileLeftPos = { -12.0f, -11.0f };
-	float4 TileRightPos = { 12.0f, -11.0f };
-	float4 TileUpPos = { 0.0f, 1.0f };
-	float4 TileDownPos = { 0.0f, -23.0f };
+	const float4 TileLeftPos = { -12.0f, -11.0f };
+	const float4 TileRightPos = { 12.0f, -11.0f };
+	const float4 TileUpPos = { 0.0f, 1.0f };
+	const float4 TileDownPos = { 0.0f, -23.0f };
 
 	ColCheckInfo BodyColInfo;
 	ColCheckInfo TileColInfo;

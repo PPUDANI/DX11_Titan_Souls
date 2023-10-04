@@ -42,15 +42,31 @@ void PlayLevelBase::Update(float _Delta)
 		SpawnPlayer();
 	}
 
+	if (true == GameEngineInput::IsDown('I'))
+	{
+		GetMainCamera()->SetZoomValue(1.0f);
+	}
+	if (true == GameEngineInput::IsDown('O'))
+	{
+		GetMainCamera()->SetZoomValue(0.5f);
+	}
+
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		GetMainCamera()->SetZoomValue(1.5f);
+	}
+
+	// Arrow Direction Rotation
 	float4 PlayerPos = PlayerActor->Transform.GetWorldPosition();
 	float4 CursorPos = CursurActor->Transform.GetLocalPosition();
 
 	float4 PlayerFromArrow = CursorPos - PlayerPos;
 	float Degree = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
 	float4 Deg = float4::ZERO;
-	Deg.Z = Degree + -90.0f;
-
+	Deg.Z = Degree + 90.0f;
 	CursurActor->Transform.SetLocalRotation(Deg);
+	ArrowActor->Transform.SetLocalRotation(Deg);
+
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)

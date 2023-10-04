@@ -17,7 +17,7 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
 	Renderer->CreateAnimation("Get", "Player.png", 0.25f, 220, 223, false);
 
-	Renderer->ChangeAnimation("Idle");
+	ChangeState(ARROW_STATE::Hold);
 }
 
 void Arrow::Update(float _Delta)
