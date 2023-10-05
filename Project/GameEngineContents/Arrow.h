@@ -29,11 +29,18 @@ public:
 		ArrowOwnerPlayer = _Player;
 	}
 
-	inline void SetArrowDeg(float& _Deg)
+	inline void SetArrowAngleDeg(float& _Angle)
 	{
-		ArrowDegree = _Deg;
+		ArrowAngleDeg = _Angle;
 	}
 
+	inline void SetRenderOrder(RENDERING_ORDER _Order)
+	{
+		if (static_cast<int>(_Order) != Renderer->GetOrder())
+		{
+			Renderer->SetRenderOrder(_Order);
+		}
+	}
 protected:
 
 private:
@@ -48,7 +55,7 @@ private:
 
 private:
 	// Physics Valuable
-	float ArrowDegree = 0.0f;
+	float ArrowAngleDeg = 0.0f;
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 4.0f;
 	float PullingForceIncreaseSpeed = 6.0f;

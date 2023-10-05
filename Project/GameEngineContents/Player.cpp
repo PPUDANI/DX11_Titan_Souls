@@ -223,6 +223,52 @@ void Player::SetDirection(PLAYER_DIRECTION _Dir)
 	}
 }
 
+void Player::AimDirectionUpdate()
+{
+	float AnglePartition = 22.5f;
+
+	int DividedAngleIndex = static_cast<int>(ArrowAngleDeg / AnglePartition);
+
+	switch (DividedAngleIndex)
+	{
+	case 0:
+	case 15:
+		SetDirection(PLAYER_DIRECTION::Right);
+		break;
+	case 1:
+	case 2:
+		SetDirection(PLAYER_DIRECTION::RightUp);
+		break;
+	case 3:
+	case 4:
+		SetDirection(PLAYER_DIRECTION::Up);
+		break;
+	case 5:
+	case 6:
+		SetDirection(PLAYER_DIRECTION::LeftUp);
+		break;
+	case 7:
+	case 8:
+		SetDirection(PLAYER_DIRECTION::Left);
+		break;
+	case 9:
+	case 10:
+		SetDirection(PLAYER_DIRECTION::LeftDown);
+		break;
+	case 11:
+	case 12:
+		SetDirection(PLAYER_DIRECTION::Down);
+		break;
+	case 13:
+	case 14:
+		SetDirection(PLAYER_DIRECTION::RightDown);
+		break;
+	default:
+		MsgBoxAssert("?");
+		break;
+	}
+}
+
 bool Player::MoveCheckInIdle()
 {
 	float4 MoveCheck = float4::ZERO;
@@ -537,38 +583,6 @@ bool Player::MoveCheck()
 		ChangeState(PLAYER_STATE::Stop);
 		return false;
 	}
-	//  Up일 때
-	//	위에 1, 4, 5 이 있다면 막혀야함
-	//	위에 2가 있다면 방향 바꿔야함
-	//	위에 3이 있다면 방향 바꿔야함
-
-	//	Down일 때
-	//	아래에 1, 2, 3 이 있다면 막혀야함
-	//	아래에 4, 5가 있다면 좌상향 우상향으로 바꿔야함.
-
-	//	Left일 때
-	//	왼쪽에 1, 3, 5 이 있다면 막혀야함
-	//	왼쪽에 2, 4 있다면 방향 바꿔야함
-
-	//	Right일 때
-	//	오른쪽에 1, 2, 4 이 있다면 막혀야함
-	//	오른쪽에 3, 5 있다면 방향 바꿔야함
-
-	//	LeftUp일 때
-	//	왼쪽에 1, 2, 3, 5, 가 있으면 멈춰야함
-	//	좌업에 1 3 5가 있으면 위로 방향전환
-
-	//	RightUp일 때
-	//	오른쪽에 1, 2, 3, 5, 가 있으면 멈춰야함
-	//	에 1 3 5가 있으면 위로 방향전환
-
-	//	LeftDown일 때
-	//	왼쪽에 1, 2, 3, 5, 가 있으면 멈춰야함
-	//	좌업에 1 3 5가 있으면 위로 방향전환
-
-	//	RightDown일 때
-	//	오른쪽에 1, 2, 3, 5, 가 있으면 멈춰야함
-	//	좌업에 1 3 5가 있으면 위로 방향전환
 }
 
 void Player::BodyColCheck()
@@ -626,7 +640,6 @@ bool Player::CurDirColCheck()
 		return false;
 	}
 }
-
 
 bool Player::AnyDirColCheck()
 {
@@ -723,6 +736,7 @@ void Player::ResolveCollisionSticking()
 		break;
 	}
 }
+
 void Player::AdjustPosByCol()
 {
 	bool AdjustLeft = false;
@@ -973,3 +987,5 @@ void Player::DebugRender()
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
 }
+
+

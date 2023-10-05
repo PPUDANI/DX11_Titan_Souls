@@ -50,7 +50,6 @@ void PlayLevelBase::Update(float _Delta)
 	{
 		GetMainCamera()->SetZoomValue(0.5f);
 	}
-
 	if (true == GameEngineInput::IsDown('P'))
 	{
 		GetMainCamera()->SetZoomValue(1.5f);
@@ -101,9 +100,39 @@ void PlayLevelBase::ArrowDirectionRotation()
 	// Arrow Direction Rotation
 	float4 PlayerFromArrow = CursurActor->Transform.GetLocalPosition() - PlayerActor->Transform.GetWorldPosition();
 	float Degree = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
-	float4 Deg = float4::ZERO;
+	float4 Angle = float4::ZERO;
+	Angle.Z = Degree;
 
-	Deg.Z = Degree + 90.0f;
-	CursurActor->Transform.SetLocalRotation(Deg);
-	ArrowActor->SetArrowDeg(Deg.Z);
+	if (0.0f > Angle.Z)
+	{
+		while (0.0f > Angle.Z)
+		{
+			Angle.Z += 360.0f;
+		}
+	}
+	else if (360.0f < Angle.Z)
+	{
+		while (360.0f < Angle.Z)
+		{
+			Angle.Z -= 360.0f;
+		}
+	}
+
+	PlayerActor->SetArrowAngleDeg(Angle.Z);
+
+	Angle.Z += 90.0f;
+
+	CursurActor->Transform.SetLocalRotation(Angle);
+
+	ArrowActor->SetArrowAngleDeg(Angle.Z);
+
+	// Arrow YSotting
+	if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetWorldPosition().Y)
+	{
+		ArrowActor->SetRenderOrder(RENDERING_ORDER::ArrowBack);
+	}
+	else
+	{
+		ArrowActor->SetRenderOrder(RENDERING_ORDER::Arrow);
+	}
 }

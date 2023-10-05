@@ -14,6 +14,7 @@ enum class RENDERING_ORDER
 	WALLMap,
 	COLMap,
 	MATMap,
+	ArrowBack,
 	Player,
 	Arrow,
 	FGMap,

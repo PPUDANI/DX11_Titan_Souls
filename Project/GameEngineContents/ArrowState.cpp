@@ -44,9 +44,9 @@ void Arrow::AimUpdate(float _Delta)
 	}
 
 	// Set Arrow Direction
-	float4 Deg;
-	Deg.Z = ArrowDegree;
-	Transform.SetWorldRotation(Deg);
+	float4 Angle;
+	Angle.Z = ArrowAngleDeg;
+	Transform.SetWorldRotation(Angle);
 
 	if (MaxPullingForce > PullingForce)
 	{
@@ -54,7 +54,7 @@ void Arrow::AimUpdate(float _Delta)
 	}
 
 	float4 SpawnPos = ArrowOwnerPlayer->Transform.GetWorldPosition();
-	SpawnPos += float4::GetUnitVectorFromDeg(ArrowDegree - 90.0f) * (18.0f - PullingForce);
+	SpawnPos += float4::GetUnitVectorFromDeg(ArrowAngleDeg - 90.0f) * (16.0f - PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetWorldPosition(SpawnPos);
 }

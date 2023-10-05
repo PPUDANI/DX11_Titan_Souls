@@ -42,7 +42,6 @@ void Player::StopStart()
 
 void Player::AimStart()
 {
-	SetAnimByDir("Aim");
 }
 
 void Player::ShotStart()
@@ -258,6 +257,8 @@ void Player::AimUpdate(float _Delta)
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
+	AimDirectionUpdate();
+	SetAnimByDir("Aim");
 }
 
 void Player::ShotUpdate(float _Delta)

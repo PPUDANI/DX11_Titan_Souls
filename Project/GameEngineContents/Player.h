@@ -70,6 +70,11 @@ public:
 		CurMap = _Map;
 	}
 
+	// Arrow Degree
+	inline void SetArrowAngleDeg(float _Deg)
+	{
+		ArrowAngleDeg = _Deg;
+	}
 protected:
 
 private:
@@ -175,14 +180,6 @@ private:
 	bool MoveCheckInIdle();
 	bool MoveCheck();
 
-	inline float4 MovePosInt(float4 _Pos)
-	{
-		int X = _Pos.iX();
-		int Y = _Pos.iY();
-
-		return { static_cast<float>(X), static_cast<float>(Y) };
-	}
-
 	// Deceleration
 	float DecelerationValue = 0.0f; // 1.0f보다 클 수 없음.
 
@@ -199,14 +196,17 @@ private:
 	// Direction Variables
 	PLAYER_DIRECTION CurDir = PLAYER_DIRECTION::Down;
 	PLAYER_DIRECTION PrevDir = PLAYER_DIRECTION::Down;
+
 	float4 PlayerDirDeg = float4::ZERO;
 	bool IsChangeDirOnCooldown = false;
 	const float ChangeDirCoolTime = 0.05f;
 	float ChangeDirCooldownTimer = 0.0f;
 
+	float ArrowAngleDeg = 0.0f;
+
 	// Direction Functions
 	void SetDirection(PLAYER_DIRECTION _Dir);
-
+	void AimDirectionUpdate();
 	inline void ChangeDirCheck(PLAYER_DIRECTION _Dir)
 	{
 		if (false == IsChangeDirOnCooldown)
