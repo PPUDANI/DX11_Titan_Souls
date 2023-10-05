@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "Arrow.h"
-std::shared_ptr<Player> Player::MainPlayer = nullptr;
 
 Player::Player()
 {
@@ -17,6 +16,10 @@ void Player::Start()
 	CreatePlayerbodyAnimation();
 	CreateBowAnimation();
 	CreateArrowInBagAnimation();
+
+	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Player);
+	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
+	BodyCollision->Transform.SetLocalScale({16.0f, 16.0f, 1.0f});
 
 	ChangeState(PLAYER_STATE::StandUp);
 }
@@ -75,8 +78,8 @@ void Player::Update(float _Delta)
 	case PLAYER_STATE::Aim:
 		AimUpdate(_Delta);
 		break;
-	case PLAYER_STATE::Shot:
-		ShotUpdate(_Delta);
+	case PLAYER_STATE::Returning:
+		ReturningUpdate(_Delta);
 		break;
 	case PLAYER_STATE::Death:
 		DeathUpdate(_Delta);
@@ -124,8 +127,8 @@ void Player::ChangeState(PLAYER_STATE _State)
 	case PLAYER_STATE::Aim:
 		AimStart();
 		break;
-	case PLAYER_STATE::Shot:
-		ShotStart();
+	case PLAYER_STATE::Returning:
+		ReturningStart();
 		break;
 	case PLAYER_STATE::Death:
 		DeathStart();
@@ -432,30 +435,30 @@ bool Player::MoveCheck()
 
 		switch (TileColInfo.UpColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 		{
 			return true;
 		}
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightUp);
 			return true;
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::LeftUp);
 			return true;
-		case COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::RECT:
 			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
-			if (COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.LeftColType)
+			if (TILE_COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.LeftColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightUp);
 				return true;
 			}
-			else if (COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.RightColType)
+			else if (TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.RightColType)
 			{
 				SetDirection(PLAYER_DIRECTION::LeftUp);
 				return true;
 			}
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -471,30 +474,30 @@ bool Player::MoveCheck()
 
 		switch (TileColInfo.LeftColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 		{
 			return true;
 		}
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::LeftDown);
 			return true;
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::LeftUp);
 			return true;
-		case COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::RECT:
 			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
-			if (COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.UpColType)
+			if (TILE_COLLISION_TYPE::LEFTUP_TRIANGLE == TileColInfo.UpColType)
 			{
 				SetDirection(PLAYER_DIRECTION::LeftDown);
 				return true;
 			}
-			else if (COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.DownColType)
+			else if (TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.DownColType)
 			{
 				SetDirection(PLAYER_DIRECTION::LeftUp);
 				return true;
 			}
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -510,30 +513,30 @@ bool Player::MoveCheck()
 
 		switch (TileColInfo.DownColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 		{
 			return true;
 		}
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightDown);
 			return true;
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::LeftDown);
 			return true;
-		case COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::RECT:
 			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
-			if (COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.LeftColType)
+			if (TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE == TileColInfo.LeftColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightDown);
 				return true;
 			}
-			else if (COLLISION_TYPE::RIGHTDOWN_TRIANGLE == TileColInfo.RightColType)
+			else if (TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE == TileColInfo.RightColType)
 			{
 				SetDirection(PLAYER_DIRECTION::LeftDown);
 				return true;
 			}
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -549,30 +552,30 @@ bool Player::MoveCheck()
 		
 		switch (TileColInfo.RightColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 		{
 			return true;
 		}
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightDown);
 			return true;
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::RightUp);
 			return true;
-		case COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::RECT:
 			// 중간중간 사각형 충돌체와 충돌해서 멈추는 현상 제거
-			if (COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.UpColType)
+			if (TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE == TileColInfo.UpColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightDown);
 				return true;
 			}
-			else if (COLLISION_TYPE::RIGHTDOWN_TRIANGLE == TileColInfo.DownColType)
+			else if (TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE == TileColInfo.DownColType)
 			{
 				SetDirection(PLAYER_DIRECTION::RightUp);
 				return true;
 			}
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -587,14 +590,14 @@ bool Player::MoveCheck()
 
 void Player::BodyColCheck()
 {
-	bool LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos);
-	bool LeftCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalLeftPos2);
-	bool RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos);
-	bool RightCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalRightPos2);
-	bool UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos);
-	bool UpCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalUpPos2);
-	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos);
-	bool DownCheck2 = CurMap->AllColCheck(Transform.GetWorldPosition() + LocalDownPos2);
+	bool LeftCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalLeftPos);
+	bool LeftCheck2 = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalLeftPos2);
+	bool RightCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalRightPos);
+	bool RightCheck2 = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalRightPos2);
+	bool UpCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalUpPos);
+	bool UpCheck2 = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalUpPos2);
+	bool DownCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalDownPos);
+	bool DownCheck2 = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalDownPos2);
 
 	BodyColInfo.UpCheck = UpCheck || UpCheck2;
 	BodyColInfo.DownCheck = DownCheck || DownCheck2;
@@ -604,10 +607,10 @@ void Player::BodyColCheck()
 
 void Player::TileColCheck()
 {
-	bool LeftCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileLeftPos, TileColInfo.LeftColType);
-	bool RightCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileRightPos, TileColInfo.RightColType);
-	bool UpCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileUpPos, TileColInfo.UpColType);
-	bool DownCheck = CurMap->AllColCheck(Transform.GetWorldPosition() + TileDownPos, TileColInfo.DownColType);
+	bool LeftCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + TileLeftPos, TileColInfo.LeftColType);
+	bool RightCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + TileRightPos, TileColInfo.RightColType);
+	bool UpCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + TileUpPos, TileColInfo.UpColType);
+	bool DownCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + TileDownPos, TileColInfo.DownColType);
 
 	TileColInfo.UpCheck = UpCheck;
 	TileColInfo.DownCheck = DownCheck;
@@ -879,17 +882,17 @@ void Player::DirSpecularReflection()
 	case PLAYER_DIRECTION::Right:
 		switch (TileColInfo.RightColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 			return;
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Down);
 			return;
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Up);
 			return;
-		case COLLISION_TYPE::RECT:
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
 			SetDirection(PLAYER_DIRECTION::Left);
 			return;
@@ -897,17 +900,17 @@ void Player::DirSpecularReflection()
 	case PLAYER_DIRECTION::Up:
 		switch (TileColInfo.UpColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 			return;
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Right);
 			return;
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Left);
 			return;
-		case COLLISION_TYPE::RECT:
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
 			SetDirection(PLAYER_DIRECTION::Down);
 			return;
@@ -915,17 +918,17 @@ void Player::DirSpecularReflection()
 	case PLAYER_DIRECTION::Left:
 		switch (TileColInfo.LeftColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 			return;
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Down);
 			return;
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Up);
 			return;
-		case COLLISION_TYPE::RECT:
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
 			SetDirection(PLAYER_DIRECTION::Right);
 			return;
@@ -933,17 +936,17 @@ void Player::DirSpecularReflection()
 	case PLAYER_DIRECTION::Down:
 		switch (TileColInfo.DownColType)
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 			return;
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Right);
 			return;
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 			SetDirection(PLAYER_DIRECTION::Left);
 			return;
-		case COLLISION_TYPE::RECT:
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RECT:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		default:
 			SetDirection(PLAYER_DIRECTION::Up);
 			return;
@@ -956,34 +959,34 @@ void Player::DirSpecularReflection()
 void Player::DebugRender()
 {
 	GameEngineTransform TData;
-	TData.SetWorldRotation(Transform.GetLocalRotationEuler());
+	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 	TData.SetLocalScale({ 1.0f, 1.0f });
 
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalRightPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalRightPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalRightPos2);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalRightPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalLeftPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalLeftPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalLeftPos2);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalLeftPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalUpPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalUpPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalUpPos2);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalUpPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalDownPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + LocalDownPos2);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
 
 
-	TData.SetWorldPosition(Transform.GetWorldPosition() + TileRightPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileRightPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + TileLeftPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileLeftPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + TileUpPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileUpPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-	TData.SetWorldPosition(Transform.GetWorldPosition() + TileDownPos);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileDownPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
 }

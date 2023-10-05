@@ -11,8 +11,9 @@ LevelBase::~LevelBase()
 
 void LevelBase::Start()
 {
-	CursurActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
+	CursorActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
 	GameEngineCore::MainWindow.CursorOff();
+	OffDebug();
 }
 
 void LevelBase::Update(float _Delta)
@@ -21,6 +22,11 @@ void LevelBase::Update(float _Delta)
 	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
 	FPS += "\n";
 	OutputDebugStringA(FPS.c_str());
+
+	if (true == GameEngineInput::IsDown('M'))
+	{
+		IsDebug = !IsDebug;
+	}
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)

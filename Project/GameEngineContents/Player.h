@@ -8,7 +8,7 @@ enum class PLAYER_STATE
 	Rolling,
 	Blocked,
 	Aim,
-	Shot,
+	Returning,
 	Death,
 	StandUp,
 };
@@ -33,10 +33,10 @@ public:
 	bool UpCheck = false;
 	bool DownCheck = false;
 
-	COLLISION_TYPE LeftColType = COLLISION_TYPE::EMPTY;
-	COLLISION_TYPE RightColType = COLLISION_TYPE::EMPTY;
-	COLLISION_TYPE UpColType = COLLISION_TYPE::EMPTY;
-	COLLISION_TYPE DownColType = COLLISION_TYPE::EMPTY;
+	TILE_COLLISION_TYPE LeftColType = TILE_COLLISION_TYPE::EMPTY;
+	TILE_COLLISION_TYPE RightColType = TILE_COLLISION_TYPE::EMPTY;
+	TILE_COLLISION_TYPE UpColType = TILE_COLLISION_TYPE::EMPTY;
+	TILE_COLLISION_TYPE DownColType = TILE_COLLISION_TYPE::EMPTY;
 };
 
 class Player : public GameEngineActor
@@ -52,9 +52,6 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
-	// static Player
-	static std::shared_ptr<Player> MainPlayer;
-	
 	// Debuging Mode
 	void DebugRender();
 	void DebugingModeSwitch()
@@ -75,6 +72,29 @@ public:
 	{
 		ArrowAngleDeg = _Deg;
 	}
+
+	inline float GetArrowAngleDeg()
+	{
+		return ArrowAngleDeg;
+	}
+
+	inline void LostArrow()
+	{
+		HasArrowValue = false;
+		ArrowInBagRenderer->Off();
+	}
+
+	inline void GetArrow()
+	{
+		HasArrowValue = true;
+		ArrowInBagRenderer->On();
+	}
+
+	inline bool HasArrow() const
+	{
+		return HasArrowValue;
+	}
+
 protected:
 
 private:
@@ -86,7 +106,7 @@ private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
 	bool IsBlocked = false;
-
+	bool HasArrowValue = true;
 public:
 	// FMS Functions
 	void ChangeState(PLAYER_STATE _State);
@@ -103,7 +123,7 @@ private:
 	void RollingStart();
 	void BlockedStart();
 	void AimStart();
-	void ShotStart();
+	void ReturningStart();
 	void DeathStart();
 	void StandUpStart();
 
@@ -114,7 +134,7 @@ private:
 	void RollingUpdate(float _Delta);
 	void BlockedUpdate(float _Delta);
 	void AimUpdate(float _Delta);
-	void ShotUpdate(float _Delta);
+	void ReturningUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
 	void StandUpUpadte(float _Delta);
 

@@ -90,6 +90,16 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("LeftUp_Aim", "Player.png", 1.0f, 205, 205, false);
 	BodyRenderer->CreateAnimation("RightUp_Aim", "Player.png", 1.0f, 237, 237, false);
 
+	// Returning Animations
+	BodyRenderer->CreateAnimation("Right_Returning", "Player.png", 1.0f, 14, 14, false);
+	BodyRenderer->CreateAnimation("Up_Returning", "Player.png", 1.0f, 46, 46, false);
+	BodyRenderer->CreateAnimation("Left_Returning", "Player.png", 1.0f, 78, 78, false);
+	BodyRenderer->CreateAnimation("Down_Returning", "Player.png", 1.0f, 110, 110, false);
+	BodyRenderer->CreateAnimation("RightDown_Returning", "Player.png", 1.0f, 142, 142, false);
+	BodyRenderer->CreateAnimation("LeftDown_Returning", "Player.png", 1.0f, 174, 174, false);
+	BodyRenderer->CreateAnimation("LeftUp_Returning", "Player.png", 1.0f, 206, 206, false);
+	BodyRenderer->CreateAnimation("RightUp_Returning", "Player.png", 1.0f, 238, 238, false);
+
 	// StandUp Animations
 	BodyRenderer->CreateAnimation("StandUp", "Player.png", 0.10f, 79, 88, true);
 }
@@ -182,6 +192,16 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("LeftUp_Aim", "Bow.png", 1.0f, 205, 205, false);
 	BowRenderer->CreateAnimation("RightUp_Aim", "Bow.png", 1.0f, 237, 237, false);
 
+	// Returning Animations
+	BowRenderer->CreateAnimation("Right_Returning", "Bow.png", 1.0f, 14, 14, false);
+	BowRenderer->CreateAnimation("Up_Returning", "Bow.png", 1.0f, 46, 46, false);
+	BowRenderer->CreateAnimation("Left_Returning", "Bow.png", 1.0f, 78, 78, false);
+	BowRenderer->CreateAnimation("Down_Returning", "Bow.png", 1.0f, 110, 110, false);
+	BowRenderer->CreateAnimation("RightDown_Returning", "Bow.png", 1.0f, 142, 142, false);
+	BowRenderer->CreateAnimation("LeftDown_Returning", "Bow.png", 1.0f, 174, 174, false);
+	BowRenderer->CreateAnimation("LeftUp_Returning", "Bow.png", 1.0f, 206, 206, false);
+	BowRenderer->CreateAnimation("RightUp_Returning", "Bow.png", 1.0f, 238, 238, false);
+
 	// StandUp Animations
 	BowRenderer->CreateAnimation("StandUp", "Bow.png", 0.10f, 79, 88, true);
 }
@@ -273,6 +293,16 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("LeftDown_Aim", "Arrow.png", 1.0f, 173, 173, false);
 	ArrowInBagRenderer->CreateAnimation("LeftUp_Aim", "Arrow.png", 1.0f, 205, 205, false);
 	ArrowInBagRenderer->CreateAnimation("RightUp_Aim", "Arrow.png", 1.0f, 237, 237, false);
+
+	// Returning Animations
+	ArrowInBagRenderer->CreateAnimation("Right_Returning", "Arrow.png", 1.0f, 14, 14, false);
+	ArrowInBagRenderer->CreateAnimation("Up_Returning", "Arrow.png", 1.0f, 46, 46, false);
+	ArrowInBagRenderer->CreateAnimation("Left_Returning", "Arrow.png", 1.0f, 78, 78, false);
+	ArrowInBagRenderer->CreateAnimation("Down_Returning", "Arrow.png", 1.0f, 110, 110, false);
+	ArrowInBagRenderer->CreateAnimation("RightDown_Returning", "Arrow.png", 1.0f, 142, 142, false);
+	ArrowInBagRenderer->CreateAnimation("LeftDown_Returning", "Arrow.png", 1.0f, 174, 174, false);
+	ArrowInBagRenderer->CreateAnimation("LeftUp_Returning", "Arrow.png", 1.0f, 206, 206, false);
+	ArrowInBagRenderer->CreateAnimation("RightUp_Returning", "Arrow.png", 1.0f, 238, 238, false);
 
 	// StandUp Animations
 	ArrowInBagRenderer->CreateAnimation("StandUp", "Arrow.png", 0.10f, 79, 88, true);

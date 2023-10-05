@@ -440,9 +440,9 @@ void TileMap::TileTexureSetting()
 	}
 }
 
-bool TileMap::AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
+bool TileMap::AllColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 {
-	_TypeData = COLLISION_TYPE::EMPTY;
+	_TypeData = TILE_COLLISION_TYPE::EMPTY;
 	if (true == ColCheck(_Pos, _TypeData))
 	{
 		return true;
@@ -463,7 +463,7 @@ bool TileMap::AllColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 
 bool TileMap::AllColCheck(float4 _Pos)
 {
-	COLLISION_TYPE TypeData;
+	TILE_COLLISION_TYPE TypeData;
 	if (true == ColCheck(_Pos, TypeData))
 	{
 		return true;
@@ -482,7 +482,7 @@ bool TileMap::AllColCheck(float4 _Pos)
 	return false;
 }
 
-bool TileMap::ColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
+bool TileMap::ColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 {
 	// COL 타일이 중복된 곳은 없기 때문에 중간에 return해도 상관 없음.
 	for (size_t i = 0; i < COLTileMaps.size(); ++i)
@@ -493,13 +493,13 @@ bool TileMap::ColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 		if (static_cast<int>(IndexX - 1) < CheckIndex.iX() ||
 			0 > CheckIndex.iX())
 		{
-			_TypeData = COLLISION_TYPE::EMPTY;
+			_TypeData = TILE_COLLISION_TYPE::EMPTY;
 			return false;
 		}
 		else if (static_cast<int>(IndexY - 1) < CheckIndex.iY() ||
 			0 > CheckIndex.iY())
 		{
-			_TypeData = COLLISION_TYPE::EMPTY;
+			_TypeData = TILE_COLLISION_TYPE::EMPTY;
 			return false;
 		}
 
@@ -511,13 +511,13 @@ bool TileMap::ColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 			IndexColInfo = 0;
 		}
 
-		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
+		switch (static_cast<TILE_COLLISION_TYPE>(IndexColInfo))
 		{
-		case COLLISION_TYPE::EMPTY:
-			_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
+		case TILE_COLLISION_TYPE::EMPTY:
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 			break;
-		case COLLISION_TYPE::RECT:
-			_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
+		case TILE_COLLISION_TYPE::RECT:
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 			return true;
 		default:
 			MsgBoxAssert("Rect Collision에서처리되지 않은 Collision Type 입니다.")
@@ -526,7 +526,7 @@ bool TileMap::ColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 	return false;
 }
 
-bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
+bool TileMap::TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 {
 	// COL 타일이 중복된 곳은 없기 때문에 중간에 return해도 상관 없음.
 	for (size_t i = 0; i < TCOLTileMaps.size(); ++i)
@@ -537,13 +537,13 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 		if (static_cast<int>(IndexX - 1) < CheckIndex.iX() ||
 			0 > CheckIndex.iX())
 		{
-			_TypeData = COLLISION_TYPE::EMPTY;
+			_TypeData = TILE_COLLISION_TYPE::EMPTY;
 			return false;
 		}
 		else if (static_cast<int>(IndexY - 1) < CheckIndex.iY() ||
 			0 > CheckIndex.iY())
 		{
-			_TypeData = COLLISION_TYPE::EMPTY;
+			_TypeData = TILE_COLLISION_TYPE::EMPTY;
 			return false;
 		}
 
@@ -555,7 +555,7 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 			IndexColInfo = 0;
 		}
 
-		_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
+		_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 
 		float4 StandardPos = GlobalValue::StandardTextureScale;
 		float StandardLength = StandardPos.X;
@@ -563,11 +563,11 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 		PosInTile.X = abs(PosInTile.X);
 		PosInTile.Y = abs(PosInTile.Y);
 
-		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
+		switch (static_cast<TILE_COLLISION_TYPE>(IndexColInfo))
 		{
-		case COLLISION_TYPE::EMPTY:
+		case TILE_COLLISION_TYPE::EMPTY:
 			break;
-		case COLLISION_TYPE::LEFTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 		{
 			float res = PosInTile.X + PosInTile.Y;
 			if (StandardLength > res)
@@ -577,7 +577,7 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 		}
 			
 			break;
-		case COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		{
 			float res = StandardPos.X - PosInTile.X + PosInTile.Y;
 			if (StandardLength > res)
@@ -586,13 +586,13 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 			}
 		}
 			break;
-		case COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 			if (StandardLength < StandardPos.X - PosInTile.X + PosInTile.Y)
 			{
 				return true;
 			}
 			break;
-		case COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 			if (StandardLength < PosInTile.X + PosInTile.Y)
 			{
 				return true;
@@ -605,7 +605,7 @@ bool TileMap::TriangleColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 	return false;
 }
 
-bool TileMap::AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
+bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 {
 	// COL 타일이 중복된 곳은 없기 때문에 중간에 return해도 상관 없음.
 	for (size_t i = 0; i < ACOLTileMaps.size(); ++i)
@@ -616,13 +616,13 @@ bool TileMap::AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 		if (static_cast<int>(IndexX - 1) < CheckIndex.iX() ||
 			0 > CheckIndex.iX())
 		{
-			_TypeData = COLLISION_TYPE::EMPTY;
+			_TypeData = TILE_COLLISION_TYPE::EMPTY;
 			return false;
 		}
 		else if (static_cast<int>(IndexY - 1) < CheckIndex.iY() ||
 			0 > CheckIndex.iY())
 		{
-			_TypeData = COLLISION_TYPE::EMPTY;
+			_TypeData = TILE_COLLISION_TYPE::EMPTY;
 			return false;
 		}
 
@@ -634,13 +634,13 @@ bool TileMap::AirColCheck(float4 _Pos, COLLISION_TYPE& _TypeData)
 			IndexColInfo = 0;
 		}
 
-		switch (static_cast<COLLISION_TYPE>(IndexColInfo))
+		switch (static_cast<TILE_COLLISION_TYPE>(IndexColInfo))
 		{
-		case COLLISION_TYPE::EMPTY:
-			_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
+		case TILE_COLLISION_TYPE::EMPTY:
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 			break;
-		case COLLISION_TYPE::RECT:
-			_TypeData = static_cast<COLLISION_TYPE>(IndexColInfo);
+		case TILE_COLLISION_TYPE::RECT:
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 			return true;
 		default:
 			MsgBoxAssert("Air Collision에서 처리되지 않은 Collision Type 입니다.")

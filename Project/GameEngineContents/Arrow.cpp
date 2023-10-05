@@ -15,13 +15,26 @@ void Arrow::Start()
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
-	Renderer->CreateAnimation("Get", "Player.png", 0.25f, 220, 223, false);
+	Renderer->CreateAnimation("Get", "Player.png", 0.05f, 220, 223, false);
+
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Arrow);
+	Collision->SetCollisionType(ColType::OBBBOX2D);
+	Collision->Transform.SetLocalScale({12.0f, 24.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
 }
 
 void Arrow::Update(float _Delta)
 {
+	if (PLAYER_STATE::Aim == OwnerPlayer->GetCurState())
+	{
+		ChangeState(ARROW_STATE::Aim);
+	}
+	else if (PLAYER_STATE::Returning == OwnerPlayer->GetCurState())
+	{
+		ChangeState(ARROW_STATE::Returning);
+	}
+
 	switch (CurState)
 	{
 	case ARROW_STATE::Hold:
@@ -33,8 +46,8 @@ void Arrow::Update(float _Delta)
 	case ARROW_STATE::Flying:
 		FlyingUpdate(_Delta);
 		break;
-	case ARROW_STATE::Drop:
-		DropUpdate(_Delta);
+	case ARROW_STATE::Fallen:
+		FallenUpdate(_Delta);
 		break;
 	case ARROW_STATE::Returning:
 		ReturningUpdate(_Delta);
@@ -67,8 +80,8 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	case ARROW_STATE::Flying:
 		FlyingStart();
 		break;
-	case ARROW_STATE::Drop:
-		DropStart();
+	case ARROW_STATE::Fallen:
+		FallenStart();
 		break;
 	case ARROW_STATE::Returning:
 		ReturningStart();

@@ -44,9 +44,8 @@ void Player::AimStart()
 {
 }
 
-void Player::ShotStart()
+void Player::ReturningStart()
 {
-	SetAnimByDir("Shot");
 }
 
 void Player::DeathStart()
@@ -93,8 +92,16 @@ void Player::IdleUpdate(float _Delta)
 	// Aim Check
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		ChangeState(PLAYER_STATE::Aim);
-		return;
+		if (true == HasArrow())
+		{
+			ChangeState(PLAYER_STATE::Aim);
+			return;
+		}
+		else
+		{
+			ChangeState(PLAYER_STATE::Returning);
+			return;
+		}
 	}
 }
 
@@ -119,8 +126,16 @@ void Player::MoveUpdate(float _Delta)
 	// Aim Check
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		ChangeState(PLAYER_STATE::Aim);
-		return;
+		if (true == HasArrow())
+		{
+			ChangeState(PLAYER_STATE::Aim);
+			return;
+		}
+		else
+		{
+			ChangeState(PLAYER_STATE::Returning);
+			return;
+		}
 	}
 
 	// Move Check
@@ -187,8 +202,16 @@ void Player::BlockedUpdate(float _Delta)
 	// Aim Check
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		ChangeState(PLAYER_STATE::Aim);
-		return;
+		if (true == HasArrow())
+		{
+			ChangeState(PLAYER_STATE::Aim);
+			return;
+		}
+		else
+		{
+			ChangeState(PLAYER_STATE::Returning);
+			return;
+		}
 	}
 
 	if (true == MoveCheckInIdle())
@@ -229,8 +252,16 @@ void Player::StopUpdate(float _Delta)
 	// Aim Check
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		ChangeState(PLAYER_STATE::Aim);
-		return;
+		if (true == HasArrow())
+		{
+			ChangeState(PLAYER_STATE::Aim);
+			return;
+		}
+		else
+		{
+			ChangeState(PLAYER_STATE::Returning);
+			return;
+		}
 	}
 
 	// Deceleration
@@ -252,18 +283,32 @@ void Player::StopUpdate(float _Delta)
 
 void Player::AimUpdate(float _Delta)
 {
-	if (false == GameEngineInput::IsPress(VK_LBUTTON))
+	if (true == GameEngineInput::IsUp(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
+
 	AimDirectionUpdate();
 	SetAnimByDir("Aim");
 }
 
-void Player::ShotUpdate(float _Delta)
+void Player::ReturningUpdate(float _Delta)
 {
+	if (true == GameEngineInput::IsUp(VK_LBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
 
+	if (true == HasArrow())
+	{
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
+
+	AimDirectionUpdate();
+	SetAnimByDir("Returning");
 }
 
 void Player::DeathUpdate(float _Delta)

@@ -12,14 +12,14 @@ PlayLevelBase::~PlayLevelBase()
 void PlayLevelBase::Start()
 {
 	LevelBase::Start();
-
+	
 	CreatePlayerElement();
 }
 
 void PlayLevelBase::Update(float _Delta)
 {
 	LevelBase::Update(_Delta);
-
+	
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
@@ -55,12 +55,9 @@ void PlayLevelBase::Update(float _Delta)
 		GetMainCamera()->SetZoomValue(1.5f);
 	}
 
-	if (PLAYER_STATE::Aim == PlayerActor->GetCurState())
-	{
-		ArrowActor->ChangeState(ARROW_STATE::Aim);
-	}
 
-	ArrowDirectionRotation();
+	CursorDirRotation();
+	ArrowDirRotation();
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
@@ -95,39 +92,52 @@ void PlayLevelBase::SpawnPlayer()
 	return;
 }
            
-void PlayLevelBase::ArrowDirectionRotation()
+void PlayLevelBase::CursorDirRotation()
 {
 	// Arrow Direction Rotation
-	float4 PlayerFromArrow = CursurActor->Transform.GetLocalPosition() - PlayerActor->Transform.GetWorldPosition();
-	float Degree = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
-	float4 Angle = float4::ZERO;
-	Angle.Z = Degree;
+	float4 PlayerFromArrow = CursorActor->Transform.GetLocalPosition() - PlayerActor->Transform.GetLocalPosition();
+	CursorAngle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
 
-	if (0.0f > Angle.Z)
+	if (0.0f > CursorAngle.Z)
 	{
-		while (0.0f > Angle.Z)
+		while (0.0f > CursorAngle.Z)
 		{
-			Angle.Z += 360.0f;
+			CursorAngle.Z += 360.0f;
 		}
 	}
-	else if (360.0f < Angle.Z)
+	else if (360.0f < CursorAngle.Z)
 	{
-		while (360.0f < Angle.Z)
+		while (360.0f < CursorAngle.Z)
 		{
-			Angle.Z -= 360.0f;
+			CursorAngle.Z -= 360.0f;
 		}
 	}
 
-	PlayerActor->SetArrowAngleDeg(Angle.Z);
+	PlayerActor->SetArrowAngleDeg(CursorAngle.Z);
+	CursorAngle.Z += 90.0f;
+	CursorActor->Transform.SetLocalRotation(CursorAngle);
+}
 
-	Angle.Z += 90.0f;
+void PlayLevelBase::ArrowDirRotation()
+{
+	if (ARROW_STATE::Returning == ArrowActor->GetCurState())
+	{
+		float4 PlayerFromArrow = PlayerActor->Transform.GetLocalPosition() - ArrowActor->Transform.GetLocalPosition();
+		float4 Angle = float4::ZERO;
+		Angle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
 
-	CursurActor->Transform.SetLocalRotation(Angle);
+		PlayerActor->SetArrowAngleDeg(Angle.Z + 180.0f);
+		Angle.Z += 90.0f;
+		ArrowActor->SetArrowAngleDeg(Angle);
 
-	ArrowActor->SetArrowAngleDeg(Angle);
+	}
+	else if(ARROW_STATE::Aim == ArrowActor->GetCurState())
+	{
+		ArrowActor->SetArrowAngleDeg(CursorAngle);
+	}
 
 	// Arrow YSotting
-	if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetWorldPosition().Y - 4.0f)
+	if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetLocalPosition().Y - 4.0f)
 	{
 		ArrowActor->SetRenderOrder(RENDERING_ORDER::ArrowBack);
 	}

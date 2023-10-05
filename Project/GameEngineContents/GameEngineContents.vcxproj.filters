@@ -89,9 +89,6 @@
     <ClInclude Include="Floor1.h">
       <Filter>02. Level\02. MainHub</Filter>
     </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>01. Actor\01. Player Element\00. Player</Filter>
     </ClInclude>
@@ -107,6 +104,9 @@
     <ClInclude Include="LevelBase.h">
       <Filter>02. Level\00. Base</Filter>
     </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Global">
@@ -117,12 +117,6 @@
     </Filter>
     <Filter Include="02. Level">
       <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Level\00. Base">
-      <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Level\01. Title">
-      <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Level\02. MainHub">
       <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
@@ -156,6 +150,12 @@
     </Filter>
     <Filter Include="03.UI">
       <UniqueIdentifier>{bff1805d-5edb-49ee-a1a1-0e04756237a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\00. Base">
+      <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\01. Title">
+      <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

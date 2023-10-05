@@ -5,7 +5,7 @@ enum class ARROW_STATE
 	Hold,
 	Aim,
 	Flying,
-	Drop,
+	Fallen,
 	Returning,
 	PickUp,
 };
@@ -25,6 +25,11 @@ public:
 
 	void ChangeState(ARROW_STATE _State);
 
+	inline ARROW_STATE GetCurState() const
+	{
+		return CurState;
+	}
+
 	inline void OwnerPlayerSetting(std::shared_ptr<class Player> _Player)
 	{
 		OwnerPlayer = _Player;
@@ -35,6 +40,11 @@ public:
 		ArrowAngleDeg = _Angle;
 	}
 
+	inline void AddArrowAngleDeg(float4 _Angle)
+	{
+		ArrowAngleDeg += _Angle;
+	}
+
 	inline void SetRenderOrder(RENDERING_ORDER _Order)
 	{
 		if (static_cast<int>(_Order) != Renderer->GetOrder())
@@ -42,7 +52,11 @@ public:
 			Renderer->SetRenderOrder(_Order);
 		}
 	}
-protected:
+
+
+private:
+	// Owner Player
+	std::shared_ptr<class Player> OwnerPlayer = nullptr;
 
 private:
 	// Inheritance Functions
@@ -50,24 +64,24 @@ private:
 	void Update(float _Delta);
 
 	//FSM Functions
-	ARROW_STATE CurState;
-	std::shared_ptr<class Player> OwnerPlayer = nullptr;
-
 	void HoldStart();
 	void AimStart();
 	void FlyingStart();
-	void DropStart();
+	void FallenStart();
 	void ReturningStart();
 	void PickUpStart();
 
 	void HoldUpdate(float _Delta);
 	void AimUpdate(float _Delta);
 	void FlyingUpdate(float _Delta);
-	void DropUpdate(float _Delta);
+	void FallenUpdate(float _Delta);
 	void ReturningUpdate(float _Delta);
 
 	void PickUpUpdate(float _Delta);
 
+	// State Variable
+	ARROW_STATE CurState;
+	bool AbleReturning = true;
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
@@ -78,10 +92,10 @@ private:
 	float4 ArrowAngleDeg = float4::ZERO;
 	float4 FiyingDirection = float4::ZERO;
 	float PullingForce = 0.0f;
-	float MaxPullingForce = 4.0f;
-	float PullingForceIncreaseSpeed = 8.0f;
+	float MaxPullingForce = 3.0f;
+	float PullingForceIncreaseSpeed = 6.0f;
 
-	float DefaultSpeed = 600.0f;
+	float DefaultSpeed = 800.0f;
 
 private:
 	// Deceleration
@@ -93,4 +107,14 @@ private:
 			PullingForce = 0.0f;
 		}
 	}
+
+	void Acceleration(float _AccelerationSpeed)
+	{
+		PullingForce += _AccelerationSpeed;
+		if (MaxPullingForce < PullingForce)
+		{
+			PullingForce = MaxPullingForce;
+		}
+	}
+	
 };
