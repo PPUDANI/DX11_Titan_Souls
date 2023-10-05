@@ -183,9 +183,9 @@ private:
 	// Deceleration
 	float DecelerationValue = 0.0f; // 1.0f보다 클 수 없음.
 
-	void Deceleration(float _Speed)
+	void Deceleration(float _DecelerationSpeed)
 	{
-		DecelerationValue -= DecelerationValue * _Speed;
+		DecelerationValue -= DecelerationValue * _DecelerationSpeed;
 		if (0.01f > DecelerationValue)
 		{
 			DecelerationValue = 0.0f;

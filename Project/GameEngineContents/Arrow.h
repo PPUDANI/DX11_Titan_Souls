@@ -6,6 +6,7 @@ enum class ARROW_STATE
 	Aim,
 	Flying,
 	Drop,
+	Returning,
 	PickUp,
 };
 
@@ -26,10 +27,10 @@ public:
 
 	inline void OwnerPlayerSetting(std::shared_ptr<class Player> _Player)
 	{
-		ArrowOwnerPlayer = _Player;
+		OwnerPlayer = _Player;
 	}
 
-	inline void SetArrowAngleDeg(float& _Angle)
+	inline void SetArrowAngleDeg(float4& _Angle)
 	{
 		ArrowAngleDeg = _Angle;
 	}
@@ -48,6 +49,25 @@ private:
 	void Start() override;
 	void Update(float _Delta);
 
+	//FSM Functions
+	ARROW_STATE CurState;
+	std::shared_ptr<class Player> OwnerPlayer = nullptr;
+
+	void HoldStart();
+	void AimStart();
+	void FlyingStart();
+	void DropStart();
+	void ReturningStart();
+	void PickUpStart();
+
+	void HoldUpdate(float _Delta);
+	void AimUpdate(float _Delta);
+	void FlyingUpdate(float _Delta);
+	void DropUpdate(float _Delta);
+	void ReturningUpdate(float _Delta);
+
+	void PickUpUpdate(float _Delta);
+
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
@@ -55,24 +75,22 @@ private:
 
 private:
 	// Physics Valuable
-	float ArrowAngleDeg = 0.0f;
+	float4 ArrowAngleDeg = float4::ZERO;
+	float4 FiyingDirection = float4::ZERO;
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 4.0f;
-	float PullingForceIncreaseSpeed = 6.0f;
+	float PullingForceIncreaseSpeed = 8.0f;
+
+	float DefaultSpeed = 600.0f;
+
 private:
-	//FSM Functions
-	ARROW_STATE CurState;
-	std::shared_ptr<class Player> ArrowOwnerPlayer = nullptr;
-
-	void HoldStart();
-	void AimStart();
-	void FlyingStart();
-	void DropStart();
-	void PickUpStart();
-
-	void HoldUpdate(float _Delta);
-	void AimUpdate(float _Delta);
-	void FlyingUpdate(float _Delta);
-	void DropUpdate(float _Delta);
-	void PickUpUpdate(float _Delta);
+	// Deceleration
+	void Deceleration(float _DecelerationSpeed)
+	{
+		PullingForce -= PullingForce * _DecelerationSpeed;
+		if (0.01f > PullingForce)
+		{
+			PullingForce = 0.0f;
+		}
+	}
 };

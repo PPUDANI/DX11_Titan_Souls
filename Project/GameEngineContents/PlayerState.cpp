@@ -91,7 +91,7 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Aim);
 		return;
@@ -117,7 +117,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Aim);
 		return;
@@ -185,7 +185,7 @@ void Player::BlockedUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Aim);
 		return;
@@ -227,7 +227,7 @@ void Player::StopUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Aim);
 		return;
@@ -252,7 +252,7 @@ void Player::StopUpdate(float _Delta)
 
 void Player::AimUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsFree(VK_LBUTTON))
+	if (false == GameEngineInput::IsPress(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;

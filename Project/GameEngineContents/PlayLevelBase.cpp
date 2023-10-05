@@ -124,10 +124,10 @@ void PlayLevelBase::ArrowDirectionRotation()
 
 	CursurActor->Transform.SetLocalRotation(Angle);
 
-	ArrowActor->SetArrowAngleDeg(Angle.Z);
+	ArrowActor->SetArrowAngleDeg(Angle);
 
 	// Arrow YSotting
-	if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetWorldPosition().Y)
+	if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetWorldPosition().Y - 4.0f)
 	{
 		ArrowActor->SetRenderOrder(RENDERING_ORDER::ArrowBack);
 	}

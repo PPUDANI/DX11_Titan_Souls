@@ -36,6 +36,9 @@ void Arrow::Update(float _Delta)
 	case ARROW_STATE::Drop:
 		DropUpdate(_Delta);
 		break;
+	case ARROW_STATE::Returning:
+		ReturningUpdate(_Delta);
+		break;
 	case ARROW_STATE::PickUp:
 		PickUpUpdate(_Delta);
 		break;
@@ -66,6 +69,9 @@ void Arrow::ChangeState(ARROW_STATE _State)
 		break;
 	case ARROW_STATE::Drop:
 		DropStart();
+		break;
+	case ARROW_STATE::Returning:
+		ReturningStart();
 		break;
 	case ARROW_STATE::PickUp:
 		PickUpStart();
