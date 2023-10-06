@@ -165,7 +165,7 @@ void Arrow::ReturningUpdate(float _Delta)
 		FlyingDirection = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 		Transform.SetLocalRotation(ArrowAngleDeg);
 		Transform.AddLocalPosition(FlyingDirection * DefaultSpeed * PullingForce * _Delta);
-		ContentsMath::Acceleration(PullingForce, 1.5f * _Delta, MaxPullingForce);
+		ContentsMath::Acceleration(PullingForce, 1.5f * _Delta, MaxPullingForce - 2.0f);
 	}
 	else
 	{
@@ -180,7 +180,7 @@ void Arrow::ReturningUpdate(float _Delta)
 	}
 	
 	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 1.5f));
-	if (0.7f > ZoomSacle)
+	if (0.8f > ZoomSacle)
 	{
 		ZoomSacle = 0.8f;
 	}
