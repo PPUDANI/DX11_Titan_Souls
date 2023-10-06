@@ -185,7 +185,6 @@ void Arrow::ReturningUpdate(float _Delta)
 		ZoomSacle = 0.8f;
 	}
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
-
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirection * PullingForce * 15.0f);
 }
 
