@@ -171,8 +171,8 @@ void Arrow::ReturningUpdate(float _Delta)
 	{
 		AbleReturning = false;
 		Transform.AddLocalPosition(FlyingDirection * DefaultSpeed * PullingForce * _Delta);
-		ContentsMath::Deceleration(PullingForce, 3.0f * _Delta);
-		if (0.0f == PullingForce)
+		ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
+		if (0.00f == PullingForce)
 		{
 			ChangeState(ARROW_STATE::Fallen);
 			return;
@@ -180,15 +180,13 @@ void Arrow::ReturningUpdate(float _Delta)
 	}
 	
 	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 1.5f));
-
-	if (0.8f > ZoomSacle)
+	if (0.7f > ZoomSacle)
 	{
 		ZoomSacle = 0.8f;
 	}
-
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
 
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirection * PullingForce * 10.0f);
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirection * PullingForce * 15.0f);
 }
 
 void Arrow::PickUpUpdate(float _Delta)
