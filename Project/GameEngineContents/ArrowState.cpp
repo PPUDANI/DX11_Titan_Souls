@@ -13,6 +13,7 @@ void Arrow::AimStart()
 {
 	Renderer->ChangeAnimation("Idle");
 	PullingForce = 0.0f;
+	SubPullingForce = 0.0f;
 }
 
 void Arrow::FlyingStart()
@@ -46,9 +47,9 @@ void Arrow::HoldUpdate(float _Delta)
 		ChangeState(ARROW_STATE::Aim);
 	}
 
-	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
+	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
 
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 1.5f));
+	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
 
 	if (1.0f > ZoomSacle)
 	{
@@ -65,41 +66,46 @@ void Arrow::AimUpdate(float _Delta)
 	if (true == GameEngineInput::IsPress(VK_RBUTTON))
 	{
 		ChangeState(ARROW_STATE::Hold);
+		PullingForce = SubPullingForce;
 		return;
 	}
 
 	if (true == GameEngineInput::IsUp(VK_LBUTTON))
 	{
-		if (1.0f > PullingForce)
+		if (1.2f > SubPullingForce)
 		{
 			ChangeState(ARROW_STATE::Hold);
+			PullingForce = SubPullingForce;
 			return;
 		}
 
 		ChangeState(ARROW_STATE::Flying);
+		PullingForce = SubPullingForce;
 		return;
 	}
 
 	// Set Arrow Direction
 	Transform.SetLocalRotation(ArrowAngleDeg);
 
-	if (MaxPullingForce > PullingForce)
+	ContentsMath::Deceleration(PullingForce, PullingForceIncreaseSpeed * _Delta);
+
+	if (MaxPullingForce > SubPullingForce)
 	{
-		PullingForce += _Delta * PullingForceIncreaseSpeed;
+		SubPullingForce += _Delta * PullingForceIncreaseSpeed;
 	}
 	else if (MaxPullingForce < PullingForce)
 	{
-		PullingForce = MaxPullingForce;
+		SubPullingForce = MaxPullingForce;
 	}
 
 	FiyingDirection = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
-	SpawnPos += FiyingDirection * (16.0f - PullingForce);
+	SpawnPos += FiyingDirection * (16.0f - SubPullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetLocalPosition(SpawnPos);
 	Renderer->On();
 
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
+	float ZoomSacle = 1.0f - (SubPullingForce / (MaxPullingForce * 5.0f));
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
 }
 
@@ -188,6 +194,6 @@ void Arrow::PickUpUpdate(float _Delta)
 
 	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
 
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 1.5f));
+	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
 }

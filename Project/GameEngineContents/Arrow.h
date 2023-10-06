@@ -94,8 +94,7 @@ private:
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 6.0f;
 	float PullingForceIncreaseSpeed = 8.0f;
-
+	float SubPullingForce = 0.0f;
 	float DefaultSpeed = 800.0f;
-
 private:
 };
