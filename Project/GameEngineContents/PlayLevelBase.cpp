@@ -42,6 +42,7 @@ void PlayLevelBase::Update(float _Delta)
 		SpawnPlayer();
 	}
 
+	// Debug¿ë
 	if (true == GameEngineInput::IsDown('I'))
 	{
 		GetMainCamera()->SetZoomValue(1.0f);

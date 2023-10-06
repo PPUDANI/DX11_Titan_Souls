@@ -23,7 +23,7 @@ void LevelBase::Update(float _Delta)
 	FPS += "\n";
 	OutputDebugStringA(FPS.c_str());
 
-	if (true == GameEngineInput::IsDown('M'))
+	if (true == GameEngineInput::IsDown('0'))
 	{
 		IsDebug = !IsDebug;
 	}

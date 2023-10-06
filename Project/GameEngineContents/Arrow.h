@@ -90,7 +90,7 @@ private:
 private:
 	// Physics Valuable
 	float4 ArrowAngleDeg = float4::ZERO;
-	float4 FiyingDirection = float4::ZERO;
+	float4 FlyingDirection = float4::ZERO;
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 6.0f;
 	float PullingForceIncreaseSpeed = 8.0f;
