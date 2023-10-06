@@ -151,6 +151,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> BowRenderer = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> ArrowInBagRenderer = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> ShadowRenderer = nullptr;
 
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 

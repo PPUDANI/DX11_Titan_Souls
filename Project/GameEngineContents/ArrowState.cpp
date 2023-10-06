@@ -139,7 +139,6 @@ void Arrow::FlyingUpdate(float _Delta)
 
 void Arrow::FallenUpdate(float _Delta)
 {
-	Collision->Off();
 	if (PLAYER_STATE::Returning == OwnerPlayer->GetCurState())
 	{
 		ChangeState(ARROW_STATE::Returning);
@@ -172,7 +171,7 @@ void Arrow::ReturningUpdate(float _Delta)
 	{
 		AbleReturning = false;
 		Transform.AddLocalPosition(FlyingDirection * DefaultSpeed * PullingForce * _Delta);
-		ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
+		ContentsMath::Deceleration(PullingForce, 3.0f * _Delta);
 		if (0.0f == PullingForce)
 		{
 			ChangeState(ARROW_STATE::Fallen);

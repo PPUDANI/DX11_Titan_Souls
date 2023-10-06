@@ -15,7 +15,7 @@ void Arrow::Start()
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
-	Renderer->CreateAnimation("Get", "Player.png", 0.05f, 220, 223, false);
+	Renderer->CreateAnimation("Get", "Player.png", 0.07f, 220, 223, false);
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Arrow);
 	Collision->SetCollisionType(ColType::OBBBOX2D);
