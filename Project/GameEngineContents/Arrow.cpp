@@ -26,14 +26,6 @@ void Arrow::Start()
 
 void Arrow::Update(float _Delta)
 {
-	if (PLAYER_STATE::Aim == OwnerPlayer->GetCurState())
-	{
-		ChangeState(ARROW_STATE::Aim);
-	}
-	else if (PLAYER_STATE::Returning == OwnerPlayer->GetCurState())
-	{
-		ChangeState(ARROW_STATE::Returning);
-	}
 
 	switch (CurState)
 	{

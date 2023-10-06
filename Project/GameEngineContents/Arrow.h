@@ -92,29 +92,10 @@ private:
 	float4 ArrowAngleDeg = float4::ZERO;
 	float4 FiyingDirection = float4::ZERO;
 	float PullingForce = 0.0f;
-	float MaxPullingForce = 5.0f;
-	float PullingForceIncreaseSpeed = 6.0f;
+	float MaxPullingForce = 6.0f;
+	float PullingForceIncreaseSpeed = 8.0f;
 
 	float DefaultSpeed = 800.0f;
 
 private:
-	// Deceleration
-	void Deceleration(float _DecelerationSpeed)
-	{
-		PullingForce -= PullingForce * _DecelerationSpeed;
-		if (0.01f > PullingForce)
-		{
-			PullingForce = 0.0f;
-		}
-	}
-
-	void Acceleration(float _AccelerationSpeed)
-	{
-		PullingForce += _AccelerationSpeed;
-		if (MaxPullingForce < PullingForce)
-		{
-			PullingForce = MaxPullingForce;
-		}
-	}
-	
 };

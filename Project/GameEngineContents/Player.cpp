@@ -10,6 +10,7 @@ Player::~Player()
 {
 }
 
+
 void Player::Start()
 {
 	// Load Textures & Create Animations
@@ -991,4 +992,22 @@ void Player::DebugRender()
 
 }
 
-
+void Player::AimCheck()
+{
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		if (true == HasArrow())
+		{
+			ChangeState(PLAYER_STATE::Aim);
+			return;
+		}
+	}
+	else if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	{
+		if (ARROW_STATE::Fallen == MyArrow->GetCurState())
+		{
+			ChangeState(PLAYER_STATE::Returning);
+		}
+		return;
+	}
+}

@@ -30,6 +30,7 @@
 #include "GlobalValue.h"
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
+#include "ContentsMath.h"
 
 // Level
 #include "LevelBase.h"

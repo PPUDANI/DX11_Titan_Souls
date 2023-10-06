@@ -90,19 +90,7 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		if (true == HasArrow())
-		{
-			ChangeState(PLAYER_STATE::Aim);
-			return;
-		}
-		else
-		{
-			ChangeState(PLAYER_STATE::Returning);
-			return;
-		}
-	}
+	AimCheck();
 }
 
 void Player::MoveUpdate(float _Delta)
@@ -124,19 +112,7 @@ void Player::MoveUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		if (true == HasArrow())
-		{
-			ChangeState(PLAYER_STATE::Aim);
-			return;
-		}
-		else
-		{
-			ChangeState(PLAYER_STATE::Returning);
-			return;
-		}
-	}
+	AimCheck();
 
 	// Move Check
 	if (true == MoveCheck())
@@ -186,7 +162,7 @@ void Player::RollingUpdate(float _Delta)
 	{
 		// Specular Reflection 추가하기
 		MovePos *= DecelerationValue;
-		Deceleration(5.0f * _Delta);
+		ContentsMath::Deceleration(DecelerationValue, 5.0f * _Delta);
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);
@@ -200,19 +176,7 @@ void Player::BlockedUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		if (true == HasArrow())
-		{
-			ChangeState(PLAYER_STATE::Aim);
-			return;
-		}
-		else
-		{
-			ChangeState(PLAYER_STATE::Returning);
-			return;
-		}
-	}
+	AimCheck();
 
 	if (true == MoveCheckInIdle())
 	{
@@ -250,19 +214,7 @@ void Player::StopUpdate(float _Delta)
 	}
 
 	// Aim Check
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		if (true == HasArrow())
-		{
-			ChangeState(PLAYER_STATE::Aim);
-			return;
-		}
-		else
-		{
-			ChangeState(PLAYER_STATE::Returning);
-			return;
-		}
-	}
+	AimCheck();
 
 	// Deceleration
 	if (0.0f == DecelerationValue)
@@ -277,12 +229,18 @@ void Player::StopUpdate(float _Delta)
 		{
 			Transform.AddLocalPosition(MovePos * _Delta);
 		}
-		Deceleration(10.0f * _Delta);
+		ContentsMath::Deceleration(DecelerationValue, 10.0f * _Delta);
 	}
 }
 
 void Player::AimUpdate(float _Delta)
 {
+	if (true == GameEngineInput::IsDown(VK_RBUTTON))
+	{
+		ChangeState(PLAYER_STATE::Idle);
+		return;
+	}
+
 	if (true == GameEngineInput::IsUp(VK_LBUTTON))
 	{
 		ChangeState(PLAYER_STATE::Idle);
@@ -318,7 +276,7 @@ void Player::DeathUpdate(float _Delta)
 	{
 		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue;
 		Transform.AddLocalPosition(MovePos * _Delta);
-		Deceleration(5.0f * _Delta);
+		ContentsMath::Deceleration(DecelerationValue, 5.0f * _Delta);
 	}
 }
 

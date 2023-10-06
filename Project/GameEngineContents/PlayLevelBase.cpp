@@ -81,6 +81,7 @@ void PlayLevelBase::CreatePlayerElement()
 		PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
 		ArrowActor = CreateActor<Arrow>(UPDATE_ORDER::Player);
 		ArrowActor->OwnerPlayerSetting(PlayerActor);
+		PlayerActor->ArrowSetting(ArrowActor);
 	}
 }
 

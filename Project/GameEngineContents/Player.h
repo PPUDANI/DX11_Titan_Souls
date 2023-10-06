@@ -67,6 +67,13 @@ public:
 		CurMap = _Map;
 	}
 
+	// Arrow Setting
+	std::shared_ptr<class Arrow> MyArrow = nullptr;
+	inline void ArrowSetting(std::shared_ptr<class Arrow> _Arrow)
+	{
+		MyArrow = _Arrow;
+	}
+
 	// Arrow Degree
 	inline void SetArrowAngleDeg(float _Deg)
 	{
@@ -95,7 +102,8 @@ public:
 		return HasArrowValue;
 	}
 
-protected:
+private:
+	void AimCheck();
 
 private:
 	// Inheritance Functions
@@ -201,16 +209,7 @@ private:
 	bool MoveCheck();
 
 	// Deceleration
-	float DecelerationValue = 0.0f; // 1.0f보다 클 수 없음.
-
-	void Deceleration(float _DecelerationSpeed)
-	{
-		DecelerationValue -= DecelerationValue * _DecelerationSpeed;
-		if (0.01f > DecelerationValue)
-		{
-			DecelerationValue = 0.0f;
-		}
-	}
+	float DecelerationValue = 0.0f;
 
 private:
 	// Direction Variables
