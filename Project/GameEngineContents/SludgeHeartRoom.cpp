@@ -15,8 +15,8 @@ void SludgeHeartRoom::Start()
 	PlayerSpawnPos = { 1008.0f, -1856.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
+
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
@@ -26,6 +26,9 @@ void SludgeHeartRoom::Start()
 
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
+
+	PlayerActor->TileMapSetting(TileMapActor);
+	ArrowActor->TileMapSetting(TileMapActor);
 }
 
 void SludgeHeartRoom::Update(float _Delta)

@@ -36,10 +36,17 @@ public:
 	void CreateTileMap(TILE_TYPE _Type, std::string_view _FileName);
 	void TileTexureSetting();
 
+	void TriangleColCheckOff()
+	{
+		IsTriangleColCheck = false;
+	}
+
 	void SetViewMode(VIEW_MODE _Mode);
 
 	bool AllColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	bool AllColCheck(float4 _Pos);
+	bool ArrowColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
+	bool ArrowColCheck(float4 _Pos);
 	bool ColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	bool TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	bool AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
@@ -60,6 +67,7 @@ private:
 
 	unsigned int IndexX = 0;
 	unsigned int IndexY = 0;
+	bool IsTriangleColCheck = true;
 
 	std::vector<std::shared_ptr<class GameEngineTileMap>> BGTileMaps;
 	std::vector<std::shared_ptr<class GameEngineTileMap>> BGATileMaps;

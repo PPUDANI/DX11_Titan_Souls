@@ -30,9 +30,16 @@ public:
 		return CurState;
 	}
 
+	// Player Setting
 	inline void OwnerPlayerSetting(std::shared_ptr<class Player> _Player)
 	{
 		OwnerPlayer = _Player;
+	}
+
+	// TileMap Setting
+	void TileMapSetting(std::shared_ptr<TileMap> _Map)
+	{
+		CurMap = _Map;
 	}
 
 	inline void SetArrowAngleDeg(float4& _Angle)
@@ -53,10 +60,15 @@ public:
 		}
 	}
 
+	void DebugingModeSwitch()
+	{
+		DebugingMode = !DebugingMode;
+	}
 
 private:
-	// Owner Player
+	// External Element
 	std::shared_ptr<class Player> OwnerPlayer = nullptr;
+	std::shared_ptr<TileMap> CurMap;
 
 private:
 	// Inheritance Functions
@@ -86,6 +98,20 @@ private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
+
+	// Collision
+	float4 ArrowheadPosBasis = { 12.0f, 12.0f };
+	float4 ArrowheadCheckPos = float4::ZERO;
+	TILE_COLLISION_TYPE ColType = TILE_COLLISION_TYPE::EMPTY;
+
+	bool ArrowheadColCheck = false;
+	void ColCkeck();
+
+private:
+	// Debug Mode
+	bool DebugingMode = false;
+	void DebugRender();
+
 
 private:
 	// Physics Valuable

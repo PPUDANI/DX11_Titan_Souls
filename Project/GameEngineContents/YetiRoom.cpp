@@ -15,8 +15,8 @@ void YetiRoom::Start()
 	PlayerSpawnPos = { 1008.0f, -1824.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-
 	TileMapActor->BaseSetting(60, 60, "Yeti", "Underworld.png");
+
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
@@ -28,6 +28,9 @@ void YetiRoom::Start()
 
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
+
+	PlayerActor->TileMapSetting(TileMapActor);
+	ArrowActor->TileMapSetting(TileMapActor);
 }
 
 void YetiRoom::Update(float _Delta)

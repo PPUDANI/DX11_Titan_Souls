@@ -15,8 +15,8 @@ void Jam::Start()
 	PlayerSpawnPos = { 2768.0f, -2688.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-
 	TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");
+
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BG2.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BG3.tmd");
@@ -29,6 +29,9 @@ void Jam::Start()
 
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
+
+	PlayerActor->TileMapSetting(TileMapActor);
+	ArrowActor->TileMapSetting(TileMapActor);
 }
 
 void Jam::Update(float _Delta)

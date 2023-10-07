@@ -26,7 +26,6 @@ void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName
 	IndexX = _IndexX;
 	IndexY = _IndexY;
 	SpriteName = _SpriteName;
-	
 }
 
 void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
@@ -453,9 +452,12 @@ bool TileMap::AllColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		return true;
 	}
 
-	if (true == TriangleColCheck(_Pos, _TypeData))
+	if (true == IsTriangleColCheck)
 	{
-		return true;
+		if (true == TriangleColCheck(_Pos, _TypeData))
+		{
+			return true;
+		}
 	}
 
 	return false;
@@ -474,9 +476,50 @@ bool TileMap::AllColCheck(float4 _Pos)
 		return true;
 	}
 
-	if (true == TriangleColCheck(_Pos, TypeData))
+	if (true == IsTriangleColCheck)
+	{
+		if (true == TriangleColCheck(_Pos, TypeData))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool TileMap::ArrowColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
+{
+	_TypeData = TILE_COLLISION_TYPE::EMPTY;
+	if (true == ColCheck(_Pos, _TypeData))
 	{
 		return true;
+	}
+
+	if (true == IsTriangleColCheck)
+	{
+		if (true == TriangleColCheck(_Pos, _TypeData))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool TileMap::ArrowColCheck(float4 _Pos)
+{
+	TILE_COLLISION_TYPE TypeData;
+	if (true == ColCheck(_Pos, TypeData))
+	{
+		return true;
+	}
+
+	if (true == IsTriangleColCheck)
+	{
+		if (true == TriangleColCheck(_Pos, TypeData))
+		{
+			return true;
+		}
 	}
 
 	return false;

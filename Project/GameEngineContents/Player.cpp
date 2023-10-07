@@ -44,11 +44,6 @@ void Player::Update(float _Delta)
 		ChangeDirCoolDownUpdate(_Delta);
 	}
 
-	if (true == GameEngineInput::IsDown('0'))
-	{
-		DebugingModeSwitch();
-	}
-
 	// Run Check
 	if (true == GameEngineInput::IsPress(VK_SHIFT))
 	{
@@ -988,7 +983,6 @@ void Player::DebugRender()
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
 	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-
 
 	TData.SetLocalPosition(Transform.GetWorldPosition() + TileRightPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });

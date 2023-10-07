@@ -6,7 +6,6 @@ void Arrow::HoldStart()
 {
 	Renderer->ChangeAnimation("Idle");
 	Renderer->Off();
-	Collision->Off();
 }
 
 void Arrow::AimStart()
@@ -38,6 +37,7 @@ void Arrow::PickUpStart()
 {
 	OwnerPlayer->GetArrow();
 	Renderer->ChangeAnimation("Get");
+	Collision->Off();
 }
 
 void Arrow::HoldUpdate(float _Delta)
@@ -116,6 +116,12 @@ void Arrow::AimUpdate(float _Delta)
 
 void Arrow::FlyingUpdate(float _Delta)
 {
+	if (true == ArrowheadColCheck)
+	{
+		ChangeState(ARROW_STATE::Fallen);
+		return;
+	}
+
 	if (true == GameEngineInput::IsPress(VK_LBUTTON) &&
 		0.3f > PullingForce)
 	{
@@ -201,3 +207,4 @@ void Arrow::PickUpUpdate(float _Delta)
 	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
 }
+

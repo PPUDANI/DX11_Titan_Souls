@@ -26,6 +26,17 @@ void Arrow::Start()
 
 void Arrow::Update(float _Delta)
 {
+	// ArrowheadCheckPos Update
+	ArrowheadCheckPos = ArrowheadPosBasis * FlyingDirection;
+
+	if (true == DebugingMode &&
+		ARROW_STATE::Hold != CurState &&
+		ARROW_STATE::PickUp != CurState)
+	{
+		DebugRender();
+	}
+
+	ColCkeck();
 
 	switch (CurState)
 	{
@@ -84,4 +95,19 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	default:
 		break;
 	}
+}
+
+void Arrow::ColCkeck()
+{
+	ArrowheadColCheck = CurMap->ArrowColCheck(Transform.GetWorldPosition() + ArrowheadCheckPos, ColType);
+}
+
+
+void Arrow::DebugRender()
+{
+	GameEngineTransform TData;
+	TData.SetLocalRotation(ArrowAngleDeg);
+	TData.SetLocalScale({ 5.0f, 5.0f });
+	TData.SetLocalPosition(Transform.GetLocalPosition() + ArrowheadCheckPos);
+	GameEngineDebug::DrawBox2D(TData, { 0, 1, 0, 1 });
 }

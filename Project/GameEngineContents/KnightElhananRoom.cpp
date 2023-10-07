@@ -15,8 +15,8 @@ void KnightElhananRoom::Start()
 	PlayerSpawnPos = { 944.0f, -1760.0f };
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
-
 	TileMapActor->BaseSetting(59, 60, "KnightElhanan", "Underworld.png");
+
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
@@ -27,6 +27,9 @@ void KnightElhananRoom::Start()
 
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
+
+	PlayerActor->TileMapSetting(TileMapActor);
+	ArrowActor->TileMapSetting(TileMapActor);
 }
 
 void KnightElhananRoom::Update(float _Delta)
