@@ -27,7 +27,7 @@ void Arrow::Start()
 void Arrow::Update(float _Delta)
 {
 	// ArrowheadCheckPos Update
-	ArrowheadCheckPos = ArrowheadPosBasis * FlyingDirection;
+	ArrowheadCheckPos = ArrowheadPosBasis * FlyingDirectionBasis;
 
 	if (true == DebugingMode &&
 		ARROW_STATE::Hold != CurState &&
@@ -35,8 +35,6 @@ void Arrow::Update(float _Delta)
 	{
 		DebugRender();
 	}
-
-	ColCkeck();
 
 	switch (CurState)
 	{
@@ -97,9 +95,17 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	}
 }
 
-void Arrow::ColCkeck()
+bool Arrow::NextColCkeck(float4 _MovePos)
 {
-	ArrowheadColCheck = CurMap->ArrowColCheck(Transform.GetWorldPosition() + ArrowheadCheckPos, ColType);
+	//int Index = _MovePos.iX() / (FlyingDirectionBasis * GlobalValue::StandardTextureScale).iX();
+	//Index = std::abs(Index);
+
+	//for (size_t i = 0; i < Index; )
+	//{
+	//	CurMap->ArrowColCheck(Transform.GetWorldPosition() + ArrowheadCheckPos, ColType);
+	//}
+
+	return false;
 }
 
 

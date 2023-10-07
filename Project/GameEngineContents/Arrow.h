@@ -104,23 +104,25 @@ private:
 	float4 ArrowheadCheckPos = float4::ZERO;
 	TILE_COLLISION_TYPE ColType = TILE_COLLISION_TYPE::EMPTY;
 
-	bool ArrowheadColCheck = false;
-	void ColCkeck();
+	bool NextColCkeck(float4 _MovePos);
 
 private:
 	// Debug Mode
 	bool DebugingMode = false;
 	void DebugRender();
 
-
 private:
 	// Physics Valuable
 	float4 ArrowAngleDeg = float4::ZERO;
-	float4 FlyingDirection = float4::ZERO;
+	float4 FlyingDirectionBasis = float4::ZERO;
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 6.0f;
-	float PullingForceIncreaseSpeed = 8.0f;
-	float SubPullingForce = 0.0f;
-	float DefaultSpeed = 800.0f;
+	float PullingForceIncreaseSpeed = 10.0f;
+	float DefaultSpeed = 600.0f;
+
+	float ZoomValue = 0.0f;
+	float ZoomRatio = 0.0f;
+	float CameraMoveScale = 1.0f;
+	float CameraMovePos = 1.0f;
 private:
 };

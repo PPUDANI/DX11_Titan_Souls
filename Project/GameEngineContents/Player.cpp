@@ -100,12 +100,6 @@ void Player::Update(float _Delta)
 	{
 		DebugRender();
 	}
-
-	if (PLAYER_STATE::Aim != CurState &&
-		PLAYER_STATE::Returning != CurState)
-	{
-		GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetWorldPosition());
-	}
 }
 
 void Player::ChangeState(PLAYER_STATE _State)

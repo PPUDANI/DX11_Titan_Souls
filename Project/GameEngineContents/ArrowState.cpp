@@ -11,14 +11,23 @@ void Arrow::HoldStart()
 void Arrow::AimStart()
 {
 	Renderer->ChangeAnimation("Idle");
+
 	PullingForce = 0.0f;
-	SubPullingForce = 0.0f;
+
+	ZoomValue = 1.0f;
+	ZoomRatio = 1.0f;
+
+	CameraMovePos = 1.0f;
+	CameraMoveScale = 1.0f;
 }
 
 void Arrow::FlyingStart()
 {
 	Collision->On();
 	OwnerPlayer->LostArrow();
+
+	ZoomRatio = 1.0f - ZoomValue;
+	CameraMoveScale = 1.0f;
 }
 
 void Arrow::FallenStart()
@@ -31,11 +40,16 @@ void Arrow::ReturningStart()
 {
 	Collision->On();
 	PullingForce = 0.0f;
+
+	ZoomValue = 1.0f;
+	ZoomRatio = 1.0f;
+
+	CameraMovePos = 1.0f;
+	CameraMoveScale = 1.0f;
 }
 
 void Arrow::PickUpStart()
 {
-	OwnerPlayer->GetArrow();
 	Renderer->ChangeAnimation("Get");
 	Collision->Off();
 }
@@ -47,9 +61,10 @@ void Arrow::HoldUpdate(float _Delta)
 		ChangeState(ARROW_STATE::Aim);
 	}
 
+	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
+
 	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
 
-	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
 	if (1.0f != ZoomSacle)
 	{
 		if (1.0f > ZoomSacle)
@@ -61,6 +76,8 @@ void Arrow::HoldUpdate(float _Delta)
 			GetLevel()->GetMainCamera()->SetZoomValue(1.0f);
 		}
 	}
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 
 
@@ -69,59 +86,54 @@ void Arrow::AimUpdate(float _Delta)
 	if (true == GameEngineInput::IsPress(VK_RBUTTON))
 	{
 		ChangeState(ARROW_STATE::Hold);
-		PullingForce = SubPullingForce;
 		return;
 	}
 
 	if (true == GameEngineInput::IsUp(VK_LBUTTON))
 	{
-		if (1.2f > SubPullingForce)
+		if (1.2f > PullingForce)
 		{
 			ChangeState(ARROW_STATE::Hold);
-			PullingForce = SubPullingForce;
 			return;
 		}
 
 		ChangeState(ARROW_STATE::Flying);
-		PullingForce = SubPullingForce;
 		return;
 	}
 
-	// Set Arrow Direction
-	Transform.SetLocalRotation(ArrowAngleDeg);
 
-	ContentsMath::Deceleration(PullingForce, PullingForceIncreaseSpeed * _Delta);
+	FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
+	ContentsMath::Acceleration(PullingForce, _Delta * PullingForceIncreaseSpeed, MaxPullingForce);
 
-	if (MaxPullingForce > SubPullingForce)
-	{
-		SubPullingForce += _Delta * PullingForceIncreaseSpeed;
-	}
-	else if (MaxPullingForce < PullingForce)
-	{
-		SubPullingForce = MaxPullingForce;
-	}
-
-	FlyingDirection = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
+	// Adjust the arrow position
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
-	SpawnPos += FlyingDirection * (16.0f - SubPullingForce);
+	SpawnPos += FlyingDirectionBasis * (16.0f - PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetLocalPosition(SpawnPos);
+
+	// Adjust the arrow direction
+	Transform.SetLocalRotation(ArrowAngleDeg);
+
+	// Rendering on
 	Renderer->On();
 
-	float ZoomSacle = 1.0f - (SubPullingForce / (MaxPullingForce * 5.0f));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
+	// Calculating Zoom Ratio 
+	if (0.8f < ZoomValue)
+	{
+		ContentsMath::Deceleration(ZoomRatio, 5.0f * _Delta);
+		ZoomValue -= ZoomRatio * _Delta;
+		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	}
 
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirection * SubPullingForce * 10.0f);
+	// Calculating CameraMove
+	ContentsMath::Deceleration(CameraMoveScale, 2.0f * _Delta);
+	CameraMovePos += PullingForce * CameraMoveScale * _Delta * 80.0f;
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
 }
 
 void Arrow::FlyingUpdate(float _Delta)
 {
-	if (true == ArrowheadColCheck)
-	{
-		ChangeState(ARROW_STATE::Fallen);
-		return;
-	}
-
 	if (true == GameEngineInput::IsPress(VK_LBUTTON) &&
 		0.3f > PullingForce)
 	{
@@ -137,10 +149,42 @@ void Arrow::FlyingUpdate(float _Delta)
 
 	ContentsMath::Deceleration(PullingForce, 7.0f * _Delta);
 	
-	Transform.AddLocalPosition(FlyingDirection * DefaultSpeed * PullingForce * _Delta);
+	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
 
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
+	if (true == NextColCkeck(MovePos))
+	{
+		ChangeState(ARROW_STATE::Fallen);
+		return;
+	}
+	else
+	{
+		Transform.AddLocalPosition(MovePos);
+	}
+
+	// Calculating Zoom Ratio 
+	if (1.0f > ZoomValue)
+	{
+		ZoomValue += ZoomRatio * _Delta * 8.0f;
+		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	}
+	else if (1.0f < ZoomValue)
+	{
+		ZoomValue = 1.0f;
+		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	}
+
+	// Calculating CameraMove
+	if (0.0f < CameraMovePos)
+	{
+		CameraMovePos -= CameraMoveScale * _Delta * 631.0f;
+	}
+	
+	if (0.0f > CameraMovePos)
+	{
+		CameraMovePos = 0.0f;
+	}
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
 }
 
 void Arrow::FallenUpdate(float _Delta)
@@ -155,6 +199,31 @@ void Arrow::FallenUpdate(float _Delta)
 		ChangeState(ARROW_STATE::PickUp);
 		return;
 	}
+
+	// Calculating Zoom Ratio 
+	if (1.0f > ZoomValue)
+	{
+		ZoomValue += ZoomRatio * _Delta * 8.0f;
+		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	}
+	else if (1.0f < ZoomValue)
+	{
+		ZoomValue = 1.0f;
+		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	}
+
+	// Calculating CameraMove
+	if (0.0f < CameraMovePos)
+	{
+		CameraMovePos -= CameraMoveScale * _Delta * 631.0f;
+	}
+
+	if (0.0f > CameraMovePos)
+	{
+		CameraMovePos = 0.0f;
+	}
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
 }
 
 void Arrow::ReturningUpdate(float _Delta)
@@ -168,15 +237,15 @@ void Arrow::ReturningUpdate(float _Delta)
 	if (true == GameEngineInput::IsPress(VK_LBUTTON) &&
 		true == AbleReturning)
 	{
-		FlyingDirection = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
+		FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 		Transform.SetLocalRotation(ArrowAngleDeg);
-		Transform.AddLocalPosition(FlyingDirection * DefaultSpeed * PullingForce * _Delta);
+		Transform.AddLocalPosition(FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta);
 		ContentsMath::Acceleration(PullingForce, 1.5f * _Delta, MaxPullingForce - 2.0f);
 	}
 	else
 	{
 		AbleReturning = false;
-		Transform.AddLocalPosition(FlyingDirection * DefaultSpeed * PullingForce * _Delta);
+		Transform.AddLocalPosition(FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta);
 		ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
 		if (0.00f == PullingForce)
 		{
@@ -185,13 +254,13 @@ void Arrow::ReturningUpdate(float _Delta)
 		}
 	}
 	
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 1.5f));
-	if (0.8f > ZoomSacle)
+	// Calculating Zoom Ratio 
+	if (0.8f < ZoomValue)
 	{
-		ZoomSacle = 0.8f;
+		ContentsMath::Deceleration(ZoomRatio, 5.0f * _Delta);
+		ZoomValue -= ZoomRatio * _Delta;
+		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 	}
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirection * PullingForce * 15.0f);
 }
 
 void Arrow::PickUpUpdate(float _Delta)
@@ -199,6 +268,7 @@ void Arrow::PickUpUpdate(float _Delta)
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		ChangeState(ARROW_STATE::Hold);
+		OwnerPlayer->GetArrow();
 		return;
 	}	
 
@@ -206,5 +276,6 @@ void Arrow::PickUpUpdate(float _Delta)
 
 	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 

@@ -259,7 +259,7 @@ void Player::ReturningUpdate(float _Delta)
 		return;
 	}
 
-	if (true == HasArrow())
+	if (ARROW_STATE::PickUp == MyArrow->GetCurState())
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;

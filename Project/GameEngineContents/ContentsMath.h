@@ -9,7 +9,7 @@ public:
 	static void Deceleration(float& _DecelValue, float _DecelSpeedPerSec)
 	{
 		_DecelValue -= _DecelValue * _DecelSpeedPerSec;
-		if (0.05f > _DecelValue)
+		if (0.005f > _DecelValue)
 		{
 			_DecelValue = 0.0f;
 		}
