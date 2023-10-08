@@ -452,12 +452,9 @@ bool TileMap::AllColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		return true;
 	}
 
-	if (true == IsTriangleColCheck)
+	if (true == TriangleColCheck(_Pos, _TypeData))
 	{
-		if (true == TriangleColCheck(_Pos, _TypeData))
-		{
-			return true;
-		}
+		return true;
 	}
 
 	return false;
@@ -476,12 +473,9 @@ bool TileMap::AllColCheck(float4 _Pos)
 		return true;
 	}
 
-	if (true == IsTriangleColCheck)
+	if (true == TriangleColCheck(_Pos, TypeData))
 	{
-		if (true == TriangleColCheck(_Pos, TypeData))
-		{
-			return true;
-		}
+		return true;
 	}
 
 	return false;

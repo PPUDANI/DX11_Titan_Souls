@@ -262,6 +262,7 @@ void Player::ReturningUpdate(float _Delta)
 	if (ARROW_STATE::PickUp == MyArrow->GetCurState())
 	{
 		ChangeState(PLAYER_STATE::Idle);
+		ArrowInBagRenderer->On();
 		return;
 	}
 

@@ -18,7 +18,7 @@ void Arrow::AimStart()
 	ZoomRatio = 1.0f;
 
 	CameraMovePos = 1.0f;
-	CameraMoveScale = 1.0f;
+	CameraMoveScale = 250.0f;
 }
 
 void Arrow::FlyingStart()
@@ -27,7 +27,6 @@ void Arrow::FlyingStart()
 	OwnerPlayer->LostArrow();
 
 	ZoomRatio = 1.0f - ZoomValue;
-	CameraMoveScale = 1.0f;
 }
 
 void Arrow::FallenStart()
@@ -42,7 +41,7 @@ void Arrow::ReturningStart()
 	PullingForce = 0.0f;
 
 	ZoomValue = 1.0f;
-	ZoomRatio = 1.0f;
+	ZoomRatio = 0.8f;
 
 	CameraMovePos = 1.0f;
 	CameraMoveScale = 1.0f;
@@ -61,22 +60,15 @@ void Arrow::HoldUpdate(float _Delta)
 		ChangeState(ARROW_STATE::Aim);
 	}
 
-	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
+	ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
 
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
-
-	if (1.0f != ZoomSacle)
+	ZoomValue += PullingForce * 2.0f * _Delta;
+	if (1.0f < ZoomValue)
 	{
-		if (1.0f > ZoomSacle)
-		{
-			GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
-		}
-		else if (0.95f < ZoomSacle)
-		{
-			GetLevel()->GetMainCamera()->SetZoomValue(1.0f);
-		}
+		ZoomValue = 1.0f;
 	}
 
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 
@@ -127,7 +119,7 @@ void Arrow::AimUpdate(float _Delta)
 
 	// Calculating CameraMove
 	ContentsMath::Deceleration(CameraMoveScale, 2.0f * _Delta);
-	CameraMovePos += PullingForce * CameraMoveScale * _Delta * 80.0f;
+	CameraMovePos += CameraMoveScale * _Delta;
 
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
 }
@@ -161,27 +153,28 @@ void Arrow::FlyingUpdate(float _Delta)
 		Transform.AddLocalPosition(MovePos);
 	}
 
+
 	// Calculating Zoom Ratio 
 	if (1.0f > ZoomValue)
 	{
-		ZoomValue += ZoomRatio * _Delta * 8.0f;
-		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+		ZoomValue += (PullingForce * 0.3f) * _Delta;
+
+		if (1.0f < ZoomValue)
+		{
+			ZoomValue = 1.0f;
+		}
 	}
-	else if (1.0f < ZoomValue)
-	{
-		ZoomValue = 1.0f;
-		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
-	}
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 
 	// Calculating CameraMove
 	if (0.0f < CameraMovePos)
 	{
-		CameraMovePos -= CameraMoveScale * _Delta * 631.0f;
-	}
-	
-	if (0.0f > CameraMovePos)
-	{
-		CameraMovePos = 0.0f;
+		CameraMovePos -= (PullingForce * 180.0f) * _Delta;
+
+		if (0.0f > CameraMovePos)
+		{
+			CameraMovePos = 0.0f;
+		}
 	}
 
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
@@ -203,27 +196,16 @@ void Arrow::FallenUpdate(float _Delta)
 	// Calculating Zoom Ratio 
 	if (1.0f > ZoomValue)
 	{
-		ZoomValue += ZoomRatio * _Delta * 8.0f;
-		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+		ZoomValue += 0.5f * _Delta;
 	}
-	else if (1.0f < ZoomValue)
+
+	if (1.0f < ZoomValue)
 	{
 		ZoomValue = 1.0f;
-		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 	}
 
-	// Calculating CameraMove
-	if (0.0f < CameraMovePos)
-	{
-		CameraMovePos -= CameraMoveScale * _Delta * 631.0f;
-	}
-
-	if (0.0f > CameraMovePos)
-	{
-		CameraMovePos = 0.0f;
-	}
-
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
 }
 
 void Arrow::ReturningUpdate(float _Delta)
@@ -240,27 +222,36 @@ void Arrow::ReturningUpdate(float _Delta)
 		FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 		Transform.SetLocalRotation(ArrowAngleDeg);
 		Transform.AddLocalPosition(FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta);
-		ContentsMath::Acceleration(PullingForce, 1.5f * _Delta, MaxPullingForce - 2.0f);
+		ContentsMath::Acceleration(PullingForce, 1.5f * _Delta, MaxPullingForce - 4.0f);
+
+		ContentsMath::Deceleration(ZoomRatio, 3.0f * _Delta);
+
+		if (0.8f < ZoomValue)
+		{
+			ZoomValue -= ZoomRatio * 0.5f *_Delta;
+		}
 	}
 	else
 	{
 		AbleReturning = false;
 		Transform.AddLocalPosition(FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta);
 		ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
-		if (0.00f == PullingForce)
+		if (0.1f > PullingForce)
 		{
 			ChangeState(ARROW_STATE::Fallen);
 			return;
 		}
+
+		ZoomValue += 0.5f * _Delta;
+
+		if (1.0f < ZoomValue)
+		{
+			ZoomValue = 1.0f; 
+		}
 	}
 	
-	// Calculating Zoom Ratio 
-	if (0.8f < ZoomValue)
-	{
-		ContentsMath::Deceleration(ZoomRatio, 5.0f * _Delta);
-		ZoomValue -= ZoomRatio * _Delta;
-		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
-	}
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
 }
 
 void Arrow::PickUpUpdate(float _Delta)
@@ -272,10 +263,15 @@ void Arrow::PickUpUpdate(float _Delta)
 		return;
 	}	
 
-	ContentsMath::Deceleration(PullingForce, 8.0f * _Delta);
+	ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
 
-	float ZoomSacle = 1.0f - (PullingForce / (MaxPullingForce * 5.0f));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomSacle);
+	ZoomValue += PullingForce * 2.0f * _Delta;
+	if (1.0f < ZoomValue)
+	{
+		ZoomValue = 1.0f;
+	}
+
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 

@@ -94,7 +94,6 @@ public:
 	inline void GetArrow()
 	{
 		HasArrowValue = true;
-		ArrowInBagRenderer->On();
 	}
 
 	inline bool HasArrow() const

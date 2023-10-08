@@ -118,10 +118,11 @@ private:
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 6.0f;
 	float PullingForceIncreaseSpeed = 10.0f;
-	float DefaultSpeed = 600.0f;
+	float DefaultSpeed = 800.0f;
 
-	float ZoomValue = 0.0f;
+	float ZoomValue = 1.0f;
 	float ZoomRatio = 0.0f;
+
 	float CameraMoveScale = 1.0f;
 	float CameraMovePos = 1.0f;
 private:
