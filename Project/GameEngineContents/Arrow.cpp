@@ -97,15 +97,43 @@ void Arrow::ChangeState(ARROW_STATE _State)
 
 bool Arrow::NextColCkeck(float4 _MovePos)
 {
-	//int Index = _MovePos.iX() / (FlyingDirectionBasis * GlobalValue::StandardTextureScale).iX();
-	//Index = std::abs(Index);
+	float4 _MovePosUnit = FlyingDirectionBasis * 30.0f;
+	unsigned int Index = static_cast<unsigned int>(abs((abs(_MovePos.X) > abs(_MovePos.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 
-	//for (size_t i = 0; i < Index; )
-	//{
-	//	CurMap->ArrowColCheck(Transform.GetWorldPosition() + ArrowheadCheckPos, ColType);
-	//}
+	for (unsigned int i = 0; i < Index; ++i)
+	{
+		if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + (_MovePosUnit * i) , TileColType))
+		{
+			Transform.AddLocalPosition(_MovePosUnit * i);
+			AdjustPosByCol();
+			// DirSpecularReflection();
+			return true;
+		}
+		else
+		{
+			continue;
+		}
+	}
 
-	return false;
+	if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + _MovePos, TileColType))
+	{
+		Transform.AddLocalPosition(_MovePos);
+		AdjustPosByCol();
+		// DirSpecularReflection();
+		return true;
+	}
+	else
+	{	
+		return false;
+	}
+}
+
+void Arrow::AdjustPosByCol()
+{
+	while(true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos))
+	{
+		Transform.AddLocalPosition(-FlyingDirectionBasis);
+	}
 }
 
 

@@ -153,7 +153,6 @@ void Arrow::FlyingUpdate(float _Delta)
 		Transform.AddLocalPosition(MovePos);
 	}
 
-
 	// Calculating Zoom Ratio 
 	if (1.0f > ZoomValue)
 	{

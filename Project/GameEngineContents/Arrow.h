@@ -102,10 +102,10 @@ private:
 	// Collision
 	float4 ArrowheadPosBasis = { 12.0f, 12.0f };
 	float4 ArrowheadCheckPos = float4::ZERO;
-	TILE_COLLISION_TYPE ColType = TILE_COLLISION_TYPE::EMPTY;
+	TILE_COLLISION_TYPE TileColType = TILE_COLLISION_TYPE::EMPTY;
 
 	bool NextColCkeck(float4 _MovePos);
-
+	void AdjustPosByCol();
 private:
 	// Debug Mode
 	bool DebugingMode = false;
