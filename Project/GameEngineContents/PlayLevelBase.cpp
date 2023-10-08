@@ -103,7 +103,7 @@ void PlayLevelBase::CreatePlayerElement()
 void PlayLevelBase::SpawnPlayer()
 {
 	PlayerActor->Transform.SetLocalPosition(PlayerSpawnPos);
-	//ArrowActor->Transform.SetLocalPosition(PlayerSpawnPos);
+	ArrowActor->Transform.SetLocalPosition(PlayerSpawnPos);
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
 }

@@ -33,13 +33,13 @@ public:
 	// Player Setting
 	inline void OwnerPlayerSetting(std::shared_ptr<class Player> _Player)
 	{
-		OwnerPlayer = _Player;
+		OwnerPlayer = _Player.get();
 	}
 
 	// TileMap Setting
 	void TileMapSetting(std::shared_ptr<TileMap> _Map)
 	{
-		CurMap = _Map;
+		CurMap = _Map.get();
 	}
 
 	inline void SetArrowAngleDeg(float4& _Angle)
@@ -67,8 +67,8 @@ public:
 
 private:
 	// External Element
-	std::shared_ptr<class Player> OwnerPlayer = nullptr;
-	std::shared_ptr<TileMap> CurMap;
+	class Player* OwnerPlayer = nullptr;
+	class TileMap* CurMap = nullptr;
 
 private:
 	// Inheritance Functions
@@ -104,21 +104,23 @@ private:
 	float4 ArrowheadCheckPos = float4::ZERO;
 	TILE_COLLISION_TYPE TileColType = TILE_COLLISION_TYPE::EMPTY;
 
-	bool NextColCkeck(float4 _MovePos);
+	void NextColCkeck(float4 _MovePos);
 	void AdjustPosByCol();
 private:
 	// Debug Mode
 	bool DebugingMode = false;
+	void DirSpecularReflection();
 	void DebugRender();
 
 private:
 	// Physics Valuable
 	float4 ArrowAngleDeg = float4::ZERO;
 	float4 FlyingDirectionBasis = float4::ZERO;
+	float4 CameraMoveDirectionBasis = float4::ZERO;
 	float PullingForce = 0.0f;
 	float MaxPullingForce = 6.0f;
 	float PullingForceIncreaseSpeed = 10.0f;
-	float DefaultSpeed = 800.0f;
+	float DefaultSpeed = 600.0f;
 
 	float ZoomValue = 1.0f;
 	float ZoomRatio = 0.0f;

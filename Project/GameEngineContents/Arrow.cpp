@@ -95,19 +95,22 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	}
 }
 
-bool Arrow::NextColCkeck(float4 _MovePos)
+void Arrow::NextColCkeck(float4 _MovePos)
 {
-	float4 _MovePosUnit = FlyingDirectionBasis * 30.0f;
-	unsigned int Index = static_cast<unsigned int>(abs((abs(_MovePos.X) > abs(_MovePos.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
+	float4 _MovePosUnit = FlyingDirectionBasis * 10.0f;
+
+	unsigned int Index = static_cast<unsigned int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 
 	for (unsigned int i = 0; i < Index; ++i)
 	{
-		if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + (_MovePosUnit * i) , TileColType))
+		float Index = static_cast<float>(i);
+		if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + (_MovePosUnit * Index) , TileColType))
 		{
-			Transform.AddLocalPosition(_MovePosUnit * i);
+			Transform.AddLocalPosition(_MovePosUnit * Index);
 			AdjustPosByCol();
-			// DirSpecularReflection();
-			return true;
+			DirSpecularReflection();
+			PullingForce /= 5.0f;
+			return;
 		}
 		else
 		{
@@ -119,13 +122,12 @@ bool Arrow::NextColCkeck(float4 _MovePos)
 	{
 		Transform.AddLocalPosition(_MovePos);
 		AdjustPosByCol();
-		// DirSpecularReflection();
-		return true;
+		DirSpecularReflection();
+		PullingForce /= 5.0f;
+		return;
 	}
-	else
-	{	
-		return false;
-	}
+
+	Transform.AddLocalPosition(_MovePos);
 }
 
 void Arrow::AdjustPosByCol()
@@ -134,8 +136,16 @@ void Arrow::AdjustPosByCol()
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
+
 }
 
+void Arrow::DirSpecularReflection()
+{
+	ArrowAngleDeg.Z += 180.0f;
+	Transform.SetLocalRotation(ArrowAngleDeg);
+	FlyingDirectionBasis = -FlyingDirectionBasis;
+	ArrowheadCheckPos = ArrowheadPosBasis * FlyingDirectionBasis;
+}
 
 void Arrow::DebugRender()
 {

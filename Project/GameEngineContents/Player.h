@@ -65,13 +65,13 @@ public:
 	// TileMap
 	void TileMapSetting(std::shared_ptr<TileMap> _Map)
 	{
-		CurMap = _Map;
+		CurMap = _Map.get();
 	}
 
 	// Arrow Setting
 	inline void ArrowSetting(std::shared_ptr<class Arrow> _Arrow)
 	{
-		MyArrow = _Arrow;
+		MyArrow = _Arrow.get();
 	}
 
 	// Arrow Degree
@@ -103,8 +103,8 @@ public:
 
 private:
 	// External Element
-	std::shared_ptr<TileMap> CurMap = nullptr;
-	std::shared_ptr<class Arrow> MyArrow = nullptr;
+	class TileMap* CurMap = nullptr;
+	class Arrow* MyArrow = nullptr;
 
 	void AimCheck();
 private:

@@ -39,7 +39,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
 	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
 
-	GameEngineCore::ChangeLevel("TitleLevel");
+	GameEngineCore::ChangeLevel("YetiRoom");
 
 }
 
