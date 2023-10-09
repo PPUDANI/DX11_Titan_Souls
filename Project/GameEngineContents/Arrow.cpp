@@ -63,27 +63,22 @@ void Arrow::Update(float _Delta)
 	}
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
-
 	if (0.0f > CameraPos.X - WindowScale.hX())
 	{
 		CameraPos.X = WindowScale.hX();
 	}
-
 	if (TileEndPos.X < CameraPos.X + WindowScale.hX())
 	{
 		CameraPos.X = TileEndPos.X - WindowScale.hX();
 	}
-
 	if (0.0f < CameraPos.Y + WindowScale.hY())
 	{
 		CameraPos.Y = -WindowScale.hY();
 	}
-
 	if (TileEndPos.Y > CameraPos.Y - WindowScale.hY())
 	{
 		CameraPos.Y = TileEndPos.Y + WindowScale.hY();
 	}
-
 	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(CameraPos);
 }
 
