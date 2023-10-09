@@ -79,7 +79,7 @@ void Arrow::AimUpdate(float _Delta)
 
 	// Adjust the arrow position
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
-	SpawnPos += FlyingDirectionBasis * (20.0f - 10.0f * PullingForce);
+	SpawnPos += FlyingDirectionBasis * (20.0f - 8.0f * PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetLocalPosition(SpawnPos);
 
@@ -94,13 +94,13 @@ void Arrow::AimUpdate(float _Delta)
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 
 	// Calculating CameraMove
-	CameraMovePos = std::lerp(CameraMovePos, 15.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
+	CameraMovePos = std::lerp(CameraMovePos, 120.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
 }
 
 void Arrow::FlyingUpdate(float _Delta)
 {
-	if (0.2f > PullingForce)
+	if (0.05f > PullingForce)
 	{
 		ChangeState(ARROW_STATE::Fallen);
 		return;
