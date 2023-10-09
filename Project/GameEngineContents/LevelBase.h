@@ -14,10 +14,10 @@ public:
 	LevelBase& operator=(LevelBase&& _Other) noexcept = delete;
 
 protected:
-	void Start() override;
-	void Update(float _Delta) override;
-	void LevelStart(GameEngineLevel* _PrevLevel) override;
-	void LevelEnd(GameEngineLevel* _NextLevel) override;
+	virtual void Start() override;
+	virtual void Update(float _Delta) override;
+	virtual void LevelStart(GameEngineLevel* _PrevLevel) override;
+	virtual void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 	std::shared_ptr<class MouseCursor> CursorActor = nullptr;
 	float4 CursorAngle = float4::ZERO;

@@ -57,10 +57,10 @@
       <Filter>02. Level\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="Heart.cpp">
-      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
+      <Filter>01. Actor\02. Monster\01.Sludge Heart</Filter>
     </ClCompile>
-    <ClCompile Include="BossBase.cpp">
-      <Filter>01. Actor\02. Boss\00. Base</Filter>
+    <ClCompile Include="MonsterBase.cpp">
+      <Filter>01. Actor\02. Monster\00. Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,10 +114,10 @@
       <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
     </ClInclude>
     <ClInclude Include="Heart.h">
-      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
+      <Filter>01. Actor\02. Monster\01.Sludge Heart</Filter>
     </ClInclude>
-    <ClInclude Include="BossBase.h">
-      <Filter>01. Actor\02. Boss\00. Base</Filter>
+    <ClInclude Include="MonsterBase.h">
+      <Filter>01. Actor\02. Monster\00. Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +148,6 @@
     <Filter Include="01. Actor\00. Map">
       <UniqueIdentifier>{02adf661-990b-44ba-b4e9-54561b4b9a3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\02. Boss">
-      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Actor\01. Player Element">
       <UniqueIdentifier>{ff089a74-2651-4562-8c36-79abf9819449}</UniqueIdentifier>
     </Filter>
@@ -169,10 +166,13 @@
     <Filter Include="02. Level\01. Title">
       <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\02. Boss\01.Sludge Heart">
+    <Filter Include="01. Actor\02. Monster">
+      <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\02. Monster\01.Sludge Heart">
       <UniqueIdentifier>{32307151-258c-4073-8b8d-932efeda4e30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\02. Boss\00. Base">
+    <Filter Include="01. Actor\02. Monster\00. Base">
       <UniqueIdentifier>{93c6a8f9-e5d6-4095-bf6e-a841fc6d1260}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

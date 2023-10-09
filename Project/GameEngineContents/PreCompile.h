@@ -39,6 +39,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Arrow.h"
+#include "MonsterBase.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

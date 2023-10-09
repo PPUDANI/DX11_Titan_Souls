@@ -1,6 +1,6 @@
 #pragma once
 
-class Heart
+class Heart : public MonsterBase
 {
 public:
 	// Constructor Destructor
