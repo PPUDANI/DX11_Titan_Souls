@@ -28,15 +28,7 @@ void Player::BlockedStart()
 
 void Player::StopStart()
 {
-	if (true == IsRunning)
-	{
-		DecelerationValue = 1.0f;
-	}
-	else
-	{
-		DecelerationValue = 0.5f;
-	}
-
+	DecelerationValue = 1.0f;
 	SetAnimByDir("Walk", BodyRenderer->GetCurIndex());
 }
 
@@ -50,7 +42,7 @@ void Player::ReturningStart()
 
 void Player::DeathStart()
 {
-	DecelerationValue = 0.5f;
+	DecelerationValue = 1.0f;
 	SetAnimByDir("Death");
 }
 
@@ -161,8 +153,10 @@ void Player::RollingUpdate(float _Delta)
 	if (true == IsRollingingBlocked)
 	{
 		// Specular Reflection 추가하기
+		DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 		MovePos *= DecelerationValue;
-		ContentsMath::Deceleration(DecelerationValue, 5.0f * _Delta);
+
+		//ContentsMath::Deceleration(DecelerationValue, 5.0f * _Delta);
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);
@@ -217,19 +211,27 @@ void Player::StopUpdate(float _Delta)
 	AimCheck();
 
 	// Deceleration
-	if (0.0f == DecelerationValue)
+	if (0.1f > DecelerationValue)
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 	else
 	{
+		if (true == IsRunning)
+		{
+			DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 3.0f * _Delta));
+		}
+		else
+		{
+			DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+		}
+
 		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue;
 		if (false == CurDirColCheck())
 		{
 			Transform.AddLocalPosition(MovePos * _Delta);
 		}
-		ContentsMath::Deceleration(DecelerationValue, 10.0f * _Delta);
 	}
 }
 
@@ -277,7 +279,7 @@ void Player::DeathUpdate(float _Delta)
 	{
 		float4 MovePos = PlayerDirDeg * DefaultSpeed * DecelerationValue;
 		Transform.AddLocalPosition(MovePos * _Delta);
-		ContentsMath::Deceleration(DecelerationValue, 5.0f * _Delta);
+		DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 8.0f * _Delta));
 	}
 }
 

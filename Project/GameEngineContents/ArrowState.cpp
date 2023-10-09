@@ -13,22 +13,14 @@ void Arrow::AimStart()
 	Renderer->ChangeAnimation("Idle");
 
 	PullingForce = 0.0f;
-
-	ZoomValue = 1.0f;
 	ZoomRatio = 1.0f;
-
-	CameraMovePos = 1.0f;
-	CameraMoveScale = 250.0f;
-	CameraMoveDirectionBasis = FlyingDirectionBasis;
+	CameraMovePos = 0.0f;
 }
 
 void Arrow::FlyingStart()
 {
 	Collision->On();
 	OwnerPlayer->LostArrow();
-
-	ZoomRatio = (1.0f - ZoomValue)/ 2.0f;
-	CameraMoveScale = CameraMovePos / 2.0f;
 	CameraMoveDirectionBasis = FlyingDirectionBasis;
 }
 
@@ -40,12 +32,6 @@ void Arrow::FallenStart()
 void Arrow::ReturningStart()
 {
 	PullingForce = 0.0f;
-
-	ZoomValue = 1.0f;
-	ZoomRatio = 0.8f;
-
-	CameraMovePos = 1.0f;
-	CameraMoveScale = 1.0f;
 }
 
 void Arrow::PickUpStart()
@@ -61,15 +47,9 @@ void Arrow::HoldUpdate(float _Delta)
 		ChangeState(ARROW_STATE::Aim);
 	}
 
-	ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 5.0f * _Delta));
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 
-	ZoomValue += PullingForce * 2.0f * _Delta;
-	if (1.0f < ZoomValue)
-	{
-		ZoomValue = 1.0f;
-	}
-
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 
@@ -84,7 +64,7 @@ void Arrow::AimUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsUp(VK_LBUTTON))
 	{
-		if (1.2f > PullingForce)
+		if (0.3f > PullingForce)
 		{
 			ChangeState(ARROW_STATE::Hold);
 			return;
@@ -94,13 +74,12 @@ void Arrow::AimUpdate(float _Delta)
 		return;
 	}
 
-
 	FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
-	ContentsMath::Acceleration(PullingForce, _Delta * PullingForceIncreaseSpeed, MaxPullingForce);
+	PullingForce = std::lerp(PullingForce, 1.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 
 	// Adjust the arrow position
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
-	SpawnPos += FlyingDirectionBasis * (16.0f - PullingForce);
+	SpawnPos += FlyingDirectionBasis * (20.0f - 10.0f * PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetLocalPosition(SpawnPos);
 
@@ -111,67 +90,35 @@ void Arrow::AimUpdate(float _Delta)
 	Renderer->On();
 
 	// Calculating Zoom Ratio 
-	if (0.8f < ZoomValue)
-	{
-		ContentsMath::Deceleration(ZoomRatio, 5.0f * _Delta);
-		ZoomValue -= ZoomRatio * _Delta;
-		GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
-	}
+	ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 
 	// Calculating CameraMove
-	ContentsMath::Deceleration(CameraMoveScale, 2.0f * _Delta);
-	CameraMovePos += CameraMoveScale * _Delta;
-
+	CameraMovePos = std::lerp(CameraMovePos, 15.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
 }
 
 void Arrow::FlyingUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsPress(VK_LBUTTON) &&
-		0.3f > PullingForce)
+	if (0.2f > PullingForce)
 	{
 		ChangeState(ARROW_STATE::Fallen);
 		return;
 	}
 
-	if (0.0f == PullingForce)
-	{
-		ChangeState(ARROW_STATE::Fallen);
-		return;
-	}
+	PullingForce = std::lerp(PullingForce, 0.0f, 1.0f - std::pow(0.5f, 7.0f * _Delta));
 
-	ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
-	
 	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
-
 	NextColCkeck(MovePos);
 
-	// Calculating Zoom Ratio 
-	ContentsMath::Deceleration(ZoomRatio, 4.0f * _Delta);
-	if (1.0f > ZoomValue)
-	{
-		ZoomValue += (ZoomRatio * 10.0f) * _Delta;
 
-		if (1.0f < ZoomValue)
-		{
-			ZoomValue = 1.0f;
-		}
-	}
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+
+	// Calculating Zoom Ratio 
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 
 	// Calculating CameraMove
-	ContentsMath::Deceleration(CameraMoveScale, 4.0f * _Delta);
-	if (0.0f < CameraMovePos)
-	{
-		CameraMovePos -= (CameraMoveScale * 10.0f) * _Delta;
-
-		if (0.0f > CameraMovePos)
-		{
-			CameraMovePos = 0.0f;
-		}
-	}
-
-
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + CameraMoveDirectionBasis * CameraMovePos);
 }
 
@@ -188,7 +135,17 @@ void Arrow::FallenUpdate(float _Delta)
 		return;
 	}
 
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
+	PullingForce = std::lerp(PullingForce, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
+	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
+	NextColCkeck(MovePos);
+
+	// Calculating Zoom Ratio 
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
+
+	// Calculating CameraMove
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + CameraMoveDirectionBasis * CameraMovePos);
 }
 
 void Arrow::ReturningUpdate(float _Delta)
@@ -204,36 +161,27 @@ void Arrow::ReturningUpdate(float _Delta)
 	{
 		FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 		Transform.SetLocalRotation(ArrowAngleDeg);
-
 		Transform.AddLocalPosition(FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta);
-		ContentsMath::Acceleration(PullingForce, 1.5f *_Delta, MaxPullingForce - 3.0f);
-		ContentsMath::Deceleration(ZoomRatio, 3.0f * _Delta);
 
-		if (0.8f < ZoomValue)
-		{
-			ZoomValue -= ZoomRatio * 0.5f *_Delta;
-		}
+		PullingForce = std::lerp(PullingForce, 0.5f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+		ZoomRatio = std::lerp(ZoomRatio, 0.7f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
 	}
 	else
 	{
 		AbleReturning = false;
 		Transform.AddLocalPosition(FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta);
-		ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
+
+		PullingForce = std::lerp(PullingForce, 0.0f, 1.0f - std::pow(0.01f, 3.0f * _Delta));
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+
 		if (0.1f > PullingForce)
 		{
 			ChangeState(ARROW_STATE::Fallen);
 			return;
 		}
-
-		ZoomValue += 0.5f * _Delta;
-
-		if (1.0f < ZoomValue)
-		{
-			ZoomValue = 1.0f; 
-		}
 	}
 	
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
 }
 
@@ -246,15 +194,9 @@ void Arrow::PickUpUpdate(float _Delta)
 		return;
 	}	
 
-	ContentsMath::Deceleration(PullingForce, 5.0f * _Delta);
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 5.0f * _Delta));
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 
-	ZoomValue += PullingForce * 2.0f * _Delta;
-	if (1.0f < ZoomValue)
-	{
-		ZoomValue = 1.0f;
-	}
-
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomValue);
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 

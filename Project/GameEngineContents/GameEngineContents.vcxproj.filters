@@ -56,9 +56,6 @@
     <ClCompile Include="LevelBase.cpp">
       <Filter>02. Level\00. Base</Filter>
     </ClCompile>
-    <ClCompile Include="ContentsMath.cpp">
-      <Filter>00. Global</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -109,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>01. Actor\01. Player Element\01. Arrow</Filter>
-    </ClInclude>
-    <ClInclude Include="ContentsMath.h">
-      <Filter>00. Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

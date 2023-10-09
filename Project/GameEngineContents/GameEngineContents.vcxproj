@@ -172,10 +172,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ContentsMath.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Floor1.cpp">
       <SubType>
       </SubType>
@@ -243,10 +239,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsCore.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ContentsMath.h">
       <SubType>
       </SubType>
     </ClInclude>

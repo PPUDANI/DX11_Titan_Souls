@@ -117,15 +117,15 @@ private:
 	float4 ArrowAngleDeg = float4::ZERO;
 	float4 FlyingDirectionBasis = float4::ZERO;
 	float4 CameraMoveDirectionBasis = float4::ZERO;
-	float PullingForce = 0.0f;
-	float MaxPullingForce = 6.0f;
-	float PullingForceIncreaseSpeed = 10.0f;
-	float DefaultSpeed = 600.0f;
 
-	float ZoomValue = 1.0f;
-	float ZoomRatio = 0.0f;
+	float PullingForce = 0.0f;
+	float MaxPullingForce = 1.0f;
+	float PullingForceIncreaseSpeed = 10.0f;
+	float DefaultSpeed = 3000.0f;
+	float ZoomRatio = 1.0f;
 
 	float CameraMoveScale = 1.0f;
 	float CameraMovePos = 1.0f;
+
 private:
 };
