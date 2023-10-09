@@ -89,12 +89,12 @@ private:
 	void FlyingUpdate(float _Delta);
 	void FallenUpdate(float _Delta);
 	void ReturningUpdate(float _Delta);
-
 	void PickUpUpdate(float _Delta);
 
 	// State Variable
 	ARROW_STATE CurState;
 	bool AbleReturning = true;
+
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
@@ -105,7 +105,8 @@ private:
 	float4 ArrowheadCheckPos = float4::ZERO;
 	TILE_COLLISION_TYPE TileColType = TILE_COLLISION_TYPE::EMPTY;
 
-	void NextColCkeck(float4 _MovePos);
+	void MoveAndColCheck(float4& _MovePos);
+	bool ArrowColCheckByState(float4& _MovePos);
 	void AdjustPosByCol();
 private:
 	// Debug Mode
@@ -129,6 +130,8 @@ private:
 	float CameraMovePos = 1.0f;
 
 	float4 WindowScale;
+
+	bool IsBlocked = false;
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;

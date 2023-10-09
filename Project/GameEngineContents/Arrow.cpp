@@ -38,6 +38,7 @@ void Arrow::Update(float _Delta)
 		DebugRender();
 	}
 
+
 	switch (CurState)
 	{
 	case ARROW_STATE::Hold:
@@ -116,39 +117,85 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	}
 }
 
-void Arrow::NextColCkeck(float4 _MovePos)
+void Arrow::MoveAndColCheck(float4& _MovePos)
 {
 	float4 _MovePosUnit = FlyingDirectionBasis * 10.0f;
 
-	unsigned int Index = static_cast<unsigned int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
+	int IndexInt = static_cast<int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 
-	for (unsigned int i = 0; i < Index; ++i)
+	for (int i = 0; i < IndexInt; ++i)
 	{
 		float Index = static_cast<float>(i);
-		if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + (_MovePosUnit * Index) , TileColType))
+		float4 MovePos = _MovePosUnit * Index;
+		if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + MovePos, TileColType))
 		{
-			Transform.AddLocalPosition(_MovePosUnit * Index);
-			AdjustPosByCol();
-			DirSpecularReflection();
-			PullingForce /= 5.0f;
+			if (ARROW_STATE::Returning != CurState)
+			{
+				Transform.AddLocalPosition(_MovePosUnit * Index);
+				AdjustPosByCol();
+				DirSpecularReflection();
+				PullingForce /= 5.0f;
+			}
+			else
+			{
+				ChangeState(ARROW_STATE::Fallen);
+			}
 			return;
+		}
+		if (true == ArrowColCheckByState(MovePos))
+		{
+			return;
+		}
+	}
+
+	float Indexfloat = static_cast<int>(IndexInt);
+	if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + _MovePos, TileColType))
+	{
+		if (ARROW_STATE::Returning != CurState)
+		{
+			Transform.AddLocalPosition(_MovePosUnit * Indexfloat);
+			AdjustPosByCol();
+			if (false == IsBlocked)
+			{
+				DirSpecularReflection();
+			}
+			PullingForce /= 5.0f;
 		}
 		else
 		{
-			continue;
+			IsBlocked = true;
+			ChangeState(ARROW_STATE::Fallen);
 		}
-	}
-
-	if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + _MovePos, TileColType))
-	{
-		Transform.AddLocalPosition(_MovePos);
-		AdjustPosByCol();
-		DirSpecularReflection();
-		PullingForce /= 5.0f;
 		return;
 	}
 
+	if (true == ArrowColCheckByState(_MovePos))
+	{
+		return;
+	}
 	Transform.AddLocalPosition(_MovePos);
+}
+
+bool Arrow::ArrowColCheckByState(float4& _MovePos)
+{
+	switch (CurState)
+	{
+	case ARROW_STATE::Flying:
+
+		break;
+	case ARROW_STATE::Fallen:
+	case ARROW_STATE::Returning:
+		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
+		{
+			Transform.AddLocalPosition(_MovePos);
+			ChangeState(ARROW_STATE::PickUp);
+			return true;
+		}
+		break;
+	default:
+		break;
+	}
+	return false;
 }
 
 void Arrow::AdjustPosByCol()
@@ -157,7 +204,6 @@ void Arrow::AdjustPosByCol()
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
-
 }
 
 void Arrow::DirSpecularReflection()

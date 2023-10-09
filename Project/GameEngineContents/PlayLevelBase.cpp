@@ -64,30 +64,6 @@ void PlayLevelBase::Update(float _Delta)
 		GetMainCamera()->SetZoomValue(1.5f);
 	}
 
-	//float4 CameraPos = GetMainCamera()->Transform.GetWorldPosition();
-
-	//if (0.0f > CameraPos.X - GlobalValue::WindowScale.hX())
-	//{
-	//	CameraPos.X = GlobalValue::WindowScale.hX();
-	//}
-
-	//if (TileMapActor->GetTileSize().X < CameraPos.X + GlobalValue::WindowScale.hX())
-	//{
-	//	CameraPos.X = TileMapActor->GetTileSize().X - GlobalValue::WindowScale.hX();
-	//}
-
-	//if (0.0f < CameraPos.Y + GlobalValue::WindowScale.hY())
-	//{
-	//	CameraPos.Y = -GlobalValue::WindowScale.hY();
-	//}
-
-	//if (TileMapActor->GetTileSize().Y > CameraPos.Y - GlobalValue::WindowScale.hY())
-	//{
-	//	CameraPos.Y = TileMapActor->GetTileSize().Y + GlobalValue::WindowScale.hY();
-	//}
-
-	//GetMainCamera()->Transform.SetWorldPosition(CameraPos);
-
 	CursorDirRotation();
 	ArrowDirRotation();
 }
@@ -95,6 +71,7 @@ void PlayLevelBase::Update(float _Delta)
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	LevelBase::LevelStart(_PrevLevel);
+	GetMainCamera()->Transform.SetLocalPosition(PlayerSpawnPos);
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	
 	SpawnPlayer();
@@ -159,7 +136,8 @@ void PlayLevelBase::CursorDirRotation()
 
 void PlayLevelBase::ArrowDirRotation()
 {
-	if (ARROW_STATE::Returning == ArrowActor->GetCurState())
+	if (ARROW_STATE::Returning == ArrowActor->GetCurState() ||
+		ARROW_STATE::Fallen == ArrowActor->GetCurState())
 	{
 		float4 PlayerFromArrow = PlayerActor->Transform.GetLocalPosition() - ArrowActor->Transform.GetLocalPosition();
 		float4 Angle = float4::ZERO;
@@ -168,7 +146,6 @@ void PlayLevelBase::ArrowDirRotation()
 		PlayerActor->SetArrowAngleDeg(Angle.Z + 180.0f);
 		Angle.Z += 90.0f;
 		ArrowActor->SetArrowAngleDeg(Angle);
-
 	}
 	else if(ARROW_STATE::Aim == ArrowActor->GetCurState())
 	{
