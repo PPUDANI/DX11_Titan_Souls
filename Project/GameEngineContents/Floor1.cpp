@@ -16,7 +16,6 @@ void Floor1::Start()
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
-	TileMapActor->TriangleColCheckOff();
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");

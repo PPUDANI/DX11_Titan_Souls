@@ -19,6 +19,7 @@ void Arrow::AimStart()
 
 void Arrow::FlyingStart()
 {
+	FiyTimer = 0.0f;
 	Collision->On();
 	OwnerPlayer->LostArrow();
 	CameraMoveDirectionBasis = FlyingDirectionBasis;
@@ -112,11 +113,11 @@ void Arrow::FlyingUpdate(float _Delta)
 	MoveAndColCheck(MovePos);
 
 	// Calculating Zoom Ratio 
-	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 20.0f * _Delta));
 	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
 
 	// Calculating CameraMove
-	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 20.0f * _Delta));
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + CameraMoveDirectionBasis * CameraMovePos);
 }
 

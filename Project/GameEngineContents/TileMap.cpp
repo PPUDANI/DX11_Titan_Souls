@@ -614,9 +614,8 @@ bool TileMap::TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 			{
 				return true;
 			}
-		}
-			
 			break;
+		}
 		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		{
 			float res = StandardPos.X - PosInTile.X + PosInTile.Y;
@@ -624,22 +623,29 @@ bool TileMap::TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 			{
 				return true;
 			}
+			break;
 		}
-			break;
 		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
-			if (StandardLength < StandardPos.X - PosInTile.X + PosInTile.Y)
-			{
-				return true;
-			}
+		{
+			float res = StandardPos.X - PosInTile.X + PosInTile.Y;
+				if (StandardLength < res)
+				{
+					return true;
+				}
 			break;
+		}
 		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
-			if (StandardLength < PosInTile.X + PosInTile.Y)
+		{
+			float res = PosInTile.X + PosInTile.Y;
+			if (StandardLength < res)
 			{
 				return true;
 			}
 			break;
+		}
 		default:
-			MsgBoxAssert("Triangle Collision에서 처리되지 않은 Collision Type 입니다.")
+			MsgBoxAssert("Triangle Collision에서 처리되지 않은 Collision Type 입니다.");
+			break;
 		}
 	}
 	return false;
@@ -682,8 +688,77 @@ bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		case TILE_COLLISION_TYPE::RECT:
 			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 			return true;
+		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		{
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
+
+			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float StandardLength = StandardPos.X;
+			float4 PosInTile = _Pos % StandardPos;
+			PosInTile.X = abs(PosInTile.X);
+			PosInTile.Y = abs(PosInTile.Y);
+
+			float res = PosInTile.X + PosInTile.Y;
+			if (StandardLength > res)
+			{
+				return true;
+			}
+			break;
+		}
+		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		{
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
+
+			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float StandardLength = StandardPos.X;
+			float4 PosInTile = _Pos % StandardPos;
+			PosInTile.X = abs(PosInTile.X);
+			PosInTile.Y = abs(PosInTile.Y);
+
+			float res = StandardPos.X - PosInTile.X + PosInTile.Y;
+			if (StandardLength > res)
+			{
+				return true;
+			}
+			break;
+		}
+		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		{
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
+
+			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float StandardLength = StandardPos.X;
+			float4 PosInTile = _Pos % StandardPos;
+			PosInTile.X = abs(PosInTile.X);
+			PosInTile.Y = abs(PosInTile.Y);
+
+			float res = StandardPos.X - PosInTile.X + PosInTile.Y;
+			if (StandardLength < res)
+			{
+				return true;
+			}
+			break;
+		}
+		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		{
+			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
+
+			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float StandardLength = StandardPos.X;
+			float4 PosInTile = _Pos % StandardPos;
+			PosInTile.X = abs(PosInTile.X);
+			PosInTile.Y = abs(PosInTile.Y);
+
+			float res = PosInTile.X + PosInTile.Y;
+			if (StandardLength < res)
+			{
+				return true;
+			}
+			break;
+		}
 		default:
-			MsgBoxAssert("Air Collision에서 처리되지 않은 Collision Type 입니다.")
+			MsgBoxAssert("Air Collision에서 처리되지 않은 Collision Type 입니다.");
+			break;
 		}
 	}
 	return false;

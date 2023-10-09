@@ -132,6 +132,7 @@ private:
 	float4 WindowScale;
 
 	bool IsBlocked = false;
+	float FiyTimer = 0.0f;
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;

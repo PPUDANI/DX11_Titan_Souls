@@ -134,7 +134,7 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 				Transform.AddLocalPosition(_MovePosUnit * Index);
 				AdjustPosByCol();
 				DirSpecularReflection();
-				PullingForce /= 5.0f;
+				PullingForce /= 10.0f;
 			}
 			else
 			{
@@ -159,7 +159,7 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 			{
 				DirSpecularReflection();
 			}
-			PullingForce /= 5.0f;
+			PullingForce /= 10.0f;
 		}
 		else
 		{
