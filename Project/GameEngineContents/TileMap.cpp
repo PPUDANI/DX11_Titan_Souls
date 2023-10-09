@@ -26,6 +26,9 @@ void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName
 	IndexX = _IndexX;
 	IndexY = _IndexY;
 	SpriteName = _SpriteName;
+
+	TileMapSize.X = GlobalValue::StandardTextureScale.X * IndexX;
+	TileMapSize.Y = -GlobalValue::StandardTextureScale.Y * IndexY;
 }
 
 void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)

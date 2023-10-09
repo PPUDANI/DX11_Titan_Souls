@@ -52,6 +52,11 @@ public:
 	bool AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	
 
+	float4 GetTileSize() const
+	{
+		return TileMapSize;
+	}
+
 protected:
 
 private:
@@ -67,6 +72,9 @@ private:
 
 	unsigned int IndexX = 0;
 	unsigned int IndexY = 0;
+
+	float4 TileMapSize = float4::ZERO;
+
 	bool IsTriangleColCheck = true;
 
 	std::vector<std::shared_ptr<class GameEngineTileMap>> BGTileMaps;

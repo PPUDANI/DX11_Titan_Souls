@@ -33,6 +33,7 @@ void Floor1::Start()
 	// TileMap Setting
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
+	
 }
 
 void Floor1::Update(float _Delta)

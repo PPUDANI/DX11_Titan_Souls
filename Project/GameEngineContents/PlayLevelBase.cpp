@@ -50,7 +50,6 @@ void PlayLevelBase::Update(float _Delta)
 		ArrowActor->DebugingModeSwitch();
 	}
 
-
 	// Zoom In, Zoom, Out Key
 	if (true == GameEngineInput::IsDown('I'))
 	{
@@ -64,6 +63,30 @@ void PlayLevelBase::Update(float _Delta)
 	{
 		GetMainCamera()->SetZoomValue(1.5f);
 	}
+
+	//float4 CameraPos = GetMainCamera()->Transform.GetWorldPosition();
+
+	//if (0.0f > CameraPos.X - GlobalValue::WindowScale.hX())
+	//{
+	//	CameraPos.X = GlobalValue::WindowScale.hX();
+	//}
+
+	//if (TileMapActor->GetTileSize().X < CameraPos.X + GlobalValue::WindowScale.hX())
+	//{
+	//	CameraPos.X = TileMapActor->GetTileSize().X - GlobalValue::WindowScale.hX();
+	//}
+
+	//if (0.0f < CameraPos.Y + GlobalValue::WindowScale.hY())
+	//{
+	//	CameraPos.Y = -GlobalValue::WindowScale.hY();
+	//}
+
+	//if (TileMapActor->GetTileSize().Y > CameraPos.Y - GlobalValue::WindowScale.hY())
+	//{
+	//	CameraPos.Y = TileMapActor->GetTileSize().Y + GlobalValue::WindowScale.hY();
+	//}
+
+	//GetMainCamera()->Transform.SetWorldPosition(CameraPos);
 
 	CursorDirRotation();
 	ArrowDirRotation();

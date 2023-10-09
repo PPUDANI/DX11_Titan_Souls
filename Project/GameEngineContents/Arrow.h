@@ -40,6 +40,7 @@ public:
 	void TileMapSetting(std::shared_ptr<TileMap> _Map)
 	{
 		CurMap = _Map.get();
+		TileEndPos = CurMap->GetTileSize();
 	}
 
 	inline void SetArrowAngleDeg(float4& _Angle)
@@ -127,5 +128,8 @@ private:
 	float CameraMoveScale = 1.0f;
 	float CameraMovePos = 1.0f;
 
-private:
+	float4 WindowScale;
+public:
+	//CurMap EndPos
+	float4 TileEndPos = float4::ZERO;
 };
