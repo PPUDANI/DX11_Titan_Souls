@@ -1,6 +1,6 @@
 #pragma once
 
-class Heart : public MonsterBase
+class Heart : public BossBase
 {
 public:
 	// Constructor Destructor
@@ -16,5 +16,9 @@ public:
 protected:
 
 private:
+	void Start() override;
+	void Update(float _Delta) override;
+
+	
 
 };

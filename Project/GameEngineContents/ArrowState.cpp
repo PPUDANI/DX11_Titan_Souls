@@ -80,7 +80,7 @@ void Arrow::AimUpdate(float _Delta)
 
 	// Adjust the arrow position
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
-	SpawnPos += FlyingDirectionBasis * (20.0f - 8.0f * PullingForce);
+	SpawnPos += FlyingDirectionBasis * (27.0f - 15.0f * PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetLocalPosition(SpawnPos);
 

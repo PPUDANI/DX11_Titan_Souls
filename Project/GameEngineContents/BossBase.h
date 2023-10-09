@@ -1,6 +1,6 @@
 #pragma once
 
-class BossBase
+class BossBase : GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -14,6 +14,15 @@ public:
 	BossBase& operator=(BossBase&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
+	void Update(float _Delta) override;
+
+	// Renderer
+	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
+
+	// Collision
+	std::shared_ptr<class GameEngineCollision> WeakPoint = nullptr;
+	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
 
 private:
 
