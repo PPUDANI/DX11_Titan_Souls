@@ -1,6 +1,6 @@
 #pragma once
 
-class Heart : public BossBase
+class Heart : GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -18,7 +18,5 @@ protected:
 private:
 	void Start() override;
 	void Update(float _Delta) override;
-
-	
 
 };

@@ -168,10 +168,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ArrowState.cpp" />
-    <ClCompile Include="BossBase.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
       </SubType>
@@ -219,6 +215,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sludge.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SludgeHeartRoom.cpp">
       <SubType>
       </SubType>
@@ -243,10 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arrow.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="BossBase.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -292,6 +288,10 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="ContentEnum.h" />
+    <ClInclude Include="Sludge.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
       <SubType>
       </SubType>

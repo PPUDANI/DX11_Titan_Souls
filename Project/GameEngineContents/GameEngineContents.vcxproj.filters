@@ -59,8 +59,8 @@
     <ClCompile Include="Heart.cpp">
       <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClCompile>
-    <ClCompile Include="BossBase.cpp">
-      <Filter>01. Actor\02. Boss\00. Base</Filter>
+    <ClCompile Include="Sludge.cpp">
+      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,8 +116,8 @@
     <ClInclude Include="Heart.h">
       <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClInclude>
-    <ClInclude Include="BossBase.h">
-      <Filter>01. Actor\02. Boss\00. Base</Filter>
+    <ClInclude Include="Sludge.h">
+      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
