@@ -54,8 +54,9 @@ private:
 	// Gravity
 	void Gravity(float _Delta);
 	float GravityValue = 0.0f;
-	float GravityForce = 1000.0f;
+	float GravityForce = 900.0f;
 	float4 GravityDir = float4::UP;
 	float StartYPos = 0.0f;
+
 
 };

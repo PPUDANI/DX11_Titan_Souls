@@ -15,7 +15,7 @@ void Heart::JumpStart()
 {
 	Renderer->ChangeAnimation("Jump");
 	StartYPos = Transform.GetLocalPosition().Y;
-	GravityValue = 500.0f;
+	GravityValue = 400.0f;
 }
 
 void Heart::FallStart()
@@ -48,7 +48,11 @@ void Heart::IdleUpdate(float _Delta)
 
 void Heart::JumpUpdate(float _Delta)
 {
-	Gravity(_Delta);
+	if (1 <= Renderer->GetCurIndex())
+	{
+		Gravity(_Delta);
+	}
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		ChangeState(HEART_STATE::Fall);

@@ -12,15 +12,15 @@ Heart::~Heart()
 
 void Heart::Start()
 {
-	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
+	GlobalLoad::LoadSpriteCut(6, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Monster);
 	Renderer->SetImageScale({ 64.0f, 64.0f });
 
 	Renderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
 	Renderer->CreateAnimation("Idle", "Heart.png", 10.0f, 1, 1, false);
-	Renderer->CreateAnimation("Jump", "Heart.png", 0.1f, 2, 4, false);
-	Renderer->CreateAnimation("Landing", "Heart.png", 0.2f, 5, 6, false);
+	Renderer->CreateAnimation("Jump", "Heart.png", 0.2f, 2, 3, false);
+	Renderer->CreateAnimation("Landing", "Heart.png", 0.2f, 4, 5, false);
 
 	Renderer->ChangeAnimation("Idle");
 
@@ -98,3 +98,4 @@ void Heart::Gravity(float _Delta)
 		ChangeState(HEART_STATE::Landing);
 	}
 }
+
