@@ -4,6 +4,7 @@ enum class UPDATE_ORDER
 {
 	Map,
 	Player,
+	Monster,
 	UI,
 };
 
@@ -15,9 +16,14 @@ enum class RENDERING_ORDER
 	COLMap,
 	MATMap,
 	Shadow,
-	ArrowBack,
-	Player,
+
+	Monster,
+	Monster2,
+
 	Arrow,
+	Player,
+	Arrow2,
+
 	FGMap,
 	UI,
 };

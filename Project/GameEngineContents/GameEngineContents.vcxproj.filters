@@ -62,6 +62,12 @@
     <ClCompile Include="Sludge.cpp">
       <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClCompile>
+    <ClCompile Include="HeartState.cpp">
+      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="Debris.cpp">
+      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -117,6 +123,9 @@
       <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClInclude>
     <ClInclude Include="Sludge.h">
+      <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="Debris.h">
       <Filter>01. Actor\02. Boss\01.Sludge Heart</Filter>
     </ClInclude>
   </ItemGroup>

@@ -172,6 +172,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Debris.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Floor1.cpp">
       <SubType>
       </SubType>
@@ -188,6 +192,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HeartState.cpp" />
     <ClCompile Include="KnightElhananRoom.cpp">
       <SubType>
       </SubType>
@@ -247,6 +252,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Debris.h">
       <SubType>
       </SubType>
     </ClInclude>

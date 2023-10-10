@@ -13,7 +13,7 @@ void Arrow::Start()
 {
 	WindowScale = GameEngineCore::MainWindow.GetScale();
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Arrow);
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Arrow2);
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
@@ -148,7 +148,7 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 		}
 	}
 
-	float Indexfloat = static_cast<int>(IndexInt);
+	float Indexfloat = static_cast<float>(IndexInt);
 	if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + _MovePos, TileColType))
 	{
 		if (ARROW_STATE::Returning != CurState)
