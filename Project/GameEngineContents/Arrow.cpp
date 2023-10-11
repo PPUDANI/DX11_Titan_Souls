@@ -13,9 +13,9 @@ void Arrow::Start()
 {
 	WindowScale = GameEngineCore::MainWindow.GetScale();
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Arrow2);
+	Renderer = CreateComponent<GameEngineSpriteRenderer>();
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
-
+	Renderer->Transform.AddLocalPosition(DepthValue::TempValue);
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
 	Renderer->CreateAnimation("Get", "Player.png", 0.07f, 220, 223, false);
 

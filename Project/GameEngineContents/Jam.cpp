@@ -13,6 +13,7 @@ void Jam::Start()
 {
 	PlayLevelBase::Start();
 	PlayerSpawnPos = { 2768.0f, -2688.0f };
+	PlayerSpawnPos += DepthValue::TempValue;
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");

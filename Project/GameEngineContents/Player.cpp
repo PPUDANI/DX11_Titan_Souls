@@ -22,10 +22,13 @@ void Player::Start()
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 16.0f, 16.0f, 1.0f });
 
-	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
-	ShadowRenderer->SetMaterial("2DTextureOver");
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>();
+
+
+	//ShadowRenderer->SetMaterial("2DTextureOver");
 	ShadowRenderer->SetSprite("Player.png", 63);
 	ShadowRenderer->Transform.SetLocalPosition({0.0f, -16.0f});
+	ShadowRenderer->Transform.AddLocalPosition(DepthValue::Shadow);
 	ShadowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	ChangeState(PLAYER_STATE::StandUp);

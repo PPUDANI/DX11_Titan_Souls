@@ -10,7 +10,7 @@ enum class ARROW_STATE
 	PickUp,
 };
 
-class Arrow : public GameEngineActor
+class Arrow : public ActorBase
 {
 public:
 	// Constructor Destructor
@@ -51,14 +51,6 @@ public:
 	inline void AddArrowAngleDeg(float4 _Angle)
 	{
 		ArrowAngleDeg += _Angle;
-	}
-
-	inline void SetRenderOrder(RENDERING_ORDER _Order)
-	{
-		if (static_cast<int>(_Order) != Renderer->GetOrder())
-		{
-			Renderer->SetRenderOrder(_Order);
-		}
 	}
 
 	void DebugingModeSwitch()

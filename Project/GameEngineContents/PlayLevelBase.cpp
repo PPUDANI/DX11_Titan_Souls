@@ -152,13 +152,13 @@ void PlayLevelBase::ArrowDirRotation()
 		ArrowActor->SetArrowAngleDeg(CursorAngle);
 	}
 
-	// Arrow YSotting
-	if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetLocalPosition().Y - 3.42f)
-	{
-		ArrowActor->SetRenderOrder(RENDERING_ORDER::Arrow);
-	}
-	else
-	{
-		ArrowActor->SetRenderOrder(RENDERING_ORDER::Arrow2);
-	}
+	//// Arrow YSotting
+	//if (ArrowActor->Transform.GetLocalPosition().Y > PlayerActor->Transform.GetLocalPosition().Y - 3.42f)
+	//{
+	//	ArrowActor->SetRenderOrder(RENDERING_DEPTH::Arrow);
+	//}
+	//else
+	//{
+	//	ArrowActor->SetRenderOrder(RENDERING_DEPTH::Arrow2);
+	//}
 }

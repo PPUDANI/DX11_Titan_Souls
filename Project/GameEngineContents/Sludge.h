@@ -1,6 +1,6 @@
 #pragma once
 
-class Sludge : public GameEngineActor
+class Sludge : public ActorBase
 {
 public:
 	// Constructor Destructor

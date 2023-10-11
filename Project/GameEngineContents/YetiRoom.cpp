@@ -13,7 +13,9 @@ void YetiRoom::Start()
 {
 	PlayLevelBase::Start();
 	//PlayerSpawnPos = { 1008.0f, -1824.0f };
-	PlayerSpawnPos = { 1008.0f, -1700.0f };
+	PlayerSpawnPos = {1008.0f, -1700.0f};
+	PlayerSpawnPos += DepthValue::TempValue;
+
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(60, 60, "Yeti", "Underworld.png");
 

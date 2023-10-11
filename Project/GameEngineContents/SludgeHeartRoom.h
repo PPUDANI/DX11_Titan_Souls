@@ -23,4 +23,5 @@ private:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 	std::shared_ptr<class Heart> HeartActor = nullptr;
+	void SetHeartMoveDir();
 };

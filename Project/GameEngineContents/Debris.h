@@ -1,6 +1,6 @@
 #pragma once
 
-class Debris : public GameEngineActor
+class Debris : public ActorBase
 {
 public:
 	// Constructor Destructor

@@ -223,7 +223,7 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		}
 		for (size_t i = 0; i < BGATileMaps.size(); i++)
 		{
-			BGATileMaps[i]->Off();
+			BGATileMaps[i]->On();
 		}
 		for (size_t i = 0; i < WALLTileMaps.size(); i++)
 		{
@@ -262,7 +262,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::BGMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -285,7 +286,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGAMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::BGAMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -308,7 +310,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::FGMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::FGMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -318,7 +321,7 @@ void TileMap::TileTexureSetting()
 			{
 				if (0 <= FGTileMapInfos[i][y][x])
 				{
-					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(FGTileMapInfos[i][y][x])});
+					NewTileMap->SetTileIndex({ x, y, static_cast<unsigned int>(FGTileMapInfos[i][y][x]) });
 				}
 			}
 		}
@@ -331,7 +334,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::WALLMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::WALLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -354,7 +358,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::COLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -377,7 +382,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::COLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -400,7 +406,8 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COLMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::COLMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -422,8 +429,8 @@ void TileMap::TileTexureSetting()
 	for (size_t i = 0; i < MATTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
-
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::MATMap);
+		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap->Transform.AddLocalPosition(DepthValue::MATMap);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 

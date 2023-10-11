@@ -8,26 +8,6 @@ enum class UPDATE_ORDER
 	UI,
 };
 
-enum class RENDERING_ORDER
-{
-	BGMap,
-	BGAMap,
-	WALLMap,
-	COLMap,
-	MATMap,
-	Shadow,
-
-	Monster,
-	Monster2,
-
-	Arrow,
-	Player,
-	Arrow2,
-
-	FGMap,
-	UI,
-};
-
 enum class COLLISION_TYPE
 {
 	Player,

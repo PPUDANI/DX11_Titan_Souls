@@ -14,7 +14,8 @@ void Heart::Start()
 {
 	GlobalLoad::LoadSpriteCut(6, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Monster);
+	Renderer = CreateComponent<GameEngineSpriteRenderer>();
+	Renderer->Transform.AddLocalPosition(DepthValue::TempValue);
 	Renderer->SetImageScale({ 64.0f, 64.0f });
 
 	Renderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
@@ -50,6 +51,17 @@ void Heart::Update(float _Delta)
 	default:
 		break;
 	}
+
+	GameEngineTransform TData;
+	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
+	TData.SetLocalScale({ 1.0f, 1.0f });
+	TData.SetLocalPosition(Transform.GetLocalPosition());
+
+	float4 YPos = float4::ZERO;
+	YPos.Y = JumpStartYPos;
+	TData.AddLocalPosition(YPos);
+	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
+
 }
 
 void Heart::ChangeState(HEART_STATE _State)
@@ -90,12 +102,19 @@ void Heart::Gravity(float _Delta)
 	float4 MovePos = GravityDir * GravityValue * _Delta;
 	Transform.AddLocalPosition(MovePos);
 
-	if (StartYPos > Transform.GetLocalPosition().Y)
+	if (JumpStartYPos > Transform.GetLocalPosition().Y)
 	{
 		float4 MovePos = Transform.GetLocalPosition();
-		MovePos.Y = StartYPos;
+		MovePos.Y = JumpStartYPos;
 		Transform.SetLocalPosition(MovePos);
 		ChangeState(HEART_STATE::Landing);
 	}
+}
+
+void Heart::MoveToPlayer(float _Delta)
+{
+	float4 MovePos = HeartMoveDirBasis * MoveSpeed * _Delta;
+	Transform.AddLocalPosition(MovePos);
+	JumpStartYPos += MovePos.Y;
 }
 

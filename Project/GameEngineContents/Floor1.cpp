@@ -12,7 +12,8 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
-	PlayerSpawnPos = { 1616.0f, -6560.0f };
+	PlayerSpawnPos = { 1616.0f, -6560.0f};
+	PlayerSpawnPos += DepthValue::TempValue;
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");

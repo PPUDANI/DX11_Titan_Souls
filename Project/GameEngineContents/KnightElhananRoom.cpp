@@ -13,6 +13,7 @@ void KnightElhananRoom::Start()
 {
 	PlayLevelBase::Start();
 	PlayerSpawnPos = { 944.0f, -1760.0f };
+	PlayerSpawnPos += DepthValue::TempValue;
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(59, 60, "KnightElhanan", "Underworld.png");
