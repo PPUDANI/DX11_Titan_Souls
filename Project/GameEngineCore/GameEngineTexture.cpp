@@ -28,6 +28,12 @@ GameEngineTexture::~GameEngineTexture()
 		RTV = nullptr;
 	}
 
+	if (nullptr != DSV)
+	{
+		DSV->Release();
+		DSV = nullptr;
+	}
+
 	if (nullptr != Texture2D)
 	{
 		Texture2D->Release();
