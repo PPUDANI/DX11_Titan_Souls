@@ -71,6 +71,9 @@
     <ClCompile Include="ActorBase.cpp">
       <Filter>01. Actor\00. ActorBase</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalCalculator.cpp">
+      <Filter>00. Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="ActorBase.h">
       <Filter>01. Actor\00. ActorBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalCalculator.h">
+      <Filter>00. Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

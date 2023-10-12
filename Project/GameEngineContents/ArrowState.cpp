@@ -6,6 +6,7 @@ void Arrow::HoldStart()
 {
 	Renderer->ChangeAnimation("Idle");
 	Renderer->Off();
+	Collision->Off();
 }
 
 void Arrow::AimStart()
@@ -57,13 +58,13 @@ void Arrow::HoldUpdate(float _Delta)
 
 void Arrow::AimUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsPress(VK_RBUTTON))
+	if (true == GameEngineInput::IsPress(VK_RBUTTON, this))
 	{
 		ChangeState(ARROW_STATE::Hold);
 		return;
 	}
 
-	if (true == GameEngineInput::IsUp(VK_LBUTTON))
+	if (true == GameEngineInput::IsUp(VK_LBUTTON, this))
 	{
 		if (0.3f > PullingForce)
 		{
@@ -146,7 +147,7 @@ void Arrow::FallenUpdate(float _Delta)
 
 void Arrow::ReturningUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsPress(VK_LBUTTON) &&
+	if (true == GameEngineInput::IsPress(VK_LBUTTON, this) &&
 		true == AbleReturning)
 	{
 		FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);

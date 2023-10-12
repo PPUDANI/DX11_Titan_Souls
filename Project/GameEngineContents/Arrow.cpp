@@ -24,6 +24,8 @@ void Arrow::Start()
 	Collision->Transform.SetLocalScale({12.0f, 24.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
+
+	GameEngineInput::AddInputObject(this);
 }
 
 void Arrow::Update(float _Delta)
@@ -133,11 +135,15 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 			{
 				Transform.AddLocalPosition(_MovePosUnit * Index);
 				AdjustPosByCol();
-				DirSpecularReflection();
+				if (false == IsBlocked)
+				{
+					DirSpecularReflection();
+				}
 				PullingForce /= 10.0f;
 			}
 			else
 			{
+				IsBlocked = true;
 				ChangeState(ARROW_STATE::Fallen);
 			}
 			return;

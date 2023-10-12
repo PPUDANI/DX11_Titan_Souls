@@ -71,23 +71,23 @@ void ContentsCore::Start()
 void ContentsCore::Update(float _Delta)
 {
 	// 임시 레벨 변경
-	if (true == GameEngineInput::IsDown(VK_F1))
+	if (true == GameEngineInput::IsDown(VK_F1, this))
 	{
 		GameEngineCore::ChangeLevel("Floor1");
 	}
-	if (true == GameEngineInput::IsDown(VK_F2))
+	if (true == GameEngineInput::IsDown(VK_F2, this))
 	{
 		GameEngineCore::ChangeLevel("SludgeHeartRoom");
 	}
-	if (true == GameEngineInput::IsDown(VK_F3))
+	if (true == GameEngineInput::IsDown(VK_F3, this))
 	{
 		GameEngineCore::ChangeLevel("YetiRoom");
 	}
-	if (true == GameEngineInput::IsDown(VK_F4))
+	if (true == GameEngineInput::IsDown(VK_F4, this))
 	{
 		GameEngineCore::ChangeLevel("KnightElhananRoom");
 	}
-	if (true == GameEngineInput::IsDown(VK_F5))
+	if (true == GameEngineInput::IsDown(VK_F5, this))
 	{
 		GameEngineCore::ChangeLevel("Jam");
 	}

@@ -184,6 +184,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GlobalCalculator.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GlobalLoad.cpp">
       <SubType>
       </SubType>
@@ -268,6 +272,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Floor1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GlobalCalculator.h">
       <SubType>
       </SubType>
     </ClInclude>

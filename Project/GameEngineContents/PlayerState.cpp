@@ -59,7 +59,7 @@ void Player::StandUpStart()
 void Player::IdleUpdate(float _Delta)
 {
 	// Death Check
-	if (true == GameEngineInput::IsPress('K'))
+	if (true == GameEngineInput::IsPress('K', this))
 	{
 		ChangeState(PLAYER_STATE::Death);
 		return;
@@ -73,7 +73,7 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// Rolling Check
-	if (true == GameEngineInput::IsPress(VK_SPACE))
+	if (true == GameEngineInput::IsPress(VK_SPACE, this))
 	{
 		if (true == RollingCollDownCheck())
 		{
@@ -88,14 +88,14 @@ void Player::IdleUpdate(float _Delta)
 void Player::MoveUpdate(float _Delta)
 {
 	// Death Check
-	if (true == GameEngineInput::IsPress('K'))
+	if (true == GameEngineInput::IsPress('K', this))
 	{
 		ChangeState(PLAYER_STATE::Death);
 		return;
 	}
 
 	// Rolling Check
-	if (true == GameEngineInput::IsPress(VK_SPACE))
+	if (true == GameEngineInput::IsPress(VK_SPACE, this))
 	{
 		if (true == RollingCollDownCheck())
 		{
@@ -127,7 +127,7 @@ void Player::MoveUpdate(float _Delta)
 void Player::RollingUpdate(float _Delta)
 {
 	// Death Check
-	if (true == GameEngineInput::IsPress('K'))
+	if (true == GameEngineInput::IsPress('K', this))
 	{
 		ChangeState(PLAYER_STATE::Death);
 		return;
@@ -185,7 +185,7 @@ void Player::BlockedUpdate(float _Delta)
 void Player::StopUpdate(float _Delta)
 {
 	// Death Check
-	if (true == GameEngineInput::IsPress('K'))
+	if (true == GameEngineInput::IsPress('K', this))
 	{
 		ChangeState(PLAYER_STATE::Death);
 		return;
@@ -199,7 +199,7 @@ void Player::StopUpdate(float _Delta)
 	}
 
 	// Rolling Check
-	if (true == GameEngineInput::IsPress(VK_SPACE))
+	if (true == GameEngineInput::IsPress(VK_SPACE, this))
 	{
 		if (true == RollingCollDownCheck())
 		{
@@ -237,13 +237,13 @@ void Player::StopUpdate(float _Delta)
 
 void Player::AimUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsDown(VK_RBUTTON))
+	if (true == GameEngineInput::IsDown(VK_RBUTTON, this))
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
 	}
 
-	if (true == GameEngineInput::IsUp(VK_LBUTTON))
+	if (true == GameEngineInput::IsUp(VK_LBUTTON, this))
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;
@@ -255,7 +255,7 @@ void Player::AimUpdate(float _Delta)
 
 void Player::ReturningUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsUp(VK_LBUTTON))
+	if (true == GameEngineInput::IsUp(VK_LBUTTON, this))
 	{
 		ChangeState(PLAYER_STATE::Idle);
 		return;

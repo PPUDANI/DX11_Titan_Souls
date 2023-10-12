@@ -2,6 +2,7 @@
 
 enum class ARROW_STATE
 {
+	None,
 	Hold,
 	Aim,
 	Flying,
@@ -84,7 +85,7 @@ private:
 	void PickUpUpdate(float _Delta);
 
 	// State Variable
-	ARROW_STATE CurState;
+	ARROW_STATE CurState = ARROW_STATE::None;
 	bool AbleReturning = true;
 
 private:

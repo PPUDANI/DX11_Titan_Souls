@@ -32,6 +32,8 @@ void Player::Start()
 	ShadowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	ChangeState(PLAYER_STATE::StandUp);
+
+	GameEngineInput::AddInputObject(this);
 }
 
 void Player::Update(float _Delta)
@@ -49,7 +51,7 @@ void Player::Update(float _Delta)
 	}
 
 	// Run Check
-	if (true == GameEngineInput::IsPress(VK_SHIFT))
+	if (true == GameEngineInput::IsPress(VK_SHIFT, this))
 	{
 		KeepRunCoolDownTimer = 0.0f;
 		IsRunning = true;
@@ -279,42 +281,42 @@ bool Player::MoveCheckInIdle()
 {
 	float4 MoveCheck = float4::ZERO;
 
-	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
+	if (true == GameEngineInput::IsPress('W', this) && true == GameEngineInput::IsPress('A', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::LeftUp);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('W', this) && true == GameEngineInput::IsPress('D', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::RightUp);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
+	else if (true == GameEngineInput::IsPress('S', this) && true == GameEngineInput::IsPress('A', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::LeftDown);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('S', this) && true == GameEngineInput::IsPress('D', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::RightDown);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('W'))
+	else if (true == GameEngineInput::IsPress('W', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Up);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('A'))
+	else if (true == GameEngineInput::IsPress('A', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Left);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('S'))
+	else if (true == GameEngineInput::IsPress('S', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Down);
 		return true;
 	}
-	else if (true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('D', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Right);
 		return true;
@@ -328,7 +330,7 @@ bool Player::MoveCheckInIdle()
 bool Player::MoveCheck()
 {
 	float4 MoveCheck = float4::ZERO;
-	if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('A'))
+	if (true == GameEngineInput::IsPress('W', this) && true == GameEngineInput::IsPress('A', this))
 	{
 		if (false == TileColInfo.LeftCheck)
 		{
@@ -353,7 +355,7 @@ bool Player::MoveCheck()
 		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
-	else if (true == GameEngineInput::IsPress('W') && true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('W', this) && true == GameEngineInput::IsPress('D', this))
 	{
 		if (false == TileColInfo.RightCheck)
 		{
@@ -378,7 +380,7 @@ bool Player::MoveCheck()
 		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
-	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('A'))
+	else if (true == GameEngineInput::IsPress('S', this) && true == GameEngineInput::IsPress('A', this))
 	{
 		if (false == TileColInfo.LeftCheck)
 		{
@@ -403,7 +405,7 @@ bool Player::MoveCheck()
 		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
-	else if (true == GameEngineInput::IsPress('S') && true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('S', this) && true == GameEngineInput::IsPress('D', this))
 	{
 		if (false == TileColInfo.RightCheck)
 		{
@@ -428,7 +430,7 @@ bool Player::MoveCheck()
 		ChangeState(PLAYER_STATE::Blocked);
 		return false;
 	}
-	else if (true == GameEngineInput::IsPress('W'))
+	else if (true == GameEngineInput::IsPress('W', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Up);
 		if (false == BodyColInfo.UpCheck)
@@ -467,7 +469,7 @@ bool Player::MoveCheck()
 			return false;
 		}
 	}
-	else if (true == GameEngineInput::IsPress('A'))
+	else if (true == GameEngineInput::IsPress('A', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Left);
 		if (false == BodyColInfo.LeftCheck)
@@ -506,7 +508,7 @@ bool Player::MoveCheck()
 			return false;
 		}
 	}
-	else if (true == GameEngineInput::IsPress('S'))
+	else if (true == GameEngineInput::IsPress('S', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Down);
 		if (false == BodyColInfo.DownCheck)
@@ -545,7 +547,7 @@ bool Player::MoveCheck()
 			return false;
 		}
 	}
-	else if (true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('D', this))
 	{
 		ChangeDirCheck(PLAYER_DIRECTION::Right);
 		if (false == BodyColInfo.RightCheck)
@@ -995,7 +997,7 @@ void Player::DebugRender()
 
 void Player::AimCheck()
 {
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
+	if (true == GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
 		if (true == HasArrow())
 		{
@@ -1003,7 +1005,7 @@ void Player::AimCheck()
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsPress(VK_LBUTTON))
+	else if (true == GameEngineInput::IsPress(VK_LBUTTON, this))
 	{
 		if (ARROW_STATE::Fallen == MyArrow->GetCurState())
 		{

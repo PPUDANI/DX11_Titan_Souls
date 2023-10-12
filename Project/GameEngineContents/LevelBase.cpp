@@ -14,6 +14,7 @@ void LevelBase::Start()
 	CursorActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
 	GameEngineCore::MainWindow.CursorOff();
 	OffDebug();
+	GameEngineInput::AddInputObject(this);
 }
 
 void LevelBase::Update(float _Delta)
@@ -23,7 +24,7 @@ void LevelBase::Update(float _Delta)
 	FPS += "\n";
 	OutputDebugStringA(FPS.c_str());
 
-	if (true == GameEngineInput::IsDown('0'))
+	if (true == GameEngineInput::IsDown('0', this))
 	{
 		IsDebug = !IsDebug;
 	}

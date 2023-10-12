@@ -12,7 +12,9 @@ const float4 DepthValue::WALLMap = { 0.0f, 0.0f, 102.0f };
 const float4 DepthValue::COLMap = { 0.0f, 0.0f, 101.0f };
 const float4 DepthValue::MATMap = { 0.0f, 0.0f, 100.0f };
 const float4 DepthValue::Shadow = { 0.0f, 0.0f, 2.0f };
+
 const float4 DepthValue::TempValue = { 0.0f, 0.0f, 1.0f };
+
 const float4 DepthValue::FGMap = { 0.0f, 0.0f, 0.5f };
 const float4 DepthValue::UI = { 0.0f, 0.0f, 0.0f };
 

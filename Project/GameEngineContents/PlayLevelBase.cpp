@@ -13,53 +13,54 @@ void PlayLevelBase::Start()
 {
 	LevelBase::Start();
 	CreatePlayerElement();
+
 }
 
 void PlayLevelBase::Update(float _Delta)
 {
 	LevelBase::Update(_Delta);
 
-	if (true == GameEngineInput::IsDown('R'))
+	if (true == GameEngineInput::IsDown('R', this))
 	{
 		SpawnPlayer();
 	}
 
 	// TileMap ViewMode Change Key
-	if (true == GameEngineInput::IsDown('1'))
+	if (true == GameEngineInput::IsDown('1', this))
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
 	}
-	if (true == GameEngineInput::IsDown('2'))
+	if (true == GameEngineInput::IsDown('2', this))
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::COLLISION_MODE);
 	}
-	if (true == GameEngineInput::IsDown('3'))
+	if (true == GameEngineInput::IsDown('3', this))
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE1);
 	}
-	if (true == GameEngineInput::IsDown('4'))
+	if (true == GameEngineInput::IsDown('4', this))
 	{
 		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE2);
 	}
 
 
 	// DebugingMode Key
-	if (true == GameEngineInput::IsDown('0'))
+	if (true == GameEngineInput::IsDown('0', this))
 	{
 		PlayerActor->DebugingModeSwitch();
 		ArrowActor->DebugingModeSwitch();
 	}
 
 	// Zoom In, Zoom, Out Key
-	if (true == GameEngineInput::IsDown('I'))
+	if (true == GameEngineInput::IsDown('I', this))
 	{
 		GetMainCamera()->SetZoomValue(1.0f);
 	}
-	if (true == GameEngineInput::IsDown('O'))
+	if (true == GameEngineInput::IsDown('O', this))
 	{
 		GetMainCamera()->SetZoomValue(0.5f);
 	}
-	if (true == GameEngineInput::IsDown('P'))
+	if (true == GameEngineInput::IsDown('P', this))
 	{
 		GetMainCamera()->SetZoomValue(1.5f);
 	}

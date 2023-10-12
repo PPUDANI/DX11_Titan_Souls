@@ -62,7 +62,10 @@ void Heart::Update(float _Delta)
 	TData.AddLocalPosition(YPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
+	//GlobalCalculator::CalDepthValue(GetLevel()->GetMainCamera()->Transform.GetLocalPosition().Y, Transform.GetLocalPosition().Y, RenderPos);
+	//Renderer->Transform.SetLocalPosition(RenderPos);
 }
+
 
 void Heart::ChangeState(HEART_STATE _State)
 {
