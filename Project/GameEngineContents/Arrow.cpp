@@ -15,7 +15,7 @@ void Arrow::Start()
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>();
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
-	Renderer->Transform.AddLocalPosition(DepthValue::TempValue);
+
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
 	Renderer->CreateAnimation("Get", "Player.png", 0.07f, 220, 223, false);
 
@@ -86,7 +86,7 @@ void Arrow::Update(float _Delta)
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y + 3.25f;
+	float ActorYPos = Transform.GetWorldPosition().Y + 4.1f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	Renderer->Transform.SetLocalPosition(RenderPos);
 }

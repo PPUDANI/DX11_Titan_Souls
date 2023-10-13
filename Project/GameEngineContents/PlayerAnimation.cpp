@@ -8,7 +8,7 @@ void Player::CreatePlayerbodyAnimation()
 	GlobalLoad::LoadSpriteCut(32, 32, "Player.png", "Resource\\Texture\\PlayerElement\\");
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>();
-	BodyRenderer->Transform.AddLocalPosition(DepthValue::TempValue);
+
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	// Idle Animations
@@ -111,7 +111,7 @@ void Player::CreateBowAnimation()
 	GlobalLoad::LoadSpriteCut(32, 32, "Bow.png", "Resource\\Texture\\PlayerElement\\");
 
 	BowRenderer = CreateComponent<GameEngineSpriteRenderer>();
-	BowRenderer->Transform.AddLocalPosition(DepthValue::TempValue);
+
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	// Idle Animations
@@ -214,7 +214,7 @@ void Player::CreateArrowInBagAnimation()
 	GlobalLoad::LoadSpriteCut(32, 32, "Arrow.png", "Resource\\Texture\\PlayerElement\\");
 
 	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>();
-	ArrowInBagRenderer->Transform.AddLocalPosition(DepthValue::TempValue);
+
 	ArrowInBagRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	// Idle Animations

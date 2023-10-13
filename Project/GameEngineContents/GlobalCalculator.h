@@ -9,6 +9,6 @@ public:
 
 		float ActorPosInCamera = _ActorYPos - _CameraYPos;
 
-		_DepthBuffer.Z += (ActorPosInCamera / GlobalValue::WindowScale.Y) + 1.0f;
+		_DepthBuffer.Z += (ActorPosInCamera / GlobalValue::WindowScale.Y) + 2.0f;
 	}
 };

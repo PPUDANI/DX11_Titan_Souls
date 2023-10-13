@@ -95,13 +95,5 @@ private:
 	std::vector<std::vector<std::vector<int>>> ACOLTileMapInfos;
 	std::vector<std::vector<std::vector<int>>> MATTileMapInfos;
 
-	//std::shared_ptr<class GameEngineTileMap> BGTileMap = nullptr;
-	//std::shared_ptr<class GameEngineTileMap> BGATileMap = nullptr;
-	//std::shared_ptr<class GameEngineTileMap> FGTileMap = nullptr;
-	//std::shared_ptr<class GameEngineTileMap> COLTileMap = nullptr;
-	//std::shared_ptr<class GameEngineTileMap> COL2TileMap = nullptr;
-	//std::shared_ptr<class GameEngineTileMap> COLATileMap = nullptr;
-	//std::shared_ptr<class GameEngineTileMap> MATTileMap = nullptr;
-
 	VIEW_MODE CurMode = VIEW_MODE::DEFAULT_MODE;
 };
