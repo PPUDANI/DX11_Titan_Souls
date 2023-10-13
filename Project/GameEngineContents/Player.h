@@ -39,7 +39,7 @@ public:
 	TILE_COLLISION_TYPE DownColType = TILE_COLLISION_TYPE::EMPTY;
 };
 
-class Player : public ActorBase
+class Player : public GameEngineActor
 {
 public:
 	// Constructor Destructor

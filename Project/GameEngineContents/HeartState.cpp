@@ -14,17 +14,25 @@ void Heart::IdleStart()
 void Heart::JumpStart()
 {
 	Renderer->ChangeAnimation("Jump");
-	JumpStartYPos = Transform.GetLocalPosition().Y;
+	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 400.0f;
+	Collision->Off();
 }
 
 void Heart::FallStart()
 {
+	Collision->Off();
 }
 
 void Heart::LandingStart()
 {
 	Renderer->ChangeAnimation("Landing");
+	Collision->On();
+}
+
+void Heart::DeathStart()
+{
+	Renderer->ChangeAnimation("Death");
 }
 
 
@@ -48,7 +56,7 @@ void Heart::IdleUpdate(float _Delta)
 
 void Heart::JumpUpdate(float _Delta)
 {
-	if (true == Renderer->IsCurAnimationEnd())
+	if (0.0f > GravityValue)
 	{
 		ChangeState(HEART_STATE::Fall);
 		return;
@@ -56,14 +64,15 @@ void Heart::JumpUpdate(float _Delta)
 
 	if (1 <= Renderer->GetCurIndex())
 	{
-		//MoveToPlayer(_Delta);
+		MoveToPlayer(_Delta);
 		Gravity(_Delta);
 	}
 }
 
 void Heart::FallUpdate(float _Delta)
 {
-	//MoveToPlayer(_Delta);
+
+	MoveToPlayer(_Delta);
 	Gravity(_Delta);
 }
 
@@ -74,4 +83,9 @@ void Heart::LandingUpdate(float _Delta)
 		ChangeState(HEART_STATE::Idle);
 		return;
 	}
+}
+
+void Heart::DeathUpdate(float _Delta)
+{
+
 }

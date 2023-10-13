@@ -24,8 +24,6 @@ private:
 
 	void SpawnPlayer() override;
 
-	void SetHeartMoveDir();
-
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
 };

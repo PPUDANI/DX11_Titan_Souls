@@ -9,9 +9,10 @@ enum class ARROW_STATE
 	Fallen,
 	Returning,
 	PickUp,
+	Pinned,
 };
 
-class Arrow : public ActorBase
+class Arrow : public GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -76,14 +77,15 @@ private:
 	void FallenStart();
 	void ReturningStart();
 	void PickUpStart();
-
+	void PinnedStart();
+	
 	void HoldUpdate(float _Delta);
 	void AimUpdate(float _Delta);
 	void FlyingUpdate(float _Delta);
 	void FallenUpdate(float _Delta);
 	void ReturningUpdate(float _Delta);
 	void PickUpUpdate(float _Delta);
-
+	void PinnedUpdate(float _Delta);
 	// State Variable
 	ARROW_STATE CurState = ARROW_STATE::None;
 	bool AbleReturning = true;
@@ -126,6 +128,13 @@ private:
 
 	bool IsBlocked = false;
 	float FiyTimer = 0.0f;
+
+	float MaxDegree = 0.0f;
+	float MinDegree = 0.0f;
+	float DirRange = 8.0f;
+	float PinnedRotationDir = 0.0f;
+	float PinnedRotationSpeed = 600.0f;
+	bool RotationReverse = false;
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;

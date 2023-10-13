@@ -38,8 +38,19 @@ void Arrow::ReturningStart()
 
 void Arrow::PickUpStart()
 {
-	Renderer->ChangeAnimation("Get");
+	Renderer->ChangeAnimation("Get"); 
 	Collision->Off();
+}
+
+void Arrow::PinnedStart()
+{
+	Renderer->ChangeAnimation("Pinned");
+	Collision->Off();
+	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
+
+	MaxDegree = PinnedRotationDir + (DirRange / 2);
+	MinDegree = PinnedRotationDir - (DirRange / 2);
+
 }
 
 void Arrow::HoldUpdate(float _Delta)
@@ -190,3 +201,29 @@ void Arrow::PickUpUpdate(float _Delta)
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
 }
 
+
+void Arrow::PinnedUpdate(float _Delta)
+{
+	if (false == RotationReverse)
+	{
+		PinnedRotationDir += PinnedRotationSpeed * _Delta;
+		if (MaxDegree < PinnedRotationDir)
+		{
+			RotationReverse = true;
+		}
+	}
+	else
+	{
+		PinnedRotationDir -= PinnedRotationSpeed * _Delta;
+		if (MinDegree > PinnedRotationDir)
+		{
+			RotationReverse = false;
+		}
+	}
+
+	float4 Degree = float4::ZERO;
+	Degree.Z = PinnedRotationDir;
+	Transform.SetLocalRotation(Degree);
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
+}

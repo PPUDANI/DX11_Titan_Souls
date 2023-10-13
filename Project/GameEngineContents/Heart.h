@@ -7,9 +7,10 @@ enum class HEART_STATE
 	Jump,
 	Fall,
 	Landing,
+	Death,
 };
 
-class Heart : public ActorBase
+class Heart : public BossBase
 {
 public:
 	// Constructor Destructor
@@ -24,19 +25,12 @@ public:
 
 	void ChangeState(HEART_STATE _State);
 
-	void SetMoveDirBasis(float4& _MoveAngle)
-	{
-		HeartMoveDirBasis = _MoveAngle;
-	}
+
 
 private:
 	// Virtual function
 	void Start() override;
 	void Update(float _Delta) override;
-
-	// Component
-	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
-
 
 private:
 	// State
@@ -45,13 +39,14 @@ private:
 	void JumpStart();
 	void FallStart();
 	void LandingStart();
+	void DeathStart();
 
 	void InSludgeUpdate(float _Delta);
 	void IdleUpdate(float _Delta);
 	void JumpUpdate(float _Delta);
 	void FallUpdate(float _Delta);
 	void LandingUpdate(float _Delta);
-
+	void DeathUpdate(float _Delta);
 private:
 	// State
 	HEART_STATE CurState;
@@ -61,14 +56,13 @@ private:
 	// Gravity
 	void Gravity(float _Delta);
 	float GravityValue = 0.0f;
-	float GravityForce = 900.0f;
+	float GravityForce = 1200.0f;
 	float4 GravityDir = float4::UP;
-	float JumpStartYPos = 0.0f;
+
 private:
-	// Move
-	float4 HeartMoveDirBasis = float4::ZERO;
-	float MoveSpeed = 100.0f;
+	float MoveSpeed = 150.0f;
 	float4 RenderPosBase = { 0.0f, 10.0f };
+	float4 JumpStartPos = float4::ZERO;
 
 	void MoveToPlayer(float _Delta);
 

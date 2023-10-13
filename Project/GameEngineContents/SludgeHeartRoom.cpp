@@ -34,9 +34,6 @@ void SludgeHeartRoom::Start()
 void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
-
-	SetHeartMoveDir();
-
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
@@ -47,6 +44,8 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Monster);
 	}
 	HeartActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
+
+	HeartActor->SetEnymePlayer(PlayerActor.get());
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
@@ -54,31 +53,6 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	PlayLevelBase::LevelEnd(_NextLevel);
 
 	// 액터 레벨이동 구현
-}
-
-void SludgeHeartRoom::SetHeartMoveDir()
-{
-	float4 HeartAngle;
-	float4 PlayerFromHeart = PlayerActor->Transform.GetLocalPosition() - HeartActor->Transform.GetLocalPosition();
-	HeartAngle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromHeart.Y, PlayerFromHeart.X));
-
-	if (0.0f > HeartAngle.Z)
-	{
-		while (0.0f > HeartAngle.Z)
-		{
-			HeartAngle.Z += 360.0f;
-		}
-	}
-	else if (360.0f < HeartAngle.Z)
-	{
-		while (360.0f < HeartAngle.Z)
-		{
-			HeartAngle.Z -= 360.0f;
-		}
-	}
-
-	float4 HeartMoveDirBasis = float4::GetUnitVectorFromDeg(HeartAngle.Z);
-	HeartActor->SetMoveDirBasis(HeartMoveDirBasis);
 }
 
 void SludgeHeartRoom::SpawnPlayer()

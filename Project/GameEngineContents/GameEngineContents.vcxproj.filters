@@ -68,11 +68,11 @@
     <ClCompile Include="Debris.cpp">
       <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
     </ClCompile>
-    <ClCompile Include="ActorBase.cpp">
-      <Filter>01. Actor\00. ActorBase</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalCalculator.cpp">
       <Filter>00. Global</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBase.cpp">
+      <Filter>01. Actor\03. Boss\00. Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +134,11 @@
     <ClInclude Include="Debris.h">
       <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
     </ClInclude>
-    <ClInclude Include="ActorBase.h">
-      <Filter>01. Actor\00. ActorBase</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalCalculator.h">
       <Filter>00. Global</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBase.h">
+      <Filter>01. Actor\03. Boss\00. Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ void Arrow::Start()
 
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
 	Renderer->CreateAnimation("Get", "Player.png", 0.07f, 220, 223, false);
+	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Arrow);
 	Collision->SetCollisionType(ColType::OBBBOX2D);
@@ -40,6 +41,17 @@ void Arrow::Update(float _Delta)
 		DebugRender();
 	}
 
+	if (true == GameEngineInput::IsDown('6', this))
+	{
+		ChangeState(ARROW_STATE::Pinned);
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown('7', this))
+	{
+		ChangeState(ARROW_STATE::Fallen);
+		return;
+	}
 
 	switch (CurState)
 	{
@@ -60,6 +72,9 @@ void Arrow::Update(float _Delta)
 		break;
 	case ARROW_STATE::PickUp:
 		PickUpUpdate(_Delta);
+		break;
+	case ARROW_STATE::Pinned:
+		PinnedUpdate(_Delta);
 		break;
 	default:
 		break;
@@ -88,7 +103,7 @@ void Arrow::Update(float _Delta)
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
 	float ActorYPos = Transform.GetWorldPosition().Y + 4.1f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	Renderer->Transform.SetLocalPosition(RenderPos);
+	Renderer->Transform.SetLocalPosition(DepthValue::Arrow);
 }
 
 void Arrow::ChangeState(ARROW_STATE _State)
@@ -119,6 +134,9 @@ void Arrow::ChangeState(ARROW_STATE _State)
 		break;
 	case ARROW_STATE::PickUp:
 		PickUpStart();
+		break;
+	case ARROW_STATE::Pinned:
+		PinnedStart();
 		break;
 	default:
 		break;
@@ -193,6 +211,12 @@ bool Arrow::ArrowColCheckByState(float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
+		if (true == Collision->Collision(COLLISION_TYPE::Boss))
+		{
+			AdjustPosByCol();
+			ChangeState(ARROW_STATE::Pinned);
+			return true;
+		}
 
 		break;
 	case ARROW_STATE::Fallen:
@@ -201,6 +225,11 @@ bool Arrow::ArrowColCheckByState(float4& _MovePos)
 		{
 			Transform.AddLocalPosition(_MovePos);
 			ChangeState(ARROW_STATE::PickUp);
+			return true;
+		}
+		if (true == Collision->Collision(COLLISION_TYPE::Boss))
+		{
+			ChangeState(ARROW_STATE::Pinned);
 			return true;
 		}
 		break;

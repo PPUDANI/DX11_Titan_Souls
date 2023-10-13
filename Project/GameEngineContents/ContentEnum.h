@@ -19,6 +19,7 @@ enum class COLLISION_TYPE
 {
 	Player,
 	Arrow,
+	Boss,
 };
 
 enum class TILE_COLLISION_TYPE
