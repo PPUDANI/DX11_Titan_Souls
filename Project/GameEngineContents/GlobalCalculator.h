@@ -2,12 +2,13 @@
 
 class GlobalCalculator
 {
-//public:
-//	static float4 CalDepthValue(float _CameraYPos, float _ActorYPos, float4& _DepthBase)
-//	{
-//		_CameraYPos -= GlobalValue::WindowScale.Y;
-//
-//		float ActorPosInCamera = std::abs(_CameraYPos - _ActorYPos);
-//		_DepthBase.Z += (ActorPosInCamera / GlobalValue::WindowScale.Y) + 1.0f;
-//	}
+public:
+	static void CalDepthValue(float _CameraYPos, float _ActorYPos, float4& _DepthBuffer)
+	{
+		_CameraYPos -= GlobalValue::WindowScale.hY();
+
+		float ActorPosInCamera = _ActorYPos - _CameraYPos;
+
+		_DepthBuffer.Z += (ActorPosInCamera / GlobalValue::WindowScale.Y) + 1.0f;
+	}
 };

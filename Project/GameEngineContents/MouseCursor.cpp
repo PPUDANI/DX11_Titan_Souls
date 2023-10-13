@@ -21,5 +21,7 @@ void MouseCursor::Start()
 
 void MouseCursor::Update(float _Delta)
 {
-	Transform.SetLocalPosition(GetLevel()->GetMainCamera()->GetWorldMousePos2D());
+	float4 MousePos = GetLevel()->GetMainCamera()->GetWorldMousePos2D();
+	MousePos.Z += -500.0f;
+	Transform.SetLocalPosition(MousePos);
 }

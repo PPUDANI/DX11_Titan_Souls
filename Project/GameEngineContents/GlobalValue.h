@@ -27,6 +27,8 @@ public:
 	static const float4 COLMap;
 	static const float4 MATMap;
 	static const float4 Shadow;
+	static const float4 Arrow;
+	static const float4 Heart;
 	static const float4 TempValue;
 	static const float4 FGMap;
 	static const float4 UI;

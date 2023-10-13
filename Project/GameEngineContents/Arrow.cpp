@@ -83,6 +83,12 @@ void Arrow::Update(float _Delta)
 		CameraPos.Y = TileEndPos.Y + WindowScale.hY();
 	}
 	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(CameraPos);
+
+	float4 RenderPos = float4::ZERO;
+	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
+	float ActorYPos = Transform.GetWorldPosition().Y + 3.25f;
+	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
+	Renderer->Transform.SetLocalPosition(RenderPos);
 }
 
 void Arrow::ChangeState(ARROW_STATE _State)

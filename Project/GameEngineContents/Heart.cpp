@@ -15,7 +15,7 @@ void Heart::Start()
 	GlobalLoad::LoadSpriteCut(6, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>();
-	Renderer->Transform.AddLocalPosition(DepthValue::TempValue);
+	Renderer->Transform.SetLocalPosition(RenderPosBase);
 	Renderer->SetImageScale({ 64.0f, 64.0f });
 
 	Renderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
@@ -54,16 +54,19 @@ void Heart::Update(float _Delta)
 
 	GameEngineTransform TData;
 	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
-	TData.SetLocalScale({ 1.0f, 1.0f });
+	TData.SetLocalScale({ 4.0f, 4.0f });
 	TData.SetLocalPosition(Transform.GetLocalPosition());
 
-	float4 YPos = float4::ZERO;
-	YPos.Y = JumpStartYPos;
-	TData.AddLocalPosition(YPos);
+	//float4 YPos = float4::ZERO;
+	//YPos.Y = JumpStartYPos;
+	//TData.AddLocalPosition(YPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
-	//GlobalCalculator::CalDepthValue(GetLevel()->GetMainCamera()->Transform.GetLocalPosition().Y, Transform.GetLocalPosition().Y, RenderPos);
-	//Renderer->Transform.SetLocalPosition(RenderPos);
+	float4 RenderPos = float4::ZERO;
+	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
+	float ActorYPos = Transform.GetWorldPosition().Y;
+	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
+	Renderer->Transform.SetLocalPosition(RenderPos);
 }
 
 

@@ -106,6 +106,14 @@ void Player::Update(float _Delta)
 	{
 		DebugRender();
 	}
+
+	float4 RenderPos = float4::ZERO;
+	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
+	float ActorYPos = Transform.GetWorldPosition().Y;
+	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
+	BodyRenderer->Transform.SetLocalPosition(RenderPos);
+	BowRenderer->Transform.SetLocalPosition(RenderPos);
+	ArrowInBagRenderer->Transform.SetLocalPosition(RenderPos);
 }
 
 void Player::ChangeState(PLAYER_STATE _State)

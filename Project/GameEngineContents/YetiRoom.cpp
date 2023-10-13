@@ -12,9 +12,6 @@ YetiRoom::~YetiRoom()
 void YetiRoom::Start()
 {
 	PlayLevelBase::Start();
-	//PlayerSpawnPos = { 1008.0f, -1824.0f };
-	PlayerSpawnPos = {1008.0f, -1700.0f};
-	PlayerSpawnPos += DepthValue::TempValue;
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(60, 60, "Yeti", "Underworld.png");
@@ -49,4 +46,13 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+}
+
+void YetiRoom::SpawnPlayer()
+{
+	//PlayerSpawnPos = { 1008.0f, -1824.0f };
+	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1700.0f });
+	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1700.0f });
+	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+	return;
 }

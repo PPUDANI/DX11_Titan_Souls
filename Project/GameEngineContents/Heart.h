@@ -68,8 +68,8 @@ private:
 	// Move
 	float4 HeartMoveDirBasis = float4::ZERO;
 	float MoveSpeed = 100.0f;
-	
+	float4 RenderPosBase = { 0.0f, 10.0f };
+
 	void MoveToPlayer(float _Delta);
 
-	float4 RenderPos = float4::ZERO;
 };

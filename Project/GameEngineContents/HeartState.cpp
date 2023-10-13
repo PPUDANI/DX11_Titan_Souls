@@ -56,14 +56,14 @@ void Heart::JumpUpdate(float _Delta)
 
 	if (1 <= Renderer->GetCurIndex())
 	{
-		MoveToPlayer(_Delta);
+		//MoveToPlayer(_Delta);
 		Gravity(_Delta);
 	}
 }
 
 void Heart::FallUpdate(float _Delta)
 {
-	MoveToPlayer(_Delta);
+	//MoveToPlayer(_Delta);
 	Gravity(_Delta);
 }
 

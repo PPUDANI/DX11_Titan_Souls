@@ -66,6 +66,7 @@ void ContentsCore::Start()
 
 	GameEngineCore::ChangeLevel("Floor1");
 
+	GameEngineInput::AddInputObject(this);
 }
 
 void ContentsCore::Update(float _Delta)

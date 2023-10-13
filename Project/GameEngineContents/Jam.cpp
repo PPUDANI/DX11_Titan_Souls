@@ -12,8 +12,6 @@ Jam::~Jam()
 void Jam::Start()
 {
 	PlayLevelBase::Start();
-	PlayerSpawnPos = { 2768.0f, -2688.0f };
-	PlayerSpawnPos += DepthValue::TempValue;
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");
@@ -50,4 +48,12 @@ void Jam::LevelEnd(GameEngineLevel* _NextLevel)
 	PlayLevelBase::LevelEnd(_NextLevel);
 
 	// 액터 레벨이동 구현
+}
+
+void Jam::SpawnPlayer()
+{
+	PlayerActor->Transform.SetLocalPosition({ 2768.0f, -2688.0f });
+	ArrowActor->Transform.SetLocalPosition({ 2768.0f, -2688.0f });
+	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+	return;
 }

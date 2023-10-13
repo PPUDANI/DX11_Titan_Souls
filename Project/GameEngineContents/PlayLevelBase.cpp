@@ -20,10 +20,10 @@ void PlayLevelBase::Update(float _Delta)
 {
 	LevelBase::Update(_Delta);
 
-	if (true == GameEngineInput::IsDown('R', this))
-	{
-		SpawnPlayer();
-	}
+	//if (true == GameEngineInput::IsDown('R', this))
+	//{
+	//	SpawnPlayer();
+	//}
 
 	// TileMap ViewMode Change Key
 	if (true == GameEngineInput::IsDown('1', this))
@@ -72,9 +72,6 @@ void PlayLevelBase::Update(float _Delta)
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	LevelBase::LevelStart(_PrevLevel);
-	GetMainCamera()->Transform.SetLocalPosition(PlayerSpawnPos);
-	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
-	
 	SpawnPlayer();
 }
 
@@ -101,14 +98,8 @@ void PlayLevelBase::CreatePlayerElement()
 	PlayerActor->ArrowSetting(ArrowActor);
 }
 
-void PlayLevelBase::SpawnPlayer()
-{
-	PlayerActor->Transform.SetLocalPosition(PlayerSpawnPos);
-	ArrowActor->Transform.SetLocalPosition(PlayerSpawnPos);
-	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
-	return;
-}
-           
+
+     
 void PlayLevelBase::CursorDirRotation()
 {
 	// Arrow Direction Rotation

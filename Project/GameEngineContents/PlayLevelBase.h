@@ -14,10 +14,10 @@ public:
 	PlayLevelBase& operator=(PlayLevelBase&& _Other) noexcept = delete;
 
 protected:
-	virtual void Start() override;
-	virtual void Update(float _Delta) override;
-	virtual void LevelStart(GameEngineLevel* _PrevLevel) override;
-	virtual void LevelEnd(GameEngineLevel* _PrevLevel) override;
+	void Start() override;
+	void Update(float _Delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _PrevLevel) override;
 
 
 	std::shared_ptr<class Player> PlayerActor = nullptr;
@@ -26,12 +26,12 @@ protected:
 	// TileMap
 	std::shared_ptr<class TileMap> TileMapActor;
 
+	virtual void SpawnPlayer() {}
+
 	void CreatePlayerElement();
-	void SpawnPlayer();
 	void CursorDirRotation();
 	void ArrowDirRotation();
 
-	float4 PlayerSpawnPos = float4::ZERO;
 private:
 	
 };

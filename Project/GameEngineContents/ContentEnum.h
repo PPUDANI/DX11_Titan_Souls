@@ -8,6 +8,13 @@ enum class UPDATE_ORDER
 	UI,
 };
 
+enum class RENDERING_ORDER
+{
+	HasAlpah,
+	AlphaLess
+};
+
+
 enum class COLLISION_TYPE
 {
 	Player,

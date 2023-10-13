@@ -13,8 +13,6 @@ SludgeHeartRoom::~SludgeHeartRoom()
 void SludgeHeartRoom::Start()
 {
 	PlayLevelBase::Start();
-	PlayerSpawnPos = { 1008.0f, -1856.0f };
-	PlayerSpawnPos += DepthValue::TempValue;
 
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
@@ -81,4 +79,12 @@ void SludgeHeartRoom::SetHeartMoveDir()
 
 	float4 HeartMoveDirBasis = float4::GetUnitVectorFromDeg(HeartAngle.Z);
 	HeartActor->SetMoveDirBasis(HeartMoveDirBasis);
+}
+
+void SludgeHeartRoom::SpawnPlayer()
+{
+	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+	return;
 }
