@@ -17,7 +17,7 @@ void Heart::Start()
 	Collision->SetCollisionType(ColType::OBBBOX2D);
 	Collision->Transform.SetLocalScale({ 50.0f, 40.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f, 0.0f });
-	GlobalLoad::LoadSpriteCut(6, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
+	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>();
 	Renderer->Transform.SetLocalPosition(RenderPosBase);
@@ -27,7 +27,7 @@ void Heart::Start()
 	Renderer->CreateAnimation("Idle", "Heart.png", 10.0f, 1, 1, false);
 	Renderer->CreateAnimation("Jump", "Heart.png", 0.2f, 2, 3, false);
 	Renderer->CreateAnimation("Landing", "Heart.png", 0.2f, 4, 5, false);
-	Renderer->CreateAnimation("Death", "Heart.png", 10.0f, 4, 4, false);
+	Renderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 
 	Renderer->ChangeAnimation("Idle");
 
@@ -108,6 +108,9 @@ void Heart::ChangeState(HEART_STATE _State)
 		break;
 	case HEART_STATE::Landing:
 		LandingStart();
+		break;
+	case HEART_STATE::Death:
+		DeathStart();
 		break;
 	default:
 		break;

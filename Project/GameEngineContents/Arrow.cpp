@@ -15,7 +15,6 @@ void Arrow::Start()
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>();
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
-
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
 	Renderer->CreateAnimation("Get", "Player.png", 0.07f, 220, 223, false);
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
