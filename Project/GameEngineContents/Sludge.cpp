@@ -12,11 +12,13 @@ Sludge::~Sludge()
 void Sludge::Start()
 {
 	BossBase::Start();
-	GlobalLoad::LoadSpriteSingle("Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
+	GlobalLoad::LoadSpriteCut(2, 1,"Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 	Renderer->SetPivotType(PivotType::Bottom);
-	Renderer->SetSprite("Sludge.png");
+	Renderer->CreateAnimation("Default", "Sludge.png", 1.0f, 0, 0, false);
+	Renderer->CreateAnimation("Hit", "Sludge.png", 0.1f, 0, 1, true);
+	Renderer->ChangeAnimation("Default");
 	Renderer->SetImageScale({256.0f, 256.0f});
 }
 

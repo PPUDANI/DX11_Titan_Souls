@@ -44,7 +44,7 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == SludgeActor)
 	{
 		SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
-		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
+		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -900.0f });
 		SludgeActor->SetEnymePlayer(PlayerActor.get());
 		SludgeActor->SetEnymeArrow(ArrowActor.get());
 	}
@@ -52,7 +52,7 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == HeartActor)
 	{
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
-		HeartActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
+		HeartActor->Transform.SetLocalPosition({ 1008.0f, -800.0f });
 		HeartActor->SetEnymePlayer(PlayerActor.get());
 		HeartActor->SetEnymeArrow(ArrowActor.get());
 	}
@@ -67,8 +67,9 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 
 void SludgeHeartRoom::SpawnPlayer()
 {
-	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
-	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+	// 1856.0f
+	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1056.0f });
+	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1056.0f });
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
 }
