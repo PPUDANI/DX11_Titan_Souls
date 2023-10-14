@@ -263,7 +263,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::BGMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -289,7 +289,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::BGAMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -315,7 +315,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::FGMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -345,7 +345,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::WALLMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -371,7 +371,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::COLMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -397,7 +397,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::COLMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -423,7 +423,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::COLMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);
@@ -448,7 +448,7 @@ void TileMap::TileTexureSetting()
 	for (size_t i = 0; i < MATTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
-		NewTileMap = CreateComponent<GameEngineTileMap>();
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
 		float4 DepthValue = DepthValue::MATMap;
 		DepthValue.Z -= static_cast<float>(i);
 		NewTileMap->Transform.AddLocalPosition(DepthValue);

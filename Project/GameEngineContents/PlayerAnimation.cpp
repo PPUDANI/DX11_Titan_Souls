@@ -7,7 +7,7 @@ void Player::CreatePlayerbodyAnimation()
 	// Load "Player.png" Texture
 	GlobalLoad::LoadSpriteCut(32, 32, "Player.png", "Resource\\Texture\\PlayerElement\\");
 
-	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
 
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
@@ -110,7 +110,7 @@ void Player::CreateBowAnimation()
 	// Load "Bow.png" Texture
 	GlobalLoad::LoadSpriteCut(32, 32, "Bow.png", "Resource\\Texture\\PlayerElement\\");
 
-	BowRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	BowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
 
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
@@ -213,7 +213,7 @@ void Player::CreateArrowInBagAnimation()
 	// Load "Arrow.png" Texture
 	GlobalLoad::LoadSpriteCut(32, 32, "Arrow.png", "Resource\\Texture\\PlayerElement\\");
 
-	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
 
 	ArrowInBagRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 

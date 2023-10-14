@@ -23,7 +23,8 @@ private:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 	void SpawnPlayer() override;
-
+	std::shared_ptr<class Sludge> SludgeActor = nullptr;
+	
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
 };

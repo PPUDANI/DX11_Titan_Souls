@@ -4,14 +4,14 @@ enum class UPDATE_ORDER
 {
 	Map,
 	Player,
-	Monster,
+	Boss,
 	UI,
 };
 
 enum class RENDERING_ORDER
 {
+	AlphaLess,
 	HasAlpah,
-	AlphaLess
 };
 
 

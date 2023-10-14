@@ -13,13 +13,10 @@ Heart::~Heart()
 void Heart::Start()
 {
     BossBase::Start();
-
-	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, -8.0f, 0.0f });
 	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>();
+	// Renderer setting
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
 	Renderer->Transform.SetLocalPosition(RenderPosBase);
 	Renderer->SetImageScale({ 64.0f, 64.0f });
 
@@ -29,10 +26,12 @@ void Heart::Start()
 	Renderer->CreateAnimation("Landing", "Heart.png", 0.2f, 4, 5, false);
 	Renderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 
-	Renderer->ChangeAnimation("Idle");
+	// Collision setting
+	Collision->SetCollisionType(ColType::AABBBOX2D);
+	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, -8.0f, 0.0f });
 
 	ChangeState(HEART_STATE::Idle);
-
 }
 
 void Heart::Update(float _Delta)

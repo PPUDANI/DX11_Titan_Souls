@@ -71,7 +71,6 @@ void Heart::JumpUpdate(float _Delta)
 
 void Heart::FallUpdate(float _Delta)
 {
-
 	MoveToPlayer(_Delta);
 	Gravity(_Delta);
 }

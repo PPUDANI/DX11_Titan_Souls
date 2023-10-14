@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "SludgeHeartRoom.h"
 
+#include "Sludge.h"
 #include "Heart.h"
 SludgeHeartRoom::SludgeHeartRoom()
 {
@@ -39,9 +40,18 @@ void SludgeHeartRoom::Update(float _Delta)
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
+
+	if (nullptr == SludgeActor)
+	{
+		SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
+		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
+		SludgeActor->SetEnymePlayer(PlayerActor.get());
+		SludgeActor->SetEnymeArrow(ArrowActor.get());
+	}
+
 	if (nullptr == HeartActor)
 	{
-		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Monster);
+		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
 		HeartActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
 		HeartActor->SetEnymePlayer(PlayerActor.get());
 		HeartActor->SetEnymeArrow(ArrowActor.get());
