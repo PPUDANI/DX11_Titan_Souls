@@ -20,7 +20,7 @@ void Player::Start()
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Player);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
-	BodyCollision->Transform.SetLocalScale({ 16.0f, 16.0f, 1.0f });
+	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>();
 
@@ -1015,7 +1015,8 @@ void Player::AimCheck()
 	}
 	else if (true == GameEngineInput::IsPress(VK_LBUTTON, this))
 	{
-		if (ARROW_STATE::Fallen == MyArrow->GetCurState())
+		if (ARROW_STATE::Fallen == MyArrow->GetCurState() ||
+			ARROW_STATE::Pinned == MyArrow->GetCurState())
 		{
 			ChangeState(PLAYER_STATE::Returning);
 		}

@@ -13,9 +13,19 @@ public:
 	BossBase& operator=(const BossBase& _Other) = delete;
 	BossBase& operator=(BossBase&& _Other) noexcept = delete;
 
-	void SetEnymePlayer(Player* _PlayerPtr)
+	inline void SetEnymePlayer(Player* _PlayerPtr)
 	{
 		EnymePlayer = _PlayerPtr;
+	}
+
+	inline void SetEnymeArrow(Arrow* _ArrowPtr)
+	{
+		EnymeArrow = _ArrowPtr;
+	}
+
+	inline void HitArrow()
+	{
+		IsHitArrow = true;
 	}
 
 protected:
@@ -29,6 +39,9 @@ protected:
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
 	class Player* EnymePlayer = nullptr;
+	class Arrow* EnymeArrow = nullptr;
+
+	bool IsHitArrow = false;
 
 protected:
 	void SetMoveDir(float4& _CheckPos);

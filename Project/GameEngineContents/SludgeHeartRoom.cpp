@@ -42,10 +42,10 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == HeartActor)
 	{
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Monster);
+		HeartActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
+		HeartActor->SetEnymePlayer(PlayerActor.get());
+		HeartActor->SetEnymeArrow(ArrowActor.get());
 	}
-	HeartActor->Transform.SetLocalPosition({ 1008.0f, -1600.0f });
-
-	HeartActor->SetEnymePlayer(PlayerActor.get());
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)

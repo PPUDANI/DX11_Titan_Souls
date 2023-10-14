@@ -1,6 +1,6 @@
 #pragma once
 
-enum class HEART_STATE
+enum HEART_STATE
 {
 	InSludge,
 	Idle,
@@ -24,8 +24,6 @@ public:
 	Heart& operator=(Heart&& _Other) noexcept = delete;
 
 	void ChangeState(HEART_STATE _State);
-
-
 
 private:
 	// Virtual function

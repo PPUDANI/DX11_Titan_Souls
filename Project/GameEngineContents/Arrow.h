@@ -102,7 +102,9 @@ private:
 
 	void MoveAndColCheck(float4& _MovePos);
 	bool ArrowColCheckByState(float4& _MovePos);
+	void AdjustPosByTileCol();
 	void AdjustPosByCol();
+	void BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
 private:
 	// Debug Mode
 	bool DebugingMode = false;
@@ -116,7 +118,6 @@ private:
 	float4 CameraMoveDirectionBasis = float4::ZERO;
 
 	float PullingForce = 0.0f;
-	float MaxPullingForce = 1.0f;
 	float PullingForceIncreaseSpeed = 10.0f;
 	float DefaultSpeed = 3000.0f;
 	float ZoomRatio = 1.0f;
@@ -131,10 +132,16 @@ private:
 
 	float MaxDegree = 0.0f;
 	float MinDegree = 0.0f;
-	float DirRange = 8.0f;
+	float DirRange = 5.0f;
 	float PinnedRotationDir = 0.0f;
-	float PinnedRotationSpeed = 600.0f;
+	float PinnedRotationSpeed = 500.0f;
 	bool RotationReverse = false;
+
+	float StandartPullingForceByHit = 0.2f;
+
+	float PullOutDuration = 1.5f;
+	float PullOutTimer = 0.0f;
+
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;

@@ -51,6 +51,7 @@ void Arrow::PinnedStart()
 	MaxDegree = PinnedRotationDir + (DirRange / 2);
 	MinDegree = PinnedRotationDir - (DirRange / 2);
 
+	Renderer->Transform.SetLocalPosition(DepthValue::Arrow);
 }
 
 void Arrow::HoldUpdate(float _Delta)
@@ -225,5 +226,24 @@ void Arrow::PinnedUpdate(float _Delta)
 	Degree.Z = PinnedRotationDir;
 	Transform.SetLocalRotation(Degree);
 
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
+	if (true == GameEngineInput::IsPress(VK_LBUTTON, this))
+	{
+		if (PullOutDuration < PullOutTimer)
+		{
+			PullOutTimer = 0.0f;
+			ChangeState(ARROW_STATE::PickUp);
+		}
+
+		PullOutTimer += _Delta;
+		ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+	}
+	else
+	{
+		PullOutTimer = 0.0f;
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+	}
+
+	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
+
 }

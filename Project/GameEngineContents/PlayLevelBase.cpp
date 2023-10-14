@@ -129,7 +129,8 @@ void PlayLevelBase::CursorDirRotation()
 void PlayLevelBase::ArrowDirRotation()
 {
 	if (ARROW_STATE::Returning == ArrowActor->GetCurState() ||
-		ARROW_STATE::Fallen == ArrowActor->GetCurState())
+		ARROW_STATE::Fallen == ArrowActor->GetCurState() ||
+		ARROW_STATE::Pinned == ArrowActor->GetCurState())
 	{
 		float4 PlayerFromArrow = PlayerActor->Transform.GetLocalPosition() - ArrowActor->Transform.GetLocalPosition();
 		float4 Angle = float4::ZERO;

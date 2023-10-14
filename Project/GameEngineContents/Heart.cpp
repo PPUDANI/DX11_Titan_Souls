@@ -14,9 +14,9 @@ void Heart::Start()
 {
     BossBase::Start();
 
-	Collision->SetCollisionType(ColType::OBBBOX2D);
-	Collision->Transform.SetLocalScale({ 50.0f, 40.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f, 0.0f });
+	Collision->SetCollisionType(ColType::AABBBOX2D);
+	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, -8.0f, 0.0f });
 	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
 	Renderer = CreateComponent<GameEngineSpriteRenderer>();
@@ -38,12 +38,6 @@ void Heart::Start()
 void Heart::Update(float _Delta)
 {
 	BossBase::Update(_Delta);
-
-	if (true == Collision->Collision(COLLISION_TYPE::Arrow))
-	{
-		ChangeState(HEART_STATE::Death);
-	}
-
 
 	SetMoveDir(JumpStartPos);
 
@@ -68,9 +62,15 @@ void Heart::Update(float _Delta)
 		break;
 	}
 
+	if (true == IsHitArrow)
+	{
+		ChangeState(HEART_STATE::Death);
+		return;
+	}
+
 	GameEngineTransform TData;
 	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
-	TData.SetLocalScale({ 10.0f, 10.0f });
+	TData.SetLocalScale({ 5.0f, 5.0f });
 
 	TData.SetLocalPosition(JumpStartPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
@@ -116,8 +116,6 @@ void Heart::ChangeState(HEART_STATE _State)
 		break;
 	}
 }
-
-
 
 
 void Heart::Gravity(float _Delta)
