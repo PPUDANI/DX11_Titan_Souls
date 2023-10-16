@@ -14,7 +14,9 @@ void Sludge::Start()
 	JumpBoss::Start();
 
 	GlobalLoad::LoadSpriteCut(2, 1, "Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
+	GlobalLoad::LoadSpriteSingle("SludgeShadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
 
+	// Renderer
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->CreateAnimation("Default", "Sludge.png", 1.0f, 0, 0, false);
@@ -22,6 +24,13 @@ void Sludge::Start()
 	BodyRenderer->ChangeAnimation("Default");
 	BodyRenderer->SetImageScale({ 256.0f, 256.0f });
 
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	ShadowRenderer->SetSprite("SludgeShadow.png");
+	ShadowRenderer->SetPivotType(PivotType::Bottom);
+	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
+	ShadowRenderer->Transform.SetLocalPosition({ 0.0f, -24.0f });
+
+	RenderPosBase.Y = -48.0f;
 	// Collision setting
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
@@ -34,10 +43,12 @@ void Sludge::Start()
 void Sludge::Update(float _Delta)
 {
 	SetMoveDir(JumpStartPos);
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 
 	JumpBoss::Update(_Delta);
 
 	BodyRenderer->SetImageScale(RenderScale);
+	ShadowRenderer->SetImageScale(ShadowRenderScale);
 
 	GameEngineTransform TData;
 	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
@@ -48,9 +59,9 @@ void Sludge::Update(float _Delta)
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y - 48.0f;
+	float ActorYPos = Transform.GetWorldPosition().Y + RenderPosBase.Y;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderBasePos);
+	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
 }
 
 
@@ -61,6 +72,8 @@ void Sludge::DecreaseY(float _SpeedPerSecond)
 		ExpandDir = SLUDGE_STATE::Decrease;
 		RenderScale.Y -= ExpandDefalutSpeed * _SpeedPerSecond;
 		RenderScale.X += ExpandDefalutSpeed * _SpeedPerSecond;
+
+		ShadowRenderScale.X = RenderScale.X * 0.8f;
 	}
 	else
 	{
@@ -75,6 +88,9 @@ void Sludge::IncreaseY(float _SpeedPerSecond)
 		ExpandDir = SLUDGE_STATE::Increase;
 		RenderScale.Y += ExpandDefalutSpeed * _SpeedPerSecond;
 		RenderScale.X -= ExpandDefalutSpeed * _SpeedPerSecond;
+
+		ShadowRenderScale.X = RenderScale.X * 0.8f;
+
 	}
 	else
 	{

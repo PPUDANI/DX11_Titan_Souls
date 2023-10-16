@@ -24,9 +24,8 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 
-	float4 RenderBasePos = { 0.0f, -64.0f };
 	float4 RenderScale = { 256.0f , 256.0f, 1.0f };
-
+	float4 ShadowRenderScale = { 128.0f, 128.0f , 1.0 };
 	float MaxScale = 352.0f;
 	float ExpandDefalutSpeed = 192.0f;
 

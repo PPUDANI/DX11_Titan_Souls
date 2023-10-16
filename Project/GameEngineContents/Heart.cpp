@@ -18,7 +18,6 @@ void Heart::Start()
 
 	// Renderer setting
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
-	BodyRenderer->Transform.SetLocalPosition(RenderPosBase);
 	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
 
 	BodyRenderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
@@ -27,6 +26,7 @@ void Heart::Start()
 	BodyRenderer->CreateAnimation("Landing", "Heart.png", 0.2f, 4, 5, false);
 	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 
+	RenderPosBase.Y = -8.0f;
 	// Collision setting
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
@@ -59,7 +59,7 @@ void Heart::Update(float _Delta)
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y - 8.0f;
+	float ActorYPos = Transform.GetWorldPosition().Y + RenderPosBase.Y;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos);
 }

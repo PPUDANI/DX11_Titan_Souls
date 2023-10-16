@@ -56,9 +56,8 @@ protected:
 protected:
 	// Physics
 	float MoveSpeed = 150.0f;
-	float4 RenderPosBase = { 0.0f, 10.0f };
+	float4 RenderPosBase = { 0.0f, 0.0f };
 	float4 JumpStartPos = float4::ZERO;
-
 	void MoveToPlayer(float _Delta);
 
 	// State
