@@ -21,7 +21,6 @@ void Sludge::Start()
 	Renderer->CreateAnimation("Hit", "Sludge.png", 0.1f, 0, 1, true);
 	Renderer->ChangeAnimation("Default");
 	Renderer->SetImageScale({ 256.0f, 256.0f });
-	Renderer->Transform.SetLocalPosition({ 100.0f, 100.0f });
 
 	// Collision setting
 	Collision->SetCollisionType(ColType::AABBBOX2D);
