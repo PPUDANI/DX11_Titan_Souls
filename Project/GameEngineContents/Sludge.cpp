@@ -48,9 +48,9 @@ void Sludge::Update(float _Delta)
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y - 8.0f;
+	float ActorYPos = Transform.GetWorldPosition().Y - 48.0f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	Renderer->Transform.SetLocalPosition(RenderPos);
+	Renderer->Transform.SetLocalPosition(RenderPos + RenderBasePos);
 }
 
 
