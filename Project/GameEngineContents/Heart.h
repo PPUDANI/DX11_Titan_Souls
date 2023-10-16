@@ -1,16 +1,6 @@
 #pragma once
 
-enum HEART_STATE
-{
-	InSludge,
-	Idle,
-	Jump,
-	Fall,
-	Landing,
-	Death,
-};
-
-class Heart : public BossBase
+class Heart : public JumpBoss
 {
 public:
 	// Constructor Destructor
@@ -23,8 +13,6 @@ public:
 	Heart& operator=(const Heart& _Other) = delete;
 	Heart& operator=(Heart&& _Other) noexcept = delete;
 
-	void ChangeState(HEART_STATE _State);
-
 private:
 	// Virtual function
 	void Start() override;
@@ -32,36 +20,19 @@ private:
 
 private:
 	// State
-	void InSludgeStart();
-	void IdleStart();
-	void JumpStart();
-	void FallStart();
-	void LandingStart();
-	void DeathStart();
+	void InSludgeStart() override;
+	void IdleStart() override;
+	void JumpStart() override;
+	void FallStart() override;
+	void LandingStart() override;
+	void DeathStart() override;
 
-	void InSludgeUpdate(float _Delta);
-	void IdleUpdate(float _Delta);
-	void JumpUpdate(float _Delta);
-	void FallUpdate(float _Delta);
-	void LandingUpdate(float _Delta);
-	void DeathUpdate(float _Delta);
-private:
-	// State
-	HEART_STATE CurState;
-	float JumpCooldown = 0.0f;
+	void InSludgeUpdate(float _Delta) override;
+	void IdleUpdate(float _Delta) override;
+	void JumpUpdate(float _Delta) override;
+	void FallUpdate(float _Delta) override;
+	void LandingUpdate(float _Delta) override;
+	void DeathUpdate(float _Delta) override;
 
 private:
-	// Gravity
-	void Gravity(float _Delta);
-	float GravityValue = 0.0f;
-	float GravityForce = 1200.0f;
-	float4 GravityDir = float4::UP;
-
-private:
-	float MoveSpeed = 150.0f;
-	float4 RenderPosBase = { 0.0f, 10.0f };
-	float4 JumpStartPos = float4::ZERO;
-
-	void MoveToPlayer(float _Delta);
-
 };

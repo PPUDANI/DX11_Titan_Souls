@@ -50,7 +50,7 @@ void Heart::IdleUpdate(float _Delta)
 	else
 	{
 		JumpCooldown = 0.0f;
-		ChangeState(HEART_STATE::Jump);
+		ChangeState(JUMPBOSS_STATE::Jump);
 	}
 }
 
@@ -58,7 +58,7 @@ void Heart::JumpUpdate(float _Delta)
 {
 	if (0.0f > GravityValue)
 	{
-		ChangeState(HEART_STATE::Fall);
+		ChangeState(JUMPBOSS_STATE::Fall);
 		return;
 	}
 
@@ -79,7 +79,7 @@ void Heart::LandingUpdate(float _Delta)
 {
 	if (true == Renderer->IsCurAnimationEnd())
 	{
-		ChangeState(HEART_STATE::Idle);
+		ChangeState(JUMPBOSS_STATE::Idle);
 		return;
 	}
 }

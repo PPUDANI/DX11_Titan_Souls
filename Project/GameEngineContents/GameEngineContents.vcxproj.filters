@@ -56,23 +56,29 @@
     <ClCompile Include="LevelBase.cpp">
       <Filter>02. Level\00. Base</Filter>
     </ClCompile>
-    <ClCompile Include="Heart.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClCompile>
-    <ClCompile Include="Sludge.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClCompile>
-    <ClCompile Include="HeartState.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClCompile>
-    <ClCompile Include="Debris.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalCalculator.cpp">
       <Filter>00. Global</Filter>
     </ClCompile>
     <ClCompile Include="BossBase.cpp">
       <Filter>01. Actor\03. Boss\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\01. Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="HeartState.cpp">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\01. Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="Sludge.cpp">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\02. Sludge</Filter>
+    </ClCompile>
+    <ClCompile Include="Debris.cpp">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\03. Debris</Filter>
+    </ClCompile>
+    <ClCompile Include="SludgeState.cpp">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\02. Sludge</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpBoss.cpp">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\00. GravityActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,20 +131,23 @@
     <ClInclude Include="Arrow.h">
       <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
     </ClInclude>
-    <ClInclude Include="Heart.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClInclude>
-    <ClInclude Include="Sludge.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClInclude>
-    <ClInclude Include="Debris.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalCalculator.h">
       <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="BossBase.h">
       <Filter>01. Actor\03. Boss\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\01. Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="Sludge.h">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\02. Sludge</Filter>
+    </ClInclude>
+    <ClInclude Include="Debris.h">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\03. Debris</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBoss.h">
+      <Filter>01. Actor\03. Boss\01.Sludge Heart\00. GravityActor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +207,18 @@
     </Filter>
     <Filter Include="01. Actor\00. ActorBase">
       <UniqueIdentifier>{a3a65cc8-1684-4b7b-a745-317f7a82ac98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\00. GravityActor">
+      <UniqueIdentifier>{757a3cd0-1740-4bf2-82c6-9e90e6f9af1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\01. Heart">
+      <UniqueIdentifier>{f8a1a0a9-989f-4345-a4ba-3d21f01538b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\02. Sludge">
+      <UniqueIdentifier>{864865bd-e084-498f-99d0-982694a31081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\03. Debris">
+      <UniqueIdentifier>{6726e26a-21d3-4ad7-a36f-8fa9d22b8e93}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 enum class ARROW_STATE
 {
-	None,
+	Default,
 	Hold,
 	Aim,
 	Flying,
@@ -86,8 +86,9 @@ private:
 	void ReturningUpdate(float _Delta);
 	void PickUpUpdate(float _Delta);
 	void PinnedUpdate(float _Delta);
+
 	// State Variable
-	ARROW_STATE CurState = ARROW_STATE::None;
+	ARROW_STATE CurState = ARROW_STATE::Default;
 	bool AbleReturning = true;
 
 private:
@@ -105,6 +106,7 @@ private:
 	void AdjustPosByTileCol();
 	void AdjustPosByCol();
 	void BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
+
 private:
 	// Debug Mode
 	bool DebugingMode = false;
@@ -132,7 +134,7 @@ private:
 
 	float MaxDegree = 0.0f;
 	float MinDegree = 0.0f;
-	float DirRange = 5.0f;
+	float DirRange = 4.0f;
 	float PinnedRotationDir = 0.0f;
 	float PinnedRotationSpeed = 500.0f;
 	bool RotationReverse = false;

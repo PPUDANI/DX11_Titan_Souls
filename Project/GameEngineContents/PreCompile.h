@@ -41,6 +41,7 @@
 #include "Player.h"
 #include "Arrow.h"
 #include "BossBase.h"
+#include "JumpBoss.h"
 
 
 // UI

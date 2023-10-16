@@ -201,6 +201,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="HeartState.cpp" />
+    <ClCompile Include="JumpBoss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="KnightElhananRoom.cpp">
       <SubType>
       </SubType>
@@ -240,6 +244,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SludgeState.cpp" />
     <ClCompile Include="TileMap.cpp">
       <SubType>
       </SubType>
@@ -288,6 +293,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Heart.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JumpBoss.h">
       <SubType>
       </SubType>
     </ClInclude>

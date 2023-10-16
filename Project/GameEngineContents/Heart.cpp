@@ -12,7 +12,8 @@ Heart::~Heart()
 
 void Heart::Start()
 {
-    BossBase::Start();
+	JumpBoss::Start();
+
 	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
 	// Renderer setting
@@ -31,39 +32,21 @@ void Heart::Start()
 	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -8.0f, 0.0f });
 
-	ChangeState(HEART_STATE::Idle);
+	GravityForce = 1200.0f;
+
+	ChangeState(JUMPBOSS_STATE::Idle);
 }
 
 void Heart::Update(float _Delta)
 {
-	BossBase::Update(_Delta);
-
 	SetMoveDir(JumpStartPos);
 
-	switch (CurState)
-	{
-	case HEART_STATE::InSludge:
-		InSludgeUpdate(_Delta);
-		break;
-	case HEART_STATE::Idle:
-		IdleUpdate(_Delta);
-		break;
-	case HEART_STATE::Jump:
-		JumpUpdate(_Delta);
-		break;
-	case HEART_STATE::Fall:
-		FallUpdate(_Delta);
-		break;
-	case HEART_STATE::Landing:
-		LandingUpdate(_Delta);
-		break;
-	default:
-		break;
-	}
+	JumpBoss::Update(_Delta);
+
 
 	if (true == IsHitArrow)
 	{
-		ChangeState(HEART_STATE::Death);
+		ChangeState(JUMPBOSS_STATE::Death);
 		return;
 	}
 
@@ -81,74 +64,4 @@ void Heart::Update(float _Delta)
 	Renderer->Transform.SetLocalPosition(RenderPos);
 }
 
-
-void Heart::ChangeState(HEART_STATE _State)
-{
-	if (CurState == _State)
-	{
-		return;
-	}
-
-	CurState = _State;
-
-	switch (CurState)
-	{
-	case HEART_STATE::InSludge:
-		InSludgeStart();
-		break;
-	case HEART_STATE::Idle:
-		IdleStart();
-		break;
-	case HEART_STATE::Jump:
-		JumpStart();
-		break;
-	case HEART_STATE::Fall:
-		FallStart();
-		break;
-	case HEART_STATE::Landing:
-		LandingStart();
-		break;
-	case HEART_STATE::Death:
-		DeathStart();
-		break;
-	default:
-		break;
-	}
-}
-
-
-void Heart::Gravity(float _Delta)
-{
-	if (JumpStartPos.Y > Transform.GetLocalPosition().Y)
-	{
-		float4 MovePos = Transform.GetLocalPosition();
-		MovePos.Y = JumpStartPos.Y;
-		Transform.SetLocalPosition(MovePos);
-		ChangeState(HEART_STATE::Landing);
-		return;
-	}
-
-	GravityValue -= GravityForce * _Delta;
-	float4 MovePos = GravityDir * GravityValue * _Delta;
-	Transform.AddLocalPosition(MovePos);
-}
-
-
-void Heart::MoveToPlayer(float _Delta)
-{
-	float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
-
-	if (2.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
-	{
-		MovePos.X = 0.0f;
-	}
-
-	if (2.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().Y - JumpStartPos.Y))
-	{
-		MovePos.Y = 0.0f;
-	}
-
-	Transform.AddLocalPosition(MovePos);
-	JumpStartPos += MovePos;
-}
 
