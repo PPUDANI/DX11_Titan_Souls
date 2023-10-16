@@ -17,15 +17,15 @@ void Heart::Start()
 	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 
 	// Renderer setting
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
-	Renderer->Transform.SetLocalPosition(RenderPosBase);
-	Renderer->SetImageScale({ 64.0f, 64.0f });
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
+	BodyRenderer->Transform.SetLocalPosition(RenderPosBase);
+	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
 
-	Renderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
-	Renderer->CreateAnimation("Idle", "Heart.png", 10.0f, 1, 1, false);
-	Renderer->CreateAnimation("Jump", "Heart.png", 0.2f, 2, 3, false);
-	Renderer->CreateAnimation("Landing", "Heart.png", 0.2f, 4, 5, false);
-	Renderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
+	BodyRenderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
+	BodyRenderer->CreateAnimation("Idle", "Heart.png", 10.0f, 1, 1, false);
+	BodyRenderer->CreateAnimation("Jump", "Heart.png", 0.2f, 2, 3, false);
+	BodyRenderer->CreateAnimation("Landing", "Heart.png", 0.2f, 4, 5, false);
+	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 
 	// Collision setting
 	Collision->SetCollisionType(ColType::AABBBOX2D);
@@ -61,7 +61,7 @@ void Heart::Update(float _Delta)
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
 	float ActorYPos = Transform.GetWorldPosition().Y - 8.0f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	Renderer->Transform.SetLocalPosition(RenderPos);
+	BodyRenderer->Transform.SetLocalPosition(RenderPos);
 }
 
 

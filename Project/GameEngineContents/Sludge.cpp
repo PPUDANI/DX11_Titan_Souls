@@ -15,12 +15,12 @@ void Sludge::Start()
 
 	GlobalLoad::LoadSpriteCut(2, 1, "Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
-	Renderer->SetPivotType(PivotType::Bottom);
-	Renderer->CreateAnimation("Default", "Sludge.png", 1.0f, 0, 0, false);
-	Renderer->CreateAnimation("Hit", "Sludge.png", 0.1f, 0, 1, true);
-	Renderer->ChangeAnimation("Default");
-	Renderer->SetImageScale({ 256.0f, 256.0f });
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	BodyRenderer->SetPivotType(PivotType::Bottom);
+	BodyRenderer->CreateAnimation("Default", "Sludge.png", 1.0f, 0, 0, false);
+	BodyRenderer->CreateAnimation("Hit", "Sludge.png", 0.1f, 0, 1, true);
+	BodyRenderer->ChangeAnimation("Default");
+	BodyRenderer->SetImageScale({ 256.0f, 256.0f });
 
 	// Collision setting
 	Collision->SetCollisionType(ColType::AABBBOX2D);
@@ -37,7 +37,7 @@ void Sludge::Update(float _Delta)
 
 	JumpBoss::Update(_Delta);
 
-	Renderer->SetImageScale(RenderScale);
+	BodyRenderer->SetImageScale(RenderScale);
 
 	GameEngineTransform TData;
 	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
@@ -50,7 +50,7 @@ void Sludge::Update(float _Delta)
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
 	float ActorYPos = Transform.GetWorldPosition().Y - 48.0f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	Renderer->Transform.SetLocalPosition(RenderPos + RenderBasePos);
+	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderBasePos);
 }
 
 

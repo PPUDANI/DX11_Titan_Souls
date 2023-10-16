@@ -3,17 +3,17 @@
 
 void Heart::InSludgeStart()
 {
-	Renderer->ChangeAnimation("InSludge");
+	BodyRenderer->ChangeAnimation("InSludge");
 }
 
 void Heart::IdleStart()
 {
-	Renderer->ChangeAnimation("Idle");
+	BodyRenderer->ChangeAnimation("Idle");
 }
 
 void Heart::JumpStart()
 {
-	Renderer->ChangeAnimation("Jump");
+	BodyRenderer->ChangeAnimation("Jump");
 	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 400.0f;
 	Collision->Off();
@@ -26,13 +26,13 @@ void Heart::FallStart()
 
 void Heart::LandingStart()
 {
-	Renderer->ChangeAnimation("Landing");
+	BodyRenderer->ChangeAnimation("Landing");
 	Collision->On();
 }
 
 void Heart::DeathStart()
 {
-	Renderer->ChangeAnimation("Death");
+	BodyRenderer->ChangeAnimation("Death");
 }
 
 
@@ -62,7 +62,7 @@ void Heart::JumpUpdate(float _Delta)
 		return;
 	}
 
-	if (1 <= Renderer->GetCurIndex())
+	if (1 <= BodyRenderer->GetCurIndex())
 	{
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
@@ -77,7 +77,7 @@ void Heart::FallUpdate(float _Delta)
 
 void Heart::LandingUpdate(float _Delta)
 {
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(JUMPBOSS_STATE::Idle);
 		return;

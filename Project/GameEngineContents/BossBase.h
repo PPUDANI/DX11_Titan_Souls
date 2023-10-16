@@ -35,7 +35,8 @@ protected:
 
 protected:
 	// Component
-	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> BodyRenderer = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> ShadowRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
 	class Player* EnymePlayer = nullptr;
