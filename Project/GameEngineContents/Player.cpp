@@ -22,7 +22,7 @@ void Player::Start()
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
 
-	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 
 
 	//ShadowRenderer->SetMaterial("2DTextureOver");
