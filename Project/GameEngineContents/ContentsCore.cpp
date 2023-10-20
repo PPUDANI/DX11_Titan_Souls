@@ -48,7 +48,7 @@ void ContentsCore::Start()
 	}
 
 	// Clear Color Setting
-	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0, 0, 0, 0 });
+	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0.5f, 0.5f, 0.5f, 0 });
 
 	// Map Texture Load
 	GlobalLoad::LoadSpriteCut(16, 16, "Spectiles.png", "Resource\\Texture\\Map\\");

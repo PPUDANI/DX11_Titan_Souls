@@ -553,6 +553,7 @@ bool Player::MoveCheck()
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
+			break;
 		}
 	}
 	else if (true == GameEngineInput::IsPress('D', this))

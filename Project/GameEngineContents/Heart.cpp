@@ -28,12 +28,12 @@ void Heart::Start()
 
 	RenderPosBase.Y = -8.0f;
 	// Collision setting
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -8.0f, 0.0f });
 
 	GravityForce = 1200.0f;
-
 	ChangeState(JUMPBOSS_STATE::Idle);
 }
 
@@ -50,12 +50,11 @@ void Heart::Update(float _Delta)
 		return;
 	}
 
-	GameEngineTransform TData;
-	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
-	TData.SetLocalScale({ 5.0f, 5.0f });
-
-	TData.SetLocalPosition(JumpStartPos);
-	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
+	//GameEngineTransform TData;
+	//TData.SetLocalRotation(Transform.GetLocalRotationEuler());
+	//TData.SetLocalScale({ 5.0f, 5.0f });
+	//TData.SetLocalPosition(JumpStartPos);
+	//GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;

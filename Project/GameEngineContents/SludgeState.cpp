@@ -5,26 +5,27 @@
 void Sludge::IdleStart()
 {
 	JumpCooldown = 0.0f;
-	MaxScale = 272.0f;
+	MaxScale = 300.0f;
 }
 
 void Sludge::JumpStart()
 {
 	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 600.0f;
+	GravityMaxValue = 600.0f;
 	ReadyToJump = false;
 
-	MaxScale = 320.0f;
+	MaxScale = 340.0f;
 }
 
 void Sludge::FallStart()
 {
-	MaxScale = 292.0f;
+	MaxScale = 300.0f;
 }
 
 void Sludge::LandingStart()
 {
-	MaxScale = 352.0f;
+	MaxScale = 340.0f;
 }
 
 void Sludge::DeathStart()
@@ -47,6 +48,10 @@ void Sludge::IdleUpdate(float _Delta)
 	{
 		IncreaseY(1.2f * _Delta);
 	}
+	if (SLUDGE_STATE::Decrease == ExpandDir)
+	{
+	    DecreaseY(1.2f * _Delta);
+	}
 }
 
 void Sludge::JumpUpdate(float _Delta)
@@ -59,7 +64,7 @@ void Sludge::JumpUpdate(float _Delta)
 
 	if (false == ReadyToJump)
 	{
-		DecreaseY(2.0f * _Delta);
+		DecreaseY(1.5f * _Delta);
 		if (MaxScale < RenderScale.X)
 		{
 			ReadyToJump = true;

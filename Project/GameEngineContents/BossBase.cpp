@@ -11,7 +11,6 @@ BossBase::~BossBase()
 
 void BossBase::Start()
 {
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 }
 
 void BossBase::Update(float _Delta)
@@ -21,24 +20,24 @@ void BossBase::Update(float _Delta)
 
 void BossBase::SetMoveDir(float4& _CheckPos)
 {
-	float4 HeartAngle;
-	float4 PlayerFromHeart = EnymePlayer->Transform.GetLocalPosition() - _CheckPos;
-	HeartAngle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromHeart.Y, PlayerFromHeart.X));
+	float4 MoveAngle;
+	float4 BossToPlayer = EnymePlayer->Transform.GetLocalPosition() - _CheckPos;
+	MoveAngle.Z = DirectX::XMConvertToDegrees(atan2f(BossToPlayer.Y, BossToPlayer.X));
 
-	if (0.0f > HeartAngle.Z)
+	if (0.0f > MoveAngle.Z)
 	{
-		while (0.0f > HeartAngle.Z)
+		while (0.0f > MoveAngle.Z)
 		{
-			HeartAngle.Z += 360.0f;
+			MoveAngle.Z += 360.0f;
 		}
 	}
-	else if (360.0f < HeartAngle.Z)
+	else if (360.0f < MoveAngle.Z)
 	{
-		while (360.0f < HeartAngle.Z)
+		while (360.0f < MoveAngle.Z)
 		{
-			HeartAngle.Z -= 360.0f;
+			MoveAngle.Z -= 360.0f;
 		}
 	}
 
-	MoveDirBasis = float4::GetUnitVectorFromDeg(HeartAngle.Z);
+	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }
