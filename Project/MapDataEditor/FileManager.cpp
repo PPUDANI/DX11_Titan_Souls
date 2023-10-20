@@ -66,6 +66,7 @@ void FileManager::FileSave(int Max, std::vector<unsigned int>& IndexData)
     OFN.lpstrFilter = filter;
     OFN.lpstrFile = lpstrFile;
     OFN.nMaxFile = 100;
+    OFN.lpstrDefExt = L"tmd";
     OFN.lpstrInitialDir = L".";
 
     while (GetSaveFileName(&OFN) != 0)
