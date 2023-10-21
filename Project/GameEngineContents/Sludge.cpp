@@ -64,7 +64,7 @@ void Sludge::Update(float _Delta)
 	JumpBoss::Update(_Delta);
 
 	// Heart position setting
-	HeartPos = { 0.0f, RenderScale.Y / (4.0f * DividedCount)};
+	HeartPos = { 0.0f, RenderScale.Y / (4.0f * DividedCount) - 24.0f * DividedCount };
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
@@ -77,8 +77,6 @@ void Sludge::DecreaseY(float _SpeedPerSecond)
 	if (MaxScale * LerpRange > RenderScale.X)
 	{
 		ExpandDir = SLUDGE_STATE::Decrease;
-		//RenderScale.Y -= ExpandDefalutSpeed * _SpeedPerSecond;
-		//RenderScale.X += ExpandDefalutSpeed * _SpeedPerSecond;
 
 		RenderScale.Y = std::lerp(RenderScale.Y, MinScale, _SpeedPerSecond);
 		RenderScale.X = std::lerp(RenderScale.X, MaxScale, _SpeedPerSecond);
@@ -97,8 +95,6 @@ void Sludge::IncreaseY(float _SpeedPerSecond)
 	if (MaxScale * LerpRange > RenderScale.Y)
 	{
 		ExpandDir = SLUDGE_STATE::Increase;
-		//RenderScale.Y += ExpandDefalutSpeed * _SpeedPerSecond;
-		//RenderScale.X -= ExpandDefalutSpeed * _SpeedPerSecond;
 
 		RenderScale.Y = std::lerp(RenderScale.Y, MaxScale, _SpeedPerSecond);
 		RenderScale.X = std::lerp(RenderScale.X, MinScale, _SpeedPerSecond);
@@ -115,7 +111,7 @@ void Sludge::IncreaseY(float _SpeedPerSecond)
 
 void Sludge::RendererSetting()
 {
-	// Renderers ImageScale n position Setting
+	// Renderers ImageScale & position Setting
 	BodyRenderer->SetImageScale(RenderScale / DividedCount);
 	ShadowRenderer->SetImageScale(ShadowRenderScale / DividedCount);
 	PressMarkRenderer->SetImageScale(ShadowRenderScale / DividedCount);
