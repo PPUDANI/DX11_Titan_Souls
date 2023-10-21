@@ -14,7 +14,7 @@ const float4 DepthValue::MATMap = { 0.0f, 0.0f, 20.0f };
 const float4 DepthValue::Shadow = { 0.0f, 0.0f, 10.0f };
 
 
-const float4 DepthValue::Arrow = { 0.0f, 0.0f, 0.6f };
+const float4 DepthValue::PinnedArrow = { 0.0f, 0.0f, 0.6f };
 const float4 DepthValue::FGMap = { 0.0f, 0.0f, 0.5f };
 const float4 DepthValue::UI = { 0.0f, 0.0f, 0.0f };
 

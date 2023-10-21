@@ -54,6 +54,9 @@ void JumpBoss::ChangeState(JUMPBOSS_STATE _State)
 
 	switch (CurState)
 	{
+	case JUMPBOSS_STATE::InSludge:
+		InSludgeStart();
+		break;
 	case JUMPBOSS_STATE::Idle:
 		IdleStart();
 		break;
@@ -69,6 +72,7 @@ void JumpBoss::ChangeState(JUMPBOSS_STATE _State)
 	case JUMPBOSS_STATE::Death:
 		DeathStart();
 		break;
+
 	default:
 		break;
 	}

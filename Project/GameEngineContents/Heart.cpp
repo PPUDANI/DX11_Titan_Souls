@@ -27,6 +27,7 @@ void Heart::Start()
 	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 
 	RenderPosBase.Y = -8.0f;
+
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
@@ -34,7 +35,7 @@ void Heart::Start()
 	Collision->Transform.SetLocalPosition({ 0.0f, -8.0f, 0.0f });
 
 	GravityForce = 1200.0f;
-	ChangeState(JUMPBOSS_STATE::Idle);
+	ChangeState(JUMPBOSS_STATE::InSludge);
 }
 
 void Heart::Update(float _Delta)

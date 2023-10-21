@@ -1,9 +1,11 @@
 #include "PreCompile.h"
 #include "Heart.h"
+#include "Sludge.h"
 
 void Heart::InSludgeStart()
 {
 	BodyRenderer->ChangeAnimation("InSludge");
+	Collision->Off();
 }
 
 void Heart::IdleStart()
@@ -38,7 +40,12 @@ void Heart::DeathStart()
 
 void Heart::InSludgeUpdate(float _Delta)
 {
-
+	if (nullptr == OwnerSludge)
+	{
+		ChangeState(JUMPBOSS_STATE::Idle);
+		return;
+	}
+	Transform.SetLocalPosition(OwnerSludge->Transform.GetWorldPosition() + OwnerSludge->GetHeartPos());
 }
 
 void Heart::IdleUpdate(float _Delta)

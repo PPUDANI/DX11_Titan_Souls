@@ -19,19 +19,26 @@ public:
 	Sludge& operator=(const Sludge& _Other) = delete;
 	Sludge& operator=(Sludge&& _Other) noexcept = delete;
 
+	inline float4 GetHeartPos()
+	{
+		return HeartPos;
+	}
+
 private:
 	// Inheritance Functions
 	void Start() override;
 	void Update(float _Delta) override;
 
+	std::shared_ptr<GameEngineSpriteRenderer> PressMarkRenderer = nullptr;
 	float4 RenderScale = { 256.0f , 256.0f, 1.0f };
 	float4 ShadowRenderScale = { 128.0f, 128.0f , 1.0f };
 	float MaxScale = 0.0f;
+	float MinScale = 0.0f;
 	float ExpandDefalutSpeed = 192.0f;
-	float GravityMaxValue = 1.0f;
 	
-	
+	float LerpRange = 0.0f;
 
+	float4 HeartPos = float4::ZERO;
 private:
 	// State
 	void IdleStart() override;

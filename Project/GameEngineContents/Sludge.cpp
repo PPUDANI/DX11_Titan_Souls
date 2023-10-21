@@ -15,7 +15,8 @@ void Sludge::Start()
 
 	GlobalLoad::LoadSpriteCut(2, 1, "Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	GlobalLoad::LoadSpriteSingle("SludgeShadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
-	RenderPosBase.Y = -64.0f;
+	GlobalLoad::LoadSpriteSingle("PressMark.png", "Resource\\Texture\\Boss\\SludgeHeart");
+	RenderPosBase = {0.0f, -64.0f};
 
 	// Renderer
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
@@ -26,21 +27,27 @@ void Sludge::Start()
 	BodyRenderer->SetImageScale({ 256.0f, 256.0f });
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("SludgeShadow.png");
 	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
 
+	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	PressMarkRenderer->SetPivotType(PivotType::Bottom);
+	PressMarkRenderer->SetSprite("PressMark.png");
+	PressMarkRenderer->SetImageScale({ 128.0f, 128.0f });
+	PressMarkRenderer->Transform.AddLocalPosition(RenderPosBase);
+
 	// Collision setting
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 230.0f, 128.0f, -10.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 96.0f, -10.0f });
 
 	GravityForce = 1200.0f;
 	MoveSpeed = 200.0f;
+	
 	ChangeState(JUMPBOSS_STATE::Idle);
 }
 
@@ -52,13 +59,17 @@ void Sludge::Update(float _Delta)
 	}
 	SetMoveDir(JumpStartPos);
 
-	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
-
 	JumpBoss::Update(_Delta);
 
 	BodyRenderer->SetImageScale(RenderScale / DividedCount);
-	ShadowRenderer->SetImageScale(ShadowRenderScale / DividedCount);
 
+	ShadowRenderer->SetImageScale(ShadowRenderScale / DividedCount);
+	PressMarkRenderer->SetImageScale(ShadowRenderScale / DividedCount);
+
+	//ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+	PressMarkRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+
+	HeartPos = { 0.0f, RenderScale.Y / 4.0f };
 	//GameEngineTransform TData;
 	//TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 	//TData.SetLocalScale({ 5.0f, 5.0f });
@@ -67,22 +78,28 @@ void Sludge::Update(float _Delta)
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y + RenderPosBase.Y;
+	float ActorYPos = BodyRenderer->Transform.GetWorldPosition().Y + RenderPosBase.Y;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
+
+	RenderPos.Z += 0.1f;
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + RenderPos);
 }
 
 
 void Sludge::DecreaseY(float _SpeedPerSecond)
 {
-	if (MaxScale > RenderScale.X)
+	if (MaxScale * LerpRange > RenderScale.X)
 	{
 		ExpandDir = SLUDGE_STATE::Decrease;
-		RenderScale.Y -= ExpandDefalutSpeed * _SpeedPerSecond;
-		RenderScale.X += ExpandDefalutSpeed * _SpeedPerSecond;
+		//RenderScale.Y -= ExpandDefalutSpeed * _SpeedPerSecond;
+		//RenderScale.X += ExpandDefalutSpeed * _SpeedPerSecond;
 
-		ShadowRenderScale.X = RenderScale.X * 0.85f;
-		ShadowRenderScale.Y = 128.0f * 0.85f + ShadowRenderScale.X * 0.1f;
+		RenderScale.Y = std::lerp(RenderScale.Y, MinScale, _SpeedPerSecond);
+		RenderScale.X = std::lerp(RenderScale.X, MaxScale, _SpeedPerSecond);
+
+		ShadowRenderScale.X = RenderScale.X * 0.82f;
+		ShadowRenderScale.Y = 128.0f * 0.6f + ShadowRenderScale.X * 0.2f;
 	}
 	else
 	{
@@ -92,14 +109,17 @@ void Sludge::DecreaseY(float _SpeedPerSecond)
 
 void Sludge::IncreaseY(float _SpeedPerSecond)
 {
-	if (MaxScale > RenderScale.Y)
+	if (MaxScale * LerpRange > RenderScale.Y)
 	{
 		ExpandDir = SLUDGE_STATE::Increase;
-		RenderScale.Y += ExpandDefalutSpeed * _SpeedPerSecond;
-		RenderScale.X -= ExpandDefalutSpeed * _SpeedPerSecond;
+		//RenderScale.Y += ExpandDefalutSpeed * _SpeedPerSecond;
+		//RenderScale.X -= ExpandDefalutSpeed * _SpeedPerSecond;
 
-		ShadowRenderScale.X = RenderScale.X * 0.85f;
-		ShadowRenderScale.Y = 128.0f * 0.85f + ShadowRenderScale.X * 0.1f;
+		RenderScale.Y = std::lerp(RenderScale.Y, MaxScale, _SpeedPerSecond);
+		RenderScale.X = std::lerp(RenderScale.X, MinScale, _SpeedPerSecond);
+
+		ShadowRenderScale.X = RenderScale.X * 0.82f;
+		ShadowRenderScale.Y = 128.0f * 0.6f + ShadowRenderScale.X * 0.2f;
 	}
 	else
 	{

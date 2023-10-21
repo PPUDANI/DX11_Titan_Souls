@@ -11,7 +11,9 @@ enum class UPDATE_ORDER
 enum class RENDERING_ORDER
 {
 	AlphaLess,
+
 	HasAlpah,
+
 };
 
 
@@ -20,6 +22,7 @@ enum class COLLISION_TYPE
 	Player,
 	Arrow,
 	Boss,
+	Sludge,
 };
 
 enum class TILE_COLLISION_TYPE

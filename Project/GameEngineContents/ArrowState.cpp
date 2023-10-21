@@ -51,7 +51,7 @@ void Arrow::PinnedStart()
 	MaxDegree = PinnedRotationDir + (DirRange / 2);
 	MinDegree = PinnedRotationDir - (DirRange / 2);
 
-	Renderer->Transform.SetLocalPosition(DepthValue::Arrow);
+	Renderer->Transform.SetLocalPosition(DepthValue::PinnedArrow);
 }
 
 void Arrow::HoldUpdate(float _Delta)

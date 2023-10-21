@@ -5,27 +5,35 @@
 void Sludge::IdleStart()
 {
 	JumpCooldown = 0.0f;
-	MaxScale = 300.0f;
+	MaxScale = 316.0f;
+	MinScale = 196.0f;
+	LerpRange = 0.9f;
 }
 
 void Sludge::JumpStart()
 {
 	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 600.0f;
-	GravityMaxValue = 600.0f;
 	ReadyToJump = false;
 
-	MaxScale = 340.0f;
+	MaxScale = 386.0f;
+	MinScale = 146.0f;
+
+	LerpRange = 0.95f;
 }
 
 void Sludge::FallStart()
 {
-	MaxScale = 300.0f;
+	MaxScale = 316.0f;
+	MinScale = 196.0f;
 }
 
 void Sludge::LandingStart()
 {
-	MaxScale = 340.0f;
+	MaxScale = 386.0f;
+	MinScale = 146.0f;
+
+	LerpRange = 0.95f;
 }
 
 void Sludge::DeathStart()
@@ -35,22 +43,14 @@ void Sludge::DeathStart()
 
 void Sludge::IdleUpdate(float _Delta)
 {
-	if (0.5f > JumpCooldown)
-	{
-		JumpCooldown += _Delta;
-	}
-	else
-	{
-		ChangeState(JUMPBOSS_STATE::Jump);
-	}
 
 	if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY(1.2f * _Delta);
+		IncreaseY(3.0f * _Delta);
 	}
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
-	    DecreaseY(1.2f * _Delta);
+		ChangeState(JUMPBOSS_STATE::Jump);
 	}
 }
 
@@ -64,9 +64,12 @@ void Sludge::JumpUpdate(float _Delta)
 
 	if (false == ReadyToJump)
 	{
-		DecreaseY(1.5f * _Delta);
-		if (MaxScale < RenderScale.X)
+		DecreaseY(4.0f * _Delta);
+		if (MaxScale * 0.9f < RenderScale.X)
 		{
+			MaxScale = 346.0f;
+			MinScale = 166.0f;
+			LerpRange = 0.90f;
 			ReadyToJump = true;
 		}
 	}
@@ -74,11 +77,11 @@ void Sludge::JumpUpdate(float _Delta)
 	{
 		if (SLUDGE_STATE::Increase == ExpandDir)
 		{
-			IncreaseY(3.0f * _Delta);
+			IncreaseY(6.0f * _Delta);
 		}
 		else
 		{
-			DecreaseY(3.0f * _Delta);
+			DecreaseY(6.0f * _Delta);
 		}
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
@@ -90,11 +93,11 @@ void Sludge::FallUpdate(float _Delta)
 {
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
-		DecreaseY(1.5f * _Delta);
+		DecreaseY(4.0f * _Delta);
 	}
 	else if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY(1.5f * _Delta);
+		IncreaseY(4.0f * _Delta);
 	}
 
 	MoveToPlayer(_Delta);
@@ -103,7 +106,7 @@ void Sludge::FallUpdate(float _Delta)
 
 void Sludge::LandingUpdate(float _Delta)
 {
-	DecreaseY(4.0f * _Delta);
+	DecreaseY(8.0f * _Delta);
 	if (SLUDGE_STATE::Increase == ExpandDir)
 	{
 		ChangeState(JUMPBOSS_STATE::Idle);

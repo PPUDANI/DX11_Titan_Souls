@@ -13,6 +13,11 @@ public:
 	Heart& operator=(const Heart& _Other) = delete;
 	Heart& operator=(Heart&& _Other) noexcept = delete;
 
+	inline void SetOwnerSludge(class Sludge* _SludgePtr)
+	{
+		OwnerSludge = _SludgePtr;
+	}
+
 private:
 	// Virtual function
 	void Start() override;
@@ -35,4 +40,6 @@ private:
 	void DeathUpdate(float _Delta) override;
 
 private:
+
+	class Sludge* OwnerSludge = nullptr;
 };

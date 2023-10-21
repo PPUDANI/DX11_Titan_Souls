@@ -23,9 +23,6 @@ void Player::Start()
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
-
-
-	//ShadowRenderer->SetMaterial("2DTextureOver");
 	ShadowRenderer->SetSprite("Player.png", 63);
 	ShadowRenderer->Transform.SetLocalPosition({0.0f, -16.0f});
 	ShadowRenderer->Transform.AddLocalPosition(DepthValue::Shadow);
