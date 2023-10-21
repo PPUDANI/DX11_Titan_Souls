@@ -62,9 +62,7 @@ void Arrow::HoldUpdate(float _Delta)
 	}
 
 	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
-
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 }
 
 
@@ -105,11 +103,11 @@ void Arrow::AimUpdate(float _Delta)
 
 	// Calculating Zoom Ratio 
 	ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 
 	// Calculating CameraMove
 	CameraMovePos = std::lerp(CameraMovePos, 120.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + FlyingDirectionBasis * CameraMovePos);
+	CameraManager::AddCameraPosFromArrow = FlyingDirectionBasis * CameraMovePos;
 }
 
 void Arrow::FlyingUpdate(float _Delta)
@@ -127,11 +125,11 @@ void Arrow::FlyingUpdate(float _Delta)
 
 	// Calculating Zoom Ratio 
 	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 20.0f * _Delta));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 
 	// Calculating CameraMove
 	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 20.0f * _Delta));
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + CameraMoveDirectionBasis * CameraMovePos);
+	CameraManager::AddCameraPosFromArrow = CameraMoveDirectionBasis * CameraMovePos;
 }
 
 
@@ -149,11 +147,11 @@ void Arrow::FallenUpdate(float _Delta)
 	
 	// Calculating Zoom Ratio 
 	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 
 	// Calculating CameraMove
 	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition() + CameraMoveDirectionBasis * CameraMovePos);
+	CameraManager::AddCameraPosFromArrow = CameraMoveDirectionBasis * CameraMovePos;
 }
 
 
@@ -183,8 +181,7 @@ void Arrow::ReturningUpdate(float _Delta)
 	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
 	MoveAndColCheck(MovePos);
 
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 }
 
 void Arrow::PickUpUpdate(float _Delta)
@@ -197,9 +194,7 @@ void Arrow::PickUpUpdate(float _Delta)
 	}
 	IsBlocked = false;
 	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
-
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetWorldPosition());
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 }
 
 
@@ -243,7 +238,5 @@ void Arrow::PinnedUpdate(float _Delta)
 		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
 	}
 
-	GetLevel()->GetMainCamera()->SetZoomValue(ZoomRatio);
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
-
+	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 }

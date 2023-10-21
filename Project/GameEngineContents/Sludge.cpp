@@ -42,10 +42,10 @@ void Sludge::Start()
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 230.0f, 128.0f, -10.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 96.0f, -10.0f });
+	Collision->Transform.SetLocalScale({ 160.0f, 112.0f, 0.0f });
 
-	GravityForce = 1200.0f;
+
+	GravityForce = 1500.0f;
 	MoveSpeed = 200.0f;
 	
 	ChangeState(JUMPBOSS_STATE::Idle);
@@ -57,8 +57,11 @@ void Sludge::Update(float _Delta)
 	{
 		JumpStartPos = Transform.GetLocalPosition();
 	}
-	SetMoveDir(JumpStartPos);
 
+	if (JUMPBOSS_STATE::Fall != CurState)
+	{
+		SetMoveDir(JumpStartPos);
+	}
 	JumpBoss::Update(_Delta);
 
 	BodyRenderer->SetImageScale(RenderScale / DividedCount);
@@ -69,7 +72,11 @@ void Sludge::Update(float _Delta)
 	//ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 	PressMarkRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 
-	HeartPos = { 0.0f, RenderScale.Y / 4.0f };
+	HeartPos = { 0.0f, RenderScale.Y / 4.0f};
+	float4 CollisionPos = HeartPos;
+	CollisionPos.Z = -10.0f;
+	Collision->Transform.SetLocalPosition(CollisionPos);
+
 	//GameEngineTransform TData;
 	//TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 	//TData.SetLocalScale({ 5.0f, 5.0f });

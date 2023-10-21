@@ -80,6 +80,9 @@
     <ClCompile Include="JumpBoss.cpp">
       <Filter>01. Actor\03. Boss\01.Sludge Heart\00. GravityActor</Filter>
     </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>01. Actor\04. Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="JumpBoss.h">
       <Filter>01. Actor\03. Boss\01.Sludge Heart\00. GravityActor</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>01. Actor\04. Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +225,9 @@
     </Filter>
     <Filter Include="01. Actor\03. Boss\01.Sludge Heart\03. Debris">
       <UniqueIdentifier>{6726e26a-21d3-4ad7-a36f-8fa9d22b8e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\04. Camera">
+      <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

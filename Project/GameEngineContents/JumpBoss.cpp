@@ -100,12 +100,12 @@ void JumpBoss::MoveToPlayer(float _Delta)
 {
 	float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
 
-	if (2.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
+	if (5.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
 	{
 		MovePos.X = 0.0f;
 	}
 
-	if (2.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().Y - JumpStartPos.Y))
+	if (5.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().Y - JumpStartPos.Y))
 	{
 		MovePos.Y = 0.0f;
 	}

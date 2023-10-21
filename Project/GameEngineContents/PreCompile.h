@@ -37,6 +37,7 @@
 #include "PlayLevelBase.h"
 
 // Actor
+#include "CameraManager.h"
 #include "TileMap.h"
 #include "Player.h"
 #include "Arrow.h"

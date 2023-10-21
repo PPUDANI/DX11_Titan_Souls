@@ -17,7 +17,7 @@ void Sludge::JumpStart()
 	ReadyToJump = false;
 
 	MaxScale = 386.0f;
-	MinScale = 146.0f;
+	MinScale = 126.0f;
 
 	LerpRange = 0.95f;
 }
@@ -31,7 +31,7 @@ void Sludge::FallStart()
 void Sludge::LandingStart()
 {
 	MaxScale = 386.0f;
-	MinScale = 146.0f;
+	MinScale = 126.0f;
 
 	LerpRange = 0.95f;
 }
@@ -69,7 +69,7 @@ void Sludge::JumpUpdate(float _Delta)
 		{
 			MaxScale = 346.0f;
 			MinScale = 166.0f;
-			LerpRange = 0.90f;
+			LerpRange = 0.87f;
 			ReadyToJump = true;
 		}
 	}

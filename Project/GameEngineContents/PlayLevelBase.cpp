@@ -67,6 +67,9 @@ void PlayLevelBase::Update(float _Delta)
 
 	CursorDirRotation();
 	ArrowDirRotation();
+
+	GetMainCamera()->Transform.SetWorldPosition(CameraManager::GetCameraPos());
+	GetMainCamera()->SetZoomValue(CameraManager::GetCameraZoom());
 }
 
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
