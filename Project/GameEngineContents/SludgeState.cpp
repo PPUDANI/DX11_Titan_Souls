@@ -24,14 +24,14 @@ void Sludge::JumpStart()
 
 void Sludge::FallStart()
 {
-	MaxScale = 316.0f;
-	MinScale = 196.0f;
+	MaxScale = 346.0f;
+	MinScale = 166.0f;
 }
 
 void Sludge::LandingStart()
 {
-	MaxScale = 386.0f;
-	MinScale = 126.0f;
+	MaxScale = 376.0f;
+	MinScale = 136.0f;
 
 	LerpRange = 0.95f;
 }
@@ -64,12 +64,12 @@ void Sludge::JumpUpdate(float _Delta)
 
 	if (false == ReadyToJump)
 	{
-		DecreaseY(4.0f * _Delta);
+		DecreaseY(3.0f * _Delta);
 		if (MaxScale * 0.9f < RenderScale.X)
 		{
-			MaxScale = 346.0f;
-			MinScale = 166.0f;
-			LerpRange = 0.87f;
+			MaxScale = 366.0f;
+			MinScale = 146.0f;
+			LerpRange = 0.8f;
 			ReadyToJump = true;
 		}
 	}
@@ -77,11 +77,11 @@ void Sludge::JumpUpdate(float _Delta)
 	{
 		if (SLUDGE_STATE::Increase == ExpandDir)
 		{
-			IncreaseY(6.0f * _Delta);
+			IncreaseY(4.5f * _Delta);
 		}
 		else
 		{
-			DecreaseY(6.0f * _Delta);
+			DecreaseY(4.5f * _Delta);
 		}
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
@@ -93,11 +93,11 @@ void Sludge::FallUpdate(float _Delta)
 {
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
-		DecreaseY(4.0f * _Delta);
+		DecreaseY(2.5f * _Delta);
 	}
 	else if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY(4.0f * _Delta);
+		IncreaseY(2.5f * _Delta);
 	}
 
 	MoveToPlayer(_Delta);

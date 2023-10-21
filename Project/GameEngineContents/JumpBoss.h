@@ -55,7 +55,7 @@ protected:
 
 protected:
 	// Physics
-	float MoveSpeed = 150.0f;
+	float MoveSpeed = 0.0f;
 	float4 RenderPosBase = { 0.0f, 0.0f };
 	float4 JumpStartPos = float4::ZERO;
 	void MoveToPlayer(float _Delta);
@@ -63,6 +63,9 @@ protected:
 	// State
 	JUMPBOSS_STATE CurState = JUMPBOSS_STATE::Default;
 	float JumpCooldown = 0.0f;
+
+protected:
+	virtual void RendererSetting() {}
 
 private:
 

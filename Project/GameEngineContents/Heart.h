@@ -23,7 +23,6 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 
-private:
 	// State
 	void InSludgeStart() override;
 	void IdleStart() override;
@@ -38,6 +37,8 @@ private:
 	void FallUpdate(float _Delta) override;
 	void LandingUpdate(float _Delta) override;
 	void DeathUpdate(float _Delta) override;
+
+	void RendererSetting() override;
 
 private:
 

@@ -17,7 +17,7 @@ void Heart::JumpStart()
 {
 	BodyRenderer->ChangeAnimation("Jump");
 	JumpStartPos = Transform.GetLocalPosition();
-	GravityValue = 400.0f;
+	GravityValue = 300.0f;
 	Collision->Off();
 }
 
@@ -50,7 +50,7 @@ void Heart::InSludgeUpdate(float _Delta)
 
 void Heart::IdleUpdate(float _Delta)
 {
-	if (0.5f > JumpCooldown)
+	if (0.1f > JumpCooldown)
 	{
 		JumpCooldown += _Delta;
 	}
@@ -95,3 +95,4 @@ void Heart::DeathUpdate(float _Delta)
 {
 
 }
+

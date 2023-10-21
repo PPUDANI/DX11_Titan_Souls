@@ -39,6 +39,10 @@ private:
 	float LerpRange = 0.0f;
 
 	float4 HeartPos = float4::ZERO;
+
+private:
+	void RendererSetting() override;
+
 private:
 	// State
 	void IdleStart() override;

@@ -41,6 +41,8 @@ void JumpBoss::Update(float _Delta)
 	default:
 		break;
 	}
+
+	RendererSetting();
 }
 
 void JumpBoss::ChangeState(JUMPBOSS_STATE _State)
@@ -100,12 +102,12 @@ void JumpBoss::MoveToPlayer(float _Delta)
 {
 	float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
 
-	if (5.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
+	if (MoveSpeed / 50.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
 	{
 		MovePos.X = 0.0f;
 	}
 
-	if (5.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().Y - JumpStartPos.Y))
+	if (MoveSpeed / 50.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().Y - JumpStartPos.Y))
 	{
 		MovePos.Y = 0.0f;
 	}

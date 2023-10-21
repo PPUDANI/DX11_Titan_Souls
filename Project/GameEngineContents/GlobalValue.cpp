@@ -3,7 +3,7 @@
 #include <cmath>
 const float4 GlobalValue::WindowScale = { 1366.0f, 768.0f };
 const float4 GlobalValue::StandardTextureScale = { 32.0f, 32.0f };
-
+const float4 GlobalValue::DebugDepth = { 0.0f, 0.0f, -10.0f };
 
 
 const float4 DepthValue::BGMap = { 0.0f, 0.0f, 60.0f };

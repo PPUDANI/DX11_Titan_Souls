@@ -11,7 +11,7 @@ public:
 
 	static const float4 WindowScale;
 	static const float4 StandardTextureScale;
-
+	static const float4 DebugDepth;
 protected:
 
 private:
