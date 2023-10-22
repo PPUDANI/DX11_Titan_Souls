@@ -21,8 +21,8 @@ void Sludge::Start()
 	// Renderer
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
-	BodyRenderer->CreateAnimation("Default", "Sludge.png", 1.0f, 0, 0, false);
-	BodyRenderer->CreateAnimation("Hit", "Sludge.png", 0.1f, 0, 1, true);
+	BodyRenderer->CreateAnimation("Default", "Sludge.png", 1.0f, 1, 1, false);
+	BodyRenderer->CreateAnimation("Hit", "Sludge.png", 0.15f, 0, 1, false);
 	BodyRenderer->ChangeAnimation("Default");
 	BodyRenderer->SetImageScale({ 256.0f, 256.0f });
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
@@ -46,8 +46,10 @@ void Sludge::Start()
 
 	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
+			BodyRenderer->ChangeAnimation("Hit", true);
 			IsHitArrow = false;
 			IsDivision = true;
+			Collision->Off();
 		};
 
 	GravityForce = 1500.0f;
@@ -65,14 +67,12 @@ void Sludge::Update(float _Delta)
 		JumpStartPos = Transform.GetLocalPosition();
 	}
 
-	SetMoveDir(JumpStartPos);
-
 	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
 
 	JumpBoss::Update(_Delta);
 
 	// Heart position setting
-	HeartPos = { 0.0f, RenderScale.Y / (4.0f * SludgeDividedSize) - 16.0f * SludgeDividedSize };
+	HeartPos = { 0.0f, RenderScale.Y / (4.0f * SludgeDividedSize) - 3.0f * SludgeDividedSize };
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
@@ -93,7 +93,7 @@ void Sludge::Update(float _Delta)
 			SludgeDividedSize = 1.0f + DividedCount * SizeReduction;
 			MoveSpeed += 20.0f;
 			GravityForce += 100.0f;
-
+			RenderPosBase *= 0.66f;
 			Collision->Transform.SetLocalScale(Collision->Transform.GetLocalScale() / 1.5f);
 		}
 	}
@@ -152,7 +152,7 @@ void Sludge::RendererSetting()
 
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = BodyRenderer->Transform.GetWorldPosition().Y + RenderPosBase.Y;
+	float ActorYPos = BodyRenderer->Transform.GetWorldPosition().Y;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
 

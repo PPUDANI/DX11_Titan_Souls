@@ -35,6 +35,7 @@ void SludgeHeartRoom::Start()
 void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
+
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
@@ -59,7 +60,6 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 
 		SludgeActor->SetHeart(HeartActor.get());
 	}
-
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)

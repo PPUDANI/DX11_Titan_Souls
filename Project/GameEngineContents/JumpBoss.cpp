@@ -18,6 +18,11 @@ void JumpBoss::Update(float _Delta)
 {
 	BossBase::Update(_Delta);
 
+	if (JUMPBOSS_STATE::Fall != CurState)
+	{
+		SetMoveDir(JumpStartPos);
+	}
+
 	switch (CurState)
 	{
 	case JUMPBOSS_STATE::InSludge:

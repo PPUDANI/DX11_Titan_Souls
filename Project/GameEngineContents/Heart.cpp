@@ -38,8 +38,8 @@ void Heart::Start()
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 38.0f, 23.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 0.0f, 0.0f });
+	Collision->Transform.SetLocalScale({ 34.0f, 20.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, -4.0f, 0.0f });
 
 	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;
@@ -49,7 +49,7 @@ void Heart::Start()
 
 void Heart::Update(float _Delta)
 {
-	SetMoveDir(JumpStartPos);
+	
 
 	if (true == IsHitArrow)
 	{
@@ -64,7 +64,7 @@ void Heart::RendererSetting()
 {
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y/* + RenderPosBase.Y*/;
+	float ActorYPos = Transform.GetWorldPosition().Y - 10.0f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
 

@@ -112,7 +112,6 @@ void Player::Update(float _Delta)
 	BodyRenderer->Transform.SetLocalPosition(RenderPos);
 	RenderPos.Z -= 0.01f;
 	BowRenderer->Transform.SetLocalPosition(RenderPos);
-	RenderPos.Z -= 0.01f;
 	ArrowInBagRenderer->Transform.SetLocalPosition(RenderPos);
 
 	CameraManager::AddCameraPosFromPlayer = Transform.GetWorldPosition();

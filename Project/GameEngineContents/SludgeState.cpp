@@ -68,7 +68,9 @@ void Sludge::JumpUpdate(float _Delta)
 		{
 			MaxScale = 366.0f;
 			MinScale = 146.0f;
+
 			LerpRange = 0.8f;
+
 			ReadyToJump = true;
 			Collision->Off();
 		}
