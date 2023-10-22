@@ -38,11 +38,12 @@ void Heart::Start()
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 38.0f, 25.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 24.0f, 0.0f });
+	Collision->Transform.SetLocalScale({ 38.0f, 23.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 
-	GravityForce = 1500.0f;
+	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;
+	WeaknessActorValue = true;
 	ChangeState(JUMPBOSS_STATE::InSludge);
 }
 
@@ -69,10 +70,4 @@ void Heart::RendererSetting()
 
 	RenderPos.Z += 0.1f;
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + RenderPos);
-
-	GameEngineTransform TData;
-	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
-	TData.SetLocalScale({ 5.0f, 5.0f });
-	TData.SetLocalPosition(JumpStartPos + GlobalValue::DebugDepth);
-	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 }

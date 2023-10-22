@@ -47,9 +47,6 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
     </ClCompile>
-    <ClCompile Include="ArrowState.cpp">
-      <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
-    </ClCompile>
     <ClCompile Include="MouseCursor.cpp">
       <Filter>03.UI</Filter>
     </ClCompile>
@@ -82,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
       <Filter>01. Actor\04. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowState.cpp">
+      <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

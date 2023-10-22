@@ -19,9 +19,16 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Get", "Player.png", 0.06f, 220, 223, false);
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Arrow);
-	Collision->SetCollisionType(ColType::OBBBOX2D);
-	Collision->Transform.SetLocalScale({12.0f, 12.0f, 1.0f });
+	GetCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
+	GetCollision->SetCollisionType(ColType::OBBBOX2D);
+	GetCollision->Transform.SetLocalScale({12.0f, 12.0f, 1.0f });
+	GetCollision->Transform.SetLocalPosition(GlobalValue::DebugDepth);
+
+	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
+	AttackCollision->SetCollisionType(ColType::OBBBOX2D);
+	AttackCollision->Transform.SetLocalScale({ 12.0f, 12.0f, 1.0f });
+	AttackCollision->Transform.SetLocalPosition(GlobalValue::DebugDepth);
+
 	ChangeState(ARROW_STATE::Hold);
 
 	GameEngineInput::AddInputObject(this);
@@ -77,6 +84,19 @@ void Arrow::Update(float _Delta)
 	default:
 		break;
 	}
+
+	if (ARROW_STATE::Aim != CurState)
+	{
+		if (0.3f < PullingForce)
+		{
+			AttackCollision->On();
+		}
+		else
+		{
+			AttackCollision->Off();
+		}
+	}
+
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
 	if (0.0f > CameraPos.X - WindowScale.hX())
@@ -174,8 +194,13 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 			}
 			return;
 		}
+
 		if (true == ArrowColCheckByState(MovePos))
 		{
+			if (ARROW_STATE::Returning == CurState)
+			{
+				ChangeState(ARROW_STATE::Fallen);
+			}
 			return;
 		}
 	}
@@ -203,8 +228,13 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 
 	if (true == ArrowColCheckByState(_MovePos))
 	{
+		if (ARROW_STATE::Returning == CurState)
+		{
+			ChangeState(ARROW_STATE::Fallen);
+		}
 		return;
 	}
+
 	Transform.AddLocalPosition(_MovePos);
 }
 
@@ -213,17 +243,26 @@ bool Arrow::ArrowColCheckByState(float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		if (0.3f < PullingForce)
+		{
+			return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		}
+		break;
 
 	case ARROW_STATE::Fallen:
 	case ARROW_STATE::Returning:
-		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
+		if (true == GetCollision->Collision(COLLISION_TYPE::Player, _MovePos))
 		{
 			Transform.AddLocalPosition(_MovePos);
 			ChangeState(ARROW_STATE::PickUp);
 			return true;
 		}
-		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+
+		if (0.3f < PullingForce)
+		{
+			return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		}
+		break;
 
 	default:
 		break;
@@ -242,7 +281,7 @@ void Arrow::AdjustPosByTileCol()
 
 void Arrow::AdjustPosByCol()
 {
-	while (true == Collision->Collision(COLLISION_TYPE::Boss))
+	while (true == GetCollision->Collision(COLLISION_TYPE::Boss))
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
@@ -261,7 +300,7 @@ void Arrow::DebugRender()
 	GameEngineTransform TData;
 	TData.SetLocalRotation(ArrowAngleDeg);
 	TData.SetLocalScale({ 5.0f, 5.0f });
-	TData.SetLocalPosition(Transform.GetLocalPosition() + ArrowheadCheckPos);
+	TData.SetLocalPosition(Transform.GetLocalPosition() + ArrowheadCheckPos + GlobalValue::DebugDepth);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 0, 1 });
 }
 
@@ -273,7 +312,10 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 		BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
 		BossActor->HitArrow();
 		AdjustPosByCol();
-		ChangeState(ARROW_STATE::Pinned);
+		if (true == BossActor->IsWeaknessActor())
+		{
+			ChangeState(ARROW_STATE::Pinned);
+		}
 	}
 	else
 	{

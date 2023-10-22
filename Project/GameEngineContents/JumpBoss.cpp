@@ -43,6 +43,15 @@ void JumpBoss::Update(float _Delta)
 	}
 
 	RendererSetting();
+
+	if (true == GetLevel()->IsDebug)
+	{
+		GameEngineTransform TData;
+		TData.SetLocalRotation(Transform.GetLocalRotationEuler());
+		TData.SetLocalScale({ 5.0f, 5.0f });
+		TData.SetLocalPosition(JumpStartPos + GlobalValue::DebugDepth);
+		GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
+	}
 }
 
 void JumpBoss::ChangeState(JUMPBOSS_STATE _State)

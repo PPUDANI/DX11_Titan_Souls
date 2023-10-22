@@ -15,7 +15,6 @@ void Sludge::JumpStart()
 	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 600.0f;
 	ReadyToJump = false;
-
 	MaxScale = 386.0f;
 	MinScale = 126.0f;
 
@@ -30,6 +29,7 @@ void Sludge::FallStart()
 
 void Sludge::LandingStart()
 {
+	Collision->On();
 	MaxScale = 376.0f;
 	MinScale = 136.0f;
 
@@ -43,10 +43,9 @@ void Sludge::DeathStart()
 
 void Sludge::IdleUpdate(float _Delta)
 {
-
 	if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY(3.0f * _Delta);
+		IncreaseY((3.0f + DividedCount) * _Delta);
 	}
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
@@ -64,40 +63,40 @@ void Sludge::JumpUpdate(float _Delta)
 
 	if (false == ReadyToJump)
 	{
-		DecreaseY(3.0f * _Delta);
+		DecreaseY((3.0f + DividedCount) * _Delta);
 		if (MaxScale * 0.9f < RenderScale.X)
 		{
 			MaxScale = 366.0f;
 			MinScale = 146.0f;
 			LerpRange = 0.8f;
 			ReadyToJump = true;
+			Collision->Off();
 		}
 	}
 	else
 	{
 		if (SLUDGE_STATE::Increase == ExpandDir)
 		{
-			IncreaseY(4.5f * _Delta);
+			IncreaseY(5.0f * _Delta);
 		}
 		else
 		{
-			DecreaseY(4.5f * _Delta);
+			DecreaseY(5.0f * _Delta);
 		}
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
 	}
-
 }
 
 void Sludge::FallUpdate(float _Delta)
 {
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
-		DecreaseY(2.5f * _Delta);
+		DecreaseY(2.75f * _Delta);
 	}
 	else if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY(2.5f * _Delta);
+		IncreaseY(2.75f * _Delta);
 	}
 
 	MoveToPlayer(_Delta);

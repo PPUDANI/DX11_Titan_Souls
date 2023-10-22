@@ -94,7 +94,8 @@ private:
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
-	std::shared_ptr<GameEngineCollision> Collision = nullptr;
+	std::shared_ptr<GameEngineCollision> GetCollision = nullptr;
+	std::shared_ptr<GameEngineCollision> AttackCollision = nullptr;
 
 	// Collision
 	float4 ArrowheadPosBasis = { 12.0f, 12.0f };
@@ -132,6 +133,7 @@ private:
 	bool IsBlocked = false;
 	float FiyTimer = 0.0f;
 
+	// Pinned Valuable
 	float MaxDegree = 0.0f;
 	float MinDegree = 0.0f;
 	float DirRange = 4.0f;

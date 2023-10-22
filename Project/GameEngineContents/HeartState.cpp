@@ -18,7 +18,6 @@ void Heart::JumpStart()
 	BodyRenderer->ChangeAnimation("Jump");
 	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 300.0f;
-	Collision->Off();
 }
 
 void Heart::FallStart()
@@ -45,7 +44,6 @@ void Heart::InSludgeUpdate(float _Delta)
 		ChangeState(JUMPBOSS_STATE::Idle);
 		return;
 	}
-	Transform.SetLocalPosition(OwnerSludge->Transform.GetWorldPosition() + OwnerSludge->GetHeartPos());
 }
 
 void Heart::IdleUpdate(float _Delta)
@@ -71,6 +69,7 @@ void Heart::JumpUpdate(float _Delta)
 
 	if (1 <= BodyRenderer->GetCurIndex())
 	{
+		Collision->Off();
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
 	}

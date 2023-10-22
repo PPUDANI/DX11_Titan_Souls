@@ -4,16 +4,15 @@
 
 void Arrow::HoldStart()
 {
+	PullingForce = 0.0f;
 	Renderer->ChangeAnimation("Idle");
 	Renderer->Off();
-	Collision->Off();
+	GetCollision->Off();
 }
 
 void Arrow::AimStart()
 {
 	Renderer->ChangeAnimation("Idle");
-
-	PullingForce = 0.0f;
 	ZoomRatio = 1.0f;
 	CameraMovePos = 0.0f;
 }
@@ -21,7 +20,9 @@ void Arrow::AimStart()
 void Arrow::FlyingStart()
 {
 	FiyTimer = 0.0f;
-	Collision->On();
+
+	GetCollision->On();
+
 	OwnerPlayer->LostArrow();
 	CameraMoveDirectionBasis = FlyingDirectionBasis;
 }
@@ -39,13 +40,13 @@ void Arrow::ReturningStart()
 void Arrow::PickUpStart()
 {
 	Renderer->ChangeAnimation("Get"); 
-	Collision->Off();
+	GetCollision->Off();
 }
 
 void Arrow::PinnedStart()
 {
 	Renderer->ChangeAnimation("Pinned");
-	Collision->Off();
+	GetCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
 
 	MaxDegree = PinnedRotationDir + (DirRange / 2);
@@ -162,7 +163,7 @@ void Arrow::ReturningUpdate(float _Delta)
 	{
 		FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 		Transform.SetLocalRotation(ArrowAngleDeg);
-		PullingForce = std::lerp(PullingForce, 0.5f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+		PullingForce = std::lerp(PullingForce, 0.6f, 1.0f - std::pow(0.01f, 0.3f * _Delta));
 		ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
 	}
 	else
@@ -235,7 +236,7 @@ void Arrow::PinnedUpdate(float _Delta)
 	else
 	{
 		PullOutTimer = 0.0f;
-		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 5.0f * _Delta));
 	}
 
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;

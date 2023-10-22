@@ -28,6 +28,11 @@ public:
 		IsHitArrow = true;
 	}
 
+	inline bool IsWeaknessActor()
+	{
+		return WeaknessActorValue;
+	}
+
 protected:
 	// Inheritance Functions
 	void Start() override;
@@ -42,7 +47,9 @@ protected:
 	class Player* EnymePlayer = nullptr;
 	class Arrow* EnymeArrow = nullptr;
 
+	// State
 	bool IsHitArrow = false;
+	bool WeaknessActorValue = false;
 
 protected:
 	void SetMoveDir(float4& _CheckPos);

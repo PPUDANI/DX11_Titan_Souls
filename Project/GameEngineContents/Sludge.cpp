@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "Sludge.h"
-
+#include "Heart.h"
 Sludge::Sludge()
 {
 }
@@ -44,12 +44,18 @@ void Sludge::Start()
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 160.0f, 112.0f, 0.0f });
 
-
+	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+		{
+			IsHitArrow = false;
+			IsDivision = true;
+		};
 
 	GravityForce = 1500.0f;
 	MoveSpeed = 250.0f;
-	
+	SludgeDividedSize = 1.0f + DividedCount * SizeReduction;
+
 	ChangeState(JUMPBOSS_STATE::Idle);
+
 }
 
 void Sludge::Update(float _Delta)
@@ -60,15 +66,42 @@ void Sludge::Update(float _Delta)
 	}
 
 	SetMoveDir(JumpStartPos);
-	
+
+	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
+
 	JumpBoss::Update(_Delta);
 
 	// Heart position setting
-	HeartPos = { 0.0f, RenderScale.Y / (4.0f * DividedCount) - 24.0f * DividedCount };
+	HeartPos = { 0.0f, RenderScale.Y / (4.0f * SludgeDividedSize) - 16.0f * SludgeDividedSize };
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
 	Collision->Transform.SetLocalPosition(CollisionPos + GlobalValue::DebugDepth);
+
+	if (4.0f > DividedCount)
+	{
+		if (nullptr != HeartActor)
+		{
+			HeartActor->Transform.SetLocalPosition(Transform.GetWorldPosition() + HeartPos);
+		}
+		
+		if (true == IsDivision)
+		{
+			IsDivision = false;
+			DividedCount++;
+			SizeReduction *= 1.4f;
+			SludgeDividedSize = 1.0f + DividedCount * SizeReduction;
+			MoveSpeed += 20.0f;
+			GravityForce += 100.0f;
+
+			Collision->Transform.SetLocalScale(Collision->Transform.GetLocalScale() / 1.5f);
+		}
+	}
+	else
+	{
+		HeartActor->SetOwnerSludge(nullptr);
+		Death();
+	}
 }
 
 
@@ -112,9 +145,9 @@ void Sludge::IncreaseY(float _SpeedPerSecond)
 void Sludge::RendererSetting()
 {
 	// Renderers ImageScale & position Setting
-	BodyRenderer->SetImageScale(RenderScale / DividedCount);
-	ShadowRenderer->SetImageScale(ShadowRenderScale / DividedCount);
-	PressMarkRenderer->SetImageScale(ShadowRenderScale / DividedCount);
+	BodyRenderer->SetImageScale(RenderScale / SludgeDividedSize);
+	ShadowRenderer->SetImageScale(ShadowRenderScale / SludgeDividedSize);
+	PressMarkRenderer->SetImageScale(ShadowRenderScale / SludgeDividedSize);
 	PressMarkRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 
 	float4 RenderPos = float4::ZERO;
@@ -125,10 +158,4 @@ void Sludge::RendererSetting()
 
 	RenderPos.Z += 0.01f;
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + RenderPos);
-
-	GameEngineTransform TData;
-	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
-	TData.SetLocalScale({ 5.0f, 5.0f });
-	TData.SetLocalPosition(JumpStartPos + GlobalValue::DebugDepth);
-	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 }

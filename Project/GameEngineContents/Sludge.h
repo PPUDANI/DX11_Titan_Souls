@@ -19,11 +19,13 @@ public:
 	Sludge& operator=(const Sludge& _Other) = delete;
 	Sludge& operator=(Sludge&& _Other) noexcept = delete;
 
-	inline float4 GetHeartPos()
+	inline void SetHeart(class Heart* _HeartPtr)
 	{
-		return HeartPos;
+		HeartActor = _HeartPtr;
 	}
 
+private:
+	class Heart* HeartActor = nullptr;
 private:
 	// Inheritance Functions
 	void Start() override;
@@ -57,9 +59,12 @@ private:
 	void LandingUpdate(float _Delta) override;
 	void DeathUpdate(float _Delta) override;
 
-	float DividedCount = 1.0f;
+	bool IsDivision = false;
+	float DividedCount = 0.0f;
+	float SizeReduction = 0.33f;
+	float SludgeDividedSize = 0.0f;
 	SLUDGE_STATE ExpandDir = SLUDGE_STATE::Decrease;
-
+	EventParameter Param;
 private:
 	// Physics
 	void DecreaseY(float _Speed);

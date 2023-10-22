@@ -20,7 +20,8 @@ enum class RENDERING_ORDER
 enum class COLLISION_TYPE
 {
 	Player,
-	Arrow,
+	GetArrow,
+	AttackArrow,
 	Boss,
 	Sludge,
 };
