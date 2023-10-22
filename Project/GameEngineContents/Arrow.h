@@ -121,8 +121,7 @@ private:
 	float4 CameraMoveDirectionBasis = float4::ZERO;
 
 	float PullingForce = 0.0f;
-	float PullingForceIncreaseSpeed = 1.0f;
-	float DefaultSpeed = 3000.0f;
+	float DefaultSpeed = 4000.0f;
 	float ZoomRatio = 1.0f;
 
 	float CameraMoveScale = 1.0f;
@@ -141,7 +140,7 @@ private:
 	float PinnedRotationSpeed = 500.0f;
 	bool RotationReverse = false;
 
-	float StandartPullingForceByHit = 0.3f;
+	float StandartPullingForceByHit = 0.5f;
 
 	float PullOutDuration = 1.5f;
 	float PullOutTimer = 0.0f;

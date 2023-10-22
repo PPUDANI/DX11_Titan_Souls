@@ -62,7 +62,7 @@ void Arrow::HoldUpdate(float _Delta)
 		ChangeState(ARROW_STATE::Aim);
 	}
 
-	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 }
 
@@ -88,7 +88,7 @@ void Arrow::AimUpdate(float _Delta)
 	}
 
 	FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
-	PullingForce = std::lerp(PullingForce, 1.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
+	PullingForce = std::lerp(PullingForce, 1.0f, 3.0f * _Delta);
 
 	// Adjust the arrow position
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
@@ -103,33 +103,33 @@ void Arrow::AimUpdate(float _Delta)
 	Renderer->On();
 
 	// Calculating Zoom Ratio 
-	ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
+	ZoomRatio = std::lerp(ZoomRatio, 0.8f, 2.0f * _Delta);
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 
 	// Calculating CameraMove
-	CameraMovePos = std::lerp(CameraMovePos, 120.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
+	CameraMovePos = std::lerp(CameraMovePos, 120.0f, 5.0f * _Delta);
 	CameraManager::AddCameraPosFromArrow = FlyingDirectionBasis * CameraMovePos;
 }
 
 void Arrow::FlyingUpdate(float _Delta)
 {
-	if (0.05f > PullingForce)
+	if (0.2f > PullingForce)
 	{
 		ChangeState(ARROW_STATE::Fallen);
 		return;
 	}
 
-	PullingForce = std::lerp(PullingForce, 0.0f, 1.0f - std::pow(0.5f, 7.0f * _Delta));
+	PullingForce = std::lerp(PullingForce, 0.0f, 3.0f * _Delta);
 
-	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
+	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * std::powf(PullingForce, 2) * _Delta;
 	MoveAndColCheck(MovePos);
 
 	// Calculating Zoom Ratio 
-	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 20.0f * _Delta));
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 
 	// Calculating CameraMove
-	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 20.0f * _Delta));
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 10.0f * _Delta);
 	CameraManager::AddCameraPosFromArrow = CameraMoveDirectionBasis * CameraMovePos;
 }
 
@@ -142,16 +142,16 @@ void Arrow::FallenUpdate(float _Delta)
 		return;
 	}
 
-	PullingForce = std::lerp(PullingForce, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
-	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
+	PullingForce = std::lerp(PullingForce, 0.0f, 5.0f * _Delta);
+	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * std::powf(PullingForce, 2) * _Delta;
 	MoveAndColCheck(MovePos);
-	
+
 	// Calculating Zoom Ratio 
-	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 
 	// Calculating CameraMove
-	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 10.0f * _Delta);
 	CameraManager::AddCameraPosFromArrow = CameraMoveDirectionBasis * CameraMovePos;
 }
 
@@ -163,14 +163,14 @@ void Arrow::ReturningUpdate(float _Delta)
 	{
 		FlyingDirectionBasis = float4::GetUnitVectorFromDeg(ArrowAngleDeg.Z - 90.0f);
 		Transform.SetLocalRotation(ArrowAngleDeg);
-		PullingForce = std::lerp(PullingForce, 0.6f, 1.0f - std::pow(0.01f, 0.3f * _Delta));
-		ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+		PullingForce = std::lerp(PullingForce, 0.7f, 2.0f * _Delta);
+		ZoomRatio = std::lerp(ZoomRatio, 0.8f, 2.0f * _Delta);
 	}
 	else
 	{
 		AbleReturning = false;
-		PullingForce = std::lerp(PullingForce, 0.0f, 1.0f - std::pow(0.01f, 3.0f * _Delta));
-		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+		PullingForce = std::lerp(PullingForce, 0.0f, 5.0f * _Delta);
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 
 		if (0.1f > PullingForce)
 		{
@@ -179,7 +179,7 @@ void Arrow::ReturningUpdate(float _Delta)
 		}
 	}
 
-	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * PullingForce * _Delta;
+	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * std::powf(PullingForce, 2) * _Delta;
 	MoveAndColCheck(MovePos);
 
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
@@ -194,7 +194,7 @@ void Arrow::PickUpUpdate(float _Delta)
 		return;
 	}
 	IsBlocked = false;
-	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.5f, 10.0f * _Delta));
+	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
 }
 
@@ -231,12 +231,12 @@ void Arrow::PinnedUpdate(float _Delta)
 		}
 
 		PullOutTimer += _Delta;
-		ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f - std::pow(0.01f, 0.2f * _Delta));
+		ZoomRatio = std::lerp(ZoomRatio, 0.8f, 1.0f * _Delta);
 	}
 	else
 	{
 		PullOutTimer = 0.0f;
-		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f - std::pow(0.01f, 5.0f * _Delta));
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 	}
 
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;

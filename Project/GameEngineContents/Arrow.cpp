@@ -185,7 +185,7 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 				{
 					DirSpecularReflection();
 				}
-				PullingForce /= 10.0f;
+				PullingForce /= 2.0f;
 			}
 			else
 			{
@@ -212,7 +212,7 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 			{
 				DirSpecularReflection();
 			}
-			PullingForce /= 10.0f;
+			PullingForce /= 2.0f;
 		}
 		else
 		{
