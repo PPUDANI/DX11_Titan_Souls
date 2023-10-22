@@ -87,7 +87,7 @@ void Arrow::Update(float _Delta)
 
 	if (ARROW_STATE::Aim != CurState)
 	{
-		if (0.3f < PullingForce)
+		if (StandartPullingForceByHit < PullingForce)
 		{
 			AttackCollision->On();
 		}
@@ -197,10 +197,6 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 
 		if (true == ArrowColCheckByState(MovePos))
 		{
-			if (ARROW_STATE::Returning == CurState)
-			{
-				ChangeState(ARROW_STATE::Fallen);
-			}
 			return;
 		}
 	}
@@ -228,10 +224,6 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 
 	if (true == ArrowColCheckByState(_MovePos))
 	{
-		if (ARROW_STATE::Returning == CurState)
-		{
-			ChangeState(ARROW_STATE::Fallen);
-		}
 		return;
 	}
 
@@ -243,10 +235,7 @@ bool Arrow::ArrowColCheckByState(float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		if (0.3f < PullingForce)
-		{
-			return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
-		}
+		return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	case ARROW_STATE::Fallen:
@@ -258,10 +247,7 @@ bool Arrow::ArrowColCheckByState(float4& _MovePos)
 			return true;
 		}
 
-		if (0.3f < PullingForce)
-		{
-			return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
-		}
+		return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	default:
@@ -319,6 +305,7 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 	}
 	else
 	{
+		AdjustPosByCol();
 		ChangeState(ARROW_STATE::Fallen);
 	}
 }

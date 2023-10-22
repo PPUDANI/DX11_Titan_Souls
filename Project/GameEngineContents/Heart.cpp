@@ -64,7 +64,7 @@ void Heart::RendererSetting()
 {
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y + RenderPosBase.Y;
+	float ActorYPos = Transform.GetWorldPosition().Y/* + RenderPosBase.Y*/;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
 
