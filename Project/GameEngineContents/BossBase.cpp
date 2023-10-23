@@ -42,7 +42,7 @@ void BossBase::SetMoveDir(float4& _CheckPos)
 	if (true == RandomMoveValue)
 	{
 		GameEngineRandom Inst;
-		MoveAngle.Z += Inst.RandomFloat(-20.0f, 20.0f);
+		MoveAngle.Z += Inst.RandomFloat(-40.0f, 40.0f);
 	}
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }

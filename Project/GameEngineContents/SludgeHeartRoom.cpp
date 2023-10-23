@@ -15,6 +15,8 @@ void SludgeHeartRoom::Start()
 {
 	PlayLevelBase::Start();
 
+	GetMainCamera()->SetZSort(RENDERING_ORDER::Shadow);
+	
 	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
 

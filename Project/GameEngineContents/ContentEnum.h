@@ -11,9 +11,9 @@ enum class UPDATE_ORDER
 enum class RENDERING_ORDER
 {
 	AlphaLess,
-
+	
 	HasAlpah,
-
+	Shadow,
 };
 
 

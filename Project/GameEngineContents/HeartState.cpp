@@ -6,11 +6,13 @@ void Heart::InSludgeStart()
 {
 	BodyRenderer->ChangeAnimation("InSludge");
 	Collision->Off();
+	ShadowRenderer->Off();
 }
 
 void Heart::IdleStart()
 {
 	BodyRenderer->ChangeAnimation("Idle");
+	ShadowRenderer->On();
 }
 
 void Heart::JumpStart()

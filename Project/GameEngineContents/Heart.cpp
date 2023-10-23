@@ -29,6 +29,7 @@ void Heart::Start()
 	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
+
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
@@ -65,7 +66,7 @@ void Heart::RendererSetting()
 {
 	float4 RenderPos = float4::ZERO;
 	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y - 10.0f;
+	float ActorYPos = Transform.GetWorldPosition().Y - 5.0f;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
 

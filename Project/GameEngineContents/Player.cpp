@@ -23,7 +23,7 @@ void Player::Start()
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
 	BodyCollision->Transform.SetLocalPosition(GlobalValue::DebugDepth);
 
-	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetSprite("Player.png", 63);
 	ShadowRenderer->Transform.SetLocalPosition({0.0f, -16.0f});
 	ShadowRenderer->Transform.AddLocalPosition(DepthValue::Shadow);
@@ -110,7 +110,7 @@ void Player::Update(float _Delta)
 	float ActorYPos = Transform.GetWorldPosition().Y;
 	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
 	BodyRenderer->Transform.SetLocalPosition(RenderPos);
-	RenderPos.Z -= 0.01f;
+	RenderPos.Z -= 0.001f;
 	BowRenderer->Transform.SetLocalPosition(RenderPos);
 	ArrowInBagRenderer->Transform.SetLocalPosition(RenderPos);
 

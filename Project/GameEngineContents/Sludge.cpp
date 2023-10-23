@@ -28,13 +28,13 @@ void Sludge::Start()
 	BodyRenderer->SetImageScale({ 256.0f, 256.0f });
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
 	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	PressMarkRenderer->SetPivotType(PivotType::Bottom);
 	PressMarkRenderer->SetSprite("PressMark.png");
 	PressMarkRenderer->SetImageScale({ 128.0f, 128.0f });
@@ -107,6 +107,7 @@ void Sludge::Update(float _Delta)
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
+	CollisionPos.Y -= 48.0f * (1.0f - DecreaseSize * DividedCount);
 	Collision->Transform.SetLocalPosition(CollisionPos + GlobalValue::DebugDepth);
 }
 

@@ -5,9 +5,9 @@
 void Sludge::IdleStart()
 {
 	JumpCooldown = 0.0f;
-	MaxScale = 316.0f;
-	MinScale = 196.0f;
-	LerpRange = 0.9f;
+	MaxScale = 306.0f;
+	MinScale = 206.0f;
+	LerpRange = 0.95f;
 }
 
 void Sludge::JumpStart()
@@ -18,7 +18,7 @@ void Sludge::JumpStart()
 	MaxScale = 386.0f;
 	MinScale = 126.0f;
 
-	LerpRange = 0.95f;
+	LerpRange = 0.96f;
 }
 
 void Sludge::FallStart()
@@ -30,10 +30,10 @@ void Sludge::FallStart()
 void Sludge::LandingStart()
 {
 	Collision->On();
-	MaxScale = 376.0f;
-	MinScale = 136.0f;
+	MaxScale = 366.0f;
+	MinScale = 146.0f;
 
-	LerpRange = 0.95f;
+	LerpRange = 0.97f;
 }
 
 void Sludge::DeathStart()
@@ -45,7 +45,7 @@ void Sludge::IdleUpdate(float _Delta)
 {
 	if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY((3.0f + DividedCount) * _Delta);
+		IncreaseY((5.0f + DividedCount) * _Delta);
 	}
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
