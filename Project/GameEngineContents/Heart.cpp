@@ -55,7 +55,10 @@ void Heart::Update(float _Delta)
 		return;
 	}
 
+	SetMoveDir(JumpStartPos);
+
 	JumpBoss::Update(_Delta);
+
 }
 
 void Heart::RendererSetting()

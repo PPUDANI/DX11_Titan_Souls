@@ -55,7 +55,7 @@ void Sludge::Start()
 
 	GravityForce = DefaultGravityForce;
 	MoveSpeed = DefaultMoveSpeed;
-
+	RandomMoveValue = true;
 	ChangeState(JUMPBOSS_STATE::Idle);
 
 }
@@ -71,7 +71,8 @@ void Sludge::Update(float _Delta)
 
 	JumpBoss::Update(_Delta);
 
-	if (4.0f > DividedCount)
+	if (4.0f > DividedCount &&
+		false == MaxDivision)
 	{
 		if (nullptr != HeartActor)
 		{
@@ -92,8 +93,11 @@ void Sludge::Update(float _Delta)
 	}
 	else
 	{
+		MaxDivision = true;
+		DividedCount = 3.0f;
 		if (nullptr != HeartActor)
 		{
+			// Sludge와 Heart를 분리
 			HeartActor->SetOwnerSludge(nullptr);
 		}
 	}

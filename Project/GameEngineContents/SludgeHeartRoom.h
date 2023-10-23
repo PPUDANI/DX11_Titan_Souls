@@ -28,7 +28,7 @@ private:
 	// Inheritance function
 	void SpawnBoss() override;
 	void SpawnPlayer() override;
-
+	void ReleaseSludges();
 private:
 	// Boss Eliment
 	std::list<std::shared_ptr<class Sludge>> Sludges;

@@ -35,6 +35,16 @@ void SludgeHeartRoom::Start()
 void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
+
+	if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
+	{
+		BossIsDeath = true;
+	}
+
+	if (true == BossIsDeath)
+	{
+		ReleaseSludges();
+	}
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
@@ -57,17 +67,7 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 		BossIsDeath = true;
 	}
 
-	std::list<std::shared_ptr<Sludge>>::iterator Start = Sludges.begin();
-	std::list<std::shared_ptr<Sludge>>::iterator End = Sludges.end();
-	for (; Start != End;)
-	{
-		if (nullptr != *Start)
-		{
-			(*Start)->Death();
-			(*Start) = nullptr;
-		}
-		++Start;
-	}
+	ReleaseSludges();
 }
 
 void SludgeHeartRoom::SpawnBoss()
@@ -100,6 +100,27 @@ void SludgeHeartRoom::SpawnPlayer()
 	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1056.0f });
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
+}
+
+void SludgeHeartRoom::ReleaseSludges()
+{
+	if (true == Sludges.empty())
+	{
+		return;
+	}
+
+	std::list<std::shared_ptr<Sludge>>::iterator Start = Sludges.begin();
+	std::list<std::shared_ptr<Sludge>>::iterator End = Sludges.end();
+	for (; Start != End;)
+	{
+		if (nullptr != *Start)
+		{
+			(*Start)->Death();
+			(*Start) = nullptr;
+		}
+		++Start;
+	}
+	Sludges.clear();
 }
 
 void SludgeHeartRoom::SpawnDividedSludge(float _DividedCount, float4 _SpawnPos)

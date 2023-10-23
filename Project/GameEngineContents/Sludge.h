@@ -33,7 +33,9 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 
+	//std::shared_ptr<GameEngineCollision> PlayerDetectionRange = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> PressMarkRenderer = nullptr;
+
 	float4 RenderScale = { 256.0f , 256.0f, 1.0f };
 	float4 ShadowRenderScale = { 128.0f, 128.0f , 1.0f };
 	float MaxScale = 0.0f;
@@ -64,14 +66,15 @@ private:
 	bool IsDivision = false;
 	float DividedCount = 0.0f;
 	float DecreaseSize = 0.25f;
-	float IncreaseMoveSpeed = 20.0f;
-	float IncreaseGravityForce = 100.0f;
+	float IncreaseMoveSpeed = 30.0f;
+	float IncreaseGravityForce = 200.0f;
 
 	float4 DefaultRenderPosBase = { 0.0f,-64.0f };
-	float4 DefaultCollisionSizeBase = { 160.0f, 112.0f, 0.0f };
+	float4 DefaultCollisionSizeBase = { 200.0f, 140.0f, 0.0f };
 	float DefaultMoveSpeed = 250.0f;
 	float DefaultGravityForce = 1200.0f;
 
+	bool MaxDivision = false;
 	SLUDGE_STATE ExpandDir = SLUDGE_STATE::Decrease;
 	EventParameter Param;
 private:

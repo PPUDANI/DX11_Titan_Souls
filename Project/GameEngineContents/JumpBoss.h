@@ -73,5 +73,4 @@ protected:
 	virtual void RendererSetting() {}
 
 private:
-
 };

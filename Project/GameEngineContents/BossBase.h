@@ -55,7 +55,7 @@ protected:
 	void SetMoveDir(float4& _CheckPos);
 	// Move
 	float4 MoveDirBasis = float4::ZERO;
-
+	bool RandomMoveValue = false;
 private:
 
 };

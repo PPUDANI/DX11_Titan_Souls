@@ -66,6 +66,7 @@ void Sludge::JumpUpdate(float _Delta)
 		DecreaseY((3.0f + DividedCount) * _Delta);
 		if (MaxScale * 0.9f < RenderScale.X)
 		{
+			SetMoveDir(JumpStartPos);
 			LerpRange = 0.8f;
 			ReadyToJump = true;
 			Collision->Off();
