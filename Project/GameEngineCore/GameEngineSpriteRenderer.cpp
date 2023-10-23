@@ -81,23 +81,13 @@ void GameEngineSpriteRenderer::Start()
 {
 	GameEngineRenderer::Start();
 
-	// DataTransform = &ImageTransform;
-
 	ImageTransform.SetParent(Transform);
 
 	GameEngineRenderer::SetMesh("Rect");
 	GameEngineRenderer::SetMaterial("2DTexture");
-
-	//std::shared_ptr<GameEngineConstantBuffer> Buffer = GameEngineConstantBuffer::CreateAndFind(sizeof(float4), "SpriteData");
-	//if (nullptr != Buffer)
-	//{
-	//	Buffer->ChangeData(CurSprite.SpritePivot);
-	//	Buffer->Setting(1);
-	//}
-	// CurSprite.Texture->PSSetting(0);
-
 }
 
+// Update Order에 영향을 받는다.
 void GameEngineSpriteRenderer::Update(float _Delta)
 {
 	if (nullptr != CurFrameAnimations)
@@ -113,6 +103,9 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 		Scale.W = 0.0f;
 		SetImageScale(Scale * AutoScaleRatio);
 	}
+
+	RenderBaseInfoValue.RenderScreenScale = CurSprite.GetScale();
+	// 
 }
 
 void GameEngineSpriteRenderer::SetImageScale(const float4& _Scale)
@@ -376,8 +369,34 @@ void GameEngineSpriteRenderer::SetMaterialEvent(std::string_view _Name, int _Ind
 	const TransformData& Data = ImageTransform.GetConstTransformDataRef();
 	GetShaderResHelper().SetConstantBufferLink("TransformData", Data);
 	GetShaderResHelper().SetConstantBufferLink("SpriteData", CurSprite.SpritePivot);
-	// ShaderResHelper.SetTexture("DiffuseTex", "NSet.Png");
 	GetShaderResHelper().SetConstantBufferLink("SpriteRendererInfo", SpriteRendererInfoValue);
-
+	GetShaderResHelper().SetConstantBufferLink("ColorData", ColorDataValue);
 	SetSprite("NSet.png");
+}
+
+
+void GameEngineSpriteRenderer::SetMaskTexture(std::string_view _Texture, MaskMode _Mask)
+{
+	//std::shared_ptr<GameEngineFrameAnimation> TempCurFrameAnimation = CurFrameAnimations;
+	//std::shared_ptr<GameEngineSprite> TempSprite = Sprite;
+	//SpriteData TempCurSprite = CurSprite;
+
+	//GameEngineRenderer::SetMaterial("2DTextureMask");
+
+	//if (CurFrameAnimations != TempCurFrameAnimation)
+	//{
+	//	CurFrameAnimations = TempCurFrameAnimation;
+	//}
+
+	//if (Sprite != TempSprite)
+	//{
+	//	Sprite = TempSprite;
+	//	CurSprite = TempCurSprite;
+	//}
+
+	RenderBaseInfoValue.IsMask = 1;
+	RenderBaseInfoValue.MaskMode = static_cast<int>(_Mask);
+	GetShaderResHelper().SetTexture("MaskTex", _Texture);
+	std::shared_ptr<GameEngineTexture> Ptr = GameEngineTexture::Find(_Texture);
+	RenderBaseInfoValue.MaskScreeneScale = Ptr->GetScale();
 }

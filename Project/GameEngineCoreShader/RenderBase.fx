@@ -9,7 +9,15 @@
 // 넣어주는건 어떻게든 된다고 해도. 
 // b는 buffer의 약자
 // 0 슬롯의 index 실행시켜보니 14 까지 허용한다.
-cbuffer RenderBaseValue : register(b11)
+cbuffer RenderBaseInfo : register(b11)
 {
     float4 BaseColor;
+    int IsMask;
+    int BaseColorOnly;
+    int MaskMode;
+    int BaseTemp2;
+    float4 RendererScreenPos;
+    float4 RenderScreenScale;
+    float4 MaskScreenScale;
+    float4 MaskPivot;
 };

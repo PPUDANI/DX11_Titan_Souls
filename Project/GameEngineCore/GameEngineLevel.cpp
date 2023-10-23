@@ -53,8 +53,8 @@ void GameEngineLevel::AllUpdate(float _Delta)
 				continue;
 			}
 
-			_Actor->AddLiveTime(_Delta);
-			_Actor->AllUpdate(_Delta);
+			_Actor->AddLiveTime(_Delta * TimeScale);
+			_Actor->AllUpdate(_Delta * TimeScale);
 		}
 	}
 }
@@ -131,12 +131,11 @@ void GameEngineLevel::AllReleaseCheck()
 			Start = Group.erase(Start);
 		}
 	}
-
-
 }
 
-void GameEngineLevel::ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order)
+void GameEngineLevel::ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order, std::string_view _Name/* = ""*/)
 {
+	_Actor->SetName(_Name);
 	_Actor->SetParent(this, _Order);
 	_Actor->Start();
 }

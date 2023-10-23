@@ -18,6 +18,11 @@ public:
 
 	float GetDeltaTime() 
 	{
+		return FloatDelta * GlobalTimeScale;
+	}
+
+	float GetUnScaleDeltaTime()
+	{
 		return FloatDelta;
 	}
 
@@ -60,6 +65,12 @@ public:
 		}
 	}
 
+	// 전체가 다 영향받는다.
+	void SetGlobalTimeScale(float _TimeScale) 
+	{
+		GlobalTimeScale = _TimeScale;
+	}
+
 protected:
 
 private:
@@ -71,6 +82,7 @@ private:
 	float FloatDelta;
 
 	// int 오브젝트의 업데이트 오더
+	float GlobalTimeScale = 1.0f;
 	std::map<int, float> TimeScale;
 };
 

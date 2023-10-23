@@ -365,7 +365,7 @@ public:
 
 	std::string ToString(std::string_view _Next = "")
 	{
-		return "X : " + std::to_string(X) + " Y : " + std::to_string(Y) + " Z : " + std::to_string(Z) + _Next.data();
+		return "X : " + std::to_string(X) + " Y : " + std::to_string(Y) + " Z : " + std::to_string(Z) + _Next.data() + "\n";
 	}
 
 

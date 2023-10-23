@@ -54,12 +54,25 @@ enum class PivotType
 	LeftTop,
 };
 
+
+enum class MaskMode
+{
+	StaticMask, // 스크린 좌표계로 마스크를 
+	DynamicMask, // 스크린좌표계인데 랜더러의 위치에 따라서 마스크 위치를 변경한다.
+};
+
 struct SpriteRendererInfo 
 {
 	int FlipLeft = 0;
 	int FlipUp = 0;
 	float Temp1;
 	float Temp2;
+};
+
+struct ColorData 
+{
+	float4 PlusColor = float4::ZERONULL; // 최종색상에 더한다.
+	float4 MulColor = float4::ONE; // 최종색상에 곱한다.
 };
 
 // 설명 :
@@ -166,6 +179,11 @@ public:
 	{
 		Pivot = _Value;
 	}
+	float4 GetPivotValue()
+	{
+		return Pivot;
+	}
+
 	void SetPivotType(PivotType _Type);
 	void SetImageScale(const float4& _Scale);
 	void AddImageScale(const float4& _Scale);
@@ -195,11 +213,18 @@ public:
 		return ImageTransform;
 	}
 
+	inline ColorData& GetColorData()
+	{
+		return ColorDataValue;
+	}
+
+	void SetMaskTexture(std::string_view _Texture, MaskMode _Mask = MaskMode::StaticMask);
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
-	void SetMaterialEvent(std::string_view _Name, int _Index);
+	void SetMaterialEvent(std::string_view _Name, int _Index) override;
 
 	int Index = 0;
 
@@ -221,6 +246,8 @@ private:
 	bool IsPause = false;
 
 	float4 Pivot = {0.5f, 0.5f};
+
+	ColorData ColorDataValue;
 
 	GameEngineTransform ImageTransform;
 };

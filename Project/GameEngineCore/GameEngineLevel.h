@@ -39,11 +39,11 @@ public:
 	}
 
 	template<typename ObjectType>
-	std::shared_ptr<ObjectType> CreateActor(int _Order = 0)
+	std::shared_ptr<ObjectType> CreateActor(int _Order = 0, std::string_view _Name = "")
 	{
 		std::shared_ptr<class GameEngineActor> NewChild = std::make_shared<ObjectType>();
 
-		ActorInit(NewChild, _Order);
+		ActorInit(NewChild, _Order, _Name);
 
 		// GameEngineObject형으로 사용하고 있다면
 		// 내가 잘못형변환하면 Monster 였는데? Player <= 미친듯한 메모리 크러시를 일으킵니다.
@@ -87,7 +87,7 @@ private:
 
 	void AllReleaseCheck() override;
 
-	void ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order);
+	void ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order, std::string_view _Name = "");
 
 	void Render(float _Delta);
 

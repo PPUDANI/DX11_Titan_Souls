@@ -45,7 +45,7 @@ public:
 		}
 
 		std::shared_ptr<GameEngineLevel> NewLevel = std::make_shared<LevelType>();
-		LevelInit(NewLevel);
+		LevelInit(NewLevel, _Name);
 		AllLevel.insert(std::make_pair(Upper, NewLevel));
 	}
 
@@ -80,6 +80,11 @@ public:
 		return MainDevice.GetContext();
 	}
 
+	static std::map<std::string, std::shared_ptr<GameEngineLevel>>& GetAllLevel() 
+	{
+		return AllLevel;
+	}
+
 protected:
 
 private:
@@ -88,7 +93,7 @@ private:
 	static void EngineProcess(HINSTANCE _Inst, const std::string& _Name, float4 _Pos, float4 _Size);
 	static std::shared_ptr<GameEngineObject> CoreObject;
 
-	static void LevelInit(std::shared_ptr<GameEngineLevel> _Level);
+	static void LevelInit(std::shared_ptr<GameEngineLevel> _Level, std::string_view _Name);
 
 	static std::shared_ptr<GameEngineLevel> CurLevel;
 	static std::shared_ptr<GameEngineLevel> NextLevel;
