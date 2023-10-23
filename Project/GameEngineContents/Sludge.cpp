@@ -55,7 +55,7 @@ void Sludge::Start()
 
 	GravityForce = DefaultGravityForce;
 	MoveSpeed = DefaultMoveSpeed;
-	RandomMoveValue = true;
+	//RandomMoveValue = true;
 	ChangeState(JUMPBOSS_STATE::Idle);
 
 }

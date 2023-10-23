@@ -76,7 +76,7 @@ void Sludge::JumpUpdate(float _Delta)
 	{
 		if (SLUDGE_STATE::Increase == ExpandDir)
 		{
-			IncreaseY(5.0f * _Delta);
+			IncreaseY(4.0f * _Delta);
 		}
 		else
 		{
