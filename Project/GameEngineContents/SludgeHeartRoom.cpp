@@ -63,6 +63,7 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		if (nullptr != *Start)
 		{
+			(*Start)->Death();
 			(*Start) = nullptr;
 		}
 		++Start;
@@ -74,9 +75,9 @@ void SludgeHeartRoom::SpawnBoss()
 	if (false == BossIsDeath)
 	{
 		SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
-		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -900.0f });
 		SludgeActor->SetEnymePlayer(PlayerActor.get());
 		SludgeActor->SetEnymeArrow(ArrowActor.get());
+		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -900.0f });
 
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
 		HeartActor->Transform.SetLocalPosition({ 1008.0f, -800.0f });
@@ -99,4 +100,18 @@ void SludgeHeartRoom::SpawnPlayer()
 	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1056.0f });
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
+}
+
+void SludgeHeartRoom::SpawnDividedSludge(float _DividedCount, float4 _SpawnPos)
+{
+	SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
+	SludgeActor->SetEnymePlayer(PlayerActor.get());
+	SludgeActor->SetEnymeArrow(ArrowActor.get());
+
+	SludgeActor->DividedSludgeInit(_DividedCount);
+
+	SludgeActor->Transform.SetLocalPosition(_SpawnPos);
+
+	Sludges.push_back(SludgeActor);
+	SludgeActor = nullptr;
 }

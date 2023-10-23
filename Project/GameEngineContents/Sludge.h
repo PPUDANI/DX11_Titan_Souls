@@ -24,6 +24,8 @@ public:
 		HeartActor = _HeartPtr;
 	}
 
+	void DividedSludgeInit(float _DividedCount);
+
 private:
 	class Heart* HeartActor = nullptr;
 private:
@@ -44,7 +46,7 @@ private:
 
 private:
 	void RendererSetting() override;
-
+	void SetByDivided();
 private:
 	// State
 	void IdleStart() override;
@@ -61,8 +63,15 @@ private:
 
 	bool IsDivision = false;
 	float DividedCount = 0.0f;
-	float SizeReduction = 0.33f;
-	float SludgeDividedSize = 0.0f;
+	float DecreaseSize = 0.25f;
+	float IncreaseMoveSpeed = 20.0f;
+	float IncreaseGravityForce = 100.0f;
+
+	float4 DefaultRenderPosBase = { 0.0f,-64.0f };
+	float4 DefaultCollisionSizeBase = { 160.0f, 112.0f, 0.0f };
+	float DefaultMoveSpeed = 250.0f;
+	float DefaultGravityForce = 1200.0f;
+
 	SLUDGE_STATE ExpandDir = SLUDGE_STATE::Decrease;
 	EventParameter Param;
 private:

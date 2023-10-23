@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Sludge.h"
 #include "Heart.h"
+#include "SludgeHeartRoom.h"
 Sludge::Sludge()
 {
 }
@@ -16,7 +17,7 @@ void Sludge::Start()
 	GlobalLoad::LoadSpriteCut(2, 1, "Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	GlobalLoad::LoadSpriteSingle("Shadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	GlobalLoad::LoadSpriteSingle("PressMark.png", "Resource\\Texture\\Boss\\SludgeHeart");
-	RenderPosBase = {0.0f, -64.0f};
+	RenderPosBase = DefaultRenderPosBase;
 
 	// Renderer
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
@@ -42,7 +43,7 @@ void Sludge::Start()
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 160.0f, 112.0f, 0.0f });
+	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase);
 
 	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
@@ -52,9 +53,8 @@ void Sludge::Start()
 			Collision->Off();
 		};
 
-	GravityForce = 1200.0f;
-	MoveSpeed = 250.0f;
-	SludgeDividedSize = 1.0f + DividedCount * SizeReduction;
+	GravityForce = DefaultGravityForce;
+	MoveSpeed = DefaultMoveSpeed;
 
 	ChangeState(JUMPBOSS_STATE::Idle);
 
@@ -71,13 +71,6 @@ void Sludge::Update(float _Delta)
 
 	JumpBoss::Update(_Delta);
 
-	// Heart position setting
-	HeartPos = { 0.0f, RenderScale.Y / (4.0f * SludgeDividedSize) - 3.0f * SludgeDividedSize };
-
-	// Collision Position Setting
-	float4 CollisionPos = HeartPos;
-	Collision->Transform.SetLocalPosition(CollisionPos + GlobalValue::DebugDepth);
-
 	if (4.0f > DividedCount)
 	{
 		if (nullptr != HeartActor)
@@ -87,21 +80,30 @@ void Sludge::Update(float _Delta)
 		
 		if (true == IsDivision)
 		{
-			IsDivision = false;
 			DividedCount++;
-			SizeReduction *= 1.4f;
-			SludgeDividedSize = 1.0f + DividedCount * SizeReduction;
-			MoveSpeed += 20.0f;
-			GravityForce += 100.0f;
-			RenderPosBase *= 0.66f;
-			Collision->Transform.SetLocalScale(Collision->Transform.GetLocalScale() / 1.5f);
+			IsDivision = false;
+			SetByDivided();
+
+			float4 SpawnPos = Transform.GetLocalPosition();
+			Transform.AddLocalPosition(-50.0f / DividedCount);
+			SpawnPos.X += 50.0f;
+			dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
 		}
 	}
 	else
 	{
-		HeartActor->SetOwnerSludge(nullptr);
-		Death();
+		if (nullptr != HeartActor)
+		{
+			HeartActor->SetOwnerSludge(nullptr);
+		}
 	}
+
+	// Heart position setting
+	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * DividedCount};
+
+	// Collision Position Setting
+	float4 CollisionPos = HeartPos;
+	Collision->Transform.SetLocalPosition(CollisionPos + GlobalValue::DebugDepth);
 }
 
 
@@ -145,9 +147,11 @@ void Sludge::IncreaseY(float _SpeedPerSecond)
 void Sludge::RendererSetting()
 {
 	// Renderers ImageScale & position Setting
-	BodyRenderer->SetImageScale(RenderScale / SludgeDividedSize);
-	ShadowRenderer->SetImageScale(ShadowRenderScale / SludgeDividedSize);
-	PressMarkRenderer->SetImageScale(ShadowRenderScale / SludgeDividedSize);
+	float SizeValue = 1.0f - DividedCount * DecreaseSize;
+
+	BodyRenderer->SetImageScale(RenderScale * SizeValue);
+	ShadowRenderer->SetImageScale(ShadowRenderScale * SizeValue);
+	PressMarkRenderer->SetImageScale(ShadowRenderScale * SizeValue);
 	PressMarkRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 
 	float4 RenderPos = float4::ZERO;
@@ -158,4 +162,20 @@ void Sludge::RendererSetting()
 
 	RenderPos.Z += 0.01f;
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + RenderPos);
+}
+
+void Sludge::SetByDivided()
+{
+	RenderPosBase = DefaultRenderPosBase * (1.0f - DecreaseSize * DividedCount);
+	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase * (1.0f - DecreaseSize * DividedCount));
+
+	MoveSpeed = DefaultMoveSpeed + DividedCount * IncreaseMoveSpeed;
+	GravityForce = DefaultGravityForce + DividedCount * IncreaseGravityForce;
+}
+
+void Sludge::DividedSludgeInit(float _DividedCount)
+{
+	DividedCount = _DividedCount;
+	Collision->Off();
+	SetByDivided();
 }
