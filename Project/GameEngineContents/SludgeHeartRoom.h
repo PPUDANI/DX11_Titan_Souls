@@ -22,9 +22,16 @@ private:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
+private:
+	// Inheritance function
+	void SpawnBoss() override;
 	void SpawnPlayer() override;
+
+private:
+	// Boss Eliment
+	std::list<std::shared_ptr<class Sludge>> Sludges;
 	std::shared_ptr<class Sludge> SludgeActor = nullptr;
-	
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
+	bool BossIsDeath = false;
 };

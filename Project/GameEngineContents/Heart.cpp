@@ -49,8 +49,6 @@ void Heart::Start()
 
 void Heart::Update(float _Delta)
 {
-	
-
 	if (true == IsHitArrow)
 	{
 		ChangeState(JUMPBOSS_STATE::Death);

@@ -52,7 +52,7 @@ void Sludge::Start()
 			Collision->Off();
 		};
 
-	GravityForce = 1500.0f;
+	GravityForce = 1200.0f;
 	MoveSpeed = 250.0f;
 	SludgeDividedSize = 1.0f + DividedCount * SizeReduction;
 

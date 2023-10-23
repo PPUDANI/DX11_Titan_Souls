@@ -76,6 +76,7 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	LevelBase::LevelStart(_PrevLevel);
 	SpawnPlayer();
+	SpawnBoss();
 }
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)

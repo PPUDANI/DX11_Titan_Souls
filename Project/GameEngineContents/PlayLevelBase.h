@@ -27,11 +27,12 @@ protected:
 	std::shared_ptr<class TileMap> TileMapActor;
 
 	virtual void SpawnPlayer() {}
+	virtual void SpawnBoss() {}
 
 	void CreatePlayerElement();
 	void CursorDirRotation();
 	void ArrowDirRotation();
-
+	
 private:
 	
 };

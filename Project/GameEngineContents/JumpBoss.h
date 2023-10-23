@@ -26,6 +26,11 @@ public:
 
 	void ChangeState(JUMPBOSS_STATE _State);
 
+	inline JUMPBOSS_STATE GetCurState() const
+	{
+		return CurState;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta);

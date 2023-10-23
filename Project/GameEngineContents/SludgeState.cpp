@@ -23,8 +23,8 @@ void Sludge::JumpStart()
 
 void Sludge::FallStart()
 {
-	MaxScale = 346.0f;
-	MinScale = 166.0f;
+	MaxScale = 366.0f;
+	MinScale = 146.0f;
 }
 
 void Sludge::LandingStart()
@@ -66,11 +66,7 @@ void Sludge::JumpUpdate(float _Delta)
 		DecreaseY((3.0f + DividedCount) * _Delta);
 		if (MaxScale * 0.9f < RenderScale.X)
 		{
-			MaxScale = 366.0f;
-			MinScale = 146.0f;
-
 			LerpRange = 0.8f;
-
 			ReadyToJump = true;
 			Collision->Off();
 		}
@@ -83,7 +79,7 @@ void Sludge::JumpUpdate(float _Delta)
 		}
 		else
 		{
-			DecreaseY(5.0f * _Delta);
+			DecreaseY(4.0f * _Delta);
 		}
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
@@ -94,11 +90,11 @@ void Sludge::FallUpdate(float _Delta)
 {
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
-		DecreaseY(2.75f * _Delta);
+		DecreaseY(2.5f * _Delta);
 	}
 	else if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY(2.75f * _Delta);
+		IncreaseY(2.5f * _Delta);
 	}
 
 	MoveToPlayer(_Delta);
