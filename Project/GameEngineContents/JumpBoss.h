@@ -82,4 +82,5 @@ protected:
 	void SetMoveDirRandom(float4& _CheckPos, float _RandomRange);
 
 private:
+	void AdjustPosByTileCol();
 };

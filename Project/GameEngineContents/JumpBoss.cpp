@@ -129,8 +129,23 @@ void JumpBoss::MoveToPlayer(float _Delta)
 		MovePos.Y = 0.0f;
 	}
 
-	Transform.AddLocalPosition(MovePos);
 	JumpStartPos += MovePos;
+
+	if (true == CurMap->AllColCheck(JumpStartPos))
+	{
+		AdjustPosByTileCol();
+	}
+
+	Transform.AddLocalPosition(MovePos);
+	
+}
+
+void JumpBoss::AdjustPosByTileCol()
+{
+	while (true == CurMap->AllColCheck(JumpStartPos))
+	{
+		JumpStartPos -= MoveDirBasis;
+	}
 }
 
 void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
