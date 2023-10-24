@@ -86,36 +86,44 @@ void Sludge::Update(float _Delta)
 	JumpBoss::Update(_Delta);
 
 	// Sludge 분열 (최대 3번)
-	if (2 >= DividedCount &&
-		false == MaxDivision)
-	{
-		if (nullptr != HeartActor)
+	if(false == MaxDivision)
+	{ 
+		if (3 >= DividedCount)
 		{
-			HeartActor->Transform.SetLocalPosition(Transform.GetWorldPosition() + HeartPos);
-		}
-		
-		if (true == IsDivision)
-		{
-			++DividedCount;
-			IsDivision = false;
-			SetByDivided();
+			if (true == IsDivision)
+			{
+				++DividedCount;
+				IsDivision = false;
+				SetByDivided();
 
-			float4 SpawnPos = Transform.GetLocalPosition();
-			Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
-			SpawnPos.X += 50.0f;
-			dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
+				float4 SpawnPos = Transform.GetLocalPosition();
+				Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
+				SpawnPos.X += 50.0f;
+				dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
+			}
+
+			// Heart가 연결되어있다면 본인 좌표로 이동
+			if (nullptr != HeartActor)
+			{
+				HeartActor->Transform.SetLocalPosition(Transform.GetWorldPosition() + HeartPos);
+			}
+			else if (3 == DividedCount)
+			{
+				Collision->Death();
+			}
 		}
-	}
-	else if(3 == DividedCount)
-	{
-		MaxDivision = true;
-		Collision->Death();
-		if (nullptr != HeartActor)
+		else
 		{
-			// Sludge와 Heart를 분리
-			HeartActor->SetOwnerSludge(nullptr);
+			MaxDivision = true;
+			DividedCount = 3;
+			if (nullptr != HeartActor)
+			{
+				// Sludge와 Heart를 분리
+				HeartActor->SetOwnerSludge(nullptr);
+			}
 		}
 	}
+
 
 	// Heart position setting
 	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * static_cast<float>(DividedCount)};
