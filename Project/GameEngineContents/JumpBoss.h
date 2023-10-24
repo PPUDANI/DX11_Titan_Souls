@@ -8,6 +8,7 @@ enum class JUMPBOSS_STATE
 	Jump,
 	Fall,
 	Landing,
+	Division,
 	Death,
 };
 
@@ -42,6 +43,7 @@ protected:
 	virtual void JumpStart(){}
 	virtual void FallStart(){}
 	virtual void LandingStart(){}
+	virtual void DivisionStart() {}
 	virtual void DeathStart(){}
 
 	virtual void InSludgeUpdate(float _Delta){}
@@ -49,6 +51,7 @@ protected:
 	virtual void JumpUpdate(float _Delta){}
 	virtual void FallUpdate(float _Delta){}
 	virtual void LandingUpdate(float _Delta){}
+	virtual void DivisionUpdate(float _Delta) {}
 	virtual void DeathUpdate(float _Delta){}
 
 protected:
@@ -71,6 +74,12 @@ protected:
 
 protected:
 	virtual void RendererSetting() {}
+
+protected:
+	std::shared_ptr<GameEngineCollision> PlayerDetectionRange = nullptr;
+	bool FindPlayer = false;
+
+	void SetMoveDirRandom(float4& _CheckPos, float _RandomRange);
 
 private:
 };

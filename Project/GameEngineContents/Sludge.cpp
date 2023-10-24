@@ -45,8 +45,15 @@ void Sludge::Start()
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase);
 
-	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+	// Collision setting
+	PlayerDetectionRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
+	PlayerDetectionRange->SetCollisionType(ColType::AABBBOX2D);
+	PlayerDetectionRange->Transform.SetLocalScale(DefaultDetectionRangeSize);
+	PlayerDetectionRange->Transform.SetLocalPosition(GlobalValue::DebugDepth);
+	
+	CollisionParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
+			ChangeState(JUMPBOSS_STATE::Division);
 			BodyRenderer->ChangeAnimation("Hit", true);
 			IsHitArrow = false;
 			IsDivision = true;
@@ -55,7 +62,6 @@ void Sludge::Start()
 
 	GravityForce = DefaultGravityForce;
 	MoveSpeed = DefaultMoveSpeed;
-	//RandomMoveValue = true;
 	ChangeState(JUMPBOSS_STATE::Idle);
 
 }
@@ -67,11 +73,20 @@ void Sludge::Update(float _Delta)
 		JumpStartPos = Transform.GetLocalPosition();
 	}
 
-	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
+	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam);
+	if (PlayerDetectionRange->Collision(COLLISION_TYPE::Player))
+	{
+		FindPlayer = true;
+	}
+	else
+	{
+		FindPlayer = false;
+	}
 
 	JumpBoss::Update(_Delta);
 
-	if (4.0f > DividedCount &&
+	// Sludge 분열 (최대 3번)
+	if (2 >= DividedCount &&
 		false == MaxDivision)
 	{
 		if (nullptr != HeartActor)
@@ -81,20 +96,20 @@ void Sludge::Update(float _Delta)
 		
 		if (true == IsDivision)
 		{
-			DividedCount++;
+			++DividedCount;
 			IsDivision = false;
 			SetByDivided();
 
 			float4 SpawnPos = Transform.GetLocalPosition();
-			Transform.AddLocalPosition(-50.0f / DividedCount);
+			Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
 			SpawnPos.X += 50.0f;
 			dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
 		}
 	}
-	else
+	else if(3 == DividedCount)
 	{
 		MaxDivision = true;
-		DividedCount = 3.0f;
+		Collision->Death();
 		if (nullptr != HeartActor)
 		{
 			// Sludge와 Heart를 분리
@@ -103,11 +118,11 @@ void Sludge::Update(float _Delta)
 	}
 
 	// Heart position setting
-	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * DividedCount};
+	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * static_cast<float>(DividedCount)};
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
-	CollisionPos.Y -= 48.0f * (1.0f - DecreaseSize * DividedCount);
+	CollisionPos.Y -= 48.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
 	Collision->Transform.SetLocalPosition(CollisionPos + GlobalValue::DebugDepth);
 }
 
@@ -152,7 +167,7 @@ void Sludge::IncreaseY(float _SpeedPerSecond)
 void Sludge::RendererSetting()
 {
 	// Renderers ImageScale & position Setting
-	float SizeValue = 1.0f - DividedCount * DecreaseSize;
+	float SizeValue = 1.0f - static_cast<float>(DividedCount) * DecreaseSize;
 
 	BodyRenderer->SetImageScale(RenderScale * SizeValue);
 	ShadowRenderer->SetImageScale(ShadowRenderScale * SizeValue);
@@ -171,14 +186,14 @@ void Sludge::RendererSetting()
 
 void Sludge::SetByDivided()
 {
-	RenderPosBase = DefaultRenderPosBase * (1.0f - DecreaseSize * DividedCount);
-	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase * (1.0f - DecreaseSize * DividedCount));
+	RenderPosBase = DefaultRenderPosBase * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
+	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase * (1.0f - DecreaseSize * static_cast<float>(DividedCount)));
 
-	MoveSpeed = DefaultMoveSpeed + DividedCount * IncreaseMoveSpeed;
-	GravityForce = DefaultGravityForce + DividedCount * IncreaseGravityForce;
+	MoveSpeed = DefaultMoveSpeed + static_cast<float>(DividedCount) * IncreaseMoveSpeed;
+	GravityForce = DefaultGravityForce + static_cast<float>(DividedCount) * IncreaseGravityForce;
 }
 
-void Sludge::DividedSludgeInit(float _DividedCount)
+void Sludge::DividedSludgeInit(int _DividedCount)
 {
 	DividedCount = _DividedCount;
 	Collision->Off();

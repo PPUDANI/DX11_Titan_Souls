@@ -24,7 +24,7 @@ public:
 		HeartActor = _HeartPtr;
 	}
 
-	void DividedSludgeInit(float _DividedCount);
+	void DividedSludgeInit(int _DividedCount);
 
 private:
 	class Heart* HeartActor = nullptr;
@@ -33,7 +33,6 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 
-	//std::shared_ptr<GameEngineCollision> PlayerDetectionRange = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> PressMarkRenderer = nullptr;
 
 	float4 RenderScale = { 256.0f , 256.0f, 1.0f };
@@ -55,28 +54,32 @@ private:
 	void JumpStart() override;
 	void FallStart() override;
 	void LandingStart() override;
-	void DeathStart() override;
+
+	void DivisionStart() override;
 
 	void IdleUpdate(float _Delta) override;
 	void JumpUpdate(float _Delta) override;
 	void FallUpdate(float _Delta) override;
 	void LandingUpdate(float _Delta) override;
-	void DeathUpdate(float _Delta) override;
+	void DivisionUpdate(float _Delta) override;
 
 	bool IsDivision = false;
-	float DividedCount = 0.0f;
+	int DividedCount = 0;
 	float DecreaseSize = 0.25f;
 	float IncreaseMoveSpeed = 30.0f;
 	float IncreaseGravityForce = 200.0f;
 
 	float4 DefaultRenderPosBase = { 0.0f,-64.0f };
 	float4 DefaultCollisionSizeBase = { 200.0f, 100.0f, 0.0f };
+	float4 DefaultDetectionRangeSize = { 600.0f, 400.0f, 0.0f };
+
 	float DefaultMoveSpeed = 250.0f;
 	float DefaultGravityForce = 1200.0f;
 
 	bool MaxDivision = false;
 	SLUDGE_STATE ExpandDir = SLUDGE_STATE::Decrease;
-	EventParameter Param;
+	EventParameter CollisionParam;
+
 private:
 	// Physics
 	void DecreaseY(float _Speed);

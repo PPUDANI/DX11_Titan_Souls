@@ -13,7 +13,7 @@ public:
 	SludgeHeartRoom& operator=(const SludgeHeartRoom& _Other) = delete;
 	SludgeHeartRoom& operator=(SludgeHeartRoom&& _Other) noexcept = delete;
 
-	void SpawnDividedSludge(float _DividedCount, float4 _SpawnPos);
+	void SpawnDividedSludge(int _DividedCount, float4 _SpawnPos);
 
 protected:
 

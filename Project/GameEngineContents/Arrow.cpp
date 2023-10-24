@@ -166,7 +166,7 @@ void Arrow::ChangeState(ARROW_STATE _State)
 
 void Arrow::MoveAndColCheck(float4& _MovePos)
 {
-	float4 _MovePosUnit = FlyingDirectionBasis * 10.0f;
+	float4 _MovePosUnit = FlyingDirectionBasis * 5.0f;
 
 	int IndexInt = static_cast<int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 

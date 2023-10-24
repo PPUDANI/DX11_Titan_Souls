@@ -35,6 +35,9 @@ void JumpBoss::Update(float _Delta)
 	case JUMPBOSS_STATE::Landing:
 		LandingUpdate(_Delta);
 		break;
+	case JUMPBOSS_STATE::Division:
+		DivisionUpdate(_Delta);
+		break;
 	case JUMPBOSS_STATE::Death:
 		DeathUpdate(_Delta);
 		break;
@@ -80,6 +83,9 @@ void JumpBoss::ChangeState(JUMPBOSS_STATE _State)
 	case JUMPBOSS_STATE::Landing:
 		LandingStart();
 		break;
+	case JUMPBOSS_STATE::Division:
+		DivisionStart();
+		break;
 	case JUMPBOSS_STATE::Death:
 		DeathStart();
 		break;
@@ -109,7 +115,9 @@ void JumpBoss::Gravity(float _Delta)
 
 void JumpBoss::MoveToPlayer(float _Delta)
 {
-	float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
+	float4 MovePos;
+
+	MovePos = MoveDirBasis * MoveSpeed * _Delta;
 
 	if (MoveSpeed / 50.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
 	{
@@ -123,5 +131,30 @@ void JumpBoss::MoveToPlayer(float _Delta)
 
 	Transform.AddLocalPosition(MovePos);
 	JumpStartPos += MovePos;
+}
+
+void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
+{
+	float4 BossToPlayer = EnymePlayer->Transform.GetLocalPosition() - _CheckPos;
+	MoveAngle.Z = DirectX::XMConvertToDegrees(atan2f(BossToPlayer.Y, BossToPlayer.X));
+	GameEngineRandom Inst;
+	MoveAngle.Z += Inst.RandomFloat(-_RandomRange, _RandomRange);
+
+	if (0.0f > MoveAngle.Z)
+	{
+		while (0.0f > MoveAngle.Z)
+		{
+			MoveAngle.Z += 360.0f;
+		}
+	}
+	else if (360.0f < MoveAngle.Z)
+	{
+		while (360.0f < MoveAngle.Z)
+		{
+			MoveAngle.Z -= 360.0f;
+		}
+	}
+
+	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }
 

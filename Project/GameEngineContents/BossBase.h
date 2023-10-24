@@ -23,6 +23,11 @@ public:
 		EnymeArrow = _ArrowPtr;
 	}
 
+	inline void SetCurMap(TileMap* _CurMap)
+	{
+		CurMap = _CurMap;
+	}
+
 	inline void HitArrow()
 	{
 		IsHitArrow = true;
@@ -46,6 +51,7 @@ protected:
 
 	class Player* EnymePlayer = nullptr;
 	class Arrow* EnymeArrow = nullptr;
+	class TileMap* CurMap = nullptr;
 
 	// State
 	bool IsHitArrow = false;
@@ -55,6 +61,7 @@ protected:
 	void SetMoveDir(float4& _CheckPos);
 	// Move
 	float4 MoveDirBasis = float4::ZERO;
+	float4 MoveAngle = float4::ZERO;
 	bool RandomMoveValue = false;
 private:
 

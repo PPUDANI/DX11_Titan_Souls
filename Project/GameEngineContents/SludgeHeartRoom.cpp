@@ -58,7 +58,7 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
 
-	// 액터 레벨이동 구현
+	// 액터 레벨이동 구현 
 	if (JUMPBOSS_STATE::Death != HeartActor->GetCurState())
 	{
 		HeartActor->Death();
@@ -79,6 +79,7 @@ void SludgeHeartRoom::SpawnBoss()
 		SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
 		SludgeActor->SetEnymePlayer(PlayerActor.get());
 		SludgeActor->SetEnymeArrow(ArrowActor.get());
+		SludgeActor->SetCurMap(TileMapActor.get());
 		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -900.0f });
 
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
@@ -89,8 +90,6 @@ void SludgeHeartRoom::SpawnBoss()
 		HeartActor->SetOwnerSludge(SludgeActor.get());
 
 		SludgeActor->SetHeart(HeartActor.get());
-
-		Sludges.push_back(SludgeActor);
 		SludgeActor = nullptr;
 	}
 }
@@ -106,35 +105,27 @@ void SludgeHeartRoom::SpawnPlayer()
 
 void SludgeHeartRoom::ReleaseSludges()
 {
-	if (true == Sludges.empty())
-	{
-		return;
-	}
+	std::vector<std::shared_ptr<Sludge>> ObjectType = GetObjectGroupConvert<Sludge>(UPDATE_ORDER::Boss);
 
-	std::list<std::shared_ptr<Sludge>>::iterator Start = Sludges.begin();
-	std::list<std::shared_ptr<Sludge>>::iterator End = Sludges.end();
-	for (; Start != End;)
+	for (size_t i = 0; i < ObjectType.size(); ++i)
 	{
-		if (nullptr != *Start)
-		{
-			(*Start)->Death();
-			(*Start) = nullptr;
-		}
-		++Start;
+		ObjectType[i]->Death();
+		ObjectType[i] = nullptr;
 	}
-	Sludges.clear();
+	ObjectType.clear();
 }
 
-void SludgeHeartRoom::SpawnDividedSludge(float _DividedCount, float4 _SpawnPos)
+void SludgeHeartRoom::SpawnDividedSludge(int _DividedCount, float4 _SpawnPos)
 {
 	SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
+
 	SludgeActor->SetEnymePlayer(PlayerActor.get());
 	SludgeActor->SetEnymeArrow(ArrowActor.get());
+	SludgeActor->SetCurMap(TileMapActor.get());
 
 	SludgeActor->DividedSludgeInit(_DividedCount);
-
 	SludgeActor->Transform.SetLocalPosition(_SpawnPos);
+	SludgeActor->ChangeState(JUMPBOSS_STATE::Division);
 
-	Sludges.push_back(SludgeActor);
 	SludgeActor = nullptr;
 }
