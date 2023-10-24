@@ -129,22 +129,21 @@ void JumpBoss::MoveToPlayer(float _Delta)
 		MovePos.Y = 0.0f;
 	}
 
-	JumpStartPos += MovePos;
-
-	if (true == CurMap->AllColCheck(JumpStartPos))
+	TILE_COLLISION_TYPE Type = TILE_COLLISION_TYPE::EMPTY;
+	if (true == CurMap->ColCheck(JumpStartPos, Type))
 	{
-		AdjustPosByTileCol();
+		AdjustPosByTileCol(MovePos);
 	}
-
+	JumpStartPos += MovePos;
 	Transform.AddLocalPosition(MovePos);
 	
 }
 
-void JumpBoss::AdjustPosByTileCol()
+void JumpBoss::AdjustPosByTileCol(float4& _MovePos)
 {
-	while (true == CurMap->AllColCheck(JumpStartPos))
+	while (true == CurMap->AllColCheck(JumpStartPos + _MovePos))
 	{
-		JumpStartPos -= MoveDirBasis;
+		_MovePos -= MoveDirBasis;
 	}
 }
 

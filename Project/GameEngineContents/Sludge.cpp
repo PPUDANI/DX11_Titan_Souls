@@ -55,9 +55,7 @@ void Sludge::Start()
 		{
 			ChangeState(JUMPBOSS_STATE::Division);
 			BodyRenderer->ChangeAnimation("Hit", true);
-			IsHitArrow = false;
 			IsDivision = true;
-			Collision->Off();
 		};
 
 	GravityForce = DefaultGravityForce;
@@ -97,8 +95,7 @@ void Sludge::Update(float _Delta)
 				SetByDivided();
 
 				float4 SpawnPos = Transform.GetLocalPosition();
-				Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
-				SpawnPos.X += 50.0f;
+				//Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
 				dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
 			}
 

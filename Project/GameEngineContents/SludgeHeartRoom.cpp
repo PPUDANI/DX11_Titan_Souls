@@ -86,6 +86,7 @@ void SludgeHeartRoom::SpawnBoss()
 		HeartActor->Transform.SetLocalPosition({ 1008.0f, -800.0f });
 		HeartActor->SetEnymePlayer(PlayerActor.get());
 		HeartActor->SetEnymeArrow(ArrowActor.get());
+		HeartActor->SetCurMap(TileMapActor.get());
 
 		HeartActor->SetOwnerSludge(SludgeActor.get());
 
