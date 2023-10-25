@@ -18,11 +18,12 @@ void Sludge::JumpStart()
 	MaxScale = 386.0f;
 	MinScale = 126.0f;
 	LerpRange = 0.96f;
+	GravityValue = 600;
 
 	GameEngineRandom Inst;
 	static int Count = 0;
 	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
-	GravityValue = Inst.RandomFloat(600.0f, 700.0f);
+	JumpChargeTime = Inst.RandomFloat(0.87f, 0.93f);	
 }
 
 void Sludge::FallStart()
@@ -42,6 +43,8 @@ void Sludge::LandingStart()
 	MinScale = 146.0f;
 
 	LerpRange = 0.97f;
+	ShakingEnd = false;
+	ScreenShakingTime = 0.0f;
 }
 
 void Sludge::DivisionStart()
@@ -82,11 +85,11 @@ void Sludge::JumpUpdate(float _Delta)
 	if (false == ReadyToJump)
 	{
 		DecreaseY((3.0f + static_cast<float>(DividedCount)) * _Delta);
-		if (MaxScale * 0.9f < RenderScale.X)
+		if (MaxScale * JumpChargeTime < RenderScale.X)
 		{
 			if (false == FindPlayer)
 			{
-				SetMoveDirRandom(JumpStartPos, 90.0f);
+				SetMoveDirRandom(JumpStartPos, 70.0f);
 			}
 			else
 			{
@@ -97,7 +100,7 @@ void Sludge::JumpUpdate(float _Delta)
 
 				if (0 == RandonNum)
 				{
-					SetMoveDirRandom(JumpStartPos, 40.0f);
+					SetMoveDirRandom(JumpStartPos, 30.0f);
 				}
 				else if (1 == RandonNum)
 				{
@@ -147,7 +150,26 @@ void Sludge::LandingUpdate(float _Delta)
 	{
 		ChangeState(JUMPBOSS_STATE::Idle);
 	}
-	CameraManager::AddCameraPosFromBoss;
+
+	GameEngineRandom Inst;
+	static int Count = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+
+	if (2 >= DividedCount)
+	{
+		if (false == ShakingEnd &&
+			0.2f > ScreenShakingTime)
+		{
+			ScreenShakingTime += _Delta;
+			CameraManager::AddCameraPosFromBoss.X = Inst.RandomFloat(-2.0f, 2.0f);
+			CameraManager::AddCameraPosFromBoss.Y = Inst.RandomFloat(-10.0f, 0.0f);
+		}
+		else
+		{
+			CameraManager::AddCameraPosFromBoss = float4::ZERO;
+			ShakingEnd = true;
+		}
+	}
 }
 
 void Sludge::DivisionUpdate(float _Delta)

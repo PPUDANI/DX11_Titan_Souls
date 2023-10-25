@@ -87,4 +87,7 @@ private:
 	void IncreaseY(float _Speed);
 
 	bool ReadyToJump = false;
+	float JumpChargeTime = 0.0f;
+	float ScreenShakingTime = 0.0f;
+	bool ShakingEnd = false;
 };
