@@ -50,6 +50,11 @@ public:
 		ArrowAngleDeg = _Angle;
 	}
 
+	inline float4 GetArrowAngleDeg() const
+	{
+		return ArrowAngleDeg;
+	}
+
 	inline void AddArrowAngleDeg(float4 _Angle)
 	{
 		ArrowAngleDeg += _Angle;

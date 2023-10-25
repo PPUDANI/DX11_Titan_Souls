@@ -32,7 +32,6 @@ void Sludge::LandingStart()
 	{
 		Collision->On();
 	}
-	SetMoveDirRandom(JumpStartPos, 90.0f);
 
 	MaxScale = 366.0f;
 	MinScale = 146.0f;
@@ -47,7 +46,7 @@ void Sludge::DivisionStart()
 		Collision->Off();
 	}
 	GravityValue = 500.0f;
-
+	
 	MaxScale = 346.0f;
 	MinScale = 166.0f;
 

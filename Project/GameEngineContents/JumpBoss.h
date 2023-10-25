@@ -80,6 +80,7 @@ protected:
 	bool FindPlayer = false;
 
 	void SetMoveDirRandom(float4& _CheckPos, float _RandomRange);
+	void AddMoveDirByArrow(float _AddPos);
 
 private:
 	void AdjustPosByTileCol(float4& _MovePos);

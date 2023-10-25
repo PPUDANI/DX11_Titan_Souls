@@ -80,11 +80,6 @@ public:
 		ArrowAngleDeg = _Deg;
 	}
 
-	inline float GetArrowAngleDeg()
-	{
-		return ArrowAngleDeg;
-	}
-
 	inline void LostArrow()
 	{
 		HasArrowValue = false;

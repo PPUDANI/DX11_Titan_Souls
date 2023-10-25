@@ -177,3 +177,11 @@ void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }
 
+void JumpBoss::AddMoveDirByArrow(float _AddPos)
+{
+	float4 ArrowAngle = EnymeArrow->GetArrowAngleDeg();
+	ArrowAngle.Z += _AddPos;
+
+	MoveDirBasis = float4::GetUnitVectorFromDeg(ArrowAngle.Z);
+}
+

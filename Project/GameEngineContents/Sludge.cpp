@@ -93,7 +93,7 @@ void Sludge::Update(float _Delta)
 				++DividedCount;
 				IsDivision = false;
 				SetByDivided();
-
+				AddMoveDirByArrow(0.0f);
 				float4 SpawnPos = Transform.GetLocalPosition();
 				//Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
 				dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
@@ -201,6 +201,6 @@ void Sludge::SetByDivided()
 void Sludge::DividedSludgeInit(int _DividedCount)
 {
 	DividedCount = _DividedCount;
-	Collision->Off();
+	AddMoveDirByArrow(+180.0f);
 	SetByDivided();
 }
