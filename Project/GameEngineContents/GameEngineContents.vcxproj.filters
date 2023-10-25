@@ -229,5 +229,8 @@
     <Filter Include="01. Actor\04. Camera">
       <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Actor\05.">
+      <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

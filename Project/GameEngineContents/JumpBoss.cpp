@@ -145,6 +145,7 @@ void JumpBoss::AdjustPosByTileCol(float4& _MovePos)
 	{
 		_MovePos -= MoveDirBasis;
 	}
+	_MovePos += MoveDirBasis;
 }
 
 void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
@@ -152,6 +153,10 @@ void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
 	float4 BossToPlayer = EnymePlayer->Transform.GetLocalPosition() - _CheckPos;
 	MoveAngle.Z = DirectX::XMConvertToDegrees(atan2f(BossToPlayer.Y, BossToPlayer.X));
 	GameEngineRandom Inst;
+	static int RandomCount = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomCount);
+
+	
 	MoveAngle.Z += Inst.RandomFloat(-_RandomRange, _RandomRange);
 
 	if (0.0f > MoveAngle.Z)
