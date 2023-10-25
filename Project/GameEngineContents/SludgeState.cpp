@@ -8,6 +8,7 @@ void Sludge::IdleStart()
 	MaxScale = 306.0f;
 	MinScale = 206.0f;
 	LerpRange = 0.95f;
+	MoveSpeed = DefaultMoveSpeed;
 }
 
 void Sludge::JumpStart()
@@ -16,8 +17,10 @@ void Sludge::JumpStart()
 	ReadyToJump = false;
 	MaxScale = 386.0f;
 	MinScale = 126.0f;
-	GravityValue = 600.0f;
 	LerpRange = 0.96f;
+
+	GameEngineRandom Inst;
+	GravityValue = Inst.RandomFloat(600.0f, 700.0f);
 }
 
 void Sludge::FallStart()
@@ -45,12 +48,12 @@ void Sludge::DivisionStart()
 	{
 		Collision->Off();
 	}
-	GravityValue = 500.0f;
-	
+	GravityValue = 400.0f;
 	MaxScale = 346.0f;
 	MinScale = 166.0f;
-
+	MoveSpeed = DefaultMoveSpeed * (1.0f - DividedCount * 0.1f);
 	LerpRange = 0.92f;
+	BodyRenderer->ChangeAnimation("Hit", true);
 }
 
 
@@ -58,7 +61,7 @@ void Sludge::IdleUpdate(float _Delta)
 {
 	if (SLUDGE_STATE::Increase == ExpandDir)
 	{
-		IncreaseY((5.0f + DividedCount) * _Delta);
+		IncreaseY((5.0f + static_cast<float>(DividedCount)) * _Delta);
 	}
 	if (SLUDGE_STATE::Decrease == ExpandDir)
 	{
@@ -76,7 +79,7 @@ void Sludge::JumpUpdate(float _Delta)
 	
 	if (false == ReadyToJump)
 	{
-		DecreaseY((3.0f + DividedCount) * _Delta);
+		DecreaseY((3.0f + static_cast<float>(DividedCount)) * _Delta);
 		if (MaxScale * 0.9f < RenderScale.X)
 		{
 			if (false == FindPlayer)
@@ -85,7 +88,16 @@ void Sludge::JumpUpdate(float _Delta)
 			}
 			else
 			{
-				SetMoveDirRandom(JumpStartPos, 40.0f);
+				GameEngineRandom Inst;
+				int RandonNum = Inst.RandomInt(0, 1);
+				if (0 == RandonNum)
+				{
+					SetMoveDirRandom(JumpStartPos, 40.0f);
+				}
+				else if (1 == RandonNum)
+				{
+					SetMoveDir(JumpStartPos);
+				}
 			}
 			ReadyToJump = true;
 			LerpRange = 0.8f;
@@ -130,6 +142,7 @@ void Sludge::LandingUpdate(float _Delta)
 	{
 		ChangeState(JUMPBOSS_STATE::Idle);
 	}
+	CameraManager::AddCameraPosFromBoss;
 }
 
 void Sludge::DivisionUpdate(float _Delta)

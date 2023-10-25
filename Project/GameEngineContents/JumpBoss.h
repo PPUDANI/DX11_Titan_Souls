@@ -63,11 +63,21 @@ protected:
 
 protected:
 	// Physics
+	float4 ColPosInterval;
+
 	float MoveSpeed = 0.0f;
 	float4 RenderPosBase = { 0.0f, 0.0f };
 	float4 JumpStartPos = float4::ZERO;
-	void MoveToPlayer(float _Delta);
 
+	float4 LeftPos = float4::ZERO;
+	float4 RightPos = float4::ZERO;
+	float4 UpPos = float4::ZERO;
+	float4 DownPos = float4::ZERO;
+
+	void PosUpdate();
+
+	void MoveToPlayer(float _Delta);
+	void TileColCheck(float4& _MovePos);
 	// State
 	JUMPBOSS_STATE CurState = JUMPBOSS_STATE::Default;
 	float JumpCooldown = 0.0f;
@@ -83,5 +93,8 @@ protected:
 	void AddMoveDirByArrow(float _AddPos);
 
 private:
-	void AdjustPosByTileCol(float4& _MovePos);
+	void AdjustLeftPosByTileCol(float4& _MovePos);
+	void AdjustRightPosByTileCol(float4& _MovePos);
+	void AdjustUpPosByTileCol(float4& _MovePos);
+	void AdjustDownPosByTileCol(float4& _MovePos);
 };

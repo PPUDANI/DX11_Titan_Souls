@@ -37,6 +37,7 @@ private:
 
 	float4 RenderScale = { 256.0f , 256.0f, 1.0f };
 	float4 ShadowRenderScale = { 128.0f, 128.0f , 1.0f };
+
 	float MaxScale = 0.0f;
 	float MinScale = 0.0f;
 	float ExpandDefalutSpeed = 192.0f;

@@ -34,7 +34,7 @@ void Sludge::Start()
 	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
+	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::PressMark);
 	PressMarkRenderer->SetPivotType(PivotType::Bottom);
 	PressMarkRenderer->SetSprite("PressMark.png");
 	PressMarkRenderer->SetImageScale({ 128.0f, 128.0f });
@@ -50,18 +50,12 @@ void Sludge::Start()
 	PlayerDetectionRange->SetCollisionType(ColType::AABBBOX2D);
 	PlayerDetectionRange->Transform.SetLocalScale(DefaultDetectionRangeSize);
 	PlayerDetectionRange->Transform.SetLocalPosition(GlobalValue::DebugDepth);
-	
-	CollisionParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
-		{
-			ChangeState(JUMPBOSS_STATE::Division);
-			BodyRenderer->ChangeAnimation("Hit", true);
-			IsDivision = true;
-		};
 
 	GravityForce = DefaultGravityForce;
 	MoveSpeed = DefaultMoveSpeed;
-	ChangeState(JUMPBOSS_STATE::Idle);
 
+	ColPosInterval = { 64.0f, 64.0f };
+	ChangeState(JUMPBOSS_STATE::Idle);
 }
 
 void Sludge::Update(float _Delta)
@@ -71,7 +65,7 @@ void Sludge::Update(float _Delta)
 		JumpStartPos = Transform.GetLocalPosition();
 	}
 
-	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam);
+	
 	if (PlayerDetectionRange->Collision(COLLISION_TYPE::Player))
 	{
 		FindPlayer = true;
@@ -88,15 +82,15 @@ void Sludge::Update(float _Delta)
 	{ 
 		if (3 >= DividedCount)
 		{
-			if (true == IsDivision)
+			if (true == Collision->Collision(COLLISION_TYPE::AttackArrow))
 			{
 				++DividedCount;
-				IsDivision = false;
 				SetByDivided();
-				AddMoveDirByArrow(0.0f);
+				AddMoveDirByArrow(90.0f);
 				float4 SpawnPos = Transform.GetLocalPosition();
-				//Transform.AddLocalPosition(-50.0f / static_cast<float>(DividedCount));
 				dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
+				ChangeState(JUMPBOSS_STATE::Division);
+				
 			}
 
 			// Heart가 연결되어있다면 본인 좌표로 이동
@@ -191,16 +185,24 @@ void Sludge::RendererSetting()
 
 void Sludge::SetByDivided()
 {
-	RenderPosBase = DefaultRenderPosBase * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
-	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase * (1.0f - DecreaseSize * static_cast<float>(DividedCount)));
-
-	MoveSpeed = DefaultMoveSpeed + static_cast<float>(DividedCount) * IncreaseMoveSpeed;
-	GravityForce = DefaultGravityForce + static_cast<float>(DividedCount) * IncreaseGravityForce;
+	float Count;
+	if (4 == DividedCount)
+	{
+		Count = 3.0f;
+	}
+	else
+	{
+		Count = static_cast<float>(DividedCount);
+	}
+	RenderPosBase = DefaultRenderPosBase * (1.0f - DecreaseSize * Count);
+	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase * (1.0f - DecreaseSize * Count));
+	MoveSpeed = DefaultMoveSpeed + Count * IncreaseMoveSpeed;
+	GravityForce = DefaultGravityForce + Count * IncreaseGravityForce;
 }
 
 void Sludge::DividedSludgeInit(int _DividedCount)
 {
 	DividedCount = _DividedCount;
-	AddMoveDirByArrow(+180.0f);
+	AddMoveDirByArrow(-90.0f);
 	SetByDivided();
 }

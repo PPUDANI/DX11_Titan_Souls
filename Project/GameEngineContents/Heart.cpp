@@ -29,7 +29,6 @@ void Heart::Start()
 	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
@@ -41,6 +40,8 @@ void Heart::Start()
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 34.0f, 20.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -4.0f, 0.0f });
+
+	ColPosInterval = ShadowRenderer->Transform.GetLocalScale();
 
 	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;

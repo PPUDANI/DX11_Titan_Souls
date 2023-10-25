@@ -52,8 +52,21 @@ void JumpBoss::Update(float _Delta)
 		GameEngineTransform TData;
 		TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 		TData.SetLocalScale({ 5.0f, 5.0f });
+
 		TData.SetLocalPosition(JumpStartPos + GlobalValue::DebugDepth);
 		GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
+
+		TData.SetLocalPosition(LeftPos + GlobalValue::DebugDepth);
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+
+		TData.SetLocalPosition(RightPos + GlobalValue::DebugDepth);
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+
+		TData.SetLocalPosition(UpPos + GlobalValue::DebugDepth);
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+
+		TData.SetLocalPosition(DownPos + GlobalValue::DebugDepth);
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 	}
 }
 
@@ -118,34 +131,88 @@ void JumpBoss::MoveToPlayer(float _Delta)
 	float4 MovePos;
 
 	MovePos = MoveDirBasis * MoveSpeed * _Delta;
+	float4 StartPosToPlayer = EnymePlayer->Transform.GetLocalPosition() - JumpStartPos;
+	float LengthStartPosToPlayer = DirectX::XMVectorGetX(DirectX::XMVector2Length(StartPosToPlayer.DirectXVector));
 
-	if (MoveSpeed / 50.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().X - JumpStartPos.X))
+	if (10.0f > LengthStartPosToPlayer)
 	{
-		MovePos.X = 0.0f;
+		MovePos = float4::ZERO;
 	}
 
-	if (MoveSpeed / 50.0f > std::abs(EnymePlayer->Transform.GetLocalPosition().Y - JumpStartPos.Y))
-	{
-		MovePos.Y = 0.0f;
-	}
-
-	TILE_COLLISION_TYPE Type = TILE_COLLISION_TYPE::EMPTY;
-	if (true == CurMap->ColCheck(JumpStartPos, Type))
-	{
-		AdjustPosByTileCol(MovePos);
-	}
+	TileColCheck(MovePos);
+	
 	JumpStartPos += MovePos;
 	Transform.AddLocalPosition(MovePos);
-	
 }
 
-void JumpBoss::AdjustPosByTileCol(float4& _MovePos)
+void JumpBoss::PosUpdate()
 {
-	while (true == CurMap->AllColCheck(JumpStartPos + _MovePos))
+	LeftPos = JumpStartPos - float4{ ColPosInterval.hX(), 0.0f};
+	RightPos = JumpStartPos + float4{ ColPosInterval.hX(), 0.0f };
+	UpPos = JumpStartPos + float4{ 0.0f, ColPosInterval.hY() };
+	DownPos = JumpStartPos - float4{ 0.0f, ColPosInterval.hY() };
+}
+
+void JumpBoss::TileColCheck(float4& _MovePos)
+{
+	PosUpdate();
+	TILE_COLLISION_TYPE Type = TILE_COLLISION_TYPE::EMPTY;
+
+	if (true == CurMap->ColCheck(LeftPos, Type))
 	{
-		_MovePos -= MoveDirBasis;
+		AdjustLeftPosByTileCol(_MovePos);
 	}
-	_MovePos += MoveDirBasis;
+
+	if (true == CurMap->ColCheck(RightPos, Type))
+	{
+		AdjustRightPosByTileCol(_MovePos);
+	}
+
+	if (true == CurMap->ColCheck(UpPos, Type))
+	{
+		AdjustUpPosByTileCol(_MovePos);
+	}
+
+	if (true == CurMap->ColCheck(DownPos, Type))
+	{
+		AdjustDownPosByTileCol(_MovePos);
+	}
+}
+
+void JumpBoss::AdjustLeftPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(LeftPos + _MovePos))
+	{
+		_MovePos += float4::RIGHT;
+	}
+	_MovePos += float4::LEFT;
+}
+
+void JumpBoss::AdjustRightPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(RightPos + _MovePos))
+	{
+		_MovePos += float4::LEFT;
+	}
+	_MovePos += float4::RIGHT;
+}
+
+void JumpBoss::AdjustUpPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(UpPos + _MovePos))
+	{
+		_MovePos += float4::DOWN;
+	}
+	_MovePos += float4::UP;
+}
+
+void JumpBoss::AdjustDownPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(DownPos + _MovePos))
+	{
+		_MovePos += float4::UP;
+	}
+	_MovePos += float4::DOWN;
 }
 
 void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
@@ -180,8 +247,23 @@ void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
 void JumpBoss::AddMoveDirByArrow(float _AddPos)
 {
 	float4 ArrowAngle = EnymeArrow->GetArrowAngleDeg();
+	ArrowAngle.Z -= 90.0f;
 	ArrowAngle.Z += _AddPos;
-
+	if (0.0f > ArrowAngle.Z)
+	{
+		while (0.0f > ArrowAngle.Z)
+		{
+			ArrowAngle.Z += 360.0f;
+		}
+	}
+	else if (360.0f < ArrowAngle.Z)
+	{
+		while (360.0f < ArrowAngle.Z)
+		{
+			ArrowAngle.Z -= 360.0f;
+		}
+	}
+	
 	MoveDirBasis = float4::GetUnitVectorFromDeg(ArrowAngle.Z);
 }
 

@@ -14,6 +14,8 @@ enum class RENDERING_ORDER
 	
 	HasAlpah,
 	Shadow,
+	PressMark,
+	Sludge,
 };
 
 
