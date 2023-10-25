@@ -45,8 +45,18 @@ void Sludge::Start()
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase);
 
+	CollisionParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+		{
+			++DividedCount;
+			if (3 >= DividedCount)
+			{
+				IsDivision = true;
+			}
+			Collision->Off();
+		};
+
 	// Collision setting
-	PlayerDetectionRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
+	PlayerDetectionRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::DetectionRange);
 	PlayerDetectionRange->SetCollisionType(ColType::AABBBOX2D);
 	PlayerDetectionRange->Transform.SetLocalScale(DefaultDetectionRangeSize);
 	PlayerDetectionRange->Transform.SetLocalPosition(GlobalValue::DebugDepth);
@@ -65,7 +75,8 @@ void Sludge::Update(float _Delta)
 		JumpStartPos = Transform.GetLocalPosition();
 	}
 
-	
+	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam);
+
 	if (PlayerDetectionRange->Collision(COLLISION_TYPE::Player))
 	{
 		FindPlayer = true;
@@ -82,25 +93,21 @@ void Sludge::Update(float _Delta)
 	{ 
 		if (3 >= DividedCount)
 		{
-			if (true == Collision->Collision(COLLISION_TYPE::AttackArrow))
+			if (true == IsDivision)
 			{
-				++DividedCount;
+				IsDivision = false;
 				SetByDivided();
 				AddMoveDirByArrow(90.0f);
 				float4 SpawnPos = Transform.GetLocalPosition();
 				dynamic_cast<SludgeHeartRoom*>(GetLevel())->SpawnDividedSludge(DividedCount, SpawnPos);
+
 				ChangeState(JUMPBOSS_STATE::Division);
-				
 			}
 
 			// Heart가 연결되어있다면 본인 좌표로 이동
 			if (nullptr != HeartActor)
 			{
 				HeartActor->Transform.SetLocalPosition(Transform.GetWorldPosition() + HeartPos);
-			}
-			else if (3 == DividedCount)
-			{
-				Collision->Death();
 			}
 		}
 		else

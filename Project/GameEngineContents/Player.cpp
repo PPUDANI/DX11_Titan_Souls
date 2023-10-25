@@ -62,6 +62,12 @@ void Player::Update(float _Delta)
 		}
 	}
 
+	if (true == BodyCollision->Collision(COLLISION_TYPE::Sludge) ||
+		true == BodyCollision->Collision(COLLISION_TYPE::Boss))
+	{
+		ChangeState(PLAYER_STATE::Death);
+	}
+
 	// State Update
 	switch (CurState)
 	{
@@ -119,8 +125,13 @@ void Player::Update(float _Delta)
 
 void Player::ChangeState(PLAYER_STATE _State)
 {
+	if (_State == CurState)
+	{
+		return;
+	}
+
 	CurState = _State;
-	
+
 	switch (CurState)
 	{
 	case PLAYER_STATE::Idle:

@@ -26,6 +26,7 @@ enum class COLLISION_TYPE
 	AttackArrow,
 	Boss,
 	Sludge,
+	DetectionRange,
 };
 
 enum class TILE_COLLISION_TYPE

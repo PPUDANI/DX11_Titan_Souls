@@ -8,7 +8,7 @@ void Sludge::IdleStart()
 	MaxScale = 306.0f;
 	MinScale = 206.0f;
 	LerpRange = 0.95f;
-	MoveSpeed = DefaultMoveSpeed * (1.0f + DividedCount * 0.1f);
+	MoveSpeed = DefaultMoveSpeed * (1.0f + DividedCount * 0.2f);
 }
 
 void Sludge::JumpStart()
@@ -18,12 +18,12 @@ void Sludge::JumpStart()
 	MaxScale = 386.0f;
 	MinScale = 126.0f;
 	LerpRange = 0.96f;
-	GravityValue = 600;
+	GravityValue = 600.0f;
 
 	GameEngineRandom Inst;
 	static int Count = 0;
 	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
-	JumpChargeTime = Inst.RandomFloat(0.87f, 0.93f);	
+	JumpChargeTime = Inst.RandomFloat(0.87f, 0.93f);
 }
 
 void Sludge::FallStart()
@@ -53,12 +53,16 @@ void Sludge::DivisionStart()
 	{
 		Collision->Off();
 	}
-	GravityValue = 400.0f;
 	MaxScale = 346.0f;
 	MinScale = 166.0f;
 	MoveSpeed = DefaultMoveSpeed * (1.0f - DividedCount * 0.1f);
 	LerpRange = 0.92f;
 	BodyRenderer->ChangeAnimation("Hit", true);
+
+	GameEngineRandom Inst;
+	static int Count = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+	GravityValue = Inst.RandomFloat(400.0f, 600.0f);
 }
 
 
