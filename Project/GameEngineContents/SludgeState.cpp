@@ -8,7 +8,7 @@ void Sludge::IdleStart()
 	MaxScale = 306.0f;
 	MinScale = 206.0f;
 	LerpRange = 0.95f;
-	MoveSpeed = DefaultMoveSpeed;
+	MoveSpeed = DefaultMoveSpeed * (1.0f + DividedCount * 0.1f);
 }
 
 void Sludge::JumpStart()
@@ -20,6 +20,8 @@ void Sludge::JumpStart()
 	LerpRange = 0.96f;
 
 	GameEngineRandom Inst;
+	static int Count = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
 	GravityValue = Inst.RandomFloat(600.0f, 700.0f);
 }
 
@@ -89,7 +91,10 @@ void Sludge::JumpUpdate(float _Delta)
 			else
 			{
 				GameEngineRandom Inst;
+				static int Count = 0;
+				Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
 				int RandonNum = Inst.RandomInt(0, 1);
+
 				if (0 == RandonNum)
 				{
 					SetMoveDirRandom(JumpStartPos, 40.0f);
