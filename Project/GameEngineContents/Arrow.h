@@ -147,7 +147,7 @@ private:
 
 	float StandartPullingForceByHit = 0.5f;
 
-	float PullOutDuration = 1.5f;
+	float PullOutDuration = 2.0f;
 	float PullOutTimer = 0.0f;
 
 public:
