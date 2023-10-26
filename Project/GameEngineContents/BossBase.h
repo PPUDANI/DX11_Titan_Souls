@@ -58,7 +58,7 @@ protected:
 	bool WeaknessActorValue = false;
 
 protected:
-	void SetMoveDir(float4& _CheckPos);
+	void SetMoveDir(const float4& _CheckPos);
 	// Move
 	float4 MoveDirBasis = float4::ZERO;
 	float4 MoveAngle = float4::ZERO;

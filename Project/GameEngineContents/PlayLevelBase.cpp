@@ -13,7 +13,6 @@ void PlayLevelBase::Start()
 {
 	LevelBase::Start();
 	CreatePlayerElement();
-
 }
 
 void PlayLevelBase::Update(float _Delta)
@@ -96,8 +95,8 @@ void PlayLevelBase::CreatePlayerElement()
 	}
 
 	// PlayerActor Setting
-	PlayerActor = CreateActor<Player>(UPDATE_ORDER::Player);
-	ArrowActor = CreateActor<Arrow>(UPDATE_ORDER::Player);
+	PlayerActor = CreateActor<Player>(static_cast<int>(UPDATE_ORDER::Player), "Player");
+	ArrowActor = CreateActor<Arrow>(static_cast<int>(UPDATE_ORDER::Arrow), "Arrow");
 	ArrowActor->OwnerPlayerSetting(PlayerActor);
 	PlayerActor->ArrowSetting(ArrowActor);
 }

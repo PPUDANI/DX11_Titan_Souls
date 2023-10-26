@@ -12,7 +12,6 @@ LevelBase::~LevelBase()
 void LevelBase::Start()
 {
 	CursorActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
-	GameEngineCore::MainWindow.CursorOff();
 	OffDebug();
 	GameEngineInput::AddInputObject(this);
 }

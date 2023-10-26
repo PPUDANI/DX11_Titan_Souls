@@ -18,7 +18,7 @@ void BossBase::Update(float _Delta)
 
 }
 
-void BossBase::SetMoveDir(float4& _CheckPos)
+void BossBase::SetMoveDir(const float4& _CheckPos)
 {
 	float4 BossToPlayer = EnymePlayer->Transform.GetLocalPosition() - _CheckPos;
 	MoveAngle.Z = DirectX::XMConvertToDegrees(atan2f(BossToPlayer.Y, BossToPlayer.X));

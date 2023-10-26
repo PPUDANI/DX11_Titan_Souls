@@ -4,6 +4,7 @@ enum class UPDATE_ORDER
 {
 	Map,
 	Player,
+	Arrow,
 	Boss,
 	UI,
 };
@@ -27,6 +28,7 @@ enum class COLLISION_TYPE
 	Boss,
 	Sludge,
 	DetectionRange,
+	EnterPlace,
 };
 
 enum class TILE_COLLISION_TYPE

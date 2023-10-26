@@ -221,7 +221,7 @@ void JumpBoss::AdjustDownPosByTileCol(float4& _MovePos)
 	_MovePos += float4::DOWN;
 }
 
-void JumpBoss::SetMoveDirRandom(float4& _CheckPos, float _RandomRange)
+void JumpBoss::SetMoveDirRandom(const float4& _CheckPos, float _RandomRange)
 {
 	float4 BossToPlayer = EnymePlayer->Transform.GetLocalPosition() - _CheckPos;
 	MoveAngle.Z = DirectX::XMConvertToDegrees(atan2f(BossToPlayer.Y, BossToPlayer.X));

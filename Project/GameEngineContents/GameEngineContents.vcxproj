@@ -176,11 +176,16 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentsControlWindow.cpp" />
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Debris.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EnterPlace.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -276,11 +281,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsControlWindow.h" />
     <ClInclude Include="ContentsCore.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Debris.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EnterPlace.h">
       <SubType>
       </SubType>
     </ClInclude>

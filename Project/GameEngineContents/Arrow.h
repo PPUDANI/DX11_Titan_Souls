@@ -45,7 +45,7 @@ public:
 		TileEndPos = CurMap->GetTileSize();
 	}
 
-	inline void SetArrowAngleDeg(float4& _Angle)
+	inline void SetArrowAngleDeg(const float4& _Angle)
 	{
 		ArrowAngleDeg = _Angle;
 	}
@@ -107,8 +107,8 @@ private:
 	float4 ArrowheadCheckPos = float4::ZERO;
 	TILE_COLLISION_TYPE TileColType = TILE_COLLISION_TYPE::EMPTY;
 
-	void MoveAndColCheck(float4& _MovePos);
-	bool ArrowColCheckByState(float4& _MovePos);
+	void MoveAndColCheck(const float4& _MovePos);
+	bool ArrowColCheckByState(const float4& _MovePos);
 	void AdjustPosByTileCol();
 	void AdjustPosByCol();
 	void BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);

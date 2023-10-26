@@ -96,6 +96,11 @@ public:
 		return HasArrowValue;
 	}
 
+	inline void OnArrowInBagRenderer()
+	{
+		ArrowInBagRenderer->On();
+	}
+	
 private:
 	// External Element
 	class TileMap* CurMap = nullptr;

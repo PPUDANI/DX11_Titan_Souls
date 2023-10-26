@@ -13,7 +13,7 @@ void Floor1::Start()
 {
 	PlayLevelBase::Start();
 
-	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");

@@ -31,6 +31,7 @@
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
 #include "GlobalCalculator.h"
+#include "GameEngineCore/GameEngineGUI.h"
 
 // Level
 #include "LevelBase.h"

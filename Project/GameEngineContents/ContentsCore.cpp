@@ -11,7 +11,7 @@
 #include "YetiRoom.h"
 #include "KnightElhananRoom.h"
 #include "Jam.h"
-
+#include "ContentsControlWindow.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -49,12 +49,14 @@ void ContentsCore::Start()
 
 	// Clear Color Setting
 	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+	GameEngineCore::MainWindow.CursorOff();
 
 	// Map Texture Load
 	GlobalLoad::LoadSpriteCut(16, 16, "Spectiles.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Jam.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Underworld.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Overworld.png", "Resource\\Texture\\Map\\");
+
 
 	// Create Level
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
@@ -64,6 +66,9 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
 	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
 
+	// Create IMGUI
+	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
+
 	GameEngineCore::ChangeLevel("Floor1");
 
 	GameEngineInput::AddInputObject(this);
@@ -71,6 +76,7 @@ void ContentsCore::Start()
 
 void ContentsCore::Update(float _Delta)
 {
+
 	// 임시 레벨 변경
 	if (true == GameEngineInput::IsDown(VK_F1, this))
 	{

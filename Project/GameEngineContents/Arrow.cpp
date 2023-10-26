@@ -46,18 +46,6 @@ void Arrow::Update(float _Delta)
 		DebugRender();
 	}
 
-	if (true == GameEngineInput::IsDown('6', this))
-	{
-		ChangeState(ARROW_STATE::Pinned);
-		return;
-	}
-
-	if (true == GameEngineInput::IsDown('7', this))
-	{
-		ChangeState(ARROW_STATE::Fallen);
-		return;
-	}
-
 	if (PLAYER_STATE::Death == OwnerPlayer->GetCurState())
 	{
 		ChangeState(ARROW_STATE::Hold);
@@ -169,7 +157,7 @@ void Arrow::ChangeState(ARROW_STATE _State)
 	}
 }
 
-void Arrow::MoveAndColCheck(float4& _MovePos)
+void Arrow::MoveAndColCheck(const float4& _MovePos)
 {
 	float4 _MovePosUnit = FlyingDirectionBasis * 5.0f;
 
@@ -235,7 +223,7 @@ void Arrow::MoveAndColCheck(float4& _MovePos)
 	Transform.AddLocalPosition(_MovePos);
 }
 
-bool Arrow::ArrowColCheckByState(float4& _MovePos)
+bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 {
 	switch (CurState)
 	{
@@ -248,6 +236,7 @@ bool Arrow::ArrowColCheckByState(float4& _MovePos)
 		if (true == GetCollision->Collision(COLLISION_TYPE::Player, _MovePos))
 		{
 			Transform.AddLocalPosition(_MovePos);
+			OwnerPlayer->OnArrowInBagRenderer();
 			ChangeState(ARROW_STATE::PickUp);
 			return true;
 		}

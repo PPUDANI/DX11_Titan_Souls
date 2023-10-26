@@ -93,7 +93,7 @@ protected:
 	std::shared_ptr<GameEngineCollision> PlayerDetectionRange = nullptr;
 	bool FindPlayer = false;
 
-	void SetMoveDirRandom(float4& _CheckPos, float _RandomRange);
+	void SetMoveDirRandom(const float4& _CheckPos, float _RandomRange);
 	void AddMoveDirByArrow(float _AddPos);
 
 private:
