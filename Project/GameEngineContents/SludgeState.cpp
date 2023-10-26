@@ -46,6 +46,7 @@ void Sludge::LandingStart()
 	ShakingEnd = false;
 	ScreenShakingTime = 0.0f;
 	ShakingPerFrame = 0.0f;
+	ShakingLerpValue = 8.0f - DividedCount;
 }
 
 void Sludge::DivisionStart()
@@ -170,8 +171,9 @@ void Sludge::LandingUpdate(float _Delta)
 			if (1.0f / 30.0f < ShakingPerFrame)
 			{
 				ShakingPerFrame = 0.0f;
-				CameraManager::AddCameraPosFromBoss.X = Inst.RandomFloat(-1.0f, 1.0f) * 5.0f;
-				CameraManager::AddCameraPosFromBoss.Y = Inst.RandomFloat(-1.0f, 1.0f) * 5.0f;
+				ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, 4.0f * _Delta);
+				CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+				CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
 			}
 		}
 		else

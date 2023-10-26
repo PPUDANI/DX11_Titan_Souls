@@ -29,6 +29,7 @@ private:
 	void JumpStart() override;
 	void FallStart() override;
 	void LandingStart() override;
+	void OutOfSludgeStart() override;
 	void DeathStart() override;
 
 	void InSludgeUpdate(float _Delta) override;
@@ -36,6 +37,7 @@ private:
 	void JumpUpdate(float _Delta) override;
 	void FallUpdate(float _Delta) override;
 	void LandingUpdate(float _Delta) override;
+	void OutOfSludgeUpdate(float _Delta) override;
 	void DeathUpdate(float _Delta) override;
 
 	void RendererSetting() override;

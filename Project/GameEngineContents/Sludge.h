@@ -91,4 +91,5 @@ private:
 	float ScreenShakingTime = 0.0f;
 	float ShakingPerFrame = 0.0f;
 	bool ShakingEnd = false;
+	float ShakingLerpValue = 0.0f;
 };

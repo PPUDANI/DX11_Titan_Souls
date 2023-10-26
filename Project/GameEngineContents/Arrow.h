@@ -126,7 +126,7 @@ private:
 	float4 CameraMoveDirectionBasis = float4::ZERO;
 
 	float PullingForce = 0.0f;
-	float DefaultSpeed = 4000.0f;
+	float DefaultSpeed = 4500.0f;
 	float ZoomRatio = 1.0f;
 
 	float CameraMoveScale = 1.0f;
@@ -138,9 +138,8 @@ private:
 	float FiyTimer = 0.0f;
 
 	// Pinned Valuable
-	float MaxDegree = 0.0f;
-	float MinDegree = 0.0f;
-	float DirRange = 4.0f;
+	float DirRangeValue = 8.0f;
+	float AddRange = 0.0f;
 	float PinnedRotationDir = 0.0f;
 	float PinnedRotationSpeed = 500.0f;
 	bool RotationReverse = false;
@@ -149,7 +148,7 @@ private:
 
 	float PullOutDuration = 2.0f;
 	float PullOutTimer = 0.0f;
-
+	float ShakingPerFrame = 0.0f;
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;

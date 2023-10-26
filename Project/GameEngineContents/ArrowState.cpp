@@ -49,9 +49,7 @@ void Arrow::PinnedStart()
 	GetCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
 
-	MaxDegree = PinnedRotationDir + (DirRange / 2);
-	MinDegree = PinnedRotationDir - (DirRange / 2);
-
+	ShakingPerFrame = 0.0f;
 	Renderer->Transform.SetLocalPosition(DepthValue::PinnedArrow);
 }
 
@@ -62,8 +60,14 @@ void Arrow::HoldUpdate(float _Delta)
 		ChangeState(ARROW_STATE::Aim);
 	}
 
+	Transform.SetLocalPosition(OwnerPlayer->Transform.GetLocalPosition());
+
 	ZoomRatio = std::lerp(ZoomRatio, 1.0f, 10.0f * _Delta);
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
+
+	// Calculating CameraMove
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 10.0f * _Delta);
+	CameraManager::AddCameraPosFromArrow = CameraMoveDirectionBasis * CameraMovePos;
 }
 
 
@@ -201,25 +205,14 @@ void Arrow::PickUpUpdate(float _Delta)
 
 void Arrow::PinnedUpdate(float _Delta)
 {
-	if (false == RotationReverse)
-	{
-		PinnedRotationDir += PinnedRotationSpeed * _Delta;
-		if (MaxDegree < PinnedRotationDir)
-		{
-			RotationReverse = true;
-		}
-	}
-	else
-	{
-		PinnedRotationDir -= PinnedRotationSpeed * _Delta;
-		if (MinDegree > PinnedRotationDir)
-		{
-			RotationReverse = false;
-		}
-	}
+	GameEngineRandom Inst;
+	static int Count = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+	AddRange = Inst.RandomFloat(-2.0f, 2.0f) * DirRangeValue;
+
 
 	float4 Degree = float4::ZERO;
-	Degree.Z = PinnedRotationDir;
+	Degree.Z = PinnedRotationDir + AddRange;
 	Transform.SetLocalRotation(Degree);
 
 	if (true == GameEngineInput::IsPress(VK_LBUTTON, this))
@@ -240,4 +233,8 @@ void Arrow::PinnedUpdate(float _Delta)
 	}
 
 	CameraManager::AddCameraZoomFromArrow = ZoomRatio;
+
+	// Calculating CameraMove
+	CameraMovePos = std::lerp(CameraMovePos, 0.0f, 10.0f * _Delta);
+	CameraManager::AddCameraPosFromArrow = CameraMoveDirectionBasis * CameraMovePos;
 }

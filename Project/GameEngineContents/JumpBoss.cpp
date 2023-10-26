@@ -38,6 +38,9 @@ void JumpBoss::Update(float _Delta)
 	case JUMPBOSS_STATE::Division:
 		DivisionUpdate(_Delta);
 		break;
+	case JUMPBOSS_STATE::OutOfSludge:
+		OutOfSludgeUpdate(_Delta);
+		break;
 	case JUMPBOSS_STATE::Death:
 		DeathUpdate(_Delta);
 		break;
@@ -98,6 +101,9 @@ void JumpBoss::ChangeState(JUMPBOSS_STATE _State)
 		break;
 	case JUMPBOSS_STATE::Division:
 		DivisionStart();
+		break;
+	case JUMPBOSS_STATE::OutOfSludge:
+		OutOfSludgeStart();
 		break;
 	case JUMPBOSS_STATE::Death:
 		DeathStart();
@@ -248,7 +254,12 @@ void JumpBoss::AddMoveDirByArrow(float _AddPos)
 {
 	float4 ArrowAngle = EnymeArrow->GetArrowAngleDeg();
 	ArrowAngle.Z -= 90.0f;
-	ArrowAngle.Z += _AddPos;
+	GameEngineRandom Inst;
+	int Count = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+	float AddPos = Inst.RandomFloat(_AddPos - 15.0f, _AddPos + 15.0f);
+	ArrowAngle.Z += AddPos;
+
 	if (0.0f > ArrowAngle.Z)
 	{
 		while (0.0f > ArrowAngle.Z)

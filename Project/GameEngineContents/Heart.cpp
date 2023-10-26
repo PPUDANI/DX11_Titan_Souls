@@ -46,6 +46,9 @@ void Heart::Start()
 	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;
 	WeaknessActorValue = true;
+
+	ColPosInterval = { 64.0f, 64.0f };
+
 	ChangeState(JUMPBOSS_STATE::InSludge);
 }
 
@@ -57,7 +60,7 @@ void Heart::Update(float _Delta)
 		return;
 	}
 
-	SetMoveDir(JumpStartPos);
+	PosUpdate();
 
 	JumpBoss::Update(_Delta);
 

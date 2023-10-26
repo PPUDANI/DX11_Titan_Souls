@@ -52,7 +52,17 @@ void Sludge::Start()
 			{
 				IsDivision = true;
 			}
-			Collision->Off();
+			else
+			{
+				Collision->Off();
+			}
+
+			if (nullptr == HeartActor &&
+				3 == DividedCount)
+			{
+				Collision->Death();
+			}
+			
 		};
 
 	// Collision setting
@@ -103,7 +113,6 @@ void Sludge::Update(float _Delta)
 
 				ChangeState(JUMPBOSS_STATE::Division);
 			}
-
 			// Heart가 연결되어있다면 본인 좌표로 이동
 			if (nullptr != HeartActor)
 			{
@@ -117,7 +126,9 @@ void Sludge::Update(float _Delta)
 			if (nullptr != HeartActor)
 			{
 				// Sludge와 Heart를 분리
+				HeartActor->ChangeState(JUMPBOSS_STATE::OutOfSludge);
 				HeartActor->SetOwnerSludge(nullptr);
+				Collision->Death();
 			}
 		}
 	}
@@ -210,6 +221,10 @@ void Sludge::SetByDivided()
 void Sludge::DividedSludgeInit(int _DividedCount)
 {
 	DividedCount = _DividedCount;
+	if (3 == DividedCount)
+	{
+		Collision->Death();
+	}
 	AddMoveDirByArrow(-90.0f);
 	SetByDivided();
 }

@@ -13,12 +13,14 @@ void Heart::IdleStart()
 {
 	BodyRenderer->ChangeAnimation("Idle");
 	ShadowRenderer->On();
+	MoveSpeed = 250.0f;
 }
 
 void Heart::JumpStart()
 {
 	BodyRenderer->ChangeAnimation("Jump");
 	JumpStartPos = Transform.GetLocalPosition();
+	SetMoveDir(JumpStartPos);
 	GravityValue = 300.0f;
 }
 
@@ -31,6 +33,15 @@ void Heart::LandingStart()
 {
 	BodyRenderer->ChangeAnimation("Landing");
 	Collision->On();
+}
+
+void Heart::OutOfSludgeStart()
+{
+	BodyRenderer->ChangeAnimation("Jump", true, 1);
+	AddMoveDirByArrow(-90.0f);
+	JumpStartPos = Transform.GetLocalPosition();
+	GravityValue = 500.0f;
+	Collision->Off();
 }
 
 void Heart::DeathStart()
@@ -90,6 +101,18 @@ void Heart::LandingUpdate(float _Delta)
 		ChangeState(JUMPBOSS_STATE::Idle);
 		return;
 	}
+}
+
+void Heart::OutOfSludgeUpdate(float _Delta)
+{
+	if (0.0f > GravityValue)
+	{
+		ChangeState(JUMPBOSS_STATE::Fall);
+		return;
+	}
+
+	MoveToPlayer(_Delta);
+	Gravity(_Delta);
 }
 
 void Heart::DeathUpdate(float _Delta)
