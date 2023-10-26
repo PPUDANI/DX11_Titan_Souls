@@ -165,8 +165,8 @@ void Sludge::LandingUpdate(float _Delta)
 			0.2f > ScreenShakingTime)
 		{
 			ScreenShakingTime += _Delta;
-			CameraManager::AddCameraPosFromBoss.X = Inst.RandomFloat(-2.0f, 2.0f);
-			CameraManager::AddCameraPosFromBoss.Y = Inst.RandomFloat(-10.0f, 0.0f);
+			CameraManager::AddCameraPosFromBoss.X = static_cast<float>(Inst.RandomInt(-1.0f, 1.0f) * 5.0f);
+			CameraManager::AddCameraPosFromBoss.Y = static_cast<float>(Inst.RandomInt(-1.0f, 1.0f) * 5.0f);
 		}
 		else
 		{

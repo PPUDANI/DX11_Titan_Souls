@@ -62,11 +62,21 @@ void Player::Update(float _Delta)
 		}
 	}
 
-	if (true == BodyCollision->Collision(COLLISION_TYPE::Sludge) ||
-		true == BodyCollision->Collision(COLLISION_TYPE::Boss))
+	// InvincibilityMode switch
+	if (true == GameEngineInput::IsDown('9', this))
 	{
-		ChangeState(PLAYER_STATE::Death);
+		InvincibilityMode = !InvincibilityMode;
 	}
+
+	if (false == InvincibilityMode)
+	{
+		if (true == BodyCollision->Collision(COLLISION_TYPE::Sludge) ||
+			true == BodyCollision->Collision(COLLISION_TYPE::Boss))
+		{
+			ChangeState(PLAYER_STATE::Death);
+		}
+	}
+	
 
 	// State Update
 	switch (CurState)

@@ -112,6 +112,7 @@ private:
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
 	bool IsBlocked = false;
 	bool HasArrowValue = true;
+	bool InvincibilityMode = true;
 public:
 	// FMS Functions
 	void ChangeState(PLAYER_STATE _State);
