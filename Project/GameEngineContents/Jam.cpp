@@ -13,7 +13,7 @@ void Jam::Start()
 {
 	PlayLevelBase::Start();
 
-	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(185, 160, "Jam", "Jam.png");
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");

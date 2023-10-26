@@ -44,7 +44,7 @@
 #include "Arrow.h"
 #include "BossBase.h"
 #include "JumpBoss.h"
-
+#include "EnterPlace.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

@@ -13,6 +13,10 @@ public:
 	EnterPlace& operator=(const EnterPlace& _Other) = delete;
 	EnterPlace& operator=(EnterPlace&& _Other) noexcept = delete;
 
+	void SetPlaceScale(const float4& _Sclae)
+	{
+		PlaceCol->Transform.SetLocalScale(_Sclae);
+	}
 protected:
 
 private:
@@ -21,6 +25,6 @@ private:
 	void Update(float _Delta) override;
 
 private:
-	std::shared_ptr<class GameEngineCollision> EnterCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> PlaceCol = nullptr;
 
 };

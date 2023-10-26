@@ -3,6 +3,7 @@
 enum class UPDATE_ORDER
 {
 	Map,
+	EnterPlace,
 	Player,
 	Arrow,
 	Boss,

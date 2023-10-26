@@ -13,7 +13,7 @@ void KnightElhananRoom::Start()
 {
 	PlayLevelBase::Start();
 
-	TileMapActor = CreateActor<TileMap>(UPDATE_ORDER::Map);
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(59, 60, "KnightElhanan", "Underworld.png");
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");

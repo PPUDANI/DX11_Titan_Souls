@@ -59,17 +59,16 @@ void ContentsCore::Start()
 
 
 	// Create Level
-	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
-	GameEngineCore::CreateLevel<Floor1>("Floor1");
-	GameEngineCore::CreateLevel<Jam>("Jam");
-	GameEngineCore::CreateLevel<SludgeHeartRoom>("SludgeHeartRoom");
-	GameEngineCore::CreateLevel<YetiRoom>("YetiRoom");
-	GameEngineCore::CreateLevel<KnightElhananRoom>("KnightElhananRoom");
-
+	GameEngineCore::CreateLevel<TitleLevel>("00.TitleLevel");
+	GameEngineCore::CreateLevel<Floor1>("01.Floor1");
+	GameEngineCore::CreateLevel<SludgeHeartRoom>("02.SludgeHeartRoom");
+	GameEngineCore::CreateLevel<YetiRoom>("03.YetiRoom");
+	GameEngineCore::CreateLevel<KnightElhananRoom>("04.KnightElhananRoom");
+	GameEngineCore::CreateLevel<Jam>("05.Jam");
 	// Create IMGUI
 	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
 
-	GameEngineCore::ChangeLevel("Floor1");
+	GameEngineCore::ChangeLevel("01.Floor1");
 
 	GameEngineInput::AddInputObject(this);
 }
@@ -80,25 +79,28 @@ void ContentsCore::Update(float _Delta)
 	// 임시 레벨 변경
 	if (true == GameEngineInput::IsDown(VK_F1, this))
 	{
-		GameEngineCore::ChangeLevel("Floor1");
+		GameEngineCore::ChangeLevel("00.TitleLevel");
 	}
 	if (true == GameEngineInput::IsDown(VK_F2, this))
 	{
-		GameEngineCore::ChangeLevel("SludgeHeartRoom");
+		GameEngineCore::ChangeLevel("01.Floor1");
 	}
 	if (true == GameEngineInput::IsDown(VK_F3, this))
 	{
-		GameEngineCore::ChangeLevel("YetiRoom");
+		GameEngineCore::ChangeLevel("02.SludgeHeartRoom");
 	}
 	if (true == GameEngineInput::IsDown(VK_F4, this))
 	{
-		GameEngineCore::ChangeLevel("KnightElhananRoom");
+		GameEngineCore::ChangeLevel("03.YetiRoom");
 	}
 	if (true == GameEngineInput::IsDown(VK_F5, this))
 	{
-		GameEngineCore::ChangeLevel("Jam");
+		GameEngineCore::ChangeLevel("04.KnightElhananRoom");
 	}
-
+	if (true == GameEngineInput::IsDown(VK_F6, this))
+	{
+		GameEngineCore::ChangeLevel("05.Jam");
+	}
 }
 
 void ContentsCore::Release()

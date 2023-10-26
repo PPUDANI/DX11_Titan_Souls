@@ -32,11 +32,17 @@ void Floor1::Start()
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 	
+	EnterPlaceToSludgeRoom = CreateActor<EnterPlace>(static_cast<int>(UPDATE_ORDER::EnterPlace), "EnterPlaceToSludgeRoom");
+	EnterPlaceToSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
+	EnterPlaceToSludgeRoom->SetPlaceScale({ 100.0f, 50.0f });
+
+	//GameEngineInput::AddInputObject(this);
 }
 
 void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
+
 }
 
 
@@ -54,8 +60,9 @@ void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Floor1::SpawnPlayer()
 {
-	PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
-	ArrowActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
+	//PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
+	PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
+	
 	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	return;
 }
