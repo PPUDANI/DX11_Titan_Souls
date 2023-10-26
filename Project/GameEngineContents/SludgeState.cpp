@@ -45,6 +45,7 @@ void Sludge::LandingStart()
 	LerpRange = 0.97f;
 	ShakingEnd = false;
 	ScreenShakingTime = 0.0f;
+	ShakingPerFrame = 0.0f;
 }
 
 void Sludge::DivisionStart()
@@ -165,8 +166,13 @@ void Sludge::LandingUpdate(float _Delta)
 			0.2f > ScreenShakingTime)
 		{
 			ScreenShakingTime += _Delta;
-			CameraManager::AddCameraPosFromBoss.X = static_cast<float>(Inst.RandomInt(-1.0f, 1.0f) * 5.0f);
-			CameraManager::AddCameraPosFromBoss.Y = static_cast<float>(Inst.RandomInt(-1.0f, 1.0f) * 5.0f);
+			ShakingPerFrame += _Delta;
+			if (1.0f / 30.0f < ShakingPerFrame)
+			{
+				ShakingPerFrame = 0.0f;
+				CameraManager::AddCameraPosFromBoss.X = Inst.RandomFloat(-1.0f, 1.0f) * 5.0f;
+				CameraManager::AddCameraPosFromBoss.Y = Inst.RandomFloat(-1.0f, 1.0f) * 5.0f;
+			}
 		}
 		else
 		{
