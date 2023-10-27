@@ -3,6 +3,7 @@
 #include "GameEngineDebug.h"
 #include <Windows.h>
 
+
 GameEngineString::GameEngineString() 
 {
 }
@@ -108,3 +109,4 @@ std::string GameEngineString::AnsiToUTF8(std::string_view _Text)
 	std::wstring UniCode = AnsiToUnicode(_Text);
 	return UnicodeToUTF8(UniCode);
 }
+
