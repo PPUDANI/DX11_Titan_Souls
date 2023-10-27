@@ -80,7 +80,7 @@ void SludgeHeartRoom::SpawnBoss()
 		SludgeActor->SetEnymePlayer(PlayerActor.get());
 		SludgeActor->SetEnymeArrow(ArrowActor.get());
 		SludgeActor->SetCurMap(TileMapActor.get());
-		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -900.0f });
+		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
 		HeartActor->SetEnymePlayer(PlayerActor.get());
