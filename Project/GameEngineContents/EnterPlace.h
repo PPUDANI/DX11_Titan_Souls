@@ -17,6 +17,7 @@ public:
 	{
 		PlaceCol->Transform.SetLocalScale(_Sclae);
 	}
+
 protected:
 
 private:

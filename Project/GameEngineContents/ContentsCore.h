@@ -18,7 +18,7 @@ public:
 
 	static float4 GetStartWindowPos()
 	{
-		return { 50, 30 };
+		return { 10.0f, 50.0f };
 	}
 
 	// constrcuter destructer

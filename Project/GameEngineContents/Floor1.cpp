@@ -34,9 +34,8 @@ void Floor1::Start()
 	
 	EnterPlaceToSludgeRoom = CreateActor<EnterPlace>(static_cast<int>(UPDATE_ORDER::EnterPlace), "EnterPlaceToSludgeRoom");
 	EnterPlaceToSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
-	EnterPlaceToSludgeRoom->SetPlaceScale({ 100.0f, 50.0f });
+	EnterPlaceToSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
 
-	//GameEngineInput::AddInputObject(this);
 }
 
 void Floor1::Update(float _Delta)

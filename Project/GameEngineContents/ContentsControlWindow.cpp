@@ -11,7 +11,14 @@ void ContentsControlWindow::Start()
 void PositionTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 	std::list<std::shared_ptr<GameEngineObject>> PlayerActorList = _Level->GetObjectGroup(UPDATE_ORDER::Player);
+
+	if (true == PlayerActorList.empty())
+	{
+		return;
+	}
+
 	std::shared_ptr<GameEngineObject> PlayerActor = PlayerActorList.front();
+
 	std::string PlayerPos = PlayerActor.get()->Transform.GetWorldPosition().ToString();
 
 	std::list<std::shared_ptr<GameEngineObject>> ArrowActorList = _Level->GetObjectGroup(UPDATE_ORDER::Arrow);
