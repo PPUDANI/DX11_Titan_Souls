@@ -83,7 +83,6 @@ void SludgeHeartRoom::SpawnBoss()
 		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -900.0f });
 
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
-		HeartActor->Transform.SetLocalPosition({ 1008.0f, -800.0f });
 		HeartActor->SetEnymePlayer(PlayerActor.get());
 		HeartActor->SetEnymeArrow(ArrowActor.get());
 		HeartActor->SetCurMap(TileMapActor.get());
@@ -97,10 +96,8 @@ void SludgeHeartRoom::SpawnBoss()
 
 void SludgeHeartRoom::SpawnPlayer()
 {
-	// 1856.0f
-	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1056.0f });
-	ArrowActor->Transform.SetLocalPosition({ 1008.0f, -1056.0f });
-	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 	return;
 }
 

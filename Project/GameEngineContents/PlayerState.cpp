@@ -54,6 +54,20 @@ void Player::StandUpStart()
 	ArrowInBagRenderer->ChangeAnimation("StandUp");
 }
 
+void Player::EnterLevelStart()
+{
+	BodyRenderer->ChangeAnimation("EnterLevel");
+	BowRenderer->ChangeAnimation("EnterLevel");
+	ArrowInBagRenderer->ChangeAnimation("EnterLevel");
+}
+
+void Player::ExitLevelStart()
+{
+	BodyRenderer->ChangeAnimation("ExitLevel");
+	BowRenderer->ChangeAnimation("ExitLevel");
+	ArrowInBagRenderer->ChangeAnimation("ExitLevel");
+}
+
 
 ///////  Update  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::IdleUpdate(float _Delta)
@@ -283,10 +297,47 @@ void Player::DeathUpdate(float _Delta)
 	}
 }
 
-void Player::StandUpUpadte(float _Delta)
+void Player::StandUpUpdate(float _Delta)
 {
 	if (true == BodyRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PLAYER_STATE::Idle);
 	}
+}
+
+void Player::EnterLevelUpdate(float _Delta)
+{
+
+	if (1.5f < EnterTimer)
+	{
+		EnterTimer = 0.0f;
+		EnterEndValue = true;
+		ChangeState(PLAYER_STATE::Idle);
+	}
+	else
+	{
+		EnterTimer += _Delta;
+	}
+
+	float4 MovePos = float4::ZERO;
+	MovePos.Y = 50.0f * _Delta;
+	Transform.AddLocalPosition(MovePos);
+}
+
+void Player::ExitLevelUpdate(float _Delta)
+{
+	if (1.5f < ExitTimer)
+	{
+		ExitTimer = 0.0f;
+		ExitEndValue = true;
+		ChangeState(PLAYER_STATE::Idle);
+	}
+	else
+	{
+		ExitTimer += _Delta;
+	}
+
+	float4 MovePos = float4::ZERO;
+	MovePos.Y = -50.0f * _Delta;
+	Transform.AddLocalPosition(MovePos);
 }

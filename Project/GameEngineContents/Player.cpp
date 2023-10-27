@@ -70,8 +70,12 @@ void Player::Update(float _Delta)
 
 	if (false == InvincibilityMode)
 	{
-		if (true == BodyCollision->Collision(COLLISION_TYPE::Sludge) ||
-			true == BodyCollision->Collision(COLLISION_TYPE::Boss))
+		if (true == BodyCollision->Collision(COLLISION_TYPE::Sludge))
+		{
+			ChangeState(PLAYER_STATE::Death);
+		}
+
+		if (true == BodyCollision->Collision(COLLISION_TYPE::Boss))
 		{
 			ChangeState(PLAYER_STATE::Death);
 		}
@@ -106,7 +110,13 @@ void Player::Update(float _Delta)
 		DeathUpdate(_Delta);
 		break;
 	case PLAYER_STATE::StandUp:
-		StandUpUpadte(_Delta);
+		StandUpUpdate(_Delta);
+		break;
+	case PLAYER_STATE::EnterLevel:
+		EnterLevelUpdate(_Delta);
+		break;
+	case PLAYER_STATE::ExitLevel:
+		ExitLevelUpdate(_Delta);
 		break;
 	default:
 		break;
@@ -170,6 +180,12 @@ void Player::ChangeState(PLAYER_STATE _State)
 		break;
 	case PLAYER_STATE::StandUp:
 		StandUpStart();
+		break;
+	case PLAYER_STATE::EnterLevel:
+		EnterLevelStart();
+		break;
+	case PLAYER_STATE::ExitLevel:
+		ExitLevelStart();
 		break;
 	default:
 		break;

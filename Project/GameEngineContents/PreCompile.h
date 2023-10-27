@@ -12,7 +12,7 @@
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineComponent.h>
 #include <GameEngineCore/GameEngineTransform.h>
-
+#include <GameEngineCore/GameEngineCamera.h>
 // 렌더러 실제 데이터
 #include <GameEngineCore/GameEngineRenderer.h> 
 
@@ -44,7 +44,8 @@
 #include "Arrow.h"
 #include "BossBase.h"
 #include "JumpBoss.h"
-#include "EnterPlace.h"
+#include "EventPlace.h"
+#include "Fade.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

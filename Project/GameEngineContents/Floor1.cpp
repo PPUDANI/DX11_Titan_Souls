@@ -32,16 +32,27 @@ void Floor1::Start()
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 	
-	EnterPlaceToSludgeRoom = CreateActor<EnterPlace>(static_cast<int>(UPDATE_ORDER::EnterPlace), "EnterPlaceToSludgeRoom");
+	EnterPlaceToSludgeRoom = CreateActor<EventPlace>(static_cast<int>(UPDATE_ORDER::EnterPlace), "EnterPlaceToSludgeRoom");
 	EnterPlaceToSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 	EnterPlaceToSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
 
+	FadeActor = CreateActor<Fade>(RENDERING_ORDER::AlphaLess);
 }
 
 void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
+	if (true == EnterPlaceToSludgeRoom->EnterCheck())
+	{
+		PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
+	}
+
+	if (true == PlayerActor->EnterEnd())
+	{
+		PlayerActor->EnterEndReset();
+		GameEngineCore::ChangeLevel("02.SludgeHeartRoom");
+	}
 }
 
 

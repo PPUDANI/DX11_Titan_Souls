@@ -19,10 +19,10 @@ void PlayLevelBase::Update(float _Delta)
 {
 	LevelBase::Update(_Delta);
 
-	//if (true == GameEngineInput::IsDown('R', this))
-	//{
-	//	SpawnPlayer();
-	//}
+	if (true == GameEngineInput::IsDown('R', this))
+	{
+		SpawnPlayer();
+	}
 
 	// TileMap ViewMode Change Key
 	if (true == GameEngineInput::IsDown('1', this))

@@ -11,6 +11,8 @@ enum class PLAYER_STATE
 	Returning,
 	Death,
 	StandUp,
+	EnterLevel,
+	ExitLevel,
 };
 
 enum class PLAYER_DIRECTION
@@ -101,6 +103,37 @@ public:
 		ArrowInBagRenderer->On();
 	}
 	
+
+public:
+	// 임시 코드
+	inline bool EnterEnd() const
+	{
+		return EnterEndValue;
+	}
+
+	inline void EnterEndReset()
+	{
+		EnterEndValue = false;
+	}
+
+	inline void ExitEnd()
+	{
+		ExitEndValue = false;
+	}
+
+	inline void ExitEndReset()
+	{
+		ExitEndValue = false;
+	}
+
+	
+private:
+
+	bool EnterEndValue = false;
+	float EnterTimer = 0.0f;
+	bool ExitEndValue = false;
+	float ExitTimer = 0.0f;
+
 private:
 	// External Element
 	class TileMap* CurMap = nullptr;
@@ -137,6 +170,8 @@ private:
 	void ReturningStart();
 	void DeathStart();
 	void StandUpStart();
+	void EnterLevelStart();
+	void ExitLevelStart();
 
 	// State Update Functions
 	void IdleUpdate(float _Delta);
@@ -147,7 +182,9 @@ private:
 	void AimUpdate(float _Delta);
 	void ReturningUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
-	void StandUpUpadte(float _Delta);
+	void StandUpUpdate(float _Delta);
+	void EnterLevelUpdate(float _Delta);
+	void ExitLevelUpdate(float _Delta);
 
 private:
 	// Components

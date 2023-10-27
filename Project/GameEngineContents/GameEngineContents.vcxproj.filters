@@ -83,11 +83,14 @@
     <ClCompile Include="ArrowState.cpp">
       <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
     </ClCompile>
-    <ClCompile Include="EnterPlace.cpp">
-      <Filter>01. Actor\05.ChangeLevelActor</Filter>
+    <ClCompile Include="EventPlace.cpp">
+      <Filter>01. Actor\05. EventPlace</Filter>
     </ClCompile>
     <ClCompile Include="ContentsControlWindow.cpp">
       <Filter>00. Global\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>01. Actor\06. FadeActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +164,14 @@
     <ClInclude Include="CameraManager.h">
       <Filter>01. Actor\04. Camera</Filter>
     </ClInclude>
-    <ClInclude Include="EnterPlace.h">
-      <Filter>01. Actor\05.ChangeLevelActor</Filter>
+    <ClInclude Include="EventPlace.h">
+      <Filter>01. Actor\05. EventPlace</Filter>
     </ClInclude>
     <ClInclude Include="ContentsControlWindow.h">
       <Filter>00. Global\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>01. Actor\06. FadeActor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -241,11 +247,14 @@
     <Filter Include="01. Actor\04. Camera">
       <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\05.ChangeLevelActor">
-      <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. Global\IMGUI">
       <UniqueIdentifier>{02dbdd72-bf18-4dcb-9802-1b2dbb834d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\05. EventPlace">
+      <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. FadeActor">
+      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

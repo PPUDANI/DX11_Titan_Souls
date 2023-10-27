@@ -29,7 +29,7 @@ enum class COLLISION_TYPE
 	Boss,
 	Sludge,
 	DetectionRange,
-	EnterPlace,
+	EventPlace,
 };
 
 enum class TILE_COLLISION_TYPE

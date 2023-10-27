@@ -23,6 +23,9 @@ private:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 	void SpawnPlayer() override;
+
 private:
-	std::shared_ptr<class EnterPlace> EnterPlaceToSludgeRoom = nullptr;
+	std::shared_ptr<class EventPlace> EnterPlaceToSludgeRoom = nullptr;
+
+	std::shared_ptr<class Fade> FadeActor = nullptr;
 };
