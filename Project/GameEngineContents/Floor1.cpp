@@ -31,12 +31,16 @@ void Floor1::Start()
 	// TileMap Setting
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
-	
+
 	EnterPlaceToSludgeRoom = CreateActor<EventPlace>(static_cast<int>(UPDATE_ORDER::EnterPlace), "EnterPlaceToSludgeRoom");
 	EnterPlaceToSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 	EnterPlaceToSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
 
 	FadeActor = CreateActor<Fade>(RENDERING_ORDER::AlphaLess);
+	FadeActor->SetFadeMode(FadeMode::FadeOut);
+	FadeActor->SetFadeSpeed(0.5f);
+	FadeActor->SetBlackColor();
+	FadeActor->SetMaxFade(0.3f);
 }
 
 void Floor1::Update(float _Delta)
