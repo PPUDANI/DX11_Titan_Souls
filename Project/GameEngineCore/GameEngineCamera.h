@@ -81,6 +81,18 @@ public:
 		ZSortMap.insert(_SortOrder);
 	}
 
+	template<typename EnumType>
+	void SetYSort(EnumType _SortOrder)
+	{
+		YSortMap.insert(static_cast<int>(_SortOrder));
+	}
+
+	void SetYSort(int _SortOrder)
+	{
+		YSortMap.insert(_SortOrder);
+	}
+
+
 protected:
 	void Start() override;
 
@@ -117,6 +129,7 @@ private:
 	TransformData OriginData;
 
 	std::set<int> ZSortMap;
+	std::set<int> YSortMap;
 
 	void CameraUpdate(float _DeltaTime);
 };

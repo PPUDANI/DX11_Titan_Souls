@@ -20,9 +20,10 @@ public:
 
 	bool EventCheck = false;
 
-	unsigned int Start;
-	unsigned int End;
-	unsigned int CurIndex;
+	int Start;
+	int End;
+	int InterIndex;
+	int CurIndex;
 	float CurTime = 0.0f;
 
 	std::vector<int> Index;
@@ -94,6 +95,7 @@ public:
 	// 스프라이트는 기본적으로 
 	// 강제로 애니메이션을 정지한다는 뜻으로 받아들이겠다.
 	void SetSprite(std::string_view _Name, unsigned int index = 0);
+	void ChangeCurSprite(int _Index);
 
 	void CreateAnimation(
 		std::string_view _AnimationName,
