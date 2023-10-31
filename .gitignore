@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Project/GameEngineCore/ThirdParty/FW1FontWrapper/inc/FW1FontWrapper.h
