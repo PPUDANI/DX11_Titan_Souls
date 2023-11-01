@@ -12,7 +12,7 @@ void Heart::InSludgeStart()
 void Heart::IdleStart()
 {
 	BodyRenderer->ChangeAnimation("Idle");
-	ShadowRenderer->On();
+	
 	MoveSpeed = 250.0f;
 }
 
@@ -27,6 +27,7 @@ void Heart::JumpStart()
 void Heart::FallStart()
 {
 	Collision->Off();
+	ShadowRenderer->On();
 }
 
 void Heart::LandingStart()

@@ -32,9 +32,8 @@ void Heart::Start()
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
-	ShadowRenderer->SetImageScale({ 56.0f, 16.0f });
-	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
-	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+	ShadowRenderer->SetImageScale({ 60.0f, 20.0f });
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + float4{ 0.0f, -4.0f });
 
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
@@ -62,4 +61,6 @@ void Heart::Update(float _Delta)
 	PosUpdate();
 
 	JumpBoss::Update(_Delta);
+
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 }

@@ -16,7 +16,6 @@ void Sludge::Start()
 
 	GlobalLoad::LoadSpriteCut(2, 1, "Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	GlobalLoad::LoadSpriteSingle("Shadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
-	GlobalLoad::LoadSpriteSingle("PressMark.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	RenderPosBase = DefaultRenderPosBase;
 
 	// Renderer
@@ -33,12 +32,6 @@ void Sludge::Start()
 	ShadowRenderer->SetSprite("Shadow.png");
 	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
-
-	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
-	PressMarkRenderer->SetPivotType(PivotType::Bottom);
-	PressMarkRenderer->SetSprite("PressMark.png");
-	PressMarkRenderer->SetImageScale({ 128.0f, 128.0f });
-	PressMarkRenderer->Transform.AddLocalPosition(RenderPosBase);
 
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
@@ -192,9 +185,6 @@ void Sludge::RendererSetting()
 
 	ShadowRenderer->SetImageScale(ShadowRenderScale * SizeValue);
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
-
-	PressMarkRenderer->SetImageScale(ShadowRenderScale * SizeValue);
-	PressMarkRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 }
 
 void Sludge::SetByDivided()
