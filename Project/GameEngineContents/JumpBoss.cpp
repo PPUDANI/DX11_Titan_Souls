@@ -48,27 +48,25 @@ void JumpBoss::Update(float _Delta)
 		break;
 	}
 
-	RendererSetting();
-
 	if (true == GetLevel()->IsDebug)
 	{
 		GameEngineTransform TData;
 		TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 		TData.SetLocalScale({ 5.0f, 5.0f });
 
-		TData.SetLocalPosition(JumpStartPos + GlobalValue::DebugDepth);
+		TData.SetLocalPosition(JumpStartPos);
 		GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
-		TData.SetLocalPosition(LeftPos + GlobalValue::DebugDepth);
+		TData.SetLocalPosition(LeftPos);
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 
-		TData.SetLocalPosition(RightPos + GlobalValue::DebugDepth);
+		TData.SetLocalPosition(RightPos);
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 
-		TData.SetLocalPosition(UpPos + GlobalValue::DebugDepth);
+		TData.SetLocalPosition(UpPos);
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 
-		TData.SetLocalPosition(DownPos + GlobalValue::DebugDepth);
+		TData.SetLocalPosition(DownPos);
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 	}
 }
@@ -134,9 +132,7 @@ void JumpBoss::Gravity(float _Delta)
 
 void JumpBoss::MoveToPlayer(float _Delta)
 {
-	float4 MovePos;
-
-	MovePos = MoveDirBasis * MoveSpeed * _Delta;
+	float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
 	float4 StartPosToPlayer = EnymePlayer->Transform.GetLocalPosition() - JumpStartPos;
 	float LengthStartPosToPlayer = DirectX::XMVectorGetX(DirectX::XMVector2Length(StartPosToPlayer.DirectXVector));
 

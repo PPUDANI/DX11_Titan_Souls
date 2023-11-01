@@ -11,6 +11,7 @@ LevelBase::~LevelBase()
 
 void LevelBase::Start()
 {
+	GetMainCamera()->SetYSort(RENDERING_ORDER::Y_SORT_ENTITY);
 	CursorActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
 	OffDebug();
 	GameEngineInput::AddInputObject(this);

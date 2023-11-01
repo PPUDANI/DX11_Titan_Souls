@@ -37,6 +37,7 @@ void Heart::LandingStart()
 
 void Heart::OutOfSludgeStart()
 {
+	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
 	BodyRenderer->ChangeAnimation("Jump", true, 1);
 	AddMoveDirByArrow(-90.0f);
 	JumpStartPos = Transform.GetLocalPosition();

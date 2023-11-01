@@ -103,7 +103,7 @@ private:
 	std::shared_ptr<GameEngineCollision> AttackCollision = nullptr;
 
 	// Collision
-	float4 ArrowheadPosBasis = { 12.0f, 12.0f };
+	float ArrowheadPosBasis = 12.0f;
 	float4 ArrowheadCheckPos = float4::ZERO;
 	TILE_COLLISION_TYPE TileColType = TILE_COLLISION_TYPE::EMPTY;
 
@@ -112,7 +112,6 @@ private:
 	void AdjustPosByTileCol();
 	void AdjustPosByCol();
 	void BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
-
 private:
 	// Debug Mode
 	bool DebugingMode = false;

@@ -23,6 +23,8 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
+	GameEngineRenderTarget::IsDepth = false;
+
 	{
 		D3D11_BLEND_DESC Desc = {};
 		Desc.IndependentBlendEnable = false;
@@ -48,7 +50,7 @@ void ContentsCore::Start()
 	}
 
 	// Clear Color Setting
-	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 1.0f, 1.0f, 1.0f, 0.0f });
 	GameEngineCore::MainWindow.CursorOff();
 
 	// Map Texture Load

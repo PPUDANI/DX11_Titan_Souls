@@ -50,7 +50,7 @@ public:
 	bool ColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	bool TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	bool AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
-	
+
 
 	float4 GetTileSize() const
 	{

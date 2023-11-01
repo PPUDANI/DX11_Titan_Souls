@@ -12,14 +12,30 @@ enum class UPDATE_ORDER
 
 enum class RENDERING_ORDER
 {
-	AlphaLess,
-	
-	HasAlpah,
+	BG_Tile,
+	COL_Tile,
+	MAT_Tile,
+	BGA_Tile,
+	WALL_Tile,
 	Shadow,
-	PressMark,
-	Sludge,
+
+	Y_SORT_ENTITY_BACK,
+	Y_SORT_ENTITY,
+	Y_SORT_ENTITY_FRONT,
+
+	FG_Tile,
+	UI
 };
 
+//enum class RENDERING_ORDER
+//{
+//	AlphaLess,
+//
+//	HasAlpah,
+//	Shadow,
+//	PressMark,
+//	Sludge,
+//};
 
 enum class COLLISION_TYPE
 {

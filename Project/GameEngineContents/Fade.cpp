@@ -11,7 +11,7 @@ Fade::~Fade()
 
 void Fade::Start()
 {
-	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
 	FadeRenderer->SetCameraOrder(ECAMERAORDER::UI);
 	FadeRenderer->SetImageScale({100.0f, 100.0f, 0.0f});
 	FadeRenderer->GetColorData().PlusColor = { -1.0f, -1.0f, -1.0f };

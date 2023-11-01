@@ -19,7 +19,7 @@ void Heart::Start()
 	RenderPosBase = { 0.0f, -24.0f };
 
 	// Renderer setting
-	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
 	BodyRenderer->CreateAnimation("InSludge", "Heart.png", 10.0f, 0, 0, false);
@@ -29,19 +29,18 @@ void Heart::Start()
 	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
 	ShadowRenderer->SetImageScale({ 56.0f, 16.0f });
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
 
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 34.0f, 20.0f, 1.0f });
+	Collision->Transform.SetLocalScale({ 34.0f, 16.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -4.0f, 0.0f });
-
-	ColPosInterval = ShadowRenderer->Transform.GetLocalScale();
 
 	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;
@@ -63,17 +62,4 @@ void Heart::Update(float _Delta)
 	PosUpdate();
 
 	JumpBoss::Update(_Delta);
-
-}
-
-void Heart::RendererSetting()
-{
-	float4 RenderPos = float4::ZERO;
-	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y - 5.0f;
-	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
-
-	RenderPos.Z += 0.1f;
-	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + RenderPos);
 }

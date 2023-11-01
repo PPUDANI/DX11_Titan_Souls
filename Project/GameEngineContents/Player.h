@@ -244,7 +244,7 @@ private:
 	const float DebugModeForce = 10.0f;
 	const float RunForce = 1.5f;
 	const float RollingForce = 2.5f;
-
+	const float4 DefaultRendererPos = { 0.0f, -16.0f };
 	// Move Functions
 	bool MoveCheckInIdle();
 	bool MoveCheck();

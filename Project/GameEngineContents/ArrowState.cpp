@@ -45,12 +45,13 @@ void Arrow::PickUpStart()
 
 void Arrow::PinnedStart()
 {
+	Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	Renderer->ChangeAnimation("Pinned");
 	GetCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
 
 	ShakingPerFrame = 0.0f;
-	Renderer->Transform.SetLocalPosition(DepthValue::PinnedArrow);
+	//Renderer->Transform.SetLocalPosition(DepthValue::PinnedArrow);
 }
 
 void Arrow::HoldUpdate(float _Delta)
@@ -96,7 +97,7 @@ void Arrow::AimUpdate(float _Delta)
 
 	// Adjust the arrow position
 	float4 SpawnPos = OwnerPlayer->Transform.GetLocalPosition();
-	SpawnPos += FlyingDirectionBasis * (27.0f - 15.0f * PullingForce);
+	SpawnPos += FlyingDirectionBasis * (28.0f - 16.0f * PullingForce);
 	SpawnPos.Y -= 8.0f;
 	Transform.SetLocalPosition(SpawnPos);
 

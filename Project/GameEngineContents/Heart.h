@@ -40,8 +40,6 @@ private:
 	void OutOfSludgeUpdate(float _Delta) override;
 	void DeathUpdate(float _Delta) override;
 
-	void RendererSetting() override;
-
 private:
 
 	class Sludge* OwnerSludge = nullptr;

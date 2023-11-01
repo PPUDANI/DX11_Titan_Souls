@@ -7,9 +7,10 @@ void Player::CreatePlayerbodyAnimation()
 	// Load "Player.png" Texture
 	GlobalLoad::LoadSpriteCut(32, 32, "Player.png", "Resource\\Texture\\PlayerElement\\");
 
-	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
-
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
+	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
+	BodyRenderer->Transform.SetLocalPosition(DefaultRendererPos);
 
 	// Idle Animations
 	BodyRenderer->CreateAnimation("Right_Idle", "Player.png", 1.0f, 0, 0, false);
@@ -50,16 +51,6 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("LeftDown_Rolling", "Player.png", 0.07f, 166, 171, true);
 	BodyRenderer->CreateAnimation("LeftUp_Rolling", "Player.png", 0.07f, 198, 203, true);
 	BodyRenderer->CreateAnimation("RightUp_Rolling", "Player.png", 0.07f, 230, 235, true);
-
-	//// RollingBlocked Animations
-	//BodyRenderer->CreateAnimation("Right_RollingBlocked", "Player.png", 0.07f, 11, 6, false);
-	//BodyRenderer->CreateAnimation("Up_RollingBlocked", "Player.png", 0.07f, 43, 38, false);
-	//BodyRenderer->CreateAnimation("Left_RollingBlocked", "Player.png", 0.07f, 75, 70, false);
-	//BodyRenderer->CreateAnimation("Down_RollingBlocked", "Player.png", 0.07f, 107, 102, false);
-	//BodyRenderer->CreateAnimation("RightDown_RollingBlocked", "Player.png", 0.07f, 139, 134, false);
-	//BodyRenderer->CreateAnimation("LeftDown_RollingBlocked", "Player.png", 0.07f, 171, 166, false);
-	//BodyRenderer->CreateAnimation("LeftUp_RollingBlocked", "Player.png", 0.07f, 203, 198, false);
-	//BodyRenderer->CreateAnimation("RightUp_RollingBlocked", "Player.png", 0.07f, 235, 230, false);
 
 	// Bolcked Animations
 	BodyRenderer->CreateAnimation("Right_Blocked", "Player.png", 0.1f, 264, 269, true);
@@ -116,9 +107,10 @@ void Player::CreateBowAnimation()
 	// Load "Bow.png" Texture
 	GlobalLoad::LoadSpriteCut(32, 32, "Bow.png", "Resource\\Texture\\PlayerElement\\");
 
-	BowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
-
+	BowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
+	BowRenderer->SetPivotType(PivotType::Bottom);
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
+	BowRenderer->Transform.SetLocalPosition(DefaultRendererPos);
 
 	// Idle Animations
 	BowRenderer->CreateAnimation("Right_Idle", "Bow.png", 1.0f, 0, 0, false);
@@ -159,16 +151,6 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("LeftDown_Rolling", "Bow.png", 0.07f, 166, 171, true);
 	BowRenderer->CreateAnimation("LeftUp_Rolling", "Bow.png", 0.07f, 198, 203, true);
 	BowRenderer->CreateAnimation("RightUp_Rolling", "Bow.png", 0.07f, 230, 235, true);
-
-	//// RollingBlocked Animations
-	//BowRenderer->CreateAnimation("Right_RollingBlocked", "Bow.png", 0.07f, 11, 6, false);
-	//BowRenderer->CreateAnimation("Up_RollingBlocked", "Bow.png", 0.07f, 43, 38, false);
-	//BowRenderer->CreateAnimation("Left_RollingBlocked", "Bow.png", 0.07f, 75, 70, false);
-	//BowRenderer->CreateAnimation("Down_RollingBlocked", "Bow.png", 0.07f, 107, 102, false);
-	//BowRenderer->CreateAnimation("RightDown_RollingBlocked", "Bow.png", 0.07f, 139, 134, false);
-	//BowRenderer->CreateAnimation("LeftDown_RollingBlocked", "Bow.png", 0.07f, 171, 166, false);
-	//BowRenderer->CreateAnimation("LeftUp_RollingBlocked", "Bow.png", 0.07f, 203, 198, false);
-	//BowRenderer->CreateAnimation("RightUp_RollingBlocked", "Bow.png", 0.07f, 235, 230, false);
 
 	// Bolcked Animations
 	BowRenderer->CreateAnimation("Right_Blocked", "Bow.png", 0.1f, 264, 269, true);
@@ -225,9 +207,10 @@ void Player::CreateArrowInBagAnimation()
 	// Load "Arrow.png" Texture
 	GlobalLoad::LoadSpriteCut(32, 32, "Arrow.png", "Resource\\Texture\\PlayerElement\\");
 
-	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
-
+	ArrowInBagRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
+	ArrowInBagRenderer->SetPivotType(PivotType::Bottom);
 	ArrowInBagRenderer->SetImageScale(GlobalValue::StandardTextureScale);
+	ArrowInBagRenderer->Transform.SetLocalPosition(DefaultRendererPos);
 
 	// Idle Animations
 	ArrowInBagRenderer->CreateAnimation("Right_Idle", "Arrow.png", 1.0f, 0, 0, false);
@@ -268,16 +251,6 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("LeftDown_Rolling", "Arrow.png", 0.07f, 166, 171, true);
 	ArrowInBagRenderer->CreateAnimation("LeftUp_Rolling", "Arrow.png", 0.07f, 198, 203, true);
 	ArrowInBagRenderer->CreateAnimation("RightUp_Rolling", "Arrow.png", 0.07f, 230, 235, true);
-
-	//// RollingBlocked Animations
-	//ArrowInBagRenderer->CreateAnimation("Right_RollingBlocked", "Arrow.png", 0.07f, 11, 6, false);
-	//ArrowInBagRenderer->CreateAnimation("Up_RollingBlocked", "Arrow.png", 0.07f, 43, 38, false);
-	//ArrowInBagRenderer->CreateAnimation("Left_RollingBlocked", "Arrow.png", 0.07f, 75, 70, false);
-	//ArrowInBagRenderer->CreateAnimation("Down_RollingBlocked", "Arrow.png", 0.07f, 107, 102, false);
-	//ArrowInBagRenderer->CreateAnimation("RightDown_RollingBlocked", "Arrow.png", 0.07f, 139, 134, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftDown_RollingBlocked", "Arrow.png", 0.07f, 171, 166, false);
-	//ArrowInBagRenderer->CreateAnimation("LeftUp_RollingBlocked", "Arrow.png", 0.07f, 203, 198, false);
-	//ArrowInBagRenderer->CreateAnimation("RightUp_RollingBlocked", "Arrow.png", 0.07f, 235, 230, false);
 
 	// Bolcked Animations
 	ArrowInBagRenderer->CreateAnimation("Right_Blocked", "Arrow.png", 0.1f, 264, 269, true);

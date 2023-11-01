@@ -13,7 +13,8 @@ void Arrow::Start()
 {
 	WindowScale = GameEngineCore::MainWindow.GetScale();
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::AlphaLess);
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
+
 	Renderer->SetImageScale(GlobalValue::StandardTextureScale);
 	Renderer->CreateAnimation("Idle", "Player.png", 1.0f, 31, 31, false);
 	Renderer->CreateAnimation("Get", "Player.png", 0.06f, 220, 223, false);
@@ -22,12 +23,10 @@ void Arrow::Start()
 	GetCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
 	GetCollision->SetCollisionType(ColType::OBBBOX2D);
 	GetCollision->Transform.SetLocalScale({12.0f, 12.0f, 1.0f });
-	GetCollision->Transform.SetLocalPosition(GlobalValue::DebugDepth);
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
 	AttackCollision->SetCollisionType(ColType::OBBBOX2D);
 	AttackCollision->Transform.SetLocalScale({ 12.0f, 12.0f, 1.0f });
-	AttackCollision->Transform.SetLocalPosition(GlobalValue::DebugDepth);
 
 	ChangeState(ARROW_STATE::Hold);
 
@@ -37,7 +36,7 @@ void Arrow::Start()
 void Arrow::Update(float _Delta)
 {
 	// ArrowheadCheckPos Update
-	ArrowheadCheckPos = ArrowheadPosBasis * FlyingDirectionBasis;
+	ArrowheadCheckPos = FlyingDirectionBasis * ArrowheadPosBasis;
 
 	if (true == DebugingMode &&
 		ARROW_STATE::Hold != CurState &&
@@ -90,7 +89,6 @@ void Arrow::Update(float _Delta)
 		}
 	}
 
-
 	float4 CameraPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
 	if (0.0f > CameraPos.X - WindowScale.hX())
 	{
@@ -108,16 +106,10 @@ void Arrow::Update(float _Delta)
 	{
 		CameraPos.Y = TileEndPos.Y + WindowScale.hY();
 	}
-	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(CameraPos);
 
-	if (ARROW_STATE::Pinned != CurState)
-	{
-		float4 RenderPos = float4::ZERO;
-		float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-		float ActorYPos = Transform.GetWorldPosition().Y + 4.1f;
-		GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-		Renderer->Transform.SetLocalPosition(RenderPos);
-	}
+
+
+	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(CameraPos);
 }
 
 void Arrow::ChangeState(ARROW_STATE _State)
@@ -272,7 +264,7 @@ void Arrow::DirSpecularReflection()
 	ArrowAngleDeg.Z += 180.0f;
 	Transform.SetLocalRotation(ArrowAngleDeg);
 	FlyingDirectionBasis = -FlyingDirectionBasis;
-	ArrowheadCheckPos = ArrowheadPosBasis * FlyingDirectionBasis;
+	ArrowheadCheckPos = FlyingDirectionBasis * ArrowheadPosBasis;
 }
 
 void Arrow::DebugRender()
@@ -280,7 +272,7 @@ void Arrow::DebugRender()
 	GameEngineTransform TData;
 	TData.SetLocalRotation(ArrowAngleDeg);
 	TData.SetLocalScale({ 5.0f, 5.0f });
-	TData.SetLocalPosition(Transform.GetLocalPosition() + ArrowheadCheckPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetLocalPosition() + ArrowheadCheckPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 0, 1 });
 }
 

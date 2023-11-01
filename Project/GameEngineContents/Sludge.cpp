@@ -20,7 +20,7 @@ void Sludge::Start()
 	RenderPosBase = DefaultRenderPosBase;
 
 	// Renderer
-	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::HasAlpah);
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->CreateAnimation("Default", "Sludge.png", 1.0f, 1, 1, false);
 	BodyRenderer->CreateAnimation("Hit", "Sludge.png", 0.15f, 0, 1, false);
@@ -34,7 +34,7 @@ void Sludge::Start()
 	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
 
-	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::PressMark);
+	PressMarkRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	PressMarkRenderer->SetPivotType(PivotType::Bottom);
 	PressMarkRenderer->SetSprite("PressMark.png");
 	PressMarkRenderer->SetImageScale({ 128.0f, 128.0f });
@@ -69,7 +69,7 @@ void Sludge::Start()
 	PlayerDetectionRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::DetectionRange);
 	PlayerDetectionRange->SetCollisionType(ColType::AABBBOX2D);
 	PlayerDetectionRange->Transform.SetLocalScale(DefaultDetectionRangeSize);
-	PlayerDetectionRange->Transform.SetLocalPosition(GlobalValue::DebugDepth);
+
 
 	GravityForce = DefaultGravityForce;
 	MoveSpeed = DefaultMoveSpeed;
@@ -80,6 +80,7 @@ void Sludge::Start()
 
 void Sludge::Update(float _Delta)
 {
+	// JumpStartPos 초기값 설정
 	if (float4::ZERO == JumpStartPos)
 	{
 		JumpStartPos = Transform.GetLocalPosition();
@@ -97,7 +98,7 @@ void Sludge::Update(float _Delta)
 	}
 
 	JumpBoss::Update(_Delta);
-
+	RendererSetting();
 	// Sludge 분열 (최대 3번)
 	if(false == MaxDivision)
 	{ 
@@ -140,7 +141,7 @@ void Sludge::Update(float _Delta)
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
 	CollisionPos.Y -= 48.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
-	Collision->Transform.SetLocalPosition(CollisionPos + GlobalValue::DebugDepth);
+	Collision->Transform.SetLocalPosition(CollisionPos);
 }
 
 
@@ -187,18 +188,13 @@ void Sludge::RendererSetting()
 	float SizeValue = 1.0f - static_cast<float>(DividedCount) * DecreaseSize;
 
 	BodyRenderer->SetImageScale(RenderScale * SizeValue);
+	BodyRenderer->Transform.SetLocalPosition(RenderPosBase);
+
 	ShadowRenderer->SetImageScale(ShadowRenderScale * SizeValue);
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+
 	PressMarkRenderer->SetImageScale(ShadowRenderScale * SizeValue);
 	PressMarkRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
-
-	float4 RenderPos = float4::ZERO;
-	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = BodyRenderer->Transform.GetWorldPosition().Y;
-	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	BodyRenderer->Transform.SetLocalPosition(RenderPos + RenderPosBase);
-
-	RenderPos.Z += 0.01f;
-	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + RenderPos);
 }
 
 void Sludge::SetByDivided()

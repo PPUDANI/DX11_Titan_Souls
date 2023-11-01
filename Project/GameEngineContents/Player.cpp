@@ -21,12 +21,10 @@ void Player::Start()
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Player);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
-	BodyCollision->Transform.SetLocalPosition(GlobalValue::DebugDepth);
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetSprite("Player.png", 63);
-	ShadowRenderer->Transform.SetLocalPosition({0.0f, -16.0f});
-	ShadowRenderer->Transform.AddLocalPosition(DepthValue::Shadow);
+	ShadowRenderer->Transform.SetLocalPosition(DefaultRendererPos);
 	ShadowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 
 	ChangeState(PLAYER_STATE::StandUp);
@@ -130,15 +128,6 @@ void Player::Update(float _Delta)
 	{
 		DebugRender();
 	}
-
-	float4 RenderPos = float4::ZERO;
-	float CameraYPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition().Y;
-	float ActorYPos = Transform.GetWorldPosition().Y;
-	GlobalCalculator::CalDepthValue(CameraYPos, ActorYPos, RenderPos);
-	BodyRenderer->Transform.SetLocalPosition(RenderPos);
-	RenderPos.Z -= 0.001f;
-	BowRenderer->Transform.SetLocalPosition(RenderPos);
-	ArrowInBagRenderer->Transform.SetLocalPosition(RenderPos);
 
 	CameraManager::AddCameraPosFromPlayer = Transform.GetWorldPosition();
 }
@@ -1014,32 +1003,31 @@ void Player::DebugRender()
 	TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 	TData.SetLocalScale({ 1.0f, 1.0f });
 
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalRightPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalRightPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalRightPos2 + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalRightPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalLeftPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalLeftPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalLeftPos2 + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalLeftPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalUpPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalUpPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalUpPos2 + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalUpPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos2 + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + LocalDownPos2);
 	GameEngineDebug::DrawBox2D(TData, { 1, 0, 1, 1 });
 
-	TData.SetLocalPosition(Transform.GetWorldPosition() + TileRightPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileRightPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + TileLeftPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileLeftPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + TileUpPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileUpPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-	TData.SetLocalPosition(Transform.GetWorldPosition() + TileDownPos + GlobalValue::DebugDepth);
+	TData.SetLocalPosition(Transform.GetWorldPosition() + TileDownPos);
 	GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
-
 }
 
 void Player::AimCheck()

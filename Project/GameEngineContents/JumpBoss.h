@@ -87,9 +87,6 @@ protected:
 	float JumpCooldown = 0.0f;
 
 protected:
-	virtual void RendererSetting() {}
-
-protected:
 	std::shared_ptr<GameEngineCollision> PlayerDetectionRange = nullptr;
 	bool FindPlayer = false;
 

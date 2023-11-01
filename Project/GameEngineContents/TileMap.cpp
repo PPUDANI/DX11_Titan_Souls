@@ -219,11 +219,11 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 	case VIEW_MODE::MATERIAL_MODE2:
 		for (size_t i = 0; i < BGTileMaps.size(); i++)
 		{
-			BGTileMaps[i]->On();
+			BGTileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < BGATileMaps.size(); i++)
 		{
-			BGATileMaps[i]->Off();
+			BGATileMaps[i]->On();
 		}
 		for (size_t i = 0; i < WALLTileMaps.size(); i++)
 		{
@@ -263,10 +263,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::BGMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BG_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -289,10 +286,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::BGAMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGA_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -315,10 +309,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::FGMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::FG_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -345,10 +336,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::WALLMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::WALL_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -371,10 +359,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::COLMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COL_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -397,10 +382,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::COLMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COL_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -423,10 +405,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::COLMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COL_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
@@ -448,10 +427,7 @@ void TileMap::TileTexureSetting()
 	for (size_t i = 0; i < MATTileMapInfos.size(); ++i)
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
-		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::AlphaLess);
-		float4 DepthValue = DepthValue::MATMap;
-		DepthValue.Z -= static_cast<float>(i);
-		NewTileMap->Transform.AddLocalPosition(DepthValue);
+		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::MAT_Tile);
 		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
