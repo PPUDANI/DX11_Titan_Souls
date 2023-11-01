@@ -21,7 +21,7 @@ void PlayLevelBase::Update(float _Delta)
 
 	if (true == GameEngineInput::IsDown('R', this))
 	{
-		SpawnPlayer();
+		SpawnPlayer(nullptr);
 	}
 
 	// TileMap ViewMode Change Key
@@ -42,26 +42,19 @@ void PlayLevelBase::Update(float _Delta)
 		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE2);
 	}
 
-
-	// DebugingMode Key
-	if (true == GameEngineInput::IsDown('0', this))
-	{
-		PlayerActor->DebugingModeSwitch();
-		ArrowActor->DebugingModeSwitch();
-	}
-
-	// Zoom In, Zoom, Out Key
 	if (true == GameEngineInput::IsDown('I', this))
 	{
-		GetMainCamera()->SetZoomValue(1.0f);
+		IsDebug = !IsDebug;
 	}
+
+	// DebugingMode Key
 	if (true == GameEngineInput::IsDown('O', this))
 	{
-		GetMainCamera()->SetZoomValue(0.5f);
-	}
-	if (true == GameEngineInput::IsDown('P', this))
-	{
-		GetMainCamera()->SetZoomValue(1.5f);
+		if (true == IsDebug)
+		{
+			PlayerActor->DebugingModeSwitch();
+			ArrowActor->DebugingModeSwitch();
+		}
 	}
 
 	CursorDirRotation();
@@ -74,7 +67,7 @@ void PlayLevelBase::Update(float _Delta)
 void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	LevelBase::LevelStart(_PrevLevel);
-	SpawnPlayer();
+	SpawnPlayer(_PrevLevel);
 	SpawnBoss();
 }
 

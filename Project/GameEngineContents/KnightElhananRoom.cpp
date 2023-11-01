@@ -46,7 +46,7 @@ void KnightElhananRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	PlayLevelBase::LevelEnd(_NextLevel);
 }
 
-void KnightElhananRoom::SpawnPlayer()
+void KnightElhananRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	PlayerActor->Transform.SetLocalPosition({ 944.0f, -1760.0f });
 	ArrowActor->Transform.SetLocalPosition({ 944.0f, -1760.0f });

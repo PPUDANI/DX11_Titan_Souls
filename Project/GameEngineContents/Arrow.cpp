@@ -48,6 +48,7 @@ void Arrow::Update(float _Delta)
 	if (PLAYER_STATE::Death == OwnerPlayer->GetCurState())
 	{
 		ChangeState(ARROW_STATE::Hold);
+		OwnerPlayer->GetArrow();
 	}
 
 	switch (CurState)

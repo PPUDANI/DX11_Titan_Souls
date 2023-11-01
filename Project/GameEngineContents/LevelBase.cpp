@@ -23,11 +23,6 @@ void LevelBase::Update(float _Delta)
 	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
 	FPS += "\n";
 	OutputDebugStringA(FPS.c_str());
-
-	if (true == GameEngineInput::IsDown('0', this))
-	{
-		IsDebug = !IsDebug;
-	}
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)

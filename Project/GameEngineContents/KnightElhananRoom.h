@@ -22,5 +22,5 @@ private:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
-	void SpawnPlayer() override;
+	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 };

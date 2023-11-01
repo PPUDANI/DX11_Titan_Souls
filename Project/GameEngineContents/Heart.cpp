@@ -38,7 +38,7 @@ void Heart::Start()
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 34.0f, 16.0f, 1.0f });
+	Collision->Transform.SetLocalScale({ 30.0f, 30.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -4.0f, 0.0f });
 
 	GravityForce = 1200.0f;

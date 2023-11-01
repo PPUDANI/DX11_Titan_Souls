@@ -32,11 +32,41 @@ void SludgeHeartRoom::Start()
 
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
+
+	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
+	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+	EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheFloor1->Off();
+
+
+	FadeInActor = CreateActor<Fade>(RENDERING_ORDER::UI);
+	FadeInActor->SetFadeMode(FadeMode::FadeIn);
+	FadeInActor->SetFadeSpeed(0.75f);
+	FadeInActor->SetTargetValue(0.1f);
+	FadeInActor->SetBlackColor();
+	FadeInActor->Off();
+
+	FadeOutActor = CreateActor<Fade>(RENDERING_ORDER::UI);
+	FadeOutActor->SetFadeMode(FadeMode::FadeOut);
+	FadeOutActor->SetFadeSpeed(0.75f);
+	FadeOutActor->SetDefaultValue(0.1f);
+	FadeInActor->SetBlackColor();
+	FadeOutActor->Off();
 }
 
 void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
+
+	if (PLAYER_STATE::ExitLevel == PlayerActor->GetCurState() ||
+		PLAYER_STATE::EnterLevel == PlayerActor->GetCurState())
+	{
+		EnterTheFloor1->Off();
+	}
+	else
+	{
+		EnterTheFloor1->On();
+	}
 
 	if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
 	{
@@ -47,11 +77,22 @@ void SludgeHeartRoom::Update(float _Delta)
 	{
 		ReleaseSludges();
 	}
+
+
+	if (true == EnterTheFloor1->EnterCheck())
+	{
+		EnterTheFloor1Update();
+	}
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
+	FadeOutActor->FadeResetByMode();
+	FadeOutActor->Off();
+
+	FadeInActor->FadeResetByMode();
+	FadeInActor->On();
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
@@ -94,7 +135,7 @@ void SludgeHeartRoom::SpawnBoss()
 	}
 }
 
-void SludgeHeartRoom::SpawnPlayer()
+void SludgeHeartRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
@@ -111,6 +152,20 @@ void SludgeHeartRoom::ReleaseSludges()
 		ObjectType[i] = nullptr;
 	}
 	ObjectType.clear();
+}
+
+void SludgeHeartRoom::EnterTheFloor1Update()
+{
+	PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
+	EnterTheFloor1->Off();
+	FadeOutActor->On();
+
+	if (true == FadeOutActor->FadeIsEnd())
+	{
+		PlayerActor->ChangeState(PLAYER_STATE::Idle);
+		EnterTheFloor1->EnterCheckReset();
+		GameEngineCore::ChangeLevel("01.Floor1");
+	}
 }
 
 void SludgeHeartRoom::SpawnDividedSludge(int _DividedCount, float4 _SpawnPos)

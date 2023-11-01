@@ -27,7 +27,7 @@ private:
 private:
 	// Inheritance function
 	void SpawnBoss() override;
-	void SpawnPlayer() override;
+	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void ReleaseSludges();
 private:
 	// Boss Eliment
@@ -36,4 +36,7 @@ private:
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
 	bool BossIsDeath = false;
+private:
+	std::shared_ptr<class TriggerBox> EnterTheFloor1 = nullptr;
+	void EnterTheFloor1Update();
 };

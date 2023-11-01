@@ -50,7 +50,7 @@ void Jam::LevelEnd(GameEngineLevel* _NextLevel)
 	// 액터 레벨이동 구현
 }
 
-void Jam::SpawnPlayer()
+void Jam::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	PlayerActor->Transform.SetLocalPosition({ 2768.0f, -2688.0f });
 	ArrowActor->Transform.SetLocalPosition({ 2768.0f, -2688.0f });

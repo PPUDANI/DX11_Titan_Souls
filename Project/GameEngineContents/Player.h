@@ -103,30 +103,6 @@ public:
 		ArrowInBagRenderer->On();
 	}
 	
-
-public:
-	// 임시 코드
-	inline bool EnterEnd() const
-	{
-		return EnterEndValue;
-	}
-
-	inline void EnterEndReset()
-	{
-		EnterEndValue = false;
-	}
-
-	inline void ExitEnd()
-	{
-		ExitEndValue = false;
-	}
-
-	inline void ExitEndReset()
-	{
-		ExitEndValue = false;
-	}
-
-	
 private:
 
 	bool EnterEndValue = false;

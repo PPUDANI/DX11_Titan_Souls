@@ -59,6 +59,8 @@ void Player::EnterLevelStart()
 	BodyRenderer->ChangeAnimation("EnterLevel");
 	BowRenderer->ChangeAnimation("EnterLevel");
 	ArrowInBagRenderer->ChangeAnimation("EnterLevel");
+
+	SetDirection(PLAYER_DIRECTION::Up);
 }
 
 void Player::ExitLevelStart()
@@ -66,6 +68,8 @@ void Player::ExitLevelStart()
 	BodyRenderer->ChangeAnimation("ExitLevel");
 	BowRenderer->ChangeAnimation("ExitLevel");
 	ArrowInBagRenderer->ChangeAnimation("ExitLevel");
+
+	SetDirection(PLAYER_DIRECTION::Down);
 }
 
 
@@ -307,8 +311,7 @@ void Player::StandUpUpdate(float _Delta)
 
 void Player::EnterLevelUpdate(float _Delta)
 {
-
-	if (1.5f < EnterTimer)
+	if (1.0f < EnterTimer)
 	{
 		EnterTimer = 0.0f;
 		EnterEndValue = true;
@@ -320,13 +323,13 @@ void Player::EnterLevelUpdate(float _Delta)
 	}
 
 	float4 MovePos = float4::ZERO;
-	MovePos.Y = 50.0f * _Delta;
+	MovePos.Y = 80.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }
 
 void Player::ExitLevelUpdate(float _Delta)
 {
-	if (1.5f < ExitTimer)
+	if (1.0f < ExitTimer)
 	{
 		ExitTimer = 0.0f;
 		ExitEndValue = true;
@@ -338,6 +341,6 @@ void Player::ExitLevelUpdate(float _Delta)
 	}
 
 	float4 MovePos = float4::ZERO;
-	MovePos.Y = -50.0f * _Delta;
+	MovePos.Y = -80.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }

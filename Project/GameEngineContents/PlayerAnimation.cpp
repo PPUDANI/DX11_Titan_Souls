@@ -96,10 +96,10 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->CreateAnimation("StandUp", "Player.png", 0.10f, 79, 88, false);
 
 	// EnterLevel Animations
-	BodyRenderer->CreateAnimation("EnterLevel", "Player.png", 0.2f, 32, 37, true);
+	BodyRenderer->CreateAnimation("EnterLevel", "Player.png", 0.13f, 32, 37, true);
 
 	// ExitLevel Animations
-	BodyRenderer->CreateAnimation("ExitLevel", "Player.png", 0.2f, 96, 101, true);
+	BodyRenderer->CreateAnimation("ExitLevel", "Player.png", 0.13f, 96, 101, true);
 }
 
 void Player::CreateBowAnimation()
@@ -196,10 +196,10 @@ void Player::CreateBowAnimation()
 	BowRenderer->CreateAnimation("StandUp", "Bow.png", 0.10f, 79, 88, false);
 
 	// EnterLevel Animations
-	BowRenderer->CreateAnimation("EnterLevel", "Bow.png", 0.2f, 32, 37, true);
+	BowRenderer->CreateAnimation("EnterLevel", "Bow.png", 0.13f, 32, 37, true);
 
 	// ExitLevel Animations
-	BowRenderer->CreateAnimation("ExitLevel", "Bow.png", 0.2f, 96, 101, true);
+	BowRenderer->CreateAnimation("ExitLevel", "Bow.png", 0.13f, 96, 101, true);
 }
 
 void Player::CreateArrowInBagAnimation()
@@ -296,8 +296,8 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->CreateAnimation("StandUp", "Arrow.png", 0.10f, 79, 88, false);
 
 	// EnterLevel Animations
-	ArrowInBagRenderer->CreateAnimation("EnterLevel", "Arrow.png", 0.2f, 32, 37, true);
+	ArrowInBagRenderer->CreateAnimation("EnterLevel", "Arrow.png", 0.13f, 32, 37, true);
 
 	// ExitLevel Animations
-	ArrowInBagRenderer->CreateAnimation("ExitLevel", "Arrow.png", 0.2f, 96, 101, true);
+	ArrowInBagRenderer->CreateAnimation("ExitLevel", "Arrow.png", 0.13f, 96, 101, true);
 }

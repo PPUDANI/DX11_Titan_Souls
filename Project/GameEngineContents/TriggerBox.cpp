@@ -1,15 +1,15 @@
 #include "PreCompile.h"
-#include "EventPlace.h"
+#include "TriggerBox.h"
 
-EventPlace::EventPlace()
+TriggerBox::TriggerBox()
 {
 }
 
-EventPlace::~EventPlace()
+TriggerBox::~TriggerBox()
 {
 }
 
-void EventPlace::Start()
+void TriggerBox::Start()
 {
 	PlaceCol = CreateComponent<GameEngineCollision>(COLLISION_TYPE::EventPlace);
 	PlaceCol->SetCollisionType(ColType::AABBBOX2D);
@@ -19,11 +19,10 @@ void EventPlace::Start()
 	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
 			PlayerEnterCheck = true;
-			PlaceCol->Off();
 		};
 }
 
-void EventPlace::Update(float _Delta)
+void TriggerBox::Update(float _Delta)
 {
 	//PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param);
 	if (false == PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param))

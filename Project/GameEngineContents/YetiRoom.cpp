@@ -48,7 +48,7 @@ void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	PlayLevelBase::LevelEnd(_NextLevel);
 }
 
-void YetiRoom::SpawnPlayer()
+void YetiRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	//PlayerSpawnPos = { 1008.0f, -1824.0f };
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1700.0f });

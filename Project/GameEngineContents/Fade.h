@@ -2,9 +2,9 @@
 
 enum class FadeMode
 {
-	Off,
-	FadeOut,
 	FadeIn,
+	FadeOut,
+	Off,
 };
 
 class Fade : public GameEngineActor
@@ -23,6 +23,7 @@ public:
 	inline void SetFadeMode(FadeMode _Mode)
 	{
 		Mode = _Mode;
+		FadeResetByMode();
 	}
 
 	inline void SetWhiteColor()
@@ -35,16 +36,77 @@ public:
 		FadeRenderer->GetColorData().PlusColor = { -1.0f, -1.0f, -1.0f };
 	}
 
+	inline void SetColor(const float4& _Color)
+	{
+		FadeRenderer->GetColorData().PlusColor += _Color;
+	}
+
 	// 1Sec = 1.0f
 	inline void SetFadeSpeed(float _Speed)
 	{
 		FadeSpeed = _Speed;
 	}
 
-	inline void SetMaxFade(float _Max)
+	inline void SetTargetValue(float _TargetValue)
 	{
-		MaxFade = _Max;
+		TargetValue = _TargetValue;
 	}
+
+	inline void SetDefaultValue(float _DefaultValue)
+	{
+		DefaultValue = _DefaultValue;
+	}
+
+	inline bool FadeIsEnd() const
+	{
+		return FadeEnd;
+	}
+
+	void FadeResetByMode()
+	{
+		FadeEnd = false;
+		switch (Mode)
+		{
+		case FadeMode::FadeIn:
+			
+			if (0.0f > DefaultValue)
+			{
+				FadeRenderer->GetColorData().MulColor.A = 1.0f;
+			}
+			else
+			{
+				FadeRenderer->GetColorData().MulColor.A = DefaultValue;
+			}
+
+			if (0.0f > TargetValue)
+			{
+				TargetValue = 0.0f;
+			}
+			break;
+
+		case FadeMode::FadeOut:
+			if (0.0f > DefaultValue)
+			{
+				FadeRenderer->GetColorData().MulColor.A = 0.0f;
+			}
+			else
+			{
+				FadeRenderer->GetColorData().MulColor.A = DefaultValue;
+			}
+
+			if (0.0f > TargetValue)
+			{
+				TargetValue = 1.0f;
+			}
+			break;
+
+		case FadeMode::Off:
+			break;
+		default:
+			break;
+		}
+	}
+
 protected:
 
 private:
@@ -56,5 +118,7 @@ private:
 private:
 	FadeMode Mode = FadeMode::FadeOut;
 	float FadeSpeed = 0.0f;
-	float MaxFade = 0.0f;
+	float TargetValue = -1.0f;
+	float DefaultValue = -1.0f;
+	bool FadeEnd = false;
 };

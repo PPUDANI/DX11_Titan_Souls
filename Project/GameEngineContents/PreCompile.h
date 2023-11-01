@@ -43,7 +43,7 @@
 #include "Arrow.h"
 #include "BossBase.h"
 #include "JumpBoss.h"
-#include "EventPlace.h"
+#include "TriggerBox.h"
 #include "Fade.h"
 
 // UI

@@ -185,7 +185,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="EventPlace.cpp">
+    <ClCompile Include="TriggerBox.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -290,7 +290,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="EventPlace.h">
+    <ClInclude Include="TriggerBox.h">
       <SubType>
       </SubType>
     </ClInclude>

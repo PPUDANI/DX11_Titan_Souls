@@ -1,17 +1,17 @@
 #pragma once
 
-class EventPlace : public GameEngineActor
+class TriggerBox : public GameEngineActor
 {
 public:
 	// Constructor Destructor
-	EventPlace();
-	~EventPlace();
+	TriggerBox();
+	~TriggerBox();
 
 	// Delete Function
-	EventPlace(const EventPlace& _Other) = delete;
-	EventPlace(EventPlace&& _Other) noexcept = delete;
-	EventPlace& operator=(const EventPlace& _Other) = delete;
-	EventPlace& operator=(EventPlace&& _Other) noexcept = delete;
+	TriggerBox(const TriggerBox& _Other) = delete;
+	TriggerBox(TriggerBox&& _Other) noexcept = delete;
+	TriggerBox& operator=(const TriggerBox& _Other) = delete;
+	TriggerBox& operator=(TriggerBox&& _Other) noexcept = delete;
 
 	inline void SetPlaceScale(const float4& _Sclae)
 	{
@@ -23,6 +23,10 @@ public:
 		return PlayerEnterCheck;
 	}
 
+	inline void EnterCheckReset()
+	{
+		PlayerEnterCheck = false;
+	}
 protected:
 
 private:

@@ -69,7 +69,7 @@ private:
 	float IncreaseGravityForce = 200.0f;
 
 	float4 DefaultRenderPosBase = { 0.0f, -64.0f };
-	float4 DefaultCollisionSizeBase = { 200.0f, 100.0f, 0.0f };
+	float4 DefaultCollisionSizeBase = { 200.0f, 170.0f, 0.0f };
 	float4 DefaultDetectionRangeSize = { 800.0f, 500.0f, 0.0f };
 
 	float DefaultMoveSpeed = 250.0f;

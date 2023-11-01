@@ -23,10 +23,14 @@ protected:
 	std::shared_ptr<class Player> PlayerActor = nullptr;
 	std::shared_ptr<class Arrow> ArrowActor = nullptr;
 
+	std::shared_ptr<class Fade> FadeInActor = nullptr;
+	std::shared_ptr<class Fade> FadeOutActor = nullptr;
+	std::shared_ptr<class Fade> FadeInByKillBossActor = nullptr;
+
 	// TileMap
 	std::shared_ptr<class TileMap> TileMapActor;
 
-	virtual void SpawnPlayer() {}
+	virtual void SpawnPlayer(GameEngineLevel* _PrevLevel) {}
 	virtual void SpawnBoss() {}
 
 	void CreatePlayerElement();
