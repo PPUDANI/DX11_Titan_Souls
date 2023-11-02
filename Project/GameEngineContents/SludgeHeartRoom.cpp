@@ -36,22 +36,11 @@ void SludgeHeartRoom::Start()
 	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
 	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
 	EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheFloor1->Off();
+	EnterTheFloor1->SetTriggerFunction(std::bind(&SludgeHeartRoom::Floor1TriggerFunc, this));
 
-
-	FadeInActor = CreateActor<Fade>(RENDERING_ORDER::UI);
-	FadeInActor->SetFadeMode(FadeMode::FadeIn);
-	FadeInActor->SetFadeSpeed(0.75f);
-	FadeInActor->SetTargetValue(0.1f);
-	FadeInActor->SetBlackColor();
-	FadeInActor->Off();
-
-	FadeOutActor = CreateActor<Fade>(RENDERING_ORDER::UI);
-	FadeOutActor->SetFadeMode(FadeMode::FadeOut);
-	FadeOutActor->SetFadeSpeed(0.75f);
-	FadeOutActor->SetDefaultValue(0.1f);
-	FadeInActor->SetBlackColor();
-	FadeOutActor->Off();
+	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
+	ScreenOverlayActor->SetColor({0.0f, 0.2f, 0.0f});
+	ScreenOverlayActor->SetAlpha(0.1f);
 }
 
 void SludgeHeartRoom::Update(float _Delta)
@@ -77,22 +66,18 @@ void SludgeHeartRoom::Update(float _Delta)
 	{
 		ReleaseSludges();
 	}
-
-
-	if (true == EnterTheFloor1->EnterCheck())
-	{
-		EnterTheFloor1Update();
-	}
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	FadeOutActor->FadeResetByMode();
-	FadeOutActor->Off();
 
-	FadeInActor->FadeResetByMode();
-	FadeInActor->On();
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::Black, 0.75f);
+	}
+
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
@@ -154,17 +139,21 @@ void SludgeHeartRoom::ReleaseSludges()
 	ObjectType.clear();
 }
 
-void SludgeHeartRoom::EnterTheFloor1Update()
+void SludgeHeartRoom::Floor1TriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
-	EnterTheFloor1->Off();
-	FadeOutActor->On();
+
+	if (nullptr == FadeOutActor)
+	{
+		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+		FadeOutActor->Init(FadeColor::Black, 0.75f);
+	}
 
 	if (true == FadeOutActor->FadeIsEnd())
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
-		EnterTheFloor1->EnterCheckReset();
 		GameEngineCore::ChangeLevel("01.Floor1");
+		EnterTheFloor1->Stop();
 	}
 }
 

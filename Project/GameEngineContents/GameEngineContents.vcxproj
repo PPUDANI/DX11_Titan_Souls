@@ -185,11 +185,19 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TriggerBox.cpp">
+    <ClCompile Include="FadeIn.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
+    <ClCompile Include="FadeOut.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverlayActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TriggerBox.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -262,6 +270,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ScreenOverlay.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="YetiRoom.cpp">
       <SubType>
       </SubType>
@@ -290,11 +302,19 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TriggerBox.h">
+    <ClInclude Include="FadeIn.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Fade.h">
+    <ClInclude Include="FadeOut.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OverlayActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TriggerBox.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -357,6 +377,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ScreenOverlay.h">
       <SubType>
       </SubType>
     </ClInclude>

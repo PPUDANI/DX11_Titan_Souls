@@ -74,6 +74,18 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	LevelBase::LevelEnd(_NextLevel);
+
+	if (nullptr != FadeOutActor)
+	{
+		FadeOutActor->Death();
+		FadeOutActor = nullptr;
+	}
+
+	if (nullptr != FadeInActor)
+	{
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+	}
 }
 
 void PlayLevelBase::CreatePlayerElement()

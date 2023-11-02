@@ -35,19 +35,12 @@ void Floor1::Start()
 	EnterTheSludgeRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToSludgeRoom");
 	EnterTheSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheSludgeRoom->Off();
+	EnterTheSludgeRoom->SetTriggerFunction(std::bind(&Floor1::SludgeRoomTriggerFunc, this));
 
-	FadeInActor = CreateActor<Fade>(RENDERING_ORDER::UI);
-	FadeInActor->SetFadeMode(FadeMode::FadeIn);
-	FadeInActor->SetFadeSpeed(0.75f);
-	FadeInActor->SetBlackColor();
-	FadeInActor->Off();
-
-	FadeOutActor = CreateActor<Fade>(RENDERING_ORDER::UI);
-	FadeOutActor->SetFadeMode(FadeMode::FadeOut);
-	FadeOutActor->SetFadeSpeed(0.75f);
-	FadeOutActor->SetBlackColor();
-	FadeOutActor->Off();
+	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1616.0f, -3232.0f });
+	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
+	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
 }
 
 void Floor1::Update(float _Delta)
@@ -63,30 +56,23 @@ void Floor1::Update(float _Delta)
 	{
 		EnterTheSludgeRoom->On();
 	}
-
-	if (true == EnterTheSludgeRoom->EnterCheck())
-	{
-		EnterTheSludgeRoomUpdate();
-	}
-
 }
 
 
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	FadeOutActor->FadeResetByMode();
-	FadeOutActor->Off();
 
-	FadeInActor->FadeResetByMode();
-	FadeInActor->On();
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::Black, 0.75f);
+	}
 }
 
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
-
-	// 액터 레벨이동 구현
 }
 
 void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
@@ -108,16 +94,20 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 	return;
 }
 
-void Floor1::EnterTheSludgeRoomUpdate()
+void Floor1::SludgeRoomTriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
-	EnterTheSludgeRoom->Off();
-	FadeOutActor->On();
+
+	if (nullptr == FadeOutActor)
+	{
+		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+		FadeOutActor->Init(FadeColor::Black, 0.75f);
+	}
 
 	if (true == FadeOutActor->FadeIsEnd())
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
-		EnterTheSludgeRoom->EnterCheckReset();
 		GameEngineCore::ChangeLevel("02.SludgeHeartRoom");
+		EnterTheSludgeRoom->Stop();
 	}
 }

@@ -44,7 +44,10 @@
 #include "BossBase.h"
 #include "JumpBoss.h"
 #include "TriggerBox.h"
-#include "Fade.h"
+#include "FadeIn.h"
+#include "FadeOut.h"
+#include "ScreenOverlay.h"
+#include "OverlayActor.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

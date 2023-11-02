@@ -18,15 +18,21 @@ void TriggerBox::Start()
 
 	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
-			PlayerEnterCheck = true;
+			ColCheck = true;
 		};
 }
 
 void TriggerBox::Update(float _Delta)
 {
-	//PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param);
-	if (false == PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param))
+	if (true == ColCheck)
 	{
-		PlayerEnterCheck = false;
+		if (nullptr != TriggerFunc)
+		{
+			TriggerFunc();
+		}
+	}
+	else
+	{
+		PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param);
 	}
 }

@@ -323,7 +323,7 @@ void Player::EnterLevelUpdate(float _Delta)
 	}
 
 	float4 MovePos = float4::ZERO;
-	MovePos.Y = 80.0f * _Delta;
+	MovePos.Y = 60.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }
 
@@ -341,6 +341,6 @@ void Player::ExitLevelUpdate(float _Delta)
 	}
 
 	float4 MovePos = float4::ZERO;
-	MovePos.Y = -80.0f * _Delta;
+	MovePos.Y = -60.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }

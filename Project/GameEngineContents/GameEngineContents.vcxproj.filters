@@ -86,7 +86,16 @@
     <ClCompile Include="ContentsControlWindow.cpp">
       <Filter>00. Global\IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
+    <ClCompile Include="FadeIn.cpp">
+      <Filter>01. Actor\06. FadeActor</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOut.cpp">
+      <Filter>01. Actor\06. FadeActor</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenOverlay.cpp">
+      <Filter>01. Actor\06. FadeActor</Filter>
+    </ClCompile>
+    <ClCompile Include="OverlayActor.cpp">
       <Filter>01. Actor\06. FadeActor</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,7 +173,16 @@
     <ClInclude Include="ContentsControlWindow.h">
       <Filter>00. Global\IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
+    <ClInclude Include="FadeIn.h">
+      <Filter>01. Actor\06. FadeActor</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeOut.h">
+      <Filter>01. Actor\06. FadeActor</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenOverlay.h">
+      <Filter>01. Actor\06. FadeActor</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayActor.h">
       <Filter>01. Actor\06. FadeActor</Filter>
     </ClInclude>
   </ItemGroup>

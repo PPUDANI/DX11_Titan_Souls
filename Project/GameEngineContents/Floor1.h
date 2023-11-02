@@ -24,6 +24,10 @@ private:
 
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 private:
+	// TriggerBox
 	std::shared_ptr<class TriggerBox> EnterTheSludgeRoom = nullptr;
-	void EnterTheSludgeRoomUpdate();
+	void SludgeRoomTriggerFunc();
+
+	// OverlayActor
+	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 };

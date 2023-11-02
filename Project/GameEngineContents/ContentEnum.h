@@ -23,6 +23,7 @@ enum class RENDERING_ORDER
 	Y_SORT_ENTITY,
 	Y_SORT_ENTITY_FRONT,
 
+	Overlay,
 	FG_Tile,
 	UI
 };
@@ -56,4 +57,10 @@ enum class TILE_COLLISION_TYPE
 	RIGHTUP_TRIANGLE = 225,
 	LEFTDOWN_TRIANGLE = 226,
 	RIGHTDOWN_TRIANGLE = 227,
+};
+
+enum class FadeColor
+{
+	Black,
+	White,
 };

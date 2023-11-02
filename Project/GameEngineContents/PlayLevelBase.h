@@ -23,9 +23,8 @@ protected:
 	std::shared_ptr<class Player> PlayerActor = nullptr;
 	std::shared_ptr<class Arrow> ArrowActor = nullptr;
 
-	std::shared_ptr<class Fade> FadeInActor = nullptr;
-	std::shared_ptr<class Fade> FadeOutActor = nullptr;
-	std::shared_ptr<class Fade> FadeInByKillBossActor = nullptr;
+	std::shared_ptr<class FadeIn> FadeInActor = nullptr;
+	std::shared_ptr<class FadeOut> FadeOutActor = nullptr;
 
 	// TileMap
 	std::shared_ptr<class TileMap> TileMapActor;

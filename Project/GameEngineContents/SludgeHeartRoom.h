@@ -18,6 +18,7 @@ public:
 protected:
 
 private:
+	// Inheritance function
 	void Start() override;
 	void Update(float _Delta) override;
 
@@ -29,6 +30,7 @@ private:
 	void SpawnBoss() override;
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void ReleaseSludges();
+
 private:
 	// Boss Eliment
 	std::list<std::shared_ptr<class Sludge>> Sludges;
@@ -36,7 +38,17 @@ private:
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
 	bool BossIsDeath = false;
+
 private:
+	// TriggerBox
 	std::shared_ptr<class TriggerBox> EnterTheFloor1 = nullptr;
-	void EnterTheFloor1Update();
+	void Floor1TriggerFunc();
+
+	// Overlay
+	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
+
+	// Fade
+	std::shared_ptr<class FadeIn> FadeInByKillBoss = nullptr;
+
+
 };

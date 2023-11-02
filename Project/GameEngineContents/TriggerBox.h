@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 
 class TriggerBox : public GameEngineActor
 {
@@ -13,19 +14,24 @@ public:
 	TriggerBox& operator=(const TriggerBox& _Other) = delete;
 	TriggerBox& operator=(TriggerBox&& _Other) noexcept = delete;
 
+	using TriggerFunction = std::function<void()>;
+
+	TriggerFunction TriggerFunc = nullptr;
+
+
 	inline void SetPlaceScale(const float4& _Sclae)
 	{
 		PlaceCol->Transform.SetLocalScale(_Sclae);
 	}
 
-	inline bool EnterCheck() const
+	inline void SetTriggerFunction(TriggerFunction _Func)
 	{
-		return PlayerEnterCheck;
+		TriggerFunc = _Func;
 	}
 
-	inline void EnterCheckReset()
+	inline void Stop()
 	{
-		PlayerEnterCheck = false;
+		ColCheck = false;
 	}
 protected:
 
@@ -37,5 +43,5 @@ private:
 private:
 	std::shared_ptr<class GameEngineCollision> PlaceCol = nullptr;
 	EventParameter Param;
-	bool PlayerEnterCheck = false;
+	bool ColCheck = false;
 };
