@@ -28,6 +28,10 @@ private:
 	std::shared_ptr<class TriggerBox> EnterTheSludgeRoom = nullptr;
 	void SludgeRoomTriggerFunc();
 
+	std::shared_ptr<class TriggerBox> EnterTheYetiRoom = nullptr;
+	void YetiRoomTriggerFunc();
+
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
+
 };

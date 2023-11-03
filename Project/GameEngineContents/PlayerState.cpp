@@ -6,6 +6,7 @@
 ///////  Start  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::IdleStart()
 {
+	BodyCollision->On();
 	SetAnimByDir("Idle");
 }
 
@@ -56,15 +57,19 @@ void Player::StandUpStart()
 
 void Player::EnterLevelStart()
 {
+	BodyCollision->Off();
+
 	BodyRenderer->ChangeAnimation("EnterLevel");
 	BowRenderer->ChangeAnimation("EnterLevel");
 	ArrowInBagRenderer->ChangeAnimation("EnterLevel");
-
+	
 	SetDirection(PLAYER_DIRECTION::Up);
 }
 
 void Player::ExitLevelStart()
 {
+	BodyCollision->Off();
+
 	BodyRenderer->ChangeAnimation("ExitLevel");
 	BowRenderer->ChangeAnimation("ExitLevel");
 	ArrowInBagRenderer->ChangeAnimation("ExitLevel");

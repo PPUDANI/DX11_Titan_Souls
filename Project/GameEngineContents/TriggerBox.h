@@ -29,10 +29,7 @@ public:
 		TriggerFunc = _Func;
 	}
 
-	inline void Stop()
-	{
-		ColCheck = false;
-	}
+
 protected:
 
 private:
@@ -43,5 +40,4 @@ private:
 private:
 	std::shared_ptr<class GameEngineCollision> PlaceCol = nullptr;
 	EventParameter Param;
-	bool ColCheck = false;
 };

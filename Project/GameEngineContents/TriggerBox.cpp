@@ -16,23 +16,16 @@ void TriggerBox::Start()
 	PlaceCol->Transform.SetLocalScale({10.0f, 10.0f, 0.0f});
 	PlaceCol->Transform.SetLocalPosition({0.0f, 0.0f, 0.0f});
 
-	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+	Param.Stay = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
-			ColCheck = true;
+			if (nullptr != TriggerFunc)
+			{
+				TriggerFunc();
+			}
 		};
 }
 
 void TriggerBox::Update(float _Delta)
 {
-	if (true == ColCheck)
-	{
-		if (nullptr != TriggerFunc)
-		{
-			TriggerFunc();
-		}
-	}
-	else
-	{
-		PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param);
-	}
+	PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param);
 }

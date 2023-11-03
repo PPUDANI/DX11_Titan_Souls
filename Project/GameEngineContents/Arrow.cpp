@@ -22,11 +22,11 @@ void Arrow::Start()
 
 	GetCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
 	GetCollision->SetCollisionType(ColType::OBBBOX2D);
-	GetCollision->Transform.SetLocalScale({12.0f, 12.0f, 1.0f });
+	GetCollision->Transform.SetLocalScale({5.0f, 5.0f, 1.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
 	AttackCollision->SetCollisionType(ColType::OBBBOX2D);
-	AttackCollision->Transform.SetLocalScale({ 12.0f, 12.0f, 1.0f });
+	AttackCollision->Transform.SetLocalScale({ 5.0f, 5.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
 

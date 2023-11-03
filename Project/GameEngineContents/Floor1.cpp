@@ -37,8 +37,18 @@ void Floor1::Start()
 	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
 	EnterTheSludgeRoom->SetTriggerFunction(std::bind(&Floor1::SludgeRoomTriggerFunc, this));
 
+	EnterTheYetiRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToYetiRoom");
+	EnterTheYetiRoom->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
+	EnterTheYetiRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheYetiRoom->SetTriggerFunction(std::bind(&Floor1::YetiRoomTriggerFunc, this));
+
 	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
 	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1616.0f, -3232.0f });
+	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
+	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
+
+	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
 }
@@ -46,16 +56,6 @@ void Floor1::Start()
 void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
-
-	if (PLAYER_STATE::ExitLevel == PlayerActor->GetCurState() ||
-		PLAYER_STATE::EnterLevel == PlayerActor->GetCurState())
-	{
-		EnterTheSludgeRoom->Off();
-	}
-	else
-	{
-		EnterTheSludgeRoom->On();
-	}
 }
 
 
@@ -84,6 +84,11 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 			PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
 		}
+		else if ("03.YetiRoom" == _PrevLevel->GetName())
+		{
+			PlayerActor->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
+			PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
+		}
 	}
 	else
 	{
@@ -108,6 +113,22 @@ void Floor1::SludgeRoomTriggerFunc()
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
 		GameEngineCore::ChangeLevel("02.SludgeHeartRoom");
-		EnterTheSludgeRoom->Stop();
+	}
+}
+
+void Floor1::YetiRoomTriggerFunc()
+{
+	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
+
+	if (nullptr == FadeOutActor)
+	{
+		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+		FadeOutActor->Init(FadeColor::Black, 0.75f);
+	}
+
+	if (true == FadeOutActor->FadeIsEnd())
+	{
+		PlayerActor->ChangeState(PLAYER_STATE::Idle);
+		GameEngineCore::ChangeLevel("03.YetiRoom");
 	}
 }

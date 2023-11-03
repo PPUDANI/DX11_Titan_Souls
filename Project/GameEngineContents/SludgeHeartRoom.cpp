@@ -47,16 +47,6 @@ void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
-	if (PLAYER_STATE::ExitLevel == PlayerActor->GetCurState() ||
-		PLAYER_STATE::EnterLevel == PlayerActor->GetCurState())
-	{
-		EnterTheFloor1->Off();
-	}
-	else
-	{
-		EnterTheFloor1->On();
-	}
-
 	if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
 	{
 		BossIsDeath = true;
@@ -153,7 +143,6 @@ void SludgeHeartRoom::Floor1TriggerFunc()
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
 		GameEngineCore::ChangeLevel("01.Floor1");
-		EnterTheFloor1->Stop();
 	}
 }
 

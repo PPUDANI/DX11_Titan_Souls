@@ -30,27 +30,62 @@ void YetiRoom::Start()
 
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
+
+	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
+	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1792.0f });
+	EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
+
+	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
+	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
+	ScreenOverlayActor->SetAlpha(0.1f);
 }
+
 
 void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 }
 
+
 void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
 
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::Black, 0.75f);
+	}
 }
+
 
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
 }
 
+
 void YetiRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
-	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1824.0f });
-	PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1792.0f });
+	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 	return;
+}
+
+void YetiRoom::Floor1TriggerFunc()
+{
+	PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
+
+	if (nullptr == FadeOutActor)
+	{
+		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+		FadeOutActor->Init(FadeColor::Black, 0.75f);
+	}
+
+	if (true == FadeOutActor->FadeIsEnd())
+	{
+		PlayerActor->ChangeState(PLAYER_STATE::Idle);
+		GameEngineCore::ChangeLevel("01.Floor1");
+	}
 }
