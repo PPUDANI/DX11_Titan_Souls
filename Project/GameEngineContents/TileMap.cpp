@@ -37,7 +37,7 @@ void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
 	Info.assign(IndexY, std::vector<int>(IndexX, 0));
 
 	// 현재 제작한 엔진 구조의 Sprite Data Index 시작값은 0이다.
-	// 하지만 분석한 타일의 TextureIndex 시작값이 1이므로 수정이 필요하다.
+	// 하지만 분석한 Tile Data의 Texture Index 시작값이 1이므로 수정이 필요하다.
 	// 받아온 정보들을 전부 1만큼 빼주는데 Info가 음수가 될 가능성이 있다.
 	// 만약 음수일 경우 출력 되지 않게 했다.
 
