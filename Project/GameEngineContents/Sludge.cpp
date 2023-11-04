@@ -45,17 +45,6 @@ void Sludge::Start()
 			{
 				IsDivision = true;
 			}
-			else
-			{
-				Collision->Off();
-			}
-
-			if (nullptr == HeartActor &&
-				3 == DividedCount)
-			{
-				Collision->Death();
-			}
-			
 		};
 
 	// Collision setting
@@ -79,8 +68,6 @@ void Sludge::Update(float _Delta)
 		JumpStartPos = Transform.GetLocalPosition();
 	}
 
-	Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam);
-
 	if (PlayerDetectionRange->Collision(COLLISION_TYPE::Player))
 	{
 		FindPlayer = true;
@@ -90,11 +77,11 @@ void Sludge::Update(float _Delta)
 		FindPlayer = false;
 	}
 
-	JumpBoss::Update(_Delta);
 	RendererSetting();
 	// Sludge 분열 (최대 3번)
 	if(false == MaxDivision)
 	{ 
+		Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam);
 		if (3 >= DividedCount)
 		{
 			if (true == IsDivision)
@@ -127,6 +114,7 @@ void Sludge::Update(float _Delta)
 		}
 	}
 
+	JumpBoss::Update(_Delta);
 
 	// Heart position setting
 	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * static_cast<float>(DividedCount)};
@@ -207,10 +195,6 @@ void Sludge::SetByDivided()
 void Sludge::DividedSludgeInit(int _DividedCount)
 {
 	DividedCount = _DividedCount;
-	if (3 == DividedCount)
-	{
-		Collision->Death();
-	}
 	AddMoveDirByArrow(-90.0f);
 	SetByDivided();
 }

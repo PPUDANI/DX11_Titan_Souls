@@ -19,12 +19,14 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _PrevLevel) override;
 
-
+	// Player
 	std::shared_ptr<class Player> PlayerActor = nullptr;
 	std::shared_ptr<class Arrow> ArrowActor = nullptr;
 
+	// Fade
 	std::shared_ptr<class FadeIn> FadeInActor = nullptr;
 	std::shared_ptr<class FadeOut> FadeOutActor = nullptr;
+	std::shared_ptr<class FadeIn> BossDeathEffect = nullptr;
 
 	// TileMap
 	std::shared_ptr<class TileMap> TileMapActor;

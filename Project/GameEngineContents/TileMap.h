@@ -52,7 +52,7 @@ public:
 	bool AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 
 
-	float4 GetTileSize() const
+	float4 GetTileMapSize() const
 	{
 		return TileMapSize;
 	}

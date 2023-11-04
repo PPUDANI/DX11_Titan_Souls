@@ -60,7 +60,7 @@ void PlayLevelBase::Update(float _Delta)
 	CursorDirRotation();
 	ArrowDirRotation();
 
-	GetMainCamera()->Transform.SetWorldPosition(CameraManager::GetCameraPos());
+	GetMainCamera()->Transform.SetWorldPosition(CameraManager::GetCameraPos(TileMapActor->GetTileMapSize()));
 	GetMainCamera()->SetZoomValue(CameraManager::GetCameraZoom());
 }
 

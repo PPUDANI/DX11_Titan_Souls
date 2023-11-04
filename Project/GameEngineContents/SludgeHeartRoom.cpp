@@ -102,10 +102,9 @@ void SludgeHeartRoom::SpawnBoss()
 		HeartActor->SetEnymePlayer(PlayerActor.get());
 		HeartActor->SetEnymeArrow(ArrowActor.get());
 		HeartActor->SetCurMap(TileMapActor.get());
+		HeartActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
-		HeartActor->SetOwnerSludge(SludgeActor.get());
-
-		SludgeActor->SetHeart(HeartActor.get());
+		PutTheHeartInSludge();
 		SludgeActor = nullptr;
 	}
 }
@@ -127,6 +126,12 @@ void SludgeHeartRoom::ReleaseSludges()
 		ObjectType[i] = nullptr;
 	}
 	ObjectType.clear();
+}
+
+void SludgeHeartRoom::PutTheHeartInSludge()
+{
+	HeartActor->SetOwnerSludge(SludgeActor.get());
+	SludgeActor->SetHeart(HeartActor.get());
 }
 
 void SludgeHeartRoom::Floor1TriggerFunc()

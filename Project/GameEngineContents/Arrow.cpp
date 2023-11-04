@@ -22,11 +22,11 @@ void Arrow::Start()
 
 	GetCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
 	GetCollision->SetCollisionType(ColType::OBBBOX2D);
-	GetCollision->Transform.SetLocalScale({5.0f, 5.0f, 1.0f });
+	GetCollision->Transform.SetLocalScale({10.0f, 10.0f, 1.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
 	AttackCollision->SetCollisionType(ColType::OBBBOX2D);
-	AttackCollision->Transform.SetLocalScale({ 5.0f, 5.0f, 1.0f });
+	AttackCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
 
@@ -90,27 +90,6 @@ void Arrow::Update(float _Delta)
 		}
 	}
 
-	float4 CameraPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
-	if (0.0f > CameraPos.X - WindowScale.hX())
-	{
-		CameraPos.X = WindowScale.hX();
-	}
-	if (TileEndPos.X < CameraPos.X + WindowScale.hX())
-	{
-		CameraPos.X = TileEndPos.X - WindowScale.hX();
-	}
-	if (0.0f < CameraPos.Y + WindowScale.hY())
-	{
-		CameraPos.Y = -WindowScale.hY();
-	}
-	if (TileEndPos.Y > CameraPos.Y - WindowScale.hY())
-	{
-		CameraPos.Y = TileEndPos.Y + WindowScale.hY();
-	}
-
-
-
-	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(CameraPos);
 }
 
 void Arrow::ChangeState(ARROW_STATE _State)
@@ -284,7 +263,7 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 	{
 		BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
 		BossActor->HitArrow();
-		AdjustPosByCol();
+		//AdjustPosByCol();
 		if (true == BossActor->IsWeaknessActor())
 		{
 			ChangeState(ARROW_STATE::Pinned);

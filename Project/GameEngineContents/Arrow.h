@@ -42,7 +42,6 @@ public:
 	void TileMapSetting(std::shared_ptr<TileMap> _Map)
 	{
 		CurMap = _Map.get();
-		TileEndPos = CurMap->GetTileSize();
 	}
 
 	inline void SetArrowAngleDeg(const float4& _Angle)

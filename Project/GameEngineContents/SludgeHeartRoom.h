@@ -30,7 +30,7 @@ private:
 	void SpawnBoss() override;
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void ReleaseSludges();
-
+	void PutTheHeartInSludge();
 private:
 	// Boss Eliment
 	std::list<std::shared_ptr<class Sludge>> Sludges;
@@ -47,8 +47,6 @@ private:
 	// Overlay
 	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
 
-	// Fade
-	std::shared_ptr<class FadeIn> FadeInByKillBoss = nullptr;
 
 
 };

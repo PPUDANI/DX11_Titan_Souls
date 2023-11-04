@@ -63,14 +63,15 @@ private:
 	void DivisionUpdate(float _Delta) override;
 
 	bool IsDivision = false;
+	bool DivisionEnd = false;
 	int DividedCount = 0;
 	float DecreaseSize = 0.25f;
 	float IncreaseMoveSpeed = 30.0f;
 	float IncreaseGravityForce = 200.0f;
 
-	float4 DefaultRenderPosBase = { 0.0f, -64.0f };
-	float4 DefaultCollisionSizeBase = { 200.0f, 170.0f, 0.0f };
-	float4 DefaultDetectionRangeSize = { 800.0f, 500.0f, 0.0f };
+	float4 DefaultRenderPosBase = { 0.0f, -64.0f, 1.0f };
+	float4 DefaultCollisionSizeBase = { 200.0f, 170.0f, 1.0f };
+	float4 DefaultDetectionRangeSize = { 800.0f, 500.0f, 1.0f };
 
 	float DefaultMoveSpeed = 250.0f;
 	float DefaultGravityForce = 1200.0f;

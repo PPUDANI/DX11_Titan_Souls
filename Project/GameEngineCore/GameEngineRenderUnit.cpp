@@ -34,6 +34,29 @@ void GameEngineRenderUnit::SetText(const std::string& _Font, const std::string& 
 	FontFlag = Flag;
 }
 
+void GameEngineRenderUnit::SetTextColor(const float4& _Color /*= float4::RED*/)
+{
+	if (nullptr == Font)
+	{
+		MsgBoxAssert("존재하지 않는 폰트를 참조하려 했습니다.");
+		return;
+	}
+
+	FontColor = _Color;
+}
+
+void GameEngineRenderUnit::SetTextAlpha(float _AlphaValue /*= 0.0f*/)
+{
+	if (nullptr == Font)
+	{
+		MsgBoxAssert("존재하지 않는 폰트를 참조하려 했습니다.");
+		return;
+	}
+
+	FontColor.A = _AlphaValue;
+}
+
+
 void GameEngineRenderUnit::ResSetting()
 {
 	if (nullptr != Font)
@@ -51,17 +74,8 @@ void GameEngineRenderUnit::ResSetting()
 	Material->DepthStencil();
 
 	ShaderResHelper.AllShaderResourcesSetting();
-
-	// 애는 솔직히 랜더 타겟이 가져가야 합니다.
-	D3D11_VIEWPORT ViewPort = {};
-	ViewPort.Width = GameEngineCore::MainWindow.GetScale().X;
-	ViewPort.Height = GameEngineCore::MainWindow.GetScale().Y;
-	ViewPort.MinDepth = 0.0f;
-	ViewPort.MaxDepth = 1.0f;
-	ViewPort.TopLeftX = 0.0f;
-	ViewPort.TopLeftY = 0.0f;
-	GameEngineCore::GetContext()->RSSetViewports(1, &ViewPort);
 }
+
 
 
 void GameEngineRenderUnit::Draw()
@@ -147,4 +161,10 @@ void GameEngineRenderUnit::SetMaterial(std::string_view _Name)
 //	//	Buffer->Setting(0);
 //	//}
 
+}
+
+void GameEngineRenderUnit::Render()
+{
+	ResSetting();
+	Draw();
 }
