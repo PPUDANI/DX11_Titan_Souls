@@ -58,7 +58,7 @@ void ContentsCore::Start()
 	GlobalLoad::LoadSpriteCut(64, 64, "Jam.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Underworld.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Overworld.png", "Resource\\Texture\\Map\\");
-
+	GlobalLoad::LoadSpriteCut(64, 64, "Overworld2.png", "Resource\\Texture\\Map\\");
 
 	// Create Level
 	GameEngineCore::CreateLevel<TitleLevel>("00.TitleLevel");
@@ -70,7 +70,7 @@ void ContentsCore::Start()
 	// Create IMGUI
 	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
 
-	GameEngineCore::ChangeLevel("01.Floor1");
+	GameEngineCore::ChangeLevel("00.TitleLevel");
 
 	GameEngineInput::AddInputObject(this);
 }

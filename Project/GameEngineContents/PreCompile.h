@@ -48,6 +48,8 @@
 #include "FadeOut.h"
 #include "ScreenOverlay.h"
 #include "OverlayActor.h"
+#include "ImageActor.h"
+#include "FadeImage.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

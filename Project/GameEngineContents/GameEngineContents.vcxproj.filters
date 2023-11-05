@@ -87,16 +87,28 @@
       <Filter>00. Global\IMGUI</Filter>
     </ClCompile>
     <ClCompile Include="FadeIn.cpp">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClCompile>
     <ClCompile Include="FadeOut.cpp">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClCompile>
     <ClCompile Include="ScreenOverlay.cpp">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClCompile>
     <ClCompile Include="OverlayActor.cpp">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLevelState.cpp">
+      <Filter>02. Level\01. Title</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageActor.cpp">
+      <Filter>01. Actor\06. VersatileActor</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeImage.cpp">
+      <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeImageState.cpp">
+      <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,16 +186,22 @@
       <Filter>00. Global\IMGUI</Filter>
     </ClInclude>
     <ClInclude Include="FadeIn.h">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClInclude>
     <ClInclude Include="FadeOut.h">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClInclude>
     <ClInclude Include="ScreenOverlay.h">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClInclude>
     <ClInclude Include="OverlayActor.h">
-      <Filter>01. Actor\06. FadeActor</Filter>
+      <Filter>01. Actor\06. VersatileActor</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageActor.h">
+      <Filter>01. Actor\06. VersatileActor</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeImage.h">
+      <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,11 +280,14 @@
     <Filter Include="00. Global\IMGUI">
       <UniqueIdentifier>{02dbdd72-bf18-4dcb-9802-1b2dbb834d12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\06. FadeActor">
-      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Actor\05. TriggerBox">
       <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor">
+      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\FadeImage">
+      <UniqueIdentifier>{2181bd69-5b3d-45b8-b00f-58c8da29a00c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

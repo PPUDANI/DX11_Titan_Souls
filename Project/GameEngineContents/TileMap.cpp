@@ -20,15 +20,15 @@ void TileMap::Update(float _Delta)
 
 }
 
-void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName)
+void TileMap::BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName, const float4& _TileScale/*= TileScale*/)
 {
 	FolderPath.MoveChild(_FolderName);
 	IndexX = _IndexX;
 	IndexY = _IndexY;
 	SpriteName = _SpriteName;
-
-	TileMapSize.X = GlobalValue::StandardTextureScale.X * IndexX;
-	TileMapSize.Y = -GlobalValue::StandardTextureScale.Y * IndexY;
+	TileScale = _TileScale;
+	TileMapSize.X = TileScale.X * IndexX;
+	TileMapSize.Y = -TileScale.Y * IndexY;
 }
 
 void TileMap::CreateTileMap(TILE_TYPE _Type, std::string_view _FileName)
@@ -264,7 +264,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BG_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -287,7 +287,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::BGA_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -310,7 +310,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::FG_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		if (1 == i)
@@ -337,7 +337,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::WALL_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, SpriteName });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, SpriteName });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -360,7 +360,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COL_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -383,7 +383,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COL_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -406,7 +406,7 @@ void TileMap::TileTexureSetting()
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::COL_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -428,7 +428,7 @@ void TileMap::TileTexureSetting()
 	{
 		std::shared_ptr<GameEngineTileMap> NewTileMap;
 		NewTileMap = CreateComponent<GameEngineTileMap>(RENDERING_ORDER::MAT_Tile);
-		NewTileMap->CreateTileMap({ IndexX, IndexY, GlobalValue::StandardTextureScale, "Spectiles.png" });
+		NewTileMap->CreateTileMap({ IndexX, IndexY, TileScale, "Spectiles.png" });
 		NewTileMap->ExpandRenderedTileMap(3);
 
 		for (unsigned int y = 0; y < IndexY; ++y)
@@ -601,7 +601,7 @@ bool TileMap::TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 
 		_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 
-		float4 StandardPos = GlobalValue::StandardTextureScale;
+		float4 StandardPos = TileScale;
 		float StandardLength = StandardPos.X;
 		float4 PosInTile = _Pos % StandardPos;
 		PosInTile.X = abs(PosInTile.X);
@@ -696,7 +696,7 @@ bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		{
 			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 
-			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float4 StandardPos = TileScale;
 			float StandardLength = StandardPos.X;
 			float4 PosInTile = _Pos % StandardPos;
 			PosInTile.X = abs(PosInTile.X);
@@ -713,7 +713,7 @@ bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		{
 			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 
-			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float4 StandardPos = TileScale;
 			float StandardLength = StandardPos.X;
 			float4 PosInTile = _Pos % StandardPos;
 			PosInTile.X = abs(PosInTile.X);
@@ -730,7 +730,7 @@ bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		{
 			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 
-			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float4 StandardPos = TileScale;
 			float StandardLength = StandardPos.X;
 			float4 PosInTile = _Pos % StandardPos;
 			PosInTile.X = abs(PosInTile.X);
@@ -747,7 +747,7 @@ bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 		{
 			_TypeData = static_cast<TILE_COLLISION_TYPE>(IndexColInfo);
 
-			float4 StandardPos = GlobalValue::StandardTextureScale;
+			float4 StandardPos = TileScale;
 			float StandardLength = StandardPos.X;
 			float4 PosInTile = _Pos % StandardPos;
 			PosInTile.X = abs(PosInTile.X);

@@ -185,6 +185,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="FadeImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeImageState.cpp" />
     <ClCompile Include="FadeIn.cpp">
       <SubType>
       </SubType>
@@ -193,10 +198,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ImageActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="OverlayActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TitleLevelState.cpp" />
     <ClCompile Include="TriggerBox.cpp">
       <SubType>
       </SubType>
@@ -302,11 +312,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FadeImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FadeIn.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="FadeOut.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ImageActor.h">
       <SubType>
       </SubType>
     </ClInclude>

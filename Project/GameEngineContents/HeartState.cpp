@@ -49,6 +49,7 @@ void Heart::OutOfSludgeStart()
 void Heart::DeathStart()
 {
 	BodyRenderer->ChangeAnimation("Death");
+	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
 }
 
 

@@ -18,6 +18,8 @@ void Player::Start()
 	CreateBowAnimation();
 	CreateArrowInBagAnimation();
 
+	BodyRenderer->RenderBaseInfoValue.BaseColorOnly = 1;
+
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Player);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });

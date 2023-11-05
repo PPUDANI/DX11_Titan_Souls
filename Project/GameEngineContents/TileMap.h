@@ -32,7 +32,7 @@ public:
 	TileMap& operator=(const TileMap& _Other) = delete;
 	TileMap& operator=(TileMap&& _Other) noexcept = delete;
 
-	void BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName);
+	void BaseSetting(int _IndexX, int _IndexY, std::string_view _FolderName, std::string_view _SpriteName, const float4& _TileScale = GlobalValue::StandardTextureScale);
 	void CreateTileMap(TILE_TYPE _Type, std::string_view _FileName);
 	void TileTexureSetting();
 
@@ -74,7 +74,7 @@ private:
 	unsigned int IndexY = 0;
 
 	float4 TileMapSize = float4::ZERO;
-
+	float4 TileScale = float4::ZERO;
 	bool IsTriangleColCheck = true;
 
 	std::vector<std::shared_ptr<class GameEngineTileMap>> BGTileMaps;

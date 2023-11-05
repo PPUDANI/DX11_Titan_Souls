@@ -19,8 +19,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-    int IndexX = 101;
-    int IndexY = 219;
+    int IndexX = 71;
+    int IndexY = 71;
 
     int Max = IndexX * IndexY;
 
