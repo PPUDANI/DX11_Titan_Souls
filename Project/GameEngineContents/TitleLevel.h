@@ -50,7 +50,7 @@ private:
 	std::shared_ptr<class TileMap> TileMapActor;
 
 	// Overlay Actor
-	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
+	std::shared_ptr<class OverlayActor> ScreenOverlayActor = nullptr;
 
 	// Fade Actor
 	std::shared_ptr<class FadeIn> FadeInActor = nullptr;
@@ -60,4 +60,7 @@ private:
 	std::shared_ptr<class FadeImage> GamePadImage = nullptr;
 	std::shared_ptr<class FadeImage> AcidnerveImage = nullptr;
 	std::shared_ptr<class FadeImage> DevolverImage = nullptr;
+
+	// Image Actor
+	std::shared_ptr<class ImageActor> TitleLogo = nullptr;
 };

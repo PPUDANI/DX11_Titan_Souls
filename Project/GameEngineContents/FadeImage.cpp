@@ -12,14 +12,14 @@ FadeImage::~FadeImage()
 void FadeImage::Init(std::string_view _ImageName, float _FadeSpeed, float _RestingTime)
 {
 	Renderer->SetSprite(_ImageName);
-	Renderer->GetColorData().MulColor.A = 0.0f;
-	FadeSpeed = _FadeSpeed;
+	FadeSpeed = 1.0f / _FadeSpeed;
 	RestingTime = _RestingTime;
 }
 
 void FadeImage::Start()
 {
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
+	Renderer->GetColorData().MulColor.A = 0.0f;
 }
 
 void FadeImage::Update(float _Delta)

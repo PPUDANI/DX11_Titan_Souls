@@ -28,6 +28,10 @@ public:
 		FadeRenderer->GetColorData().MulColor.A = _Alpha;
 	}
 
+	void SetOrder(RENDERING_ORDER _Order)
+	{
+		FadeRenderer->SetRenderOrder(_Order);
+	}
 protected:
 
 private:

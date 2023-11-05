@@ -122,9 +122,6 @@
     <ClInclude Include="Jam.h">
       <Filter>02. Level\02. MainHub</Filter>
     </ClInclude>
-    <ClInclude Include="SludgeHeartRoom.h">
-      <Filter>02. Level\03. Sludge Heart</Filter>
-    </ClInclude>
     <ClInclude Include="YetiRoom.h">
       <Filter>02. Level\04. Yeti</Filter>
     </ClInclude>
@@ -202,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="FadeImage.h">
       <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
+    </ClInclude>
+    <ClInclude Include="SludgeHeartRoom.h">
+      <Filter>02. Level\03. Sludge Heart</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

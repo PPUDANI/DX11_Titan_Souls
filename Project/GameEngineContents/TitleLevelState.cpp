@@ -20,15 +20,18 @@ void TitleLevel::DevolverStart()
 void TitleLevel::MainTitleStart()
 {
 	FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-	FadeInActor->Init(FadeColor::Black, 1.0f);
+	FadeInActor->Init(FadeColor::Black);
 
 	TileMapActor->On();
+	TitleLogo->On();
 }
 
 
 void TitleLevel::GamePadUpdate(float _Delta)
 {
-	if (true == GamePadImage->FadeIsEnd())
+
+	if (true == GamePadImage->FadeIsEnd() ||
+		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
 		GamePadImage->Death();
 		GamePadImage = nullptr;
@@ -38,7 +41,8 @@ void TitleLevel::GamePadUpdate(float _Delta)
 
 void TitleLevel::AcidnerveUpdate(float _Delta)
 {
-	if (true == AcidnerveImage->FadeIsEnd())
+	if (true == AcidnerveImage->FadeIsEnd() ||
+		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
 		AcidnerveImage->Death();
 		AcidnerveImage = nullptr;
@@ -48,7 +52,8 @@ void TitleLevel::AcidnerveUpdate(float _Delta)
 
 void TitleLevel::DevolverUpdate(float _Delta)
 {
-	if (true == DevolverImage->FadeIsEnd())
+	if (true == DevolverImage->FadeIsEnd() ||
+		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
 		DevolverImage->Death();
 		DevolverImage = nullptr;
@@ -58,5 +63,10 @@ void TitleLevel::DevolverUpdate(float _Delta)
 
 void TitleLevel::MainTitleUpdate(float _Delta)
 {
-
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+	}
 }
