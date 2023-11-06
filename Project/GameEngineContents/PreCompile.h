@@ -50,6 +50,7 @@
 #include "OverlayActor.h"
 #include "ImageActor.h"
 #include "FadeImage.h"
+#include "TextActor.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

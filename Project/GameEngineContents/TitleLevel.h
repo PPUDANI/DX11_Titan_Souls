@@ -63,4 +63,7 @@ private:
 
 	// Image Actor
 	std::shared_ptr<class ImageActor> TitleLogo = nullptr;
+
+	// Text Actor
+	std::shared_ptr<class TextActor> StartText = nullptr;
 };

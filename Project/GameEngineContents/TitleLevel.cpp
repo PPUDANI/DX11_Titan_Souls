@@ -27,16 +27,12 @@ void TitleLevel::Start()
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
 	TileMapActor->Off();
 
-
-
 	// ScreenOverlayActor
 	ScreenOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetAlpha(0.4f);
 	ScreenOverlayActor->SetScale(GlobalValue::WindowScale);
 	ScreenOverlayActor->Transform.SetLocalPosition({ 568.0f, -568.0f - GlobalValue::WindowScale.hY()});
 	ScreenOverlayActor->SetOrder(RENDERING_ORDER::UI);
-
-
 
 	// ImageActor
 	GlobalLoad::LoadSpriteSingle("GamePad.png", "Resource\\Texture\\Title");
@@ -64,7 +60,8 @@ void TitleLevel::Start()
 	TitleLogo->Transform.SetLocalPosition({ 568.0f, -400.0f });
 	TitleLogo->Off();
 
-
+	StartText = CreateActor<TextActor>();
+	StartText->Init("Start");
 
 	GetMainCamera()->Transform.SetLocalPosition({ 568.0f, -568.0f });
 

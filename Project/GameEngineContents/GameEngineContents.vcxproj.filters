@@ -86,29 +86,32 @@
     <ClCompile Include="ContentsControlWindow.cpp">
       <Filter>00. Global\IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="FadeIn.cpp">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClCompile>
-    <ClCompile Include="FadeOut.cpp">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenOverlay.cpp">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClCompile>
-    <ClCompile Include="OverlayActor.cpp">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClCompile>
     <ClCompile Include="TitleLevelState.cpp">
       <Filter>02. Level\01. Title</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageActor.cpp">
-      <Filter>01. Actor\06. VersatileActor</Filter>
     </ClCompile>
     <ClCompile Include="FadeImage.cpp">
       <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
     </ClCompile>
     <ClCompile Include="FadeImageState.cpp">
       <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeIn.cpp">
+      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOut.cpp">
+      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="OverlayActor.cpp">
+      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenOverlay.cpp">
+      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageActor.cpp">
+      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
+    </ClCompile>
+    <ClCompile Include="TextActor.cpp">
+      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,26 +185,29 @@
     <ClInclude Include="ContentsControlWindow.h">
       <Filter>00. Global\IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="FadeIn.h">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClInclude>
-    <ClInclude Include="FadeOut.h">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenOverlay.h">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClInclude>
-    <ClInclude Include="OverlayActor.h">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageActor.h">
-      <Filter>01. Actor\06. VersatileActor</Filter>
-    </ClInclude>
     <ClInclude Include="FadeImage.h">
       <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
     </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
       <Filter>02. Level\03. Sludge Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeIn.h">
+      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeOut.h">
+      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenOverlay.h">
+      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayActor.h">
+      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageActor.h">
+      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
+    </ClInclude>
+    <ClInclude Include="TextActor.h">
+      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +294,15 @@
     </Filter>
     <Filter Include="01. Actor\06. VersatileActor\FadeImage">
       <UniqueIdentifier>{2181bd69-5b3d-45b8-b00f-58c8da29a00c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Fade">
+      <UniqueIdentifier>{4339af8b-2735-4aaa-85c4-59781effc249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Overlay">
+      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\ImageActor">
+      <UniqueIdentifier>{98f43c60-67e6-40bb-8a95-7cc8df1a456e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
