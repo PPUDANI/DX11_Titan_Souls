@@ -8,6 +8,13 @@ enum class TITLE_STATE
 	MAIN_TITLE
 };
 
+enum class SELECT_MENU
+{
+	START,
+	OPTION,
+	EXIT,
+};
+
 class TitleLevel : public GameEngineLevel
 {
 public:
@@ -64,6 +71,17 @@ private:
 	// Image Actor
 	std::shared_ptr<class ImageActor> TitleLogo = nullptr;
 
+private:
 	// Text Actor
-	std::shared_ptr<class TextActor> StartText = nullptr;
+	std::shared_ptr<class SelectText> StartText = nullptr;
+	std::shared_ptr<class SelectText> OptionText = nullptr;
+	std::shared_ptr<class SelectText> ExitText = nullptr;
+
+	SELECT_MENU CurSelectMenu = SELECT_MENU::START;
+	SELECT_MENU PrevSelectMenu = SELECT_MENU::START;
+
+	float4 SelectedColor = float4::WHITE;
+	float4 UnSelectedColor = { 0.4f, 0.4f, 0.4f, 1.0f };
+
+	void SetSelectAction();
 };

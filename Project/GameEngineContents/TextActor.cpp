@@ -9,28 +9,22 @@ TextActor::~TextActor()
 {
 }
 
-void TextActor::Init(std::string_view _Text)
+void TextActor::Init(std::string_view _Text, const float4& _Color,float _FontScale)
 {
+	Text = _Text;
+	Color = _Color;
+	FontScale = _FontScale;
+	FontRenderer->SetText("TSfont", Text, FontScale, Color, FW1_CENTER);
 
-	std::string Text = GameEngineString::ToUpperReturn(_Text);
+}
 
-	GlobalLoad::LoadSpriteCut(26, 3, "Text.png", "Resource\\Texture\\Title");
-
-	size_t TextSize = Text.size();
-	Renderers.assign(TextSize, nullptr);
-	for (int i = 0; i < TextSize; ++i)
-	{
-		char Word = Text[i];
-		int AsciiNum = static_cast<int>(Word);
-	}
+void TextActor::SetColor(const float4& _Color)
+{
+	Color = _Color;
+	FontRenderer->SetText("TSfont", Text, FontScale, Color, FW1_CENTER);
 }
 
 void TextActor::Start()
 {
-	
-}
-
-void TextActor::Update(float _Delta)
-{
-
+	FontRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
 }

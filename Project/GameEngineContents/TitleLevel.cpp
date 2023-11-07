@@ -41,17 +41,17 @@ void TitleLevel::Start()
 	GlobalLoad::LoadSpriteSingle("TitleLogo.png", "Resource\\Texture\\Title");
 
 	GamePadImage = CreateActor<FadeImage>(UPDATE_ORDER::UI);
-	GamePadImage->Init("GamePad.png", 1.0f, 2.0f);
+	GamePadImage->Init("GamePad.png", 1.0f, 1.5f);
 	GamePadImage->Transform.SetLocalPosition({ 568.0f, -568.0f });
 	GamePadImage->Off();
 
 	AcidnerveImage = CreateActor<FadeImage>(UPDATE_ORDER::UI);
-	AcidnerveImage->Init("Acidnerve.png", 1.0f, 2.0f);
+	AcidnerveImage->Init("Acidnerve.png", 1.0f, 1.5f);
 	AcidnerveImage->Transform.SetLocalPosition({ 568.0f, -568.0f });
 	AcidnerveImage->Off();
 
 	DevolverImage = CreateActor<FadeImage>(UPDATE_ORDER::UI);
-	DevolverImage->Init("Devolver.png", 1.0f, 2.0f);
+	DevolverImage->Init("Devolver.png", 1.0f, 1.5f);
 	DevolverImage->Transform.SetLocalPosition({ 568.0f, -568.0f });
 	DevolverImage->Off();
 
@@ -60,8 +60,21 @@ void TitleLevel::Start()
 	TitleLogo->Transform.SetLocalPosition({ 568.0f, -400.0f });
 	TitleLogo->Off();
 
-	StartText = CreateActor<TextActor>();
-	StartText->Init("Start");
+	StartText = CreateActor<SelectText>();
+	StartText->Init("START", SelectedColor, UnSelectedColor, 32.0f);
+	StartText->Transform.SetLocalPosition({ 568.0f, -560.0f });
+	StartText->Off();
+
+	OptionText = CreateActor<SelectText>();
+	OptionText->Init("OPTION", SelectedColor, UnSelectedColor, 32.0f);
+	OptionText->Transform.SetLocalPosition({ 568.0f, -592.0f });
+	OptionText->Off();
+
+	ExitText = CreateActor<SelectText>();
+	ExitText->Init("EXIT", SelectedColor, UnSelectedColor, 32.0f);
+	ExitText->Transform.SetLocalPosition({ 568.0f, -624.0f });
+	ExitText->Off();
+
 
 	GetMainCamera()->Transform.SetLocalPosition({ 568.0f, -568.0f });
 
@@ -99,7 +112,15 @@ void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	//GameEngineSprite::Release();
+	GameEngineSprite::Release("GamePad.png");
+	GameEngineSprite::Release("Acidnerve.png");
+	GameEngineSprite::Release("Devolver.png");
+	GameEngineSprite::Release("TitleLogo.png");
+
+	GameEngineTexture::Release("GamePad.png");
+	GameEngineTexture::Release("Acidnerve.png");
+	GameEngineTexture::Release("Devolver.png");
+	GameEngineTexture::Release("TitleLogo.png");
 }
 
 void TitleLevel::ChangeState(TITLE_STATE _State)

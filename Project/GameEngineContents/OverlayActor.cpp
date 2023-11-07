@@ -15,7 +15,6 @@ void OverlayActor::Start()
 	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
 	FadeRenderer->SetPivotType(PivotType::Bottom);
 	FadeRenderer->SetSprite("FadeTexture.png");
-
 }
 
 void OverlayActor::Update(float _Delta)

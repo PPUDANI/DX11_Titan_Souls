@@ -167,6 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AncientScript.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <SubType>
       </SubType>
@@ -211,6 +215,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerMaskEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SelectText.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -303,6 +311,10 @@
     <ClCompile Include="PlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AncientScript.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Arrow.h">
       <SubType>
       </SubType>
@@ -345,6 +357,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PlayerMaskEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SelectText.h">
       <SubType>
       </SubType>
     </ClInclude>

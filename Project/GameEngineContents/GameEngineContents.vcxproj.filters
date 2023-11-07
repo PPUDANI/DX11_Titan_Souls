@@ -110,11 +110,17 @@
     <ClCompile Include="ImageActor.cpp">
       <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
     </ClCompile>
-    <ClCompile Include="TextActor.cpp">
-      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerMaskEffect.cpp">
       <Filter>04. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="TextActor.cpp">
+      <Filter>01. Actor\06. VersatileActor\Text\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectText.cpp">
+      <Filter>01. Actor\06. VersatileActor\Text\01. Select</Filter>
+    </ClCompile>
+    <ClCompile Include="AncientScript.cpp">
+      <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,11 +215,17 @@
     <ClInclude Include="ImageActor.h">
       <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
     </ClInclude>
-    <ClInclude Include="TextActor.h">
-      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerMaskEffect.h">
       <Filter>04. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="TextActor.h">
+      <Filter>01. Actor\06. VersatileActor\Text\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectText.h">
+      <Filter>01. Actor\06. VersatileActor\Text\01. Select</Filter>
+    </ClInclude>
+    <ClInclude Include="AncientScript.h">
+      <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +324,21 @@
     </Filter>
     <Filter Include="04. Effect">
       <UniqueIdentifier>{cd517c0e-47f0-4bc6-b6c9-4e4b1b46ee78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Text">
+      <UniqueIdentifier>{80c2b80b-3ad0-4fa0-9073-28e2c4d100c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Text\00. Base">
+      <UniqueIdentifier>{07f0fc20-fe85-40c0-9abd-3d057092026b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Text\01. Select">
+      <UniqueIdentifier>{5be8e43f-afe3-4b65-b2b3-c01924736ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Text\02. QuestionText">
+      <UniqueIdentifier>{e01db052-25e4-4f6d-8b57-36b535f24be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. VersatileActor\Text\03. AncientScript">
+      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

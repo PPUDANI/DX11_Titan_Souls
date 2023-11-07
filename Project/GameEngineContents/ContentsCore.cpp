@@ -26,7 +26,10 @@ ContentsCore::~ContentsCore()
 void ContentsCore::Start()
 {
 	GameEngineRenderTarget::IsDepth = false;
+	// Load
 	ContentsShaderLoad();
+	GameEngineFont::Load("TSfont");
+
 	// Create IMGUI
 	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
 	GameEngineGUI::CreateGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");

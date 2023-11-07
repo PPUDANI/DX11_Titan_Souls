@@ -33,6 +33,7 @@
 #include <GameEngineCore/GameEngineGUI.h>
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include <GameEngineCore/GameEngineRenderTarget.h>
+#include <GameEngineCore/GameEngineFont.h>
 
 // Level
 #include "LevelBase.h"
@@ -52,7 +53,11 @@
 #include "OverlayActor.h"
 #include "ImageActor.h"
 #include "FadeImage.h"
+
+
 #include "TextActor.h"
+#include "SelectText.h"
+
 
 // Post Effect
 #include "PlayerMaskEffect.h"
