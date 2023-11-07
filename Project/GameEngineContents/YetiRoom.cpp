@@ -13,6 +13,13 @@ void YetiRoom::Start()
 {
 	PlayLevelBase::Start();
 
+	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
+
+	if (nullptr != Window)
+	{
+		Window->AddDebugRenderTarget(2, "YetiRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
+	}
+
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(60, 60, "Yeti", "Underworld.png");
 
@@ -36,9 +43,9 @@ void YetiRoom::Start()
 	EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
 	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
 
-	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
-	ScreenOverlayActor->SetAlpha(0.3f);
-	ScreenOverlayActor->SetColor({ 0.5f, 0.8f, 1.0f });
+	//ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
+	//ScreenOverlayActor->SetAlpha(0.3f);
+	//ScreenOverlayActor->SetColor({ 0.5f, 0.8f, 1.0f });
 
 }
 

@@ -34,4 +34,6 @@ private:
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 
+	// PostEffect
+	std::shared_ptr<class PlayerMaskEffect> PlayerEffect;
 };

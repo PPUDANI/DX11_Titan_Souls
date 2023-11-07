@@ -3,6 +3,7 @@
 
 #include <GameEngineCore/GameEngineRenderTarget.h>
 #include <GameEngineCore/GameEngineBlend.h>
+#include <GameEngineCore/GameEngineCoreWindow.h>
 
 // All Level
 #include "TitleLevel.h"
@@ -12,6 +13,7 @@
 #include "KnightElhananRoom.h"
 #include "Jam.h"
 #include "ContentsControlWindow.h"
+
 
 ContentsCore::ContentsCore() 
 {
@@ -24,30 +26,10 @@ ContentsCore::~ContentsCore()
 void ContentsCore::Start()
 {
 	GameEngineRenderTarget::IsDepth = false;
-
-	{
-		D3D11_BLEND_DESC Desc = {};
-		Desc.IndependentBlendEnable = false;
-		Desc.RenderTarget[0].BlendEnable = true;
-		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_REV_SUBTRACT;
-		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE; // src∆—≈Õ
-		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-
-		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
-
-		std::shared_ptr<GameEngineBlend> Blend = GameEngineBlend::Create("OverRay", Desc);
-	}
-
-	{
-		std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("2DTextureOver");
-		Mat->SetVertexShader("TextureShader_VS");
-		Mat->SetPixelShader("TextureShader_PS");
-		Mat->SetBlendState("OverRay");
-	}
+	ContentsShaderLoad();
+	// Create IMGUI
+	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
+	GameEngineGUI::CreateGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 
 	// Clear Color Setting
 	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
@@ -67,8 +49,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<YetiRoom>("03.YetiRoom");
 	GameEngineCore::CreateLevel<KnightElhananRoom>("04.KnightElhananRoom");
 	GameEngineCore::CreateLevel<Jam>("05.Jam");
-	// Create IMGUI
-	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
+
 
 	GameEngineCore::ChangeLevel("00.TitleLevel");
 
@@ -108,4 +89,23 @@ void ContentsCore::Update(float _Delta)
 void ContentsCore::Release()
 {
 
+}
+
+void ContentsCore::ContentsShaderLoad()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToExistsChild("GameEngineContentsShader");
+	Dir.MoveChild("GameEngineContentsShader");
+	std::vector<GameEngineFile> Files = Dir.GetAllFile({ ".fx" });
+	for (size_t i = 0; i < Files.size(); i++)
+	{
+		GameEngineFile& File = Files[i];
+		GameEngineShader::AutoCompile(File);
+	}
+
+	std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("PlayerMaskEffect");
+	Mat->SetVertexShader("PlayerMaskEffect_VS");
+	Mat->SetPixelShader("PlayerMaskEffect_PS");
+	Mat->SetDepthState("AlwaysDepth");
+	Mat->SetRasterizer("EngineRasterizer");
 }

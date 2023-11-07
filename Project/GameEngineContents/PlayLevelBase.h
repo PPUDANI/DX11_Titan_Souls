@@ -39,5 +39,4 @@ protected:
 	void ArrowDirRotation();
 	
 private:
-	
 };

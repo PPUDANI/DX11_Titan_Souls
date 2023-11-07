@@ -327,8 +327,10 @@ void TileMap::TileTexureSetting()
 				}
 			}
 		}
+
 		NewTileMap->Off();
 		FGTileMaps.push_back(NewTileMap);
+		NewTileMap->RenderBaseInfoValue.Target2 = 1;
 	}
 
 	// Wall Create & Texture Setting

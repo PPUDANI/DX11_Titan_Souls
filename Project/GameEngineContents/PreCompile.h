@@ -30,7 +30,9 @@
 #include "GlobalValue.h"
 #include "GlobalLoad.h"
 #include "ContentEnum.h"
-#include "GameEngineCore/GameEngineGUI.h"
+#include <GameEngineCore/GameEngineGUI.h>
+#include <GameEngineCore/GameEngineCoreWindow.h>
+#include <GameEngineCore/GameEngineRenderTarget.h>
 
 // Level
 #include "LevelBase.h"

@@ -47,6 +47,4 @@ private:
 	// Overlay
 	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
 
-
-
 };

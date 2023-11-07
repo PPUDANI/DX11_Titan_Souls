@@ -48,7 +48,7 @@
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="MouseCursor.cpp">
-      <Filter>03.UI</Filter>
+      <Filter>03. UI</Filter>
     </ClCompile>
     <ClCompile Include="LevelBase.cpp">
       <Filter>02. Level\00. Base</Filter>
@@ -113,6 +113,9 @@
     <ClCompile Include="TextActor.cpp">
       <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMaskEffect.cpp">
+      <Filter>04. Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
@@ -153,7 +156,7 @@
       <Filter>01. Actor\01. Map</Filter>
     </ClInclude>
     <ClInclude Include="MouseCursor.h">
-      <Filter>03.UI</Filter>
+      <Filter>03. UI</Filter>
     </ClInclude>
     <ClInclude Include="LevelBase.h">
       <Filter>02. Level\00. Base</Filter>
@@ -209,6 +212,9 @@
     <ClInclude Include="TextActor.h">
       <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerMaskEffect.h">
+      <Filter>04. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Global">
@@ -234,9 +240,6 @@
     </Filter>
     <Filter Include="01. Actor">
       <UniqueIdentifier>{1ed32494-7d40-4343-91db-46dd49d61b24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UI">
-      <UniqueIdentifier>{bff1805d-5edb-49ee-a1a1-0e04756237a8}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Level\00. Base">
       <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
@@ -303,6 +306,12 @@
     </Filter>
     <Filter Include="01. Actor\06. VersatileActor\ImageActor">
       <UniqueIdentifier>{98f43c60-67e6-40bb-8a95-7cc8df1a456e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI">
+      <UniqueIdentifier>{bff1805d-5edb-49ee-a1a1-0e04756237a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Effect">
+      <UniqueIdentifier>{cd517c0e-47f0-4bc6-b6c9-4e4b1b46ee78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

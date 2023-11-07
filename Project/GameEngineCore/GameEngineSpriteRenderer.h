@@ -97,6 +97,7 @@ public:
 	// 스프라이트는 기본적으로 
 	// 강제로 애니메이션을 정지한다는 뜻으로 받아들이겠다.
 	void SetSprite(std::string_view _Name, unsigned int index = 0);
+	void ChangeCurSprite(int _Index = 0);
 
 	void CreateAnimation(
 		std::string_view _AnimationName,

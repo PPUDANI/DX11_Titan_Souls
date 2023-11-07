@@ -15,6 +15,13 @@ void SludgeHeartRoom::Start()
 {
 	PlayLevelBase::Start();
 
+	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
+
+	if (nullptr != Window)
+	{
+		Window->AddDebugRenderTarget(1, "SludgeHeartRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
+	}
+
 	GetMainCamera()->SetZSort(RENDERING_ORDER::Shadow);
 
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");

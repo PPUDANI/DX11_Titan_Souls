@@ -11,7 +11,7 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	BodyRenderer->Transform.SetLocalPosition(DefaultRendererPos);
-
+	BodyRenderer->RenderBaseInfoValue.Target1 = 1;
 	// Idle Animations
 	BodyRenderer->CreateAnimation("Right_Idle", "Player.png", 1.0f, 0, 0, false);
 	BodyRenderer->CreateAnimation("Up_Idle", "Player.png", 1.0f, 32, 32, false);
@@ -111,7 +111,7 @@ void Player::CreateBowAnimation()
 	BowRenderer->SetPivotType(PivotType::Bottom);
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	BowRenderer->Transform.SetLocalPosition(DefaultRendererPos);
-
+	BowRenderer->RenderBaseInfoValue.Target1 = 1;
 	// Idle Animations
 	BowRenderer->CreateAnimation("Right_Idle", "Bow.png", 1.0f, 0, 0, false);
 	BowRenderer->CreateAnimation("Up_Idle", "Bow.png", 1.0f, 32, 32, false);
@@ -211,7 +211,7 @@ void Player::CreateArrowInBagAnimation()
 	ArrowInBagRenderer->SetPivotType(PivotType::Bottom);
 	ArrowInBagRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	ArrowInBagRenderer->Transform.SetLocalPosition(DefaultRendererPos);
-
+	ArrowInBagRenderer->RenderBaseInfoValue.Target1 = 1;
 	// Idle Animations
 	ArrowInBagRenderer->CreateAnimation("Right_Idle", "Arrow.png", 1.0f, 0, 0, false);
 	ArrowInBagRenderer->CreateAnimation("Up_Idle", "Arrow.png", 1.0f, 32, 32, false);

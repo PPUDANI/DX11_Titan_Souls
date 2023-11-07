@@ -1,5 +1,8 @@
 #include "PreCompile.h"
 #include "Floor1.h"
+#include <GameEngineCore/GameEngineCoreWindow.h>
+#include <GameEngineCore/FadePostEffect.h>
+#include "PlayerMaskEffect.h"
 
 Floor1::Floor1()
 {
@@ -12,6 +15,13 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
+
+	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
+
+	if (nullptr != Window)
+	{
+		Window->AddDebugRenderTarget(0, "Floor1RenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
+	}
 
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
@@ -51,6 +61,8 @@ void Floor1::Start()
 	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
+
+	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 }
 
 void Floor1::Update(float _Delta)

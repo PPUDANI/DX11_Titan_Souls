@@ -55,6 +55,11 @@ void GameEngineCore::Update()
 	MainTime.Update();
 	float DeltaTime = MainTime.GetDeltaTime();
 
+	//if (DeltaTime > 1.0f / 60.0f)
+	//{
+	//	DeltaTime = 1.0f / 60.0f;
+	//}
+
 	GameEngineSound::Update();
 	CoreObject->Update(DeltaTime);
 
@@ -114,5 +119,8 @@ void GameEngineCore::EngineProcess(HINSTANCE _Inst, const std::string& _WindowNa
 void GameEngineCore::LevelInit(std::shared_ptr<GameEngineLevel> _Level, std::string_view _Name)
 {
 	_Level->SetName(_Name);
+
+
+
 	_Level->Start();
 }

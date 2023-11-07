@@ -2,6 +2,8 @@
 #include "GameEngineTexture.h"
 #include "GAMEENGINERENDERER.H"
 
+#define MAX_RENDER_TARGET_SETTING_COUNT 8
+
 class Effect : public GameEngineObjectBase
 {
 	friend class GameEngineRenderTarget;
@@ -26,6 +28,10 @@ public:
 class GameEngineRenderTarget : public GameEngineResources<GameEngineRenderTarget>
 {
 public:
+	static void RenderTargetReset();
+
+public:
+	friend class GameEngineCoreWindow;
 	friend GameEngineDevice;
 	static bool IsDepth;
 
@@ -44,24 +50,12 @@ public:
 		std::shared_ptr<GameEngineRenderTarget> NewRes = GameEngineResources::CreateRes();
 
 		NewRes->AddNewTexture(_Texture, _Color);
-
-		//NewRes->ClearColor.push_back(_Color);
-		//NewRes->Textures.push_back(_Texture);
-
-		//if (nullptr == _Texture->GetRTV())
-		//{
-		//	MsgBoxAssert("if (nullptr == _Texture->GetRTV())");
-		//}
-
-		//NewRes->RTV.push_back(_Texture->GetRTV());
 		return NewRes;
 	}
 
 	static std::shared_ptr<GameEngineRenderTarget> Create()
 	{
 		std::shared_ptr<GameEngineRenderTarget> NewRes = GameEngineResources::CreateRes();
-		//NewRes->ClearColor.push_back(_Color);
-		//NewRes->Textures.push_back(_Texture);
 		return NewRes;
 	}
 
@@ -72,11 +66,6 @@ public:
 
 	void Clear();
 	void Setting();
-
-	void SetClearColor(const float4& _Color, int _Index = 0) 
-	{
-		ClearColor[_Index] = _Color;
-	}
 
 	void CreateDepthTexture(int _Index = 0);
 
@@ -92,6 +81,11 @@ public:
 
 	void EffectInit(Effect* _Effect);
 
+	void SetClearColor(const float4& _Color, int _Index = 0)
+	{
+		ClearColor[_Index] = _Color;
+	}
+
 	template<typename EffectType>
 	std::shared_ptr<EffectType> CreateEffect() 
 	{
@@ -101,6 +95,8 @@ public:
 		Effects.push_back(NewEffect);
 		return NewEffect;
 	}
+
+	std::shared_ptr<GameEngineRenderTarget> CreateChildRenderTarget(std::vector<int> _Index);
 
 protected:
 
