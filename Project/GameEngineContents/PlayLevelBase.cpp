@@ -13,6 +13,7 @@ void PlayLevelBase::Start()
 {
 	LevelBase::Start();
 	CreatePlayerElement();
+	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 }
 
 void PlayLevelBase::Update(float _Delta)

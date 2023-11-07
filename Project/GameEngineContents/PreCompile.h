@@ -54,6 +54,9 @@
 #include "FadeImage.h"
 #include "TextActor.h"
 
+// Post Effect
+#include "PlayerMaskEffect.h"
+
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>
 #include "MouseCursor.h"

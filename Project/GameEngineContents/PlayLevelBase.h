@@ -39,4 +39,7 @@ protected:
 	void ArrowDirRotation();
 	
 private:
+
+	// PostEffect
+	std::shared_ptr<class PlayerMaskEffect> PlayerEffect;
 };

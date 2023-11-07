@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "Floor1.h"
 #include <GameEngineCore/GameEngineCoreWindow.h>
-#include <GameEngineCore/FadePostEffect.h>
-#include "PlayerMaskEffect.h"
 
 Floor1::Floor1()
 {
@@ -61,8 +59,6 @@ void Floor1::Start()
 	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
-
-	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 }
 
 void Floor1::Update(float _Delta)

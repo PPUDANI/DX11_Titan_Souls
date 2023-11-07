@@ -106,6 +106,4 @@ void ContentsCore::ContentsShaderLoad()
 	std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("PlayerMaskEffect");
 	Mat->SetVertexShader("PlayerMaskEffect_VS");
 	Mat->SetPixelShader("PlayerMaskEffect_PS");
-	Mat->SetDepthState("AlwaysDepth");
-	Mat->SetRasterizer("EngineRasterizer");
 }
