@@ -63,7 +63,7 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black, 0.75f);
+		FadeInActor->Init(FadeColor::Black);
 	}
 }
 
@@ -88,7 +88,7 @@ void YetiRoom::Floor1TriggerFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black, 0.75f);
+		FadeOutActor->Init(FadeColor::Black);
 	}
 
 	if (true == FadeOutActor->FadeIsEnd())

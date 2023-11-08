@@ -19,10 +19,10 @@ void LevelBase::Start()
 
 void LevelBase::Update(float _Delta)
 {
-	std::string FPS;
-	FPS = std::to_string(static_cast<int>(1.0f / _Delta));
-	FPS += "\n";
-	OutputDebugStringA(FPS.c_str());
+	//std::string FPS;
+	//FPS = std::to_string(static_cast<int>(1.0f / _Delta));
+	//FPS += "\n";
+	//OutputDebugStringA(FPS.c_str());
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)

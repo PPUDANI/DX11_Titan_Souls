@@ -35,9 +35,14 @@ void TitleLevel::MainTitleStart()
 }
 
 
+void TitleLevel::GameStartStart()
+{
+	FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+	FadeOutActor->Init(FadeColor::Black);
+}
+
 void TitleLevel::GamePadUpdate(float _Delta)
 {
-
 	if (true == GamePadImage->FadeIsEnd() ||
 		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
@@ -71,11 +76,9 @@ void TitleLevel::DevolverUpdate(float _Delta)
 
 void TitleLevel::MainTitleUpdate(float _Delta)
 {
-	if (nullptr != FadeInActor &&
-		true == FadeInActor->FadeIsEnd())
+	if (false == FadeInActor->FadeIsEnd())
 	{
-		FadeInActor->Death();
-		FadeInActor = nullptr;
+		return;
 	}
 
 	if (GameEngineInput::IsDown(VK_SPACE, this))
@@ -83,10 +86,11 @@ void TitleLevel::MainTitleUpdate(float _Delta)
 		switch (CurSelectMenu)
 		{
 		case SELECT_MENU::START:
-			GameEngineCore::ChangeLevel("01.floor1");
+			ChangeState(TITLE_STATE::GAME_START);
 			break;
 		case SELECT_MENU::EXIT:
 			GameEngineWindow::WindowLoopOff();
+			break;
 		case SELECT_MENU::OPTION:
 		default:
 			break;
@@ -156,5 +160,13 @@ void TitleLevel::SetSelectAction()
 		break;
 	default:
 		break;
+	}
+}
+
+void TitleLevel::GameStartUpdate(float _Delta)
+{
+	if (true == FadeOutActor->FadeIsEnd())
+	{
+		GameEngineCore::ChangeLevel("01.Floor1");
 	}
 }

@@ -32,6 +32,7 @@ void PlayerMaskEffect::EffectProcess(float _DeltaTime)
 {
 	ResultTarget->Setting();
 	EffectUnit.Render();
+	EffectUnit.ShaderResHelper.AllShaderResourcesReset();
 
 	GameEngineRenderTarget::RenderTargetReset();
 }

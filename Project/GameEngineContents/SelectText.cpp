@@ -27,4 +27,3 @@ void SelectText::Start()
 	SideRenderer->SetImageScale({ 224.0f , 32.0f });
 	SideRenderer->Off();
 }
-

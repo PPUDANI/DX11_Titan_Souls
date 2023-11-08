@@ -55,10 +55,10 @@ void Floor1::Start()
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
-	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
-	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
-	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
+	YetiRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	YetiRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
+	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
+	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 }
 
 void Floor1::Update(float _Delta)
@@ -74,7 +74,7 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black, 0.75f);
+		FadeInActor->Init(FadeColor::Black);
 	}
 }
 
@@ -120,7 +120,7 @@ void Floor1::SludgeRoomTriggerFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black, 0.75f);
+		FadeOutActor->Init(FadeColor::Black);
 	}
 
 	if (true == FadeOutActor->FadeIsEnd())

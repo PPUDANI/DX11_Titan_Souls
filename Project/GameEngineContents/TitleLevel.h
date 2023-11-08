@@ -1,11 +1,13 @@
 #pragma once
 enum class TITLE_STATE
 {
-	START,
 	GAMEPAD,
 	ACIDNERVE,
 	DEVOLVER,
-	MAIN_TITLE
+	MAIN_TITLE,
+	GAME_START,
+	OPTION_SCREEN,
+	EXIT_SCREEN,
 };
 
 enum class SELECT_MENU
@@ -38,18 +40,21 @@ private:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
-	TITLE_STATE CurState;
+	TITLE_STATE CurState = TITLE_STATE::GAMEPAD;
 	void ChangeState(TITLE_STATE _State);
 
 	void GamePadStart();
 	void AcidnerveStart();
 	void DevolverStart();
 	void MainTitleStart();
+	void GameStartStart();
 
 	void GamePadUpdate(float _Delta);
 	void AcidnerveUpdate(float _Delta);
 	void DevolverUpdate(float _Delta);
 	void MainTitleUpdate(float _Delta);
+	void GameStartUpdate(float _Delta);
+
 private:
 
 

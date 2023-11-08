@@ -33,6 +33,7 @@ private:
 
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
+	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect;

@@ -99,7 +99,15 @@ void TitleLevel::Update(float _Delta)
 	case TITLE_STATE::MAIN_TITLE:
 		MainTitleUpdate(_Delta);
 		break;
-	case TITLE_STATE::START:
+	case TITLE_STATE::GAME_START:
+		GameStartUpdate(_Delta);
+		break;
+	case TITLE_STATE::OPTION_SCREEN:
+
+		break;
+	case TITLE_STATE::EXIT_SCREEN:
+
+		break;
 	default:
 		break;
 	}
@@ -121,6 +129,18 @@ void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 	GameEngineTexture::Release("Acidnerve.png");
 	GameEngineTexture::Release("Devolver.png");
 	GameEngineTexture::Release("TitleLogo.png");
+
+	if (nullptr != FadeOutActor)
+	{
+		FadeOutActor->Death();
+		FadeOutActor = nullptr;
+	}
+
+	if (nullptr != FadeInActor)
+	{
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+	}
 }
 
 void TitleLevel::ChangeState(TITLE_STATE _State)
@@ -140,7 +160,9 @@ void TitleLevel::ChangeState(TITLE_STATE _State)
 	case TITLE_STATE::MAIN_TITLE:
 		MainTitleStart();
 		break;
-	case TITLE_STATE::START:
+	case TITLE_STATE::GAME_START:
+		GameStartStart();
+		break;
 	default:
 		break;
 	}
