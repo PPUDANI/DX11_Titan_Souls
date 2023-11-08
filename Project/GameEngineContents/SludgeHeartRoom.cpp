@@ -47,7 +47,7 @@ void SludgeHeartRoom::Start()
 
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
-	ScreenOverlayActor->SetAlpha(0.15f);
+	ScreenOverlayActor->SetAlpha(0.1f);
 }
 
 void SludgeHeartRoom::Update(float _Delta)
@@ -59,9 +59,10 @@ void SludgeHeartRoom::Update(float _Delta)
 		BossIsDeath = true;
 	}
 
-	if (true == BossIsDeath)
+	if (true == BossIsDeath &&
+		false == BossDeathPrecessingIsEnd)
 	{
-		ReleaseSludges();
+		BossDeathProcessing();
 	}
 
 	if (nullptr != HeartActor &&
@@ -69,6 +70,13 @@ void SludgeHeartRoom::Update(float _Delta)
 	{
 		HeartActor->SetFirstHit(false);
 		OutputBossName();
+	}
+
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		FadeInActor->Death();
+		FadeInActor = nullptr;
 	}
 }
 
@@ -119,7 +127,7 @@ void SludgeHeartRoom::SpawnBoss()
 		HeartActor->SetCurMap(TileMapActor.get());
 		HeartActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
-		PutTheHeartInSludge();
+		//PutTheHeartInSludge();
 		SludgeActor = nullptr;
 	}
 }
@@ -149,6 +157,20 @@ void SludgeHeartRoom::PutTheHeartInSludge()
 	SludgeActor->SetHeart(HeartActor.get());
 }
 
+
+void SludgeHeartRoom::BossDeathProcessing()
+{
+	BossDeathPrecessingIsEnd = true;
+
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::White, 6.0f);
+		FadeInActor->SetFadeStartAlpha(0.4f);
+	}
+
+	ReleaseSludges();
+}
 
 void SludgeHeartRoom::Floor1TriggerFunc()
 {

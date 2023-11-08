@@ -14,7 +14,7 @@ public:
 	FadeIn& operator=(FadeIn&& _Other) noexcept = delete;
 
 	// _Second
-	void Init(FadeColor _Color, float _Second = 1.0f)
+	void Init(FadeColor _Color, float _Second = 1.0f, float _StartAlpha = 1.0f)
 	{
 		switch (_Color)
 		{
@@ -25,8 +25,8 @@ public:
 		default:
 			break;
 		}
-
-		FadeSpeed = 1.0f / _Second;
+		StartAlpha = _StartAlpha;
+		FadeSpeed = (1.0f / _Second) * StartAlpha;
 	}
 
 	inline bool FadeIsEnd() const
@@ -39,6 +39,10 @@ public:
 		FadeEnd = false;
 	}
 
+	inline void SetFadeStartAlpha(float _Alpha)
+	{
+		FadeRenderer->GetColorData().MulColor.A = _Alpha;
+	}
 protected:
 
 private:
@@ -49,5 +53,7 @@ private:
 
 private:
 	float FadeSpeed = 0.0f;
+	float StartAlpha = 1.0f;
 	bool FadeEnd = false;
+
 };

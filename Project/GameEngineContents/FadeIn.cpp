@@ -17,7 +17,7 @@ void FadeIn::Start()
 	FadeRenderer->SetCameraOrder(ECAMERAORDER::UI);
 
 	FadeRenderer->SetImageScale({ GlobalValue::WindowScale.X + 10.0f, GlobalValue::WindowScale.Y + 10.0f });
-	FadeRenderer->GetColorData().MulColor.A = 1.0f;
+	FadeRenderer->GetColorData().MulColor.A = StartAlpha;
 }
 
 void FadeIn::Update(float _Delta)

@@ -41,6 +41,8 @@ private:
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
 	bool BossIsDeath = false;
+	bool BossDeathPrecessingIsEnd = false;
+	void BossDeathProcessing();
 
 private:
 	// TriggerBox
