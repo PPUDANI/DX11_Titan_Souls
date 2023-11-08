@@ -99,12 +99,6 @@ void TitleLevel::Update(float _Delta)
 	case TITLE_STATE::GAME_START:
 		GameStartUpdate(_Delta);
 		break;
-	case TITLE_STATE::OPTION_SCREEN:
-
-		break;
-	case TITLE_STATE::EXIT_SCREEN:
-
-		break;
 	default:
 		break;
 	}
