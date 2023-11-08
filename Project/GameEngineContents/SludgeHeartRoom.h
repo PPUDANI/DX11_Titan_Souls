@@ -49,9 +49,4 @@ private:
 
 	// Overlay
 	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
-
-	// AncientScript
-	std::shared_ptr<class AncientScript> SludgeHeartScript = nullptr;
-	std::shared_ptr<class AncientScript> GuardianScript = nullptr;
-	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
 }; 

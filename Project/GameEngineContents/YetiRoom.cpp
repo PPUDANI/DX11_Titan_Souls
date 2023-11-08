@@ -44,9 +44,8 @@ void YetiRoom::Start()
 	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
 
 	//ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
-	//ScreenOverlayActor->SetAlpha(0.3f);
-	//ScreenOverlayActor->SetColor({ 0.5f, 0.8f, 1.0f });
-
+	//ScreenOverlayActor->SetColor({ 1.0f, 1.0f, 1.0f });
+	//ScreenOverlayActor->SetAlpha(0.15f);
 }
 
 

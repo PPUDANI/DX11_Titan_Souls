@@ -12,7 +12,7 @@ FadeOut::~FadeOut()
 void FadeOut::Start()
 {
 	GlobalLoad::LoadSpriteSingle("FadeTexture.png", "Resource\\Texture\\UI\\Fade");
-	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
+	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI_FRONT);
 	FadeRenderer->SetSprite("FadeTexture.png");
 	FadeRenderer->SetCameraOrder(ECAMERAORDER::UI);
 

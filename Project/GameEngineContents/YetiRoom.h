@@ -28,7 +28,7 @@ private:
 	std::shared_ptr<class TriggerBox> EnterTheFloor1 = nullptr;
 	void Floor1TriggerFunc();
 
-	//// Overlay
+	// Overlay
 	//std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
 
 	// Fade

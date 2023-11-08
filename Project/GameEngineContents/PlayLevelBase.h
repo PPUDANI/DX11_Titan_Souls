@@ -19,6 +19,9 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _PrevLevel) override;
 
+	// TileMap
+	std::shared_ptr<class TileMap> TileMapActor;
+
 	// Player
 	std::shared_ptr<class Player> PlayerActor = nullptr;
 	std::shared_ptr<class Arrow> ArrowActor = nullptr;
@@ -28,8 +31,11 @@ protected:
 	std::shared_ptr<class FadeOut> FadeOutActor = nullptr;
 	std::shared_ptr<class FadeIn> BossDeathEffect = nullptr;
 
-	// TileMap
-	std::shared_ptr<class TileMap> TileMapActor;
+	// AncientScript
+	std::shared_ptr<class AncientScript> SludgeHeartScript = nullptr;
+	std::shared_ptr<class AncientScript> GuardianScript = nullptr;
+	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
+
 
 	virtual void SpawnPlayer(GameEngineLevel* _PrevLevel) {}
 	virtual void SpawnBoss() {}

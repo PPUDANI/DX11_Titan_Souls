@@ -47,10 +47,7 @@ void SludgeHeartRoom::Start()
 
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
-	ScreenOverlayActor->SetAlpha(0.1f);
-
-
-
+	ScreenOverlayActor->SetAlpha(0.15f);
 }
 
 void SludgeHeartRoom::Update(float _Delta)
@@ -190,27 +187,36 @@ void SludgeHeartRoom::OutputBossName()
 	// BossName Actor
 	BossNameBack = CreateActor<FadeImage>(UPDATE_ORDER::UI);
 	BossNameBack->Init("BossNameBG.png");
-	BossNameBack->Transform.SetLocalPosition({ 0.0f, -315.0f });
+	BossNameBack->Transform.SetLocalPosition({ 0.0f, -305.0f });
 
 	SludgeHeartScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
 	SludgeHeartScript->Init("SLUDGEHEART", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
 	SludgeHeartScript->FadeInit();
-	SludgeHeartScript->Transform.SetLocalPosition({ 5.0f, -300.0f });
+	SludgeHeartScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
 	
 	GuardianScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
 	GuardianScript->Init("HEART OF THE GUARDIAN", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
 	GuardianScript->FadeInit();
-	GuardianScript->Transform.SetLocalPosition({ 0.0f, -335.0f });
+	GuardianScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
 }
 
 void SludgeHeartRoom::ReleaseBossName()
 {
-	BossNameBack->Death();
-	BossNameBack = nullptr;
+	if (nullptr != BossNameBack)
+	{
+		BossNameBack->Death();
+		BossNameBack = nullptr;
+	}
 
-	SludgeHeartScript->Death();
-	SludgeHeartScript = nullptr;
+	if (nullptr != SludgeHeartScript)
+	{
+		SludgeHeartScript->Death();
+		SludgeHeartScript = nullptr;
+	}
 
-	GuardianScript->Death();
-	GuardianScript = nullptr;
+	if (nullptr != GuardianScript)
+	{
+		GuardianScript->Death();
+		GuardianScript = nullptr;
+	}
 }
