@@ -117,7 +117,6 @@ void Sludge::Update(float _Delta)
 				// Sludge와 Heart를 분리
 				HeartActor->ChangeState(JUMPBOSS_STATE::OutOfSludge);
 				HeartActor->SetOwnerSludge(nullptr);
-				Collision->Death();
 			}
 		}
 	}
