@@ -21,11 +21,11 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
 	GetCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
-	GetCollision->SetCollisionType(ColType::OBBBOX2D);
+	GetCollision->SetCollisionType(ColType::SPHERE2D);
 	GetCollision->Transform.SetLocalScale({10.0f, 10.0f, 1.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
-	AttackCollision->SetCollisionType(ColType::OBBBOX2D);
+	AttackCollision->SetCollisionType(ColType::SPHERE2D);
 	AttackCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
@@ -266,6 +266,7 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 		//AdjustPosByCol();
 		if (true == BossActor->IsWeaknessActor())
 		{
+			AdjustPosByCol();
 			ChangeState(ARROW_STATE::Pinned);
 		}
 	}

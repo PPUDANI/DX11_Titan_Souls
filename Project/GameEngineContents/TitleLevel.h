@@ -68,7 +68,8 @@ private:
 	std::shared_ptr<class FadeIn> FadeInActor = nullptr;
 	std::shared_ptr<class FadeOut> FadeOutActor = nullptr;
 
-	// FadeImage Actor
+	// 
+	//  Actor
 	std::shared_ptr<class FadeImage> GamePadImage = nullptr;
 	std::shared_ptr<class FadeImage> AcidnerveImage = nullptr;
 	std::shared_ptr<class FadeImage> DevolverImage = nullptr;

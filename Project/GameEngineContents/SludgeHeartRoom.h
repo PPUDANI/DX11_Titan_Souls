@@ -31,6 +31,9 @@ private:
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void ReleaseSludges();
 	void PutTheHeartInSludge();
+	void OutputBossName();
+	void ReleaseBossName();
+
 private:
 	// Boss Eliment
 	std::list<std::shared_ptr<class Sludge>> Sludges;
@@ -47,4 +50,8 @@ private:
 	// Overlay
 	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
 
-};
+	// AncientScript
+	std::shared_ptr<class AncientScript> SludgeHeartScript = nullptr;
+	std::shared_ptr<class AncientScript> GuardianScript = nullptr;
+	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
+}; 

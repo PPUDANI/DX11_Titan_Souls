@@ -44,7 +44,7 @@ private:
 private:
 	float FadeSpeed = 0.0f;
 
-	float RestingTime = 1.0f;
+	float RestingTime = 0.0f;
 	float RestingTimer = 0.0f;
 
 	bool FadeIsEndValue = false;

@@ -106,7 +106,6 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 	}
 	else
 	{
-		//PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
 		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
 		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	}

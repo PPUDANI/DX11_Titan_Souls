@@ -45,13 +45,21 @@ void Sludge::Start()
 			{
 				IsDivision = true;
 			}
+			if (1 == DividedCount)
+			{
+				if (nullptr != HeartActor)
+				{
+					HeartActor->SetFirstHit(true);
+					PlayerDetectionRange->On();
+				}
+			}
 		};
 
 	// Collision setting
 	PlayerDetectionRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::DetectionRange);
 	PlayerDetectionRange->SetCollisionType(ColType::AABBBOX2D);
 	PlayerDetectionRange->Transform.SetLocalScale(DefaultDetectionRangeSize);
-
+	PlayerDetectionRange->Off();
 
 	GravityForce = DefaultGravityForce;
 	MoveSpeed = DefaultMoveSpeed;
@@ -121,7 +129,7 @@ void Sludge::Update(float _Delta)
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
-	CollisionPos.Y -= 32.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
+	//CollisionPos.Y -= 4.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
 	Collision->Transform.SetLocalPosition(CollisionPos);
 }
 

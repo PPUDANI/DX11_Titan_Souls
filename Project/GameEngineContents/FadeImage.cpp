@@ -9,7 +9,7 @@ FadeImage::~FadeImage()
 {
 }
 
-void FadeImage::Init(std::string_view _ImageName, float _FadeSpeed, float _RestingTime)
+void FadeImage::Init(std::string_view _ImageName, float _FadeSpeed /*= 1.0f*/, float _RestingTime /*= 1.0f*/)
 {
 	Renderer->SetSprite(_ImageName);
 	FadeSpeed = 1.0f / _FadeSpeed;
@@ -18,7 +18,8 @@ void FadeImage::Init(std::string_view _ImageName, float _FadeSpeed, float _Resti
 
 void FadeImage::Start()
 {
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI_FRONT);
+	Renderer->SetCameraOrder(ECAMERAORDER::UI);
 	Renderer->GetColorData().MulColor.A = 0.0f;
 }
 

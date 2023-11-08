@@ -46,8 +46,11 @@ void SludgeHeartRoom::Start()
 	EnterTheFloor1->SetTriggerFunction(std::bind(&SludgeHeartRoom::Floor1TriggerFunc, this));
 
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
-	ScreenOverlayActor->SetColor({0.0f, 0.2f, 0.0f});
+	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
 	ScreenOverlayActor->SetAlpha(0.1f);
+
+
+
 }
 
 void SludgeHeartRoom::Update(float _Delta)
@@ -62,6 +65,13 @@ void SludgeHeartRoom::Update(float _Delta)
 	if (true == BossIsDeath)
 	{
 		ReleaseSludges();
+	}
+
+	if (nullptr != HeartActor &&
+		true == HeartActor->IsFirstHit())
+	{
+		HeartActor->SetFirstHit(false);
+		OutputBossName();
 	}
 }
 
@@ -93,6 +103,7 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	}
 
 	ReleaseSludges();
+	ReleaseBossName();
 }
 
 void SludgeHeartRoom::SpawnBoss()
@@ -141,6 +152,7 @@ void SludgeHeartRoom::PutTheHeartInSludge()
 	SludgeActor->SetHeart(HeartActor.get());
 }
 
+
 void SludgeHeartRoom::Floor1TriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
@@ -171,4 +183,34 @@ void SludgeHeartRoom::SpawnDividedSludge(int _DividedCount, float4 _SpawnPos)
 	SludgeActor->ChangeState(JUMPBOSS_STATE::Division);
 
 	SludgeActor = nullptr;
+}
+
+void SludgeHeartRoom::OutputBossName()
+{
+	// BossName Actor
+	BossNameBack = CreateActor<FadeImage>(UPDATE_ORDER::UI);
+	BossNameBack->Init("BossNameBG.png");
+	BossNameBack->Transform.SetLocalPosition({ 0.0f, -315.0f });
+
+	SludgeHeartScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	SludgeHeartScript->Init("SLUDGEHEART", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
+	SludgeHeartScript->FadeInit();
+	SludgeHeartScript->Transform.SetLocalPosition({ 5.0f, -300.0f });
+	
+	GuardianScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	GuardianScript->Init("HEART OF THE GUARDIAN", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
+	GuardianScript->FadeInit();
+	GuardianScript->Transform.SetLocalPosition({ 0.0f, -335.0f });
+}
+
+void SludgeHeartRoom::ReleaseBossName()
+{
+	BossNameBack->Death();
+	BossNameBack = nullptr;
+
+	SludgeHeartScript->Death();
+	SludgeHeartScript = nullptr;
+
+	GuardianScript->Death();
+	GuardianScript = nullptr;
 }

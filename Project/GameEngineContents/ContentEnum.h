@@ -25,9 +25,11 @@ enum class RENDERING_ORDER
 
 	Overlay,
 	FG_Tile,
-	UIBack,
+
+	UI_BACK,
 	UI,
-	UIFront,
+	UI_FRONT,
+	UI_FRONT2,
 };
 
 //enum class RENDERING_ORDER

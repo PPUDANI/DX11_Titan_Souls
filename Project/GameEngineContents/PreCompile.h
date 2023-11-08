@@ -57,7 +57,7 @@
 
 #include "TextActor.h"
 #include "SelectText.h"
-
+#include "AncientScript.h"
 
 // Post Effect
 #include "PlayerMaskEffect.h"

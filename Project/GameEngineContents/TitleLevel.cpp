@@ -11,7 +11,7 @@ TitleLevel::~TitleLevel()
 
 void TitleLevel::Start()
 {
-	GetMainCamera()->SetYSort(RENDERING_ORDER::UIFront);
+	GetMainCamera()->SetYSort(RENDERING_ORDER::UI_FRONT);
 
 	// TileMap
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
@@ -42,22 +42,19 @@ void TitleLevel::Start()
 
 	GamePadImage = CreateActor<FadeImage>(UPDATE_ORDER::UI);
 	GamePadImage->Init("GamePad.png", 1.0f, 1.5f);
-	GamePadImage->Transform.SetLocalPosition({ 568.0f, -568.0f });
 	GamePadImage->Off();
 
 	AcidnerveImage = CreateActor<FadeImage>(UPDATE_ORDER::UI);
 	AcidnerveImage->Init("Acidnerve.png", 1.0f, 1.5f);
-	AcidnerveImage->Transform.SetLocalPosition({ 568.0f, -568.0f });
 	AcidnerveImage->Off();
 
 	DevolverImage = CreateActor<FadeImage>(UPDATE_ORDER::UI);
 	DevolverImage->Init("Devolver.png", 1.0f, 1.5f);
-	DevolverImage->Transform.SetLocalPosition({ 568.0f, -568.0f });
 	DevolverImage->Off();
 
 	TitleLogo = CreateActor<ImageActor>(UPDATE_ORDER::UI);
 	TitleLogo->SetImage("TitleLogo.png", { 546.0f, 254.0f});
-	TitleLogo->Transform.SetLocalPosition({ 568.0f, -400.0f });
+	TitleLogo->Transform.SetLocalPosition({ 0.0f, 150.0f });
 	TitleLogo->Off();
 
 	StartText = CreateActor<SelectText>();
@@ -120,15 +117,15 @@ void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	GameEngineSprite::Release("GamePad.png");
-	GameEngineSprite::Release("Acidnerve.png");
-	GameEngineSprite::Release("Devolver.png");
-	GameEngineSprite::Release("TitleLogo.png");
+	//GameEngineSprite::Release("GamePad.png");
+	//GameEngineSprite::Release("Acidnerve.png");
+	//GameEngineSprite::Release("Devolver.png");
+	//GameEngineSprite::Release("TitleLogo.png");
 
-	GameEngineTexture::Release("GamePad.png");
-	GameEngineTexture::Release("Acidnerve.png");
-	GameEngineTexture::Release("Devolver.png");
-	GameEngineTexture::Release("TitleLogo.png");
+	//GameEngineTexture::Release("GamePad.png");
+	//GameEngineTexture::Release("Acidnerve.png");
+	//GameEngineTexture::Release("Devolver.png");
+	//GameEngineTexture::Release("TitleLogo.png");
 
 	if (nullptr != FadeOutActor)
 	{

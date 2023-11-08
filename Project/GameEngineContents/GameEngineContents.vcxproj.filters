@@ -122,6 +122,9 @@
     <ClCompile Include="AncientScript.cpp">
       <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
     </ClCompile>
+    <ClCompile Include="AncientScriptState.cpp">
+      <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />

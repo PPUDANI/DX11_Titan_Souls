@@ -12,7 +12,7 @@ ScreenOverlay::~ScreenOverlay()
 void ScreenOverlay::Start()
 {
 	GlobalLoad::LoadSpriteSingle("FadeTexture.png", "Resource\\Texture\\UI\\Fade");
-	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UIFront);
+	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI_FRONT);
 	FadeRenderer->SetSprite("FadeTexture.png");
 	FadeRenderer->SetCameraOrder(ECAMERAORDER::UI);
 

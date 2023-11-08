@@ -18,6 +18,16 @@ public:
 		OwnerSludge = _SludgePtr;
 	}
 
+	inline bool IsFirstHit()
+	{
+		return FirstHitValue;
+	}
+
+	inline void SetFirstHit(bool _Value)
+	{
+		FirstHitValue = _Value;
+	}
+
 private:
 	// Virtual function
 	void Start() override;
@@ -43,4 +53,6 @@ private:
 private:
 
 	class Sludge* OwnerSludge = nullptr;
+
+	bool FirstHitValue = false;
 };

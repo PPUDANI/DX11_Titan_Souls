@@ -45,6 +45,9 @@ void ContentsCore::Start()
 	GlobalLoad::LoadSpriteCut(64, 64, "Overworld.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Overworld2.png", "Resource\\Texture\\Map\\");
 
+	// UI Texture Load
+	GlobalLoad::LoadSpriteSingle("BossNameBG.png", "Resource\\Texture\\UI\\");
+
 	// Create Level
 	GameEngineCore::CreateLevel<TitleLevel>("00.TitleLevel");
 	GameEngineCore::CreateLevel<Floor1>("01.Floor1");

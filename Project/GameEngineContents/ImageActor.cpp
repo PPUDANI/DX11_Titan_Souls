@@ -26,7 +26,8 @@ void ImageActor::AddMulColor(float _MulColor)
 }
 void ImageActor::Start()
 {
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UIFront);
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI_FRONT);
+	Renderer->SetCameraOrder(ECAMERAORDER::UI);
 }
 
 void ImageActor::Update(float _Delta)

@@ -171,6 +171,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AncientScriptState.cpp" />
     <ClCompile Include="Arrow.cpp">
       <SubType>
       </SubType>
