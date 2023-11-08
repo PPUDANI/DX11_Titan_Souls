@@ -29,7 +29,7 @@ private:
 	void Floor1TriggerFunc();
 
 	// Overlay
-	//std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
+	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
 
 	// Fade
 	std::shared_ptr<class FadeIn> FadeInByKillBoss = nullptr;
