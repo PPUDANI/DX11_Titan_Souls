@@ -52,6 +52,7 @@ private:
 
 private:
 
+	std::shared_ptr<GameEngineCollision> Collision2 = nullptr;
 	class Sludge* OwnerSludge = nullptr;
 
 	bool FirstHitValue = false;

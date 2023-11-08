@@ -6,6 +6,7 @@ void Heart::InSludgeStart()
 {
 	BodyRenderer->ChangeAnimation("InSludge");
 	Collision->Off();
+	Collision2->Off();
 	ShadowRenderer->Off();
 }
 
@@ -27,6 +28,7 @@ void Heart::JumpStart()
 void Heart::FallStart()
 {
 	Collision->Off();
+	Collision2->Off();
 	ShadowRenderer->On();
 }
 
@@ -34,6 +36,7 @@ void Heart::LandingStart()
 {
 	BodyRenderer->ChangeAnimation("Landing");
 	Collision->On();
+	Collision2->On();
 }
 
 void Heart::OutOfSludgeStart()
@@ -44,6 +47,7 @@ void Heart::OutOfSludgeStart()
 	JumpStartPos = Transform.GetLocalPosition();
 	GravityValue = 500.0f;
 	Collision->Off();
+	Collision2->Off();
 }
 
 void Heart::DeathStart()
@@ -86,6 +90,7 @@ void Heart::JumpUpdate(float _Delta)
 	if (1 <= BodyRenderer->GetCurIndex())
 	{
 		Collision->Off();
+		Collision2->Off();
 		MoveToPlayer(_Delta);
 		Gravity(_Delta);
 	}

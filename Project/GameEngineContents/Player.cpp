@@ -307,7 +307,6 @@ void Player::AimDirectionUpdate()
 		SetDirection(PLAYER_DIRECTION::RightDown);
 		break;
 	default:
-		MsgBoxAssert("?");
 		break;
 	}
 }
