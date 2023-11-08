@@ -127,7 +127,7 @@ void SludgeHeartRoom::SpawnBoss()
 		HeartActor->SetCurMap(TileMapActor.get());
 		HeartActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
-		//PutTheHeartInSludge();
+		PutTheHeartInSludge();
 		SludgeActor = nullptr;
 	}
 }
