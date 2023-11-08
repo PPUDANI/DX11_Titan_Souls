@@ -129,7 +129,7 @@ void Sludge::Update(float _Delta)
 
 	// Collision Position Setting
 	float4 CollisionPos = HeartPos;
-	//CollisionPos.Y -= 4.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount));
+	CollisionPos.Y -= 32.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount) * 1.3f);
 	Collision->Transform.SetLocalPosition(CollisionPos);
 }
 

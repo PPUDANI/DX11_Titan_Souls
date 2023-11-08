@@ -142,7 +142,7 @@ private:
 	float PinnedRotationSpeed = 500.0f;
 	bool RotationReverse = false;
 
-	float StandartPullingForceByHit = 0.5f;
+	float StandartPullingForceByHit = 0.4f;
 
 	float PullOutDuration = 2.0f;
 	float PullOutTimer = 0.0f;

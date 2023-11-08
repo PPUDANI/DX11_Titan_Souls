@@ -25,6 +25,7 @@ public:
 		default:
 			break;
 		}
+
 		StartAlpha = _StartAlpha;
 		FadeSpeed = (1.0f / _Second) * StartAlpha;
 	}
@@ -42,6 +43,11 @@ public:
 	inline void SetFadeStartAlpha(float _Alpha)
 	{
 		FadeRenderer->GetColorData().MulColor.A = _Alpha;
+	}
+
+	inline float GetAlpha() const
+	{
+		return FadeRenderer->GetColorData().MulColor.A;
 	}
 protected:
 

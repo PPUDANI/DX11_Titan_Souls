@@ -23,7 +23,7 @@ void SelectText::Start()
 
 	SideRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
 	SideRenderer->SetSprite("SelectImage.png");
-	SideRenderer->Transform.AddLocalPosition({ 0.0f, -19.0f });
+	SideRenderer->Transform.AddLocalPosition({ -3.0f, -19.0f });
 	SideRenderer->SetImageScale({ 224.0f , 32.0f });
 	SideRenderer->Off();
 }

@@ -76,7 +76,7 @@ void TitleLevel::DevolverUpdate(float _Delta)
 
 void TitleLevel::MainTitleUpdate(float _Delta)
 {
-	if (false == FadeInActor->FadeIsEnd())
+	if (0.3f < FadeInActor->GetAlpha())
 	{
 		return;
 	}
