@@ -26,6 +26,12 @@ public:
 		return FadeIsEndValue;
 	}
 
+	inline void Reset()
+	{
+		Renderer->GetColorData().MulColor.A = 0.0f;
+		CurState = IMAGE_STATE::FADE_IN;
+		FadeIsEndValue = false;
+	}
 protected:
 
 private:

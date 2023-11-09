@@ -54,8 +54,6 @@ private:
 	void GameStartUpdate(float _Delta);
 
 private:
-
-
 	// TileMap Actor
 	std::shared_ptr<class TileMap> TileMapActor;
 
@@ -75,6 +73,7 @@ private:
 	// Image Actor
 	std::shared_ptr<class ImageActor> TitleLogo = nullptr;
 
+	void MainTitleActorOff();
 private:
 	// Text Actor
 	std::shared_ptr<class SelectText> StartText = nullptr;

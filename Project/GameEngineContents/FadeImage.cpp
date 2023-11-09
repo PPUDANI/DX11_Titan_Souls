@@ -25,18 +25,21 @@ void FadeImage::Start()
 
 void FadeImage::Update(float _Delta)
 {
-	switch (CurState)
+	if (false == FadeIsEndValue)
 	{
-	case IMAGE_STATE::FADE_IN:
-		FadeInUpdate(_Delta);
-		break;
-	case IMAGE_STATE::RESTING:
-		RestingUpdate(_Delta);
-		break;
-	case IMAGE_STATE::FADE_OUT:
-		FadeOutUpdate(_Delta);
-		break;
-	default:
-		break;
+		switch (CurState)
+		{
+		case IMAGE_STATE::FADE_IN:
+			FadeInUpdate(_Delta);
+			break;
+		case IMAGE_STATE::RESTING:
+			RestingUpdate(_Delta);
+			break;
+		case IMAGE_STATE::FADE_OUT:
+			FadeOutUpdate(_Delta);
+			break;
+		default:
+			break;
+		}
 	}
 }

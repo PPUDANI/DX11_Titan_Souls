@@ -4,16 +4,32 @@
 
 void TitleLevel::GamePadStart()
 {
+	MainTitleActorOff();
+	AcidnerveImage->Off();
+	DevolverImage->Off();
+
+	GamePadImage->Reset();
 	GamePadImage->On();
+
 }
 
 void TitleLevel::AcidnerveStart()
 {
+	MainTitleActorOff();
+	GamePadImage->Off();
+	DevolverImage->Off();
+
+	AcidnerveImage->Reset();
 	AcidnerveImage->On();
 }
 
 void TitleLevel::DevolverStart()
 {
+	MainTitleActorOff();
+	GamePadImage->Off();
+	AcidnerveImage->Off();
+
+	DevolverImage->Reset();
 	DevolverImage->On();
 }
 
@@ -21,6 +37,10 @@ void TitleLevel::MainTitleStart()
 {
 	FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 	FadeInActor->Init(FadeColor::Black);
+
+	GamePadImage->Off();
+	AcidnerveImage->Off();
+	DevolverImage->Off();
 
 	TileMapActor->On();
 	TitleLogo->On();
@@ -46,8 +66,6 @@ void TitleLevel::GamePadUpdate(float _Delta)
 	if (true == GamePadImage->FadeIsEnd() ||
 		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
-		GamePadImage->Death();
-		GamePadImage = nullptr;
 		ChangeState(TITLE_STATE::ACIDNERVE);
 	}
 }
@@ -57,8 +75,6 @@ void TitleLevel::AcidnerveUpdate(float _Delta)
 	if (true == AcidnerveImage->FadeIsEnd() ||
 		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
-		AcidnerveImage->Death();
-		AcidnerveImage = nullptr;
 		ChangeState(TITLE_STATE::DEVOLVER);
 	}
 }
@@ -68,8 +84,6 @@ void TitleLevel::DevolverUpdate(float _Delta)
 	if (true == DevolverImage->FadeIsEnd() ||
 		true == GameEngineInput::IsDown(VK_SPACE, this))
 	{
-		DevolverImage->Death();
-		DevolverImage = nullptr;
 		ChangeState(TITLE_STATE::MAIN_TITLE);
 	}
 }
@@ -165,8 +179,18 @@ void TitleLevel::SetSelectAction()
 
 void TitleLevel::GameStartUpdate(float _Delta)
 {
-	if (true == FadeOutActor->FadeIsEnd())
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
 	{
-		GameEngineCore::ChangeLevel("01.Floor1");
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+	}
+
+	if (nullptr != FadeOutActor)
+	{
+		if (true == FadeOutActor->FadeIsEnd())
+		{
+			GameEngineCore::ChangeLevel("01.Floor1");
+		}
 	}
 }

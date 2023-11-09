@@ -76,8 +76,6 @@ void TitleLevel::Start()
 	GetMainCamera()->Transform.SetLocalPosition({ 568.0f, -568.0f });
 
 	GameEngineInput::AddInputObject(this);
-
-	ChangeState(TITLE_STATE::GAMEPAD);
 }
 
 void TitleLevel::Update(float _Delta)
@@ -106,7 +104,7 @@ void TitleLevel::Update(float _Delta)
 
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-
+	ChangeState(TITLE_STATE::GAMEPAD);
 }
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
@@ -156,5 +154,30 @@ void TitleLevel::ChangeState(TITLE_STATE _State)
 		break;
 	default:
 		break;
+	}
+}
+
+
+void TitleLevel::MainTitleActorOff()
+{
+	if (nullptr != TitleLogo)
+	{
+		TitleLogo->Off();
+	}	
+	if (nullptr != TileMapActor)
+	{
+		TileMapActor->Off();
+	}
+	if (nullptr != StartText)
+	{
+		StartText->Off();
+	}
+	if (nullptr != OptionText)
+	{
+		OptionText->Off();
+	}
+	if (nullptr != ExitText)
+	{
+		ExitText->Off();
 	}
 }

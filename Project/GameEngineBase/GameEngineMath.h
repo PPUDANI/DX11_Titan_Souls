@@ -530,6 +530,27 @@ public:
 		return Result;
 	}
 
+	inline void Ceil()
+	{
+		X = ceil(X);
+		Y = ceil(Y);
+		Z = ceil(Z);
+	}
+
+	inline void Round()
+	{
+		X = round(X);
+		Y = round(Y);
+		Z = round(Z);
+	}
+
+	inline void Floor()
+	{
+		X = floor(X);
+		Y = floor(Y);
+		Z = floor(Z);
+	}
+
 	float4 operator*(const class float4x4& _Other) const;
 	float4& operator*=(const class float4x4& _Other);
 };
