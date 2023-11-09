@@ -268,9 +268,7 @@ void Player::SetDirection(PLAYER_DIRECTION _Dir)
 
 void Player::AimDirectionUpdate()
 {
-	float AnglePartition = 22.5f;
-
-	int DividedAngleIndex = static_cast<int>(ArrowAngleDeg / AnglePartition);
+	int DividedAngleIndex = static_cast<int>(ArrowAngleDeg / 22.5f);
 
 	switch (DividedAngleIndex)
 	{

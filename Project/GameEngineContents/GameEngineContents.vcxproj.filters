@@ -57,22 +57,22 @@
       <Filter>01. Actor\03. Boss\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="Heart.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\01. Heart</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\01. Heart</Filter>
     </ClCompile>
     <ClCompile Include="HeartState.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\01. Heart</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\01. Heart</Filter>
     </ClCompile>
     <ClCompile Include="Sludge.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\02. Sludge</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\02. Sludge</Filter>
     </ClCompile>
     <ClCompile Include="Debris.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\03. Debris</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\03. Debris</Filter>
     </ClCompile>
     <ClCompile Include="SludgeState.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\02. Sludge</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\02. Sludge</Filter>
     </ClCompile>
     <ClCompile Include="JumpBoss.cpp">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\00. GravityActor</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\00. GravityActor</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
       <Filter>01. Actor\04. Camera</Filter>
@@ -124,6 +124,21 @@
     </ClCompile>
     <ClCompile Include="AncientScriptState.cpp">
       <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Yeti.cpp">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowBall.cpp">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
+    </ClCompile>
+    <ClCompile Include="Icicle.cpp">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
+    </ClCompile>
+    <ClCompile Include="YetiState.cpp">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
+    </ClCompile>
+    <ClCompile Include="YetiAnimation.cpp">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,16 +192,16 @@
       <Filter>01. Actor\03. Boss\00. Base</Filter>
     </ClInclude>
     <ClInclude Include="Heart.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\01. Heart</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\01. Heart</Filter>
     </ClInclude>
     <ClInclude Include="Sludge.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\02. Sludge</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\02. Sludge</Filter>
     </ClInclude>
     <ClInclude Include="Debris.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\03. Debris</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\03. Debris</Filter>
     </ClInclude>
     <ClInclude Include="JumpBoss.h">
-      <Filter>01. Actor\03. Boss\01.Sludge Heart\00. GravityActor</Filter>
+      <Filter>01. Actor\03. Boss\01. Sludge Heart\00. GravityActor</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>01. Actor\04. Camera</Filter>
@@ -229,6 +244,15 @@
     </ClInclude>
     <ClInclude Include="AncientScript.h">
       <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Yeti.h">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowBall.h">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
+    </ClInclude>
+    <ClInclude Include="Icicle.h">
+      <Filter>01. Actor\03. Boss\02. Yeti</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -277,26 +301,11 @@
     <Filter Include="01. Actor\03. Boss">
       <UniqueIdentifier>{3939b64e-ea2d-48d8-9b68-34b95fb13ce0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\03. Boss\01.Sludge Heart">
-      <UniqueIdentifier>{32307151-258c-4073-8b8d-932efeda4e30}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Actor\03. Boss\00. Base">
       <UniqueIdentifier>{93c6a8f9-e5d6-4095-bf6e-a841fc6d1260}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Actor\00. ActorBase">
       <UniqueIdentifier>{a3a65cc8-1684-4b7b-a745-317f7a82ac98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\00. GravityActor">
-      <UniqueIdentifier>{757a3cd0-1740-4bf2-82c6-9e90e6f9af1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\01. Heart">
-      <UniqueIdentifier>{f8a1a0a9-989f-4345-a4ba-3d21f01538b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\02. Sludge">
-      <UniqueIdentifier>{864865bd-e084-498f-99d0-982694a31081}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\03. Boss\01.Sludge Heart\03. Debris">
-      <UniqueIdentifier>{6726e26a-21d3-4ad7-a36f-8fa9d22b8e93}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Actor\04. Camera">
       <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
@@ -342,6 +351,24 @@
     </Filter>
     <Filter Include="01. Actor\06. VersatileActor\Text\03. AncientScript">
       <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\02. Yeti">
+      <UniqueIdentifier>{8993cf01-ed96-4040-962b-d996e5b21118}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01. Sludge Heart">
+      <UniqueIdentifier>{32307151-258c-4073-8b8d-932efeda4e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01. Sludge Heart\00. GravityActor">
+      <UniqueIdentifier>{757a3cd0-1740-4bf2-82c6-9e90e6f9af1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01. Sludge Heart\01. Heart">
+      <UniqueIdentifier>{f8a1a0a9-989f-4345-a4ba-3d21f01538b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01. Sludge Heart\02. Sludge">
+      <UniqueIdentifier>{864865bd-e084-498f-99d0-982694a31081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\01. Sludge Heart\03. Debris">
+      <UniqueIdentifier>{6726e26a-21d3-4ad7-a36f-8fa9d22b8e93}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
