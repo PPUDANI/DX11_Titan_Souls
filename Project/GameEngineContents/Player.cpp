@@ -73,7 +73,7 @@ void Player::Update(float _Delta)
 			ChangeState(PLAYER_STATE::Death);
 		}
 
-		if (true == BodyCollision->Collision(COLLISION_TYPE::Boss))
+		if (true == BodyCollision->Collision(COLLISION_TYPE::Weakness))
 		{
 			ChangeState(PLAYER_STATE::Death);
 		}

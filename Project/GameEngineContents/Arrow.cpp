@@ -184,8 +184,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
-			Collision->Collision(COLLISION_TYPE::Yeti, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
+		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
+			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	case ARROW_STATE::Fallen:
@@ -197,8 +197,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
-			Collision->Collision(COLLISION_TYPE::Yeti, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
+		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
+			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
 		break;
 	case ARROW_STATE::Returning:
 		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
@@ -209,7 +209,7 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	default:
@@ -229,12 +229,11 @@ void Arrow::AdjustPosByTileCol()
 
 void Arrow::AdjustPosByCol()
 {
-	while (true == Collision->Collision(COLLISION_TYPE::Boss) ||
-		true == Collision->Collision(COLLISION_TYPE::Yeti))
+	while (true == Collision->Collision(COLLISION_TYPE::Weakness) ||
+		true == Collision->Collision(COLLISION_TYPE::BossBody))
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
-	Transform.AddLocalPosition(-FlyingDirectionBasis * 5.0f);
 }
 
 void Arrow::DirSpecularReflection()

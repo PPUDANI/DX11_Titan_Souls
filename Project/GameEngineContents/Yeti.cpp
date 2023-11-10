@@ -19,14 +19,14 @@ void Yeti::Start()
 	ChangeState(YETI_STATE::Sleep);
 
 	// Create Collision
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 50.0f, 50.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
 	WeaknessActorValue = true;
 
 
-	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Yeti);
+	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::SPHERE2D);
 	BodyCollision->Transform.SetLocalScale({ 90.0f, 90.0f, 1.0f });
 

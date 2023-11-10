@@ -47,9 +47,9 @@ enum class COLLISION_TYPE
 	Player,
 	GetArrow,
 	AttackArrow,
-	Boss,
+	Weakness,
 	Sludge,
-	Yeti,
+	BossBody,
 	DetectionRange,
 	EventPlace,
 };

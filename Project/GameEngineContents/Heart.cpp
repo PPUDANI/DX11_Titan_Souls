@@ -36,12 +36,12 @@ void Heart::Start()
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + float4{ 0.0f, -4.0f });
 
 	// Collision setting
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 35.0f, 10.0f, 1.0f });
 
 
-	Collision2 = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
+	Collision2 = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision2->SetCollisionType(ColType::AABBBOX2D);
 	Collision2->Transform.SetLocalScale({ 10.0f, 28.0f, 1.0f });
 
