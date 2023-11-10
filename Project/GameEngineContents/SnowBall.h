@@ -1,17 +1,17 @@
 #pragma once
 
-class SnowBall : public GameEngineActor
+class Snowball
 {
 public:
 	// Constructor Destructor
-	SnowBall();
-	~SnowBall();
+	Snowball();
+	~Snowball();
 
 	// Delete Function
-	SnowBall(const SnowBall& _Other) = delete;
-	SnowBall(SnowBall&& _Other) noexcept = delete;
-	SnowBall& operator=(const SnowBall& _Other) = delete;
-	SnowBall& operator=(SnowBall&& _Other) noexcept = delete;
+	Snowball(const Snowball& _Other) = delete;
+	Snowball(Snowball&& _Other) noexcept = delete;
+	Snowball& operator=(const Snowball& _Other) = delete;
+	Snowball& operator=(Snowball&& _Other) noexcept = delete;
 
 protected:
 

@@ -227,7 +227,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="SnowBall.cpp">
+    <ClCompile Include="Snowball.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -386,7 +386,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="SnowBall.h">
+    <ClInclude Include="Snowball.h">
       <SubType>
       </SubType>
     </ClInclude>

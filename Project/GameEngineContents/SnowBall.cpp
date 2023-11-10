@@ -1,10 +1,10 @@
 #include "PreCompile.h"
-#include "SnowBall.h"
+#include "Snowball.h"
 
-SnowBall::SnowBall()
+Snowball::Snowball()
 {
 }
 
-SnowBall::~SnowBall()
+Snowball::~Snowball()
 {
 }
