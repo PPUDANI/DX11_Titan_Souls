@@ -49,6 +49,7 @@ enum class COLLISION_TYPE
 	AttackArrow,
 	Boss,
 	Sludge,
+	Yeti,
 	DetectionRange,
 	EventPlace,
 };

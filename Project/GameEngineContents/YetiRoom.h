@@ -23,6 +23,11 @@ private:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
+	void SpawnBoss() override;
+
+private:
+	// Yeti
+	std::shared_ptr<class Yeti> YetiActor = nullptr;
 
 private:
 	std::shared_ptr<class TriggerBox> EnterTheFloor1 = nullptr;

@@ -11,13 +11,41 @@ Yeti::~Yeti()
 
 void Yeti::Start()
 {
+	BossBase::Start();
+
+	// Create Renderer
 	CreateYetiAnimation();
+	SetDirection(YETI_DIRECTION::Down);
+	ChangeState(YETI_STATE::Sleep);
+
+	// Create Collision
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Boss);
+	Collision->SetCollisionType(ColType::AABBBOX2D);
+	Collision->Transform.SetLocalScale({ 50.0f, 50.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
+	WeaknessActorValue = true;
 
 
+	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Yeti);
+	BodyCollision->SetCollisionType(ColType::SPHERE2D);
+	BodyCollision->Transform.SetLocalScale({ 90.0f, 90.0f, 1.0f });
+
+	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+		{
+			ChangeState(YETI_STATE::Idle);
+		};
+
+	//GameEngineInput::AddInputObject(this);
 }
 
 void Yeti::Update(float _Delta)
 {
+	BossBase::Update(_Delta);
+	SetMoveDir(Transform.GetLocalPosition());
+	DirectionUpdate();
+
+	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
+
 	switch (CurState)
 	{
 	case YETI_STATE::Sleep:
@@ -117,6 +145,7 @@ void Yeti::DirectionUpdate()
 	case 3:
 	case 4:
 		SetDirection(YETI_DIRECTION::Up);
+		BodyCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 		break;
 	case 5:
 	case 6:
@@ -141,4 +170,42 @@ void Yeti::DirectionUpdate()
 	default:
 		break;
 	}
+	SetColScaleByDir();
+}
+
+void Yeti::SetColScaleByDir()
+{
+	float4 PosByDir;
+
+	switch (CurDir)
+	{
+	case YETI_DIRECTION::Right:
+		PosByDir = float4{ 30.0f, 0.0f };
+		break;
+	case YETI_DIRECTION::RightUp:
+		PosByDir = float4{ 25.0f, 25.0f };
+		break;
+	case YETI_DIRECTION::Up:
+		PosByDir = float4{ 0.0f, 30.0f };
+		break;
+	case YETI_DIRECTION::LeftUp:
+		PosByDir = float4{ -25.0f, 25.0f };
+		break;
+	case YETI_DIRECTION::Left:
+		PosByDir = float4{ -30.0f, 0.0f };
+		break;
+	case YETI_DIRECTION::LeftDown:
+		PosByDir = float4{ -25.0f, -25.0f };
+		break;
+	case YETI_DIRECTION::Down:
+		PosByDir = float4{ 0.0f, -30.0f };
+		break;
+	case YETI_DIRECTION::RightDown:
+		PosByDir = float4{ 25.0f, -25.0f };
+		break;
+	default:
+		break;
+	}
+
+	BodyCollision->Transform.SetLocalPosition(BodyColStandardPos + PosByDir);
 }

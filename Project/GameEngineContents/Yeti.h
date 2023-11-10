@@ -70,12 +70,31 @@ private:
 	void HitUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
 private:
-	YETI_DIRECTION CurDir;
+	YETI_DIRECTION CurDir = YETI_DIRECTION::Down;
 
 	void SetDirection(YETI_DIRECTION _Dir);
 	void DirectionUpdate();
+
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BodyRenderer = nullptr;
 	void CreateYetiAnimation();
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
+
+private:
+	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
+	EventParameter Param;
+
+	void SetColScaleByDir();
+
+	float4 BodyColStandardPos = { 0.0f, 65.0f };
+
+private:
+	float IdleDelay = 0.5f;
+	float IdleTimer = 0.0f;
+
+	float ThrowingDelay = 0.1f;
+	float ThrowingTimer = 0.0f;
+
+	float RollingDelay = 0.2f;
+	float RollingTimer = 0.0f;
 };

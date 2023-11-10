@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "YetiRoom.h"
 
+#include "Yeti.h"
+
 YetiRoom::YetiRoom()
 {
 }
@@ -78,6 +80,14 @@ void YetiRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1792.0f });
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 	return;
+}
+
+void YetiRoom::SpawnBoss()
+{
+	YetiActor = CreateActor<Yeti>(UPDATE_ORDER::Boss);
+	YetiActor->Transform.SetLocalPosition({ 1008.0f, -892.0f });
+	YetiActor->SetEnymePlayer(PlayerActor.get());
+	YetiActor->SetEnymeArrow(ArrowActor.get());
 }
 
 void YetiRoom::Floor1TriggerFunc()
