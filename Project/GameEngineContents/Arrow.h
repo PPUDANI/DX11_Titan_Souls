@@ -64,6 +64,15 @@ public:
 		DebugingMode = !DebugingMode;
 	}
 
+	void DecreasePullingForce(float _Delta)
+	{
+		PullingForce = std::lerp(PullingForce, 0.0f, _Delta);
+	}
+
+	bool HitSpeedCheck() const
+	{
+		return StandartPullingForceByHit < PullingForce;
+	}
 private:
 	// External Element
 	class Player* OwnerPlayer = nullptr;
@@ -82,7 +91,7 @@ private:
 	void ReturningStart();
 	void PickUpStart();
 	void PinnedStart();
-	
+
 	void HoldUpdate(float _Delta);
 	void AimUpdate(float _Delta);
 	void FlyingUpdate(float _Delta);
@@ -98,9 +107,7 @@ private:
 private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
-	std::shared_ptr<GameEngineCollision> GetCollision = nullptr;
-	std::shared_ptr<GameEngineCollision> AttackCollision = nullptr;
-
+	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 	// Collision
 	float ArrowheadPosBasis = 12.0f;
 	float4 ArrowheadCheckPos = float4::ZERO;
@@ -111,6 +118,8 @@ private:
 	void AdjustPosByTileCol();
 	void AdjustPosByCol();
 	void BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
+	void YetiCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
+
 private:
 	// Debug Mode
 	bool DebugingMode = false;
@@ -142,7 +151,7 @@ private:
 	float PinnedRotationSpeed = 500.0f;
 	bool RotationReverse = false;
 
-	float StandartPullingForceByHit = 0.4f;
+	float StandartPullingForceByHit = 0.5f;
 
 	float PullOutDuration = 2.0f;
 	float PullOutTimer = 0.0f;

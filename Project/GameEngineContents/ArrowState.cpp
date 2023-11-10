@@ -7,7 +7,7 @@ void Arrow::HoldStart()
 	PullingForce = 0.0f;
 	Renderer->ChangeAnimation("Idle");
 	Renderer->Off();
-	GetCollision->Off();
+	Collision->Off();
 }
 
 void Arrow::AimStart()
@@ -21,7 +21,7 @@ void Arrow::FlyingStart()
 {
 	FiyTimer = 0.0f;
 
-	GetCollision->On();
+	Collision->On();
 
 	OwnerPlayer->LostArrow();
 	CameraMoveDirectionBasis = FlyingDirectionBasis;
@@ -39,15 +39,15 @@ void Arrow::ReturningStart()
 
 void Arrow::PickUpStart()
 {
-	Renderer->ChangeAnimation("Get"); 
-	GetCollision->Off();
+	Renderer->ChangeAnimation("Get");
+	Collision->Off();
 }
 
 void Arrow::PinnedStart()
 {
 	Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	Renderer->ChangeAnimation("Pinned");
-	GetCollision->Off();
+	Collision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
 
 	ShakingPerFrame = 0.0f;
@@ -141,7 +141,7 @@ void Arrow::FlyingUpdate(float _Delta)
 
 void Arrow::FallenUpdate(float _Delta)
 {
-	if(PLAYER_STATE::Returning == OwnerPlayer->GetCurState())
+	if (PLAYER_STATE::Returning == OwnerPlayer->GetCurState())
 	{
 		ChangeState(ARROW_STATE::Returning);
 		return;

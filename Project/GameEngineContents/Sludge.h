@@ -39,7 +39,7 @@ private:
 	float MaxScale = 0.0f;
 	float MinScale = 0.0f;
 	float ExpandDefalutSpeed = 192.0f;
-	
+
 	float LerpRange = 0.0f;
 
 	float4 HeartPos = float4::ZERO;
@@ -70,7 +70,7 @@ private:
 	float IncreaseGravityForce = 200.0f;
 
 	float4 DefaultRenderPosBase = { 0.0f, -64.0f, 1.0f };
-	float4 DefaultCollisionSizeBase = { 200.0f, 130.0f, 1.0f };
+	float4 DefaultCollisionSizeBase = { 200.0f, 100.0f, 1.0f };
 	float4 DefaultDetectionRangeSize = { 800.0f, 500.0f, 1.0f };
 
 	float DefaultMoveSpeed = 250.0f;

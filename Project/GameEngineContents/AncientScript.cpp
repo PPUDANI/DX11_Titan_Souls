@@ -80,6 +80,10 @@ int AncientScript::ChangeAsciiToIndex(int _AsciiNum)
 		{
 			return Result + 26;
 		}
+		else if (FONT_TYPE::ENGLISH == Type)
+		{
+			return Result;
+		}
 	}
 
 	return -1;

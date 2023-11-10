@@ -40,6 +40,10 @@ void Sludge::Start()
 
 	CollisionParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
+			if (false == EnymeArrow->HitSpeedCheck())
+			{
+				return;
+			}
 			++DividedCount;
 			if (3 >= DividedCount)
 			{
@@ -87,9 +91,16 @@ void Sludge::Update(float _Delta)
 
 	RendererSetting();
 	// Sludge 분열 (최대 3번)
-	if(false == MaxDivision)
-	{ 
-		Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam);
+	if (false == MaxDivision)
+	{
+
+		if (true == Collision->CollisionEvent(COLLISION_TYPE::GetArrow, CollisionParam))
+		{
+			if (false == EnymeArrow->HitSpeedCheck())
+			{
+				EnymeArrow->DecreasePullingForce(5.0f * _Delta);
+			}
+		}
 		if (3 >= DividedCount)
 		{
 			if (true == IsDivision)
@@ -124,14 +135,12 @@ void Sludge::Update(float _Delta)
 	JumpBoss::Update(_Delta);
 
 	// Heart position setting
-	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * static_cast<float>(DividedCount)};
+	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * static_cast<float>(DividedCount) };
 
 	// Collision Position Setting
-	float4 CollisionPos = HeartPos;
-	CollisionPos.Y -= 32.0f * (1.0f - DecreaseSize * static_cast<float>(DividedCount) * 1.3f);
+	float4 CollisionPos = float4::ZERO;
 	Collision->Transform.SetLocalPosition(CollisionPos);
 }
-
 
 void Sludge::DecreaseY(float _SpeedPerSecond)
 {
@@ -180,6 +189,8 @@ void Sludge::RendererSetting()
 
 	ShadowRenderer->SetImageScale(ShadowRenderScale * SizeValue);
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+
+	Collision->Transform.SetLocalScale(ShadowRenderScale * SizeValue * 0.75f);
 }
 
 void Sludge::SetByDivided()
@@ -204,4 +215,5 @@ void Sludge::DividedSludgeInit(int _DividedCount)
 	DividedCount = _DividedCount;
 	AddMoveDirByArrow(-90.0f);
 	SetByDivided();
+	PlayerDetectionRange->On();
 }

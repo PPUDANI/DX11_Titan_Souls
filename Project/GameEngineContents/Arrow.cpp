@@ -20,13 +20,9 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Get", "Player.png", 0.06f, 220, 223, false);
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
-	GetCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
-	GetCollision->SetCollisionType(ColType::AABBBOX2D);
-	GetCollision->Transform.SetLocalScale({10.0f, 10.0f, 1.0f });
-
-	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
-	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
-	AttackCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
+	Collision->SetCollisionType(ColType::SPHERE2D);
+	Collision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
 
@@ -76,18 +72,6 @@ void Arrow::Update(float _Delta)
 		break;
 	default:
 		break;
-	}
-
-	if (ARROW_STATE::Aim != CurState)
-	{
-		if (StandartPullingForceByHit < PullingForce)
-		{
-			AttackCollision->On();
-		}
-		else
-		{
-			AttackCollision->Off();
-		}
 	}
 
 }
@@ -200,12 +184,12 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
+			Collision->Collision(COLLISION_TYPE::Yeti, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	case ARROW_STATE::Fallen:
-	case ARROW_STATE::Returning:
-		if (true == GetCollision->Collision(COLLISION_TYPE::Player, _MovePos))
+		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
 		{
 			Transform.AddLocalPosition(_MovePos);
 			OwnerPlayer->OnArrowInBagRenderer();
@@ -213,7 +197,19 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return GetCollision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
+			Collision->Collision(COLLISION_TYPE::Yeti, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
+		break;
+	case ARROW_STATE::Returning:
+		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
+		{
+			Transform.AddLocalPosition(_MovePos);
+			OwnerPlayer->OnArrowInBagRenderer();
+			ChangeState(ARROW_STATE::PickUp);
+			return true;
+		}
+
+		return Collision->Collision(COLLISION_TYPE::Boss, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	default:
@@ -225,7 +221,7 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 
 void Arrow::AdjustPosByTileCol()
 {
-	while(true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos))
+	while (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos))
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
@@ -233,10 +229,12 @@ void Arrow::AdjustPosByTileCol()
 
 void Arrow::AdjustPosByCol()
 {
-	while (true == GetCollision->Collision(COLLISION_TYPE::Boss))
+	while (true == Collision->Collision(COLLISION_TYPE::Boss) ||
+		true == Collision->Collision(COLLISION_TYPE::Yeti))
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
+	Transform.AddLocalPosition(-FlyingDirectionBasis * 5.0f);
 }
 
 void Arrow::DirSpecularReflection()
@@ -263,7 +261,7 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 	{
 		BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
 		BossActor->HitArrow();
-		//AdjustPosByCol();
+
 		if (true == BossActor->IsWeaknessActor())
 		{
 			AdjustPosByCol();
@@ -275,4 +273,10 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 		AdjustPosByCol();
 		ChangeState(ARROW_STATE::Fallen);
 	}
+}
+
+void Arrow::YetiCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup)
+{
+	AdjustPosByCol();
+	ChangeState(ARROW_STATE::Fallen);
 }

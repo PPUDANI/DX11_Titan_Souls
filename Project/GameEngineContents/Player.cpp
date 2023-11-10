@@ -19,7 +19,7 @@ void Player::Start()
 	CreateArrowInBagAnimation();
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Player);
-	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
+	BodyCollision->SetCollisionType(ColType::SPHERE2D);
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
@@ -78,7 +78,7 @@ void Player::Update(float _Delta)
 			ChangeState(PLAYER_STATE::Death);
 		}
 	}
-	
+
 
 	// State Update
 	switch (CurState)
@@ -123,7 +123,7 @@ void Player::Update(float _Delta)
 	TileColCheck();
 	BodyColCheck();
 	AdjustPosByCol();
-	
+
 	if (true == DebugingMode)
 	{
 		DebugRender();
@@ -216,7 +216,7 @@ void Player::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _
 	}
 
 	AnimationName += _AnimName;
-	
+
 	if (0 != _Frame)
 	{
 		BodyRenderer->ChangeAnimation(AnimationName, _Force, _Frame);
@@ -587,7 +587,7 @@ bool Player::MoveCheck()
 		{
 			return true;
 		}
-		
+
 		switch (TileColInfo.RightColType)
 		{
 		case TILE_COLLISION_TYPE::EMPTY:
@@ -684,10 +684,10 @@ bool Player::CurDirColCheck()
 
 bool Player::AnyDirColCheck()
 {
-	return true == BodyColInfo.UpCheck   ||
-		   true == BodyColInfo.DownCheck ||
-		   true == BodyColInfo.LeftCheck ||
-		   true == BodyColInfo.RightCheck;
+	return true == BodyColInfo.UpCheck ||
+		true == BodyColInfo.DownCheck ||
+		true == BodyColInfo.LeftCheck ||
+		true == BodyColInfo.RightCheck;
 }
 
 bool Player::AllDirColCheck()
@@ -819,7 +819,7 @@ void Player::AdjustPosByCol()
 			BodyColCheck();
 		}
 
-		
+
 		if (true == AdjustLeft)
 		{
 			Transform.AddLocalPosition(float4::LEFT);
@@ -837,7 +837,7 @@ void Player::AdjustPosByCol()
 			Transform.AddLocalPosition(float4::DOWN);
 		}
 	}
-	
+
 
 	TileColCheck();
 	BodyColCheck();
