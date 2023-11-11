@@ -35,6 +35,7 @@ void Yeti::Start()
 			ChangeState(YETI_STATE::Idle);
 		};
 
+	NextStateBuffer = YETI_STATE::Throwing;
 	//GameEngineInput::AddInputObject(this);
 }
 
@@ -82,6 +83,25 @@ void Yeti::Update(float _Delta)
 		break;
 	default:
 		break;
+	}
+
+	if (true == GetLevel()->IsDebug)
+	{
+		GameEngineTransform TData;
+		TData.SetLocalRotation(Transform.GetLocalRotationEuler());
+		TData.SetLocalScale({ 5.0f, 5.0f });
+
+		TData.SetLocalPosition(LeftPos + Transform.GetLocalPosition());
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+
+		TData.SetLocalPosition(RightPos + Transform.GetLocalPosition());
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+
+		TData.SetLocalPosition(UpPos + Transform.GetLocalPosition());
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+
+		TData.SetLocalPosition(DownPos + Transform.GetLocalPosition());
+		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 	}
 }
 

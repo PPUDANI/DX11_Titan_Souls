@@ -276,9 +276,12 @@ void Arrow::BossCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGrou
 
 void Arrow::YetiCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
 {
-	BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
-	BossActor->HitArrow();
+	if (StandartPullingForceByHit < PullingForce)
+	{
+		BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
+		BossActor->HitArrow();
 
-	AdjustPosByCol();
-	ChangeState(ARROW_STATE::Fallen);
+		AdjustPosByCol();
+		ChangeState(ARROW_STATE::Fallen);
+	}
 }

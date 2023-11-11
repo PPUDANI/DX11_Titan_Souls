@@ -89,9 +89,10 @@ void YetiRoom::SpawnBoss()
 	if (nullptr == YetiActor)
 	{
 		YetiActor = CreateActor<Yeti>(UPDATE_ORDER::Boss);
-		YetiActor->Transform.SetLocalPosition({ 1008.0f, -892.0f });
+		YetiActor->Transform.SetLocalPosition({ 1008.0f, -1492.0f });
 		YetiActor->SetEnymePlayer(PlayerActor.get());
 		YetiActor->SetEnymeArrow(ArrowActor.get());
+		YetiActor->SetCurMap(TileMapActor.get());
 	}
 }
 

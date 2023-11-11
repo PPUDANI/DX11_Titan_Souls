@@ -52,6 +52,7 @@ private:
 private:
 	// State
 	YETI_STATE CurState;
+	YETI_STATE NextStateBuffer;
 
 	void SleepStart();
 	void IdleStart();
@@ -72,9 +73,9 @@ private:
 	void BlockedUpdate(float _Delta);
 	void HitUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
+
 private:
 	YETI_DIRECTION CurDir = YETI_DIRECTION::Down;
-
 	void SetDirection(YETI_DIRECTION _Dir);
 	void DirectionUpdate();
 
@@ -91,6 +92,11 @@ private:
 
 	float4 BodyColStandardPos = { 0.0f, 65.0f };
 
+	float4 LeftPos = {40.0f, 0.0f};
+	float4 RightPos = {-40.0f, 0.0f};
+	float4 UpPos = {0.0f, 20.0f};
+	float4 DownPos = {0.0f, -20.0f};
+
 private:
 	float IdleDelay = 0.5f;
 	float IdleTimer = 0.0f;
@@ -98,6 +104,9 @@ private:
 	float ThrowingDelay = 0.1f;
 	float ThrowingTimer = 0.0f;
 
-	float RollingDelay = 0.2f;
+	unsigned int ThrowMaxCount = 4;
+	unsigned int ThrowCount = 0;
+	
+	float RollingDelay = 2.0f;
 	float RollingTimer = 0.0f;
 };
