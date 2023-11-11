@@ -92,6 +92,12 @@ private:
 
 	float4 BodyColStandardPos = { 0.0f, 65.0f };
 
+	bool TileColCheck(float4& _MovePos);
+	void AdjustLeftPosByTileCol(float4& _MovePos);
+	void AdjustRightPosByTileCol(float4& _MovePos);
+	void AdjustUpPosByTileCol(float4& _MovePos);
+	void AdjustDownPosByTileCol(float4& _MovePos);
+
 	float4 LeftPos = {40.0f, 0.0f};
 	float4 RightPos = {-40.0f, 0.0f};
 	float4 UpPos = {0.0f, 20.0f};

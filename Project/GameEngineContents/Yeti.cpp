@@ -47,8 +47,6 @@ void Yeti::Update(float _Delta)
 		WakeUpYeti();
 	}
 	BossBase::Update(_Delta);
-	SetMoveDir(Transform.GetLocalPosition());
-	DirectionUpdate();
 
 	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
 
@@ -200,6 +198,7 @@ void Yeti::DirectionUpdate()
 	default:
 		break;
 	}
+
 	SetColScaleByDir();
 }
 
@@ -238,4 +237,72 @@ void Yeti::SetColScaleByDir()
 	}
 
 	BodyCollision->Transform.SetLocalPosition(BodyColStandardPos + PosByDir);
+}
+
+
+bool Yeti::TileColCheck(float4& _MovePos)
+{
+	TILE_COLLISION_TYPE Type = TILE_COLLISION_TYPE::EMPTY;
+	bool ColCheck = false;
+	if (true == CurMap->ColCheck(LeftPos + Transform.GetLocalPosition(), Type))
+	{
+		AdjustLeftPosByTileCol(_MovePos);
+		ColCheck = true;
+	}
+
+	if (true == CurMap->ColCheck(RightPos + Transform.GetLocalPosition(), Type))
+	{
+		AdjustRightPosByTileCol(_MovePos);
+		ColCheck = true;
+	}
+
+	if (true == CurMap->ColCheck(UpPos + Transform.GetLocalPosition(), Type))
+	{
+		AdjustUpPosByTileCol(_MovePos);
+		ColCheck = true;
+	}
+
+	if (true == CurMap->ColCheck(DownPos + Transform.GetLocalPosition(), Type))
+	{
+		AdjustDownPosByTileCol(_MovePos);
+		ColCheck = true;
+	}
+
+	return ColCheck;
+}
+
+void Yeti::AdjustLeftPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(LeftPos + _MovePos))
+	{
+		_MovePos += float4::RIGHT;
+	}
+	_MovePos += float4::LEFT;
+}
+
+void Yeti::AdjustRightPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(RightPos + _MovePos))
+	{
+		_MovePos += float4::LEFT;
+	}
+	_MovePos += float4::RIGHT;
+}
+
+void Yeti::AdjustUpPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(UpPos + _MovePos))
+	{
+		_MovePos += float4::DOWN;
+	}
+	_MovePos += float4::UP;
+}
+
+void Yeti::AdjustDownPosByTileCol(float4& _MovePos)
+{
+	while (true == CurMap->AllColCheck(DownPos + _MovePos))
+	{
+		_MovePos += float4::UP;
+	}
+	_MovePos += float4::DOWN;
 }

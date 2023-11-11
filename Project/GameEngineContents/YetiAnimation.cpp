@@ -22,17 +22,17 @@ void Yeti::CreateYetiAnimation()
 	BodyRenderer->CreateAnimation("SideUp_Throwing", "Yeti.png", 0.1f, 33, 35, false);
 	BodyRenderer->CreateAnimation("SideDown_Throwing", "Yeti.png", 0.1f, 43, 45, false);
 
-	BodyRenderer->CreateAnimation("Side_ReadyToRoll", "Yeti.png", 0.1f, 3, 4, false);
-	BodyRenderer->CreateAnimation("Up_ReadyToRoll", "Yeti.png", 0.1f, 13, 14, false);
-	BodyRenderer->CreateAnimation("Down_ReadyToRoll", "Yeti.png", 0.1f, 23, 24, false);
-	BodyRenderer->CreateAnimation("SideUp_ReadyToRoll", "Yeti.png", 0.1f, 33, 34, false);
-	BodyRenderer->CreateAnimation("SideDown_ReadyToRoll", "Yeti.png", 0.1f, 43, 44, false);
+	BodyRenderer->CreateAnimation("Side_ReadyToRoll", "Yeti.png", 0.08f, 3, 4, false);
+	BodyRenderer->CreateAnimation("Up_ReadyToRoll", "Yeti.png", 0.08f, 13, 14, false);
+	BodyRenderer->CreateAnimation("Down_ReadyToRoll", "Yeti.png", 0.08f, 23, 24, false);
+	BodyRenderer->CreateAnimation("SideUp_ReadyToRoll", "Yeti.png", 0.08f, 33, 34, false);
+	BodyRenderer->CreateAnimation("SideDown_ReadyToRoll", "Yeti.png", 0.08f, 43, 44, false);
 	
-	BodyRenderer->CreateAnimation("Side_Rolling", "Yeti.png", 0.1f, 6, 8, true);
-	BodyRenderer->CreateAnimation("Up_Rolling", "Yeti.png", 0.1f, 16, 18, true);
-	BodyRenderer->CreateAnimation("Down_Rolling", "Yeti.png", 0.1f, 26, 28, true);
-	BodyRenderer->CreateAnimation("SideUp_Rolling", "Yeti.png", 0.1f, 36, 38, true);
-	BodyRenderer->CreateAnimation("SideDown_Rolling", "Yeti.png", 0.1f, 46, 48, true);
+	BodyRenderer->CreateAnimation("Side_Rolling", "Yeti.png", 0.08f, 6, 8, true);
+	BodyRenderer->CreateAnimation("Up_Rolling", "Yeti.png", 0.08f, 16, 18, true);
+	BodyRenderer->CreateAnimation("Down_Rolling", "Yeti.png", 0.08f, 26, 28, true);
+	BodyRenderer->CreateAnimation("SideUp_Rolling", "Yeti.png", 0.08f, 36, 38, true);
+	BodyRenderer->CreateAnimation("SideDown_Rolling", "Yeti.png", 0.08f, 46, 48, true);
 
 	BodyRenderer->CreateAnimation("Side_Landing", "Yeti.png", 0.1f, 50, 52, false);
 	BodyRenderer->CreateAnimation("Up_Landing", "Yeti.png", 0.1f, 60, 62, false);

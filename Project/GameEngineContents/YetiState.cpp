@@ -20,6 +20,8 @@ void Yeti::ThrowingStart()
 void Yeti::ReadyToRollStart()
 {
 	SetAnimByDir("ReadyToRoll");
+	SetMoveDir(Transform.GetLocalPosition());
+	DirectionUpdate();
 }
 void Yeti::RollingStart()
 {
@@ -55,6 +57,8 @@ void Yeti::SleepUpdate(float _Delta)
 
 void Yeti::IdleUpdate(float _Delta)
 {
+	IdleTimer += _Delta;
+
 	if (IdleDelay < IdleTimer)
 	{
 		IdleTimer = 0.0f;
@@ -62,27 +66,29 @@ void Yeti::IdleUpdate(float _Delta)
 		return;
 	}
 
-	IdleTimer += _Delta;
+	SetMoveDir(Transform.GetLocalPosition());
+	DirectionUpdate();
+
 	SetAnimByDir("Idle", BodyRenderer->GetCurIndex());
 }
 
 void Yeti::ThrowingUpdate(float _Delta)
 {
-	if (ThrowMaxCount == ThrowCount)
-	{
-		ChangeState(YETI_STATE::Idle);
-		NextStateBuffer = YETI_STATE::ReadyToRoll;
-		return;
-	}
-
 	if (BodyRenderer->IsCurAnimationEnd())
 	{
 		++ThrowCount;
-		SetAnimByDir("Throwing", 0, true);
-		return;
-	}
+		if (ThrowMaxCount == ThrowCount)
+		{
+			ChangeState(YETI_STATE::Idle);
+			NextStateBuffer = YETI_STATE::ReadyToRoll;
+			return;
+		}
 
-	SetAnimByDir("Throwing", BodyRenderer->GetCurIndex());
+		SetMoveDir(Transform.GetLocalPosition());
+		DirectionUpdate();
+
+		SetAnimByDir("Throwing", 0, true);
+	}
 }
 
 void Yeti::ReadyToRollUpdate(float _Delta)
