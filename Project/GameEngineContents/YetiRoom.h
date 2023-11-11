@@ -26,6 +26,8 @@ private:
 	void SpawnBoss() override;
 
 private:
+	void ReleaseBossEliment();
+
 	// Yeti
 	std::shared_ptr<class Yeti> YetiActor = nullptr;
 

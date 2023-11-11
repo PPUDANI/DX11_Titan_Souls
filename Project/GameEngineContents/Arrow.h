@@ -117,8 +117,8 @@ private:
 	bool ArrowColCheckByState(const float4& _MovePos);
 	void AdjustPosByTileCol();
 	void AdjustPosByCol();
-	void BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
-	void YetiCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup);
+	void BossCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup);
+	void YetiCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup);
 
 private:
 	// Debug Mode

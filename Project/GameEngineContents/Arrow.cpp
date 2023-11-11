@@ -254,7 +254,7 @@ void Arrow::DebugRender()
 }
 
 
-void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup)
+void Arrow::BossCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
 {
 	if (StandartPullingForceByHit < PullingForce)
 	{
@@ -274,8 +274,11 @@ void Arrow::BossCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>
 	}
 }
 
-void Arrow::YetiCollisionEvent(std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup)
+void Arrow::YetiCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
 {
+	BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
+	BossActor->HitArrow();
+
 	AdjustPosByCol();
 	ChangeState(ARROW_STATE::Fallen);
 }

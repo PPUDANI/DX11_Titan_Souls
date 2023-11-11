@@ -40,6 +40,11 @@ void Yeti::Start()
 
 void Yeti::Update(float _Delta)
 {
+	if (YETI_STATE::Sleep == CurState &&
+		true == IsHitArrow)
+	{
+		WakeUpYeti();
+	}
 	BossBase::Update(_Delta);
 	SetMoveDir(Transform.GetLocalPosition());
 	DirectionUpdate();
@@ -121,6 +126,11 @@ void Yeti::ChangeState(YETI_STATE _State)
 	default:
 		break;
 	}
+}
+
+void Yeti::WakeUpYeti()
+{
+	ChangeState(YETI_STATE::Idle);
 }
 
 void Yeti::SetDirection(YETI_DIRECTION _Dir)

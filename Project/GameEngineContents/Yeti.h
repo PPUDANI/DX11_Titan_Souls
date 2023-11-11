@@ -38,6 +38,10 @@ public:
 	Yeti& operator=(const Yeti& _Other) = delete;
 	Yeti& operator=(Yeti&& _Other) noexcept = delete;
 
+	void ChangeState(YETI_STATE _State);
+
+	void WakeUpYeti();
+
 protected:
 
 private:
@@ -48,7 +52,6 @@ private:
 private:
 	// State
 	YETI_STATE CurState;
-	void ChangeState(YETI_STATE _State);
 
 	void SleepStart();
 	void IdleStart();

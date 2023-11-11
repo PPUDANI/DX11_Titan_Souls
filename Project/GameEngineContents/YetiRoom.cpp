@@ -66,12 +66,14 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 		FadeInActor->Init(FadeColor::Black);
 	}
+	SpawnBoss();
 }
 
 
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+	ReleaseBossEliment();
 }
 
 
@@ -84,10 +86,13 @@ void YetiRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 
 void YetiRoom::SpawnBoss()
 {
-	YetiActor = CreateActor<Yeti>(UPDATE_ORDER::Boss);
-	YetiActor->Transform.SetLocalPosition({ 1008.0f, -892.0f });
-	YetiActor->SetEnymePlayer(PlayerActor.get());
-	YetiActor->SetEnymeArrow(ArrowActor.get());
+	if (nullptr == YetiActor)
+	{
+		YetiActor = CreateActor<Yeti>(UPDATE_ORDER::Boss);
+		YetiActor->Transform.SetLocalPosition({ 1008.0f, -892.0f });
+		YetiActor->SetEnymePlayer(PlayerActor.get());
+		YetiActor->SetEnymeArrow(ArrowActor.get());
+	}
 }
 
 void YetiRoom::Floor1TriggerFunc()
@@ -104,5 +109,15 @@ void YetiRoom::Floor1TriggerFunc()
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
 		GameEngineCore::ChangeLevel("01.Floor1");
+	}
+}
+
+
+void YetiRoom::ReleaseBossEliment()
+{
+	if (nullptr != YetiActor)
+	{
+		YetiActor->Death();
+		YetiActor = nullptr;
 	}
 }

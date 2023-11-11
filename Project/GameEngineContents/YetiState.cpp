@@ -55,7 +55,16 @@ void Yeti::SleepUpdate(float _Delta)
 
 void Yeti::IdleUpdate(float _Delta)
 {
-	SetAnimByDir("Idle", BodyRenderer->GetCurIndex());
+	if (IdleDelay < IdleTimer)
+	{
+		ChangeState(YETI_STATE::Throwing);
+		return;
+	}
+	else
+	{
+		IdleTimer += _Delta;
+		SetAnimByDir("Idle", BodyRenderer->GetCurIndex());
+	}
 }
 
 void Yeti::ThrowingUpdate(float _Delta)
