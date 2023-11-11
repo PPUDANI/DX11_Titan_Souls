@@ -59,6 +59,7 @@ protected:
 
 protected:
 	void SetMoveDir(const float4& _CheckPos);
+	void SetDirToDeg(float _Degree);
 	// Move
 	float4 MoveDirBasis = float4::ZERO;
 	float4 MoveAngle = float4::ZERO;

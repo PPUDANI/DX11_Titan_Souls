@@ -40,3 +40,9 @@ void BossBase::SetMoveDir(const float4& _CheckPos)
 
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }
+
+void BossBase::SetDirToDeg(float _Degree)
+{
+	MoveAngle.Z = _Degree;
+	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
+}

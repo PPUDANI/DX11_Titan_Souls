@@ -78,6 +78,7 @@ private:
 	YETI_DIRECTION CurDir = YETI_DIRECTION::Down;
 	void SetDirection(YETI_DIRECTION _Dir);
 	void DirectionUpdate();
+	void DirReflection();
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BodyRenderer = nullptr;
@@ -104,6 +105,16 @@ private:
 	float4 DownPos = {0.0f, -20.0f};
 
 private:
+	void Gravity(float _Delta);
+	float GravityValue = 0.0f;
+	float GravityForce = 0.0f;
+	float4 GravityDir = float4::UP;
+
+	float RollingSpeed = 900.0f;
+	float DecreaseByBlocked = 0.3f;
+	float4 JumpStartPos = float4::ZERO;
+
+private:
 	float IdleDelay = 0.5f;
 	float IdleTimer = 0.0f;
 
@@ -115,4 +126,5 @@ private:
 	
 	float RollingDelay = 2.0f;
 	float RollingTimer = 0.0f;
+
 };

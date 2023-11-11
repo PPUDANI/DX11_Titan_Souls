@@ -112,6 +112,7 @@ void Player::CreateBowAnimation()
 	BowRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	BowRenderer->Transform.SetLocalPosition(DefaultRendererPos);
 	BowRenderer->RenderBaseInfoValue.Target1 = 1;
+
 	// Idle Animations
 	BowRenderer->CreateAnimation("Right_Idle", "Bow.png", 1.0f, 0, 0, false);
 	BowRenderer->CreateAnimation("Up_Idle", "Bow.png", 1.0f, 32, 32, false);

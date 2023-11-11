@@ -184,8 +184,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
-			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
+		return 	Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1)) ||
+			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	case ARROW_STATE::Fallen:
@@ -197,8 +197,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1)) ||
-			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::YetiCollisionEvent, this, std::placeholders::_1));
+		return 	Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1)) ||
+			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1));
 		break;
 	case ARROW_STATE::Returning:
 		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
@@ -209,7 +209,7 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::BossCollisionEvent, this, std::placeholders::_1));
+		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1));
 		break;
 
 	default:
@@ -254,7 +254,7 @@ void Arrow::DebugRender()
 }
 
 
-void Arrow::BossCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
+void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
 {
 	if (StandartPullingForceByHit < PullingForce)
 	{
@@ -274,14 +274,12 @@ void Arrow::BossCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGrou
 	}
 }
 
-void Arrow::YetiCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
+void Arrow::BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
 {
-	if (StandartPullingForceByHit < PullingForce)
-	{
-		BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
-		BossActor->HitArrow();
+	BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
+	BossActor->HitArrow();
 
-		AdjustPosByCol();
-		ChangeState(ARROW_STATE::Fallen);
-	}
+	AdjustPosByCol();
+	PullingForce = 0.0f;
+	ChangeState(ARROW_STATE::Fallen);
 }

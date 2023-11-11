@@ -25,7 +25,6 @@ void Yeti::Start()
 	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
 	WeaknessActorValue = true;
 
-
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::SPHERE2D);
 	BodyCollision->Transform.SetLocalScale({ 90.0f, 90.0f, 1.0f });
@@ -36,7 +35,12 @@ void Yeti::Start()
 		};
 
 	NextStateBuffer = YETI_STATE::Throwing;
+
+	SetDirToDeg(270.0f);
+	DirectionUpdate();
 	//GameEngineInput::AddInputObject(this);
+
+	GravityForce = 1200.0f;
 }
 
 void Yeti::Update(float _Delta)
@@ -88,6 +92,9 @@ void Yeti::Update(float _Delta)
 		GameEngineTransform TData;
 		TData.SetLocalRotation(Transform.GetLocalRotationEuler());
 		TData.SetLocalScale({ 5.0f, 5.0f });
+
+		TData.SetLocalPosition(JumpStartPos);
+		GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
 
 		TData.SetLocalPosition(LeftPos + Transform.GetLocalPosition());
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
@@ -173,7 +180,6 @@ void Yeti::DirectionUpdate()
 	case 3:
 	case 4:
 		SetDirection(YETI_DIRECTION::Up);
-		BodyCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 		break;
 	case 5:
 	case 6:
@@ -200,6 +206,12 @@ void Yeti::DirectionUpdate()
 	}
 
 	SetColScaleByDir();
+}
+
+void Yeti::DirReflection()
+{
+	MoveAngle = -MoveAngle;
+	MoveDirBasis = -MoveDirBasis;
 }
 
 void Yeti::SetColScaleByDir()
@@ -277,7 +289,6 @@ void Yeti::AdjustLeftPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::RIGHT;
 	}
-	_MovePos += float4::LEFT;
 }
 
 void Yeti::AdjustRightPosByTileCol(float4& _MovePos)
@@ -286,7 +297,6 @@ void Yeti::AdjustRightPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::LEFT;
 	}
-	_MovePos += float4::RIGHT;
 }
 
 void Yeti::AdjustUpPosByTileCol(float4& _MovePos)
@@ -295,7 +305,6 @@ void Yeti::AdjustUpPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::DOWN;
 	}
-	_MovePos += float4::UP;
 }
 
 void Yeti::AdjustDownPosByTileCol(float4& _MovePos)
@@ -304,5 +313,21 @@ void Yeti::AdjustDownPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::UP;
 	}
-	_MovePos += float4::DOWN;
+}
+
+void Yeti::Gravity(float _Delta)
+{
+	if (JumpStartPos.Y > Transform.GetLocalPosition().Y)
+	{
+		float4 MovePos = Transform.GetLocalPosition();
+		MovePos.Y = JumpStartPos.Y;
+		Transform.SetLocalPosition(MovePos);
+
+		ChangeState(YETI_STATE::Landing);
+		return;
+	}
+
+	GravityValue -= GravityForce * _Delta;
+	float4 MovePos = GravityDir * GravityValue * _Delta;
+	Transform.AddLocalPosition(MovePos);
 }

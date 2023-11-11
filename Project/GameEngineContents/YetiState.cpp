@@ -23,6 +23,7 @@ void Yeti::ReadyToRollStart()
 	SetMoveDir(Transform.GetLocalPosition());
 	DirectionUpdate();
 }
+
 void Yeti::RollingStart()
 {
 	SetAnimByDir("Rolling");
@@ -35,7 +36,9 @@ void Yeti::LandingStart()
 
 void Yeti::BlockedStart()
 {
-
+	DirReflection();
+	GravityValue = 600.0f;
+	JumpStartPos = Transform.GetLocalPosition();
 }
 
 void Yeti::HitStart()
@@ -102,25 +105,36 @@ void Yeti::ReadyToRollUpdate(float _Delta)
 
 void Yeti::RollingUpdate(float _Delta)
 {
-	if (RollingDelay < RollingTimer)
+	float4 MovePos = MoveDirBasis * RollingSpeed * _Delta;
+	if (true == TileColCheck(MovePos))
 	{
-		RollingTimer = 0.0f;
-		NextStateBuffer = YETI_STATE::Throwing;
-		ChangeState(YETI_STATE::Idle);
+		ChangeState(YETI_STATE::Blocked);
 		return;
 	}
-
-	RollingTimer += _Delta;
-	SetAnimByDir("Rolling", BodyRenderer->GetCurIndex());
+	else
+	{
+		Transform.AddLocalPosition(MovePos);
+	}
 }
 
 void Yeti::LandingUpdate(float _Delta)
 {
 	SetAnimByDir("Landing", BodyRenderer->GetCurIndex());
+
+	if (true == BodyRenderer->IsCurAnimationEnd()) 
+	{
+		NextStateBuffer = YETI_STATE::Throwing;
+		ChangeState(YETI_STATE::Idle);
+		return;
+	}
 }
 
 void Yeti::BlockedUpdate(float _Delta)
 {
+	Gravity(_Delta);
+	float4 MovePos = MoveDirBasis * RollingSpeed * DecreaseByBlocked * _Delta;
+	Transform.AddLocalPosition(MovePos);
+	JumpStartPos += MovePos;
 }
 
 void Yeti::HitUpdate(float _Delta)
