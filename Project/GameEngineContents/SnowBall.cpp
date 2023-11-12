@@ -11,8 +11,9 @@ Snowball::~Snowball()
 
 void Snowball::Start()
 {
+	GlobalLoad::LoadSpriteSingle("Snowball.png", "Resource\\Texture\\Boss\\Yeti\\");
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
-	//Renderer->
+	Renderer->SetSprite("SnowBall.png");
 
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::SnowBall);
@@ -23,5 +24,4 @@ void Snowball::Start()
 
 void Snowball::Update(float _Delta)
 {
-
 }

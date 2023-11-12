@@ -495,8 +495,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::LeftUp);
 				return true;
 			}
-		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
-		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		//case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		//case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -534,8 +534,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::LeftUp);
 				return true;
 			}
-		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
-		case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
+		//case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		//case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -573,8 +573,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::LeftDown);
 				return true;
 			}
-		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
-		case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
+		//case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		//case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -613,8 +613,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::RightUp);
 				return true;
 			}
-		case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
-		case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
+		//case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
+		//case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
 			ChangeState(PLAYER_STATE::Blocked);
 			return false;
@@ -720,6 +720,7 @@ void Player::ResolveCollisionSticking()
 		}
 		Transform.AddLocalPosition(float4::RIGHT);
 		Transform.AddLocalPosition(float4::UP);
+		break;
 	case PLAYER_DIRECTION::Up:
 		while (true == BodyColInfo.UpCheck)
 		{
