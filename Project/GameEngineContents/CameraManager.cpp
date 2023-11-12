@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "CameraManager.h"
 
+float CameraManager::TurmSize = 20.0f;
 float4 CameraManager::AddCameraPosFromArrow = float4::ZERO;
 float4 CameraManager::AddCameraPosFromPlayer = float4::ZERO;
 float4 CameraManager::AddCameraPosFromBoss = float4::ZERO;

@@ -44,9 +44,11 @@ void Sludge::LandingStart()
 
 	LerpRange = 0.97f;
 	ShakingEnd = false;
-	ScreenShakingTime = 0.0f;
-	ShakingPerFrame = 0.0f;
+	ScreenShakingTime = 1.0f;
+	ScreenShakingTimer = 0.0f;
+	ShakingPerFrame = 0.25f;
 	ShakingLerpValue = 8.0f - DividedCount;
+
 }
 
 void Sludge::DivisionStart()
@@ -70,6 +72,28 @@ void Sludge::DivisionStart()
 
 void Sludge::IdleUpdate(float _Delta)
 {
+	GameEngineRandom Inst;
+	static int Count = 0;
+
+	if (2 >= DividedCount)
+	{
+		if (false == ShakingEnd &&
+			ScreenShakingTime > ScreenShakingTimer)
+		{
+			ScreenShakingTimer += _Delta;
+			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+			ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
+			CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+			CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+		}
+		else
+		{
+			CameraManager::AddCameraPosFromBoss = float4::ZERO;
+			ShakingEnd = true;
+		}
+	}
+
 	if (SLUDGE_STATE::Increase == ExpandDir)
 	{
 		IncreaseY((5.0f + static_cast<float>(DividedCount)) * _Delta);
@@ -159,16 +183,18 @@ void Sludge::LandingUpdate(float _Delta)
 
 	GameEngineRandom Inst;
 	static int Count = 0;
-	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+
 
 	if (2 >= DividedCount)
 	{
 		if (false == ShakingEnd &&
-			0.2f > ScreenShakingTime)
+			ScreenShakingTime > ScreenShakingTimer)
 		{
-			ScreenShakingTime += _Delta;
-			ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, 4.0f * _Delta);
+			ScreenShakingTimer += _Delta;
+			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+			ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
 			CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
 			CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
 		}
 		else

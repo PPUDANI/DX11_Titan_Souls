@@ -1,6 +1,6 @@
 #pragma once
 
-class Snowball
+class Snowball : public GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -16,5 +16,7 @@ public:
 protected:
 
 private:
-
+	// Inheritance
+	void Start() override;
+	void Update(float _Delta) override;
 };

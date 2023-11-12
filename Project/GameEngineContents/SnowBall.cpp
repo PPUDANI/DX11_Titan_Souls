@@ -8,3 +8,13 @@ Snowball::Snowball()
 Snowball::~Snowball()
 {
 }
+
+void Snowball::Start()
+{
+
+}
+
+void Snowball::Update(float _Delta)
+{
+
+}

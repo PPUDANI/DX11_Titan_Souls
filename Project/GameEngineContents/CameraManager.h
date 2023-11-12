@@ -23,25 +23,25 @@ public:
 
 	static float4 GetCameraPos(const float4& _TileEndPos)
 	{
-		float4 CameraPos = AddCameraPosFromArrow + AddCameraPosFromPlayer + AddCameraPosFromBoss;
+		float4 CameraPos = AddCameraPosFromArrow + AddCameraPosFromPlayer;
 
-		if (0.0f > CameraPos.X - GlobalValue::WindowScale.hX())
+		if (TurmSize > CameraPos.X - GlobalValue::WindowScale.hX())
 		{
-			CameraPos.X = GlobalValue::WindowScale.hX();
+			CameraPos.X = GlobalValue::WindowScale.hX() + TurmSize;
 		}
-		if (_TileEndPos.X < CameraPos.X + GlobalValue::WindowScale.hX())
+		if (_TileEndPos.X - TurmSize < CameraPos.X + GlobalValue::WindowScale.hX())
 		{
-			CameraPos.X = _TileEndPos.X - GlobalValue::WindowScale.hX();
+			CameraPos.X = _TileEndPos.X - TurmSize - GlobalValue::WindowScale.hX();
 		}
-		if (0.0f < CameraPos.Y + GlobalValue::WindowScale.hY())
+		if (-TurmSize < CameraPos.Y + GlobalValue::WindowScale.hY())
 		{
-			CameraPos.Y = -GlobalValue::WindowScale.hY();
+			CameraPos.Y = -GlobalValue::WindowScale.hY() - TurmSize;
 		}
-		if (_TileEndPos.Y > CameraPos.Y - GlobalValue::WindowScale.hY())
+		if (_TileEndPos.Y + TurmSize > CameraPos.Y - GlobalValue::WindowScale.hY())
 		{
-			CameraPos.Y = _TileEndPos.Y + GlobalValue::WindowScale.hY();
+			CameraPos.Y = _TileEndPos.Y + TurmSize + GlobalValue::WindowScale.hY();
 		}
-
+		CameraPos += AddCameraPosFromBoss;
 		CameraPos.Z = -100.0f;
 		CameraPos.W = 1.0f;
 		return CameraPos;
@@ -64,5 +64,5 @@ public:
 protected:
 
 private:
-
+	static float TurmSize;
 };
