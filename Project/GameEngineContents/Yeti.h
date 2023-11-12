@@ -52,6 +52,11 @@ public:
 		YetiIsWakeUpValue = false;
 	}
 
+	inline YETI_STATE GetCurState() const
+	{
+		return CurState;
+	}
+
 protected:
 
 private:
@@ -64,6 +69,7 @@ private:
 	bool YetiIsWakeUpValue = false;
 	YETI_STATE CurState = YETI_STATE::Sleep;
 	YETI_STATE NextStateBuffer = YETI_STATE::Sleep;
+
 
 	void SleepStart();
 	void IdleStart();

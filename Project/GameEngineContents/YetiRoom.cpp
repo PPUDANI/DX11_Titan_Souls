@@ -55,11 +55,29 @@ void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
+	if (YETI_STATE::Hit == YetiActor->GetCurState())
+	{
+		BossIsDeath = true;
+	}
+
+	if (true == BossIsDeath &&
+		false == BossDeathPrecessingIsEnd)
+	{
+		BossDeathProcessing();
+	}
+
 	if (nullptr != YetiActor &&
 		true == YetiActor->YetiIsWakeUp())
 	{
 		YetiActor->YetiIsWakeUpReset();
 		OutputBossName();
+	}
+
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		FadeInActor->Death();
+		FadeInActor = nullptr;
 	}
 }
 
@@ -117,6 +135,18 @@ void YetiRoom::Floor1TriggerFunc()
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
 		GameEngineCore::ChangeLevel("01.Floor1");
+	}
+}
+
+void YetiRoom::BossDeathProcessing()
+{
+	BossDeathPrecessingIsEnd = true;
+
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::White, 6.0f);
+		FadeInActor->SetFadeStartAlpha(0.4f);
 	}
 }
 
