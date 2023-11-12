@@ -50,6 +50,7 @@ enum class COLLISION_TYPE
 	Weakness,
 	Sludge,
 	BossBody,
+	SnowBall,
 	DetectionRange,
 	EventPlace,
 };

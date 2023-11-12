@@ -19,4 +19,8 @@ private:
 	// Inheritance
 	void Start() override;
 	void Update(float _Delta) override;
+
+private:
+	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
+	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 };
