@@ -495,6 +495,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::LeftUp);
 				return true;
 			}
+			ChangeState(PLAYER_STATE::Blocked);
+			return false;
 		//case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		//case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
@@ -534,6 +536,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::LeftUp);
 				return true;
 			}
+			ChangeState(PLAYER_STATE::Blocked);
+			return false;
 		//case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		//case TILE_COLLISION_TYPE::RIGHTDOWN_TRIANGLE:
 		default:
@@ -573,6 +577,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::LeftDown);
 				return true;
 			}
+			ChangeState(PLAYER_STATE::Blocked);
+			return false;
 		//case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 		//case TILE_COLLISION_TYPE::RIGHTUP_TRIANGLE:
 		default:
@@ -613,6 +619,8 @@ bool Player::MoveCheck()
 				SetDirection(PLAYER_DIRECTION::RightUp);
 				return true;
 			}
+			ChangeState(PLAYER_STATE::Blocked);
+			return false;
 		//case TILE_COLLISION_TYPE::LEFTUP_TRIANGLE:
 		//case TILE_COLLISION_TYPE::LEFTDOWN_TRIANGLE:
 		default:
