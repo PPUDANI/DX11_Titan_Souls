@@ -41,6 +41,16 @@ public:
 	void ChangeState(YETI_STATE _State);
 
 	void WakeUpYeti();
+	
+	inline bool YetiIsWakeUp() const
+	{
+		return YetiIsWakeUpValue;
+	}
+
+	inline void YetiIsWakeUpReset()
+	{
+		YetiIsWakeUpValue = false;
+	}
 
 protected:
 
@@ -51,8 +61,9 @@ private:
 
 private:
 	// State
-	YETI_STATE CurState;
-	YETI_STATE NextStateBuffer;
+	bool YetiIsWakeUpValue = false;
+	YETI_STATE CurState = YETI_STATE::Sleep;
+	YETI_STATE NextStateBuffer = YETI_STATE::Sleep;
 
 	void SleepStart();
 	void IdleStart();
@@ -82,16 +93,37 @@ private:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BodyRenderer = nullptr;
+	float4 RendererStandardPos = { 0.0f, -20.0f };
+
 	void CreateYetiAnimation();
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
 
 private:
 	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> BodyCollision2 = nullptr;
+	std::shared_ptr<class GameEngineCollision> RollingCollision = nullptr;
+
 	EventParameter Param;
 
 	void SetColScaleByDir();
 
-	float4 BodyColStandardPos = { 0.0f, 65.0f };
+	inline void BodyCollisionOff()
+	{
+		Collision->Off();
+		BodyCollision->Off();
+		BodyCollision2->Off();
+	}
+
+	inline void BodyCollisionOn()
+	{
+		Collision->On();
+		BodyCollision->On();
+		BodyCollision2->On();
+	}
+
+	float4 BodyColStandardPos = { 0.0f, 50.0f };
+	float4 WeeknessColStandardPos = { 0.0f, 0.0f };
+	float4 RollingColStandardPos = { 0.0f, 0.0f };
 
 	bool TileColCheck(float4& _MovePos);
 	void AdjustLeftPosByTileCol(float4& _MovePos);
@@ -110,8 +142,8 @@ private:
 	float GravityForce = 0.0f;
 	float4 GravityDir = float4::UP;
 
-	float RollingSpeed = 900.0f;
-	float DecreaseByBlocked = 0.3f;
+	float RollingSpeed = 1200.0f;
+	float DecreaseByBlocked = 0.15f;
 	float4 JumpStartPos = float4::ZERO;
 
 private:
@@ -124,7 +156,7 @@ private:
 	unsigned int ThrowMaxCount = 4;
 	unsigned int ThrowCount = 0;
 	
-	float RollingDelay = 2.0f;
-	float RollingTimer = 0.0f;
+	float LandingDelay = 0.5f;
+	float LandingTimer = 0.0f;
 
 };

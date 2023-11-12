@@ -54,6 +54,13 @@ void YetiRoom::Start()
 void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
+
+	if (nullptr != YetiActor &&
+		true == YetiActor->YetiIsWakeUp())
+	{
+		YetiActor->YetiIsWakeUpReset();
+		OutputBossName();
+	}
 }
 
 
@@ -113,12 +120,50 @@ void YetiRoom::Floor1TriggerFunc()
 	}
 }
 
-
 void YetiRoom::ReleaseBossEliment()
 {
 	if (nullptr != YetiActor)
 	{
 		YetiActor->Death();
 		YetiActor = nullptr;
+	}
+}
+
+void YetiRoom::OutputBossName()
+{
+	// BossName Actor
+	BossNameBack = CreateActor<FadeImage>(UPDATE_ORDER::UI);
+	BossNameBack->Init("BossNameBG.png");
+	BossNameBack->Transform.SetLocalPosition({ 0.0f, -305.0f });
+
+	SludgeHeartScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	SludgeHeartScript->Init("YETI", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
+	SludgeHeartScript->FadeInit();
+	SludgeHeartScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
+
+	GuardianScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	GuardianScript->Init("OLD SNOW BEAST", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
+	GuardianScript->FadeInit();
+	GuardianScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
+}
+
+void YetiRoom::ReleaseBossName()
+{
+	if (nullptr != BossNameBack)
+	{
+		BossNameBack->Death();
+		BossNameBack = nullptr;
+	}
+
+	if (nullptr != SludgeHeartScript)
+	{
+		SludgeHeartScript->Death();
+		SludgeHeartScript = nullptr;
+	}
+
+	if (nullptr != GuardianScript)
+	{
+		GuardianScript->Death();
+		GuardianScript = nullptr;
 	}
 }

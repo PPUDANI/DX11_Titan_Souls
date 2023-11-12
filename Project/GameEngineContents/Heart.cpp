@@ -37,18 +37,11 @@ void Heart::Start()
 
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
-	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 35.0f, 10.0f, 1.0f });
-
-
-	Collision2 = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
-	Collision2->SetCollisionType(ColType::AABBBOX2D);
-	Collision2->Transform.SetLocalScale({ 10.0f, 28.0f, 1.0f });
-
+	Collision->SetCollisionType(ColType::SPHERE2D);
+	Collision->Transform.SetLocalScale({ 35.0f, 53.0f, 1.0f });
 
 	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;
-	WeaknessActorValue = true;
 
 	ColPosInterval = { 64.0f, 64.0f };
 
@@ -57,7 +50,7 @@ void Heart::Start()
 
 void Heart::Update(float _Delta)
 {
-	if (true == IsHitArrow)
+	if (true == IsWeaknessHitByArrow)
 	{
 		ChangeState(JUMPBOSS_STATE::Death);
 		return;

@@ -25,6 +25,9 @@ private:
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void SpawnBoss() override;
 
+	void OutputBossName();
+	void ReleaseBossName();
+
 private:
 	void ReleaseBossEliment();
 

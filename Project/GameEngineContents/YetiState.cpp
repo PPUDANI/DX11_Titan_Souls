@@ -19,18 +19,28 @@ void Yeti::ThrowingStart()
 
 void Yeti::ReadyToRollStart()
 {
-	SetAnimByDir("ReadyToRoll");
 	SetMoveDir(Transform.GetLocalPosition());
 	DirectionUpdate();
+
+	SetAnimByDir("ReadyToRoll");
 }
 
 void Yeti::RollingStart()
 {
+	SetMoveDir(Transform.GetLocalPosition());
+	DirectionUpdate();
+
+	BodyCollisionOff();
+	RollingCollision->On();
+
 	SetAnimByDir("Rolling");
 }
 
 void Yeti::LandingStart()
 {
+	LandingTimer = 0.0f;
+	BodyCollisionOn();
+	RollingCollision->Off();
 	SetAnimByDir("Landing");
 }
 
@@ -43,11 +53,23 @@ void Yeti::BlockedStart()
 
 void Yeti::HitStart()
 {
+	switch (CurDir)
+	{
+	case YETI_DIRECTION::LeftDown:
+	case YETI_DIRECTION::Down:
+	case YETI_DIRECTION::RightDown:
+		EnymeArrow->SetOrderToYSort();
+		break;
+	default:
+		break;
+	}
+	BodyCollisionOff();
 	SetAnimByDir("Hit");
 }
 
 void Yeti::DeathStart()
 {
+	//BodyRenderer->Transform.AddLocalPosition(-MoveDirBasis * 50.0f);
 	SetAnimByDir("Death");
 }
 
@@ -119,10 +141,10 @@ void Yeti::RollingUpdate(float _Delta)
 
 void Yeti::LandingUpdate(float _Delta)
 {
-	SetAnimByDir("Landing", BodyRenderer->GetCurIndex());
-
-	if (true == BodyRenderer->IsCurAnimationEnd()) 
+	LandingTimer += _Delta;
+	if (LandingDelay < LandingTimer)
 	{
+		LandingTimer = 0.0f;
 		NextStateBuffer = YETI_STATE::Throwing;
 		ChangeState(YETI_STATE::Idle);
 		return;
@@ -139,7 +161,11 @@ void Yeti::BlockedUpdate(float _Delta)
 
 void Yeti::HitUpdate(float _Delta)
 {
-	SetAnimByDir("Hit");
+	// 임시 코드
+	if (ARROW_STATE::PickUp == EnymeArrow->GetCurState())
+	{
+		ChangeState(YETI_STATE::Death);
+	}
 }
 
 void Yeti::DeathUpdate(float _Delta)

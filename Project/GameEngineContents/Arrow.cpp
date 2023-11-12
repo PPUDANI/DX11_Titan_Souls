@@ -21,7 +21,7 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
-	Collision->SetCollisionType(ColType::SPHERE2D);
+	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
@@ -115,7 +115,7 @@ void Arrow::ChangeState(ARROW_STATE _State)
 
 void Arrow::MoveAndColCheck(const float4& _MovePos)
 {
-	float4 _MovePosUnit = FlyingDirectionBasis * 5.0f;
+	float4 _MovePosUnit = FlyingDirectionBasis;
 
 	int IndexInt = static_cast<int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 
@@ -128,7 +128,7 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 		{
 			if (ARROW_STATE::Returning != CurState)
 			{
-				Transform.AddLocalPosition(_MovePosUnit * Index);
+				Transform.AddLocalPosition(MovePos);
 				AdjustPosByTileCol();
 				if (false == IsBlocked)
 				{
@@ -150,12 +150,11 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 		}
 	}
 
-	float Indexfloat = static_cast<float>(IndexInt);
 	if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + _MovePos, TileColType))
 	{
 		if (ARROW_STATE::Returning != CurState)
 		{
-			Transform.AddLocalPosition(_MovePosUnit * Indexfloat);
+			Transform.AddLocalPosition(_MovePos);
 			AdjustPosByTileCol();
 			if (false == IsBlocked)
 			{
@@ -181,12 +180,13 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 
 bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 {
+	bool Res = false;
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		return 	Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1)) ||
-			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1));
-		break;
+		Res = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
+			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		return Res;
 
 	case ARROW_STATE::Fallen:
 		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
@@ -197,9 +197,10 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return 	Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1)) ||
-			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1));
-		break;
+		Res = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
+			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		return Res;
+
 	case ARROW_STATE::Returning:
 		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
 		{
@@ -209,8 +210,9 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		return Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1));
-		break;
+		Res = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
+			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		return Res;
 
 	default:
 		break;
@@ -254,31 +256,29 @@ void Arrow::DebugRender()
 }
 
 
-void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
+void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup, float4 _MovePos)
 {
 	if (StandartPullingForceByHit < PullingForce)
 	{
 		BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
-		BossActor->HitArrow();
-
-		if (true == BossActor->IsWeaknessActor())
-		{
-			AdjustPosByCol();
-			ChangeState(ARROW_STATE::Pinned);
-		}
+		BossActor->WeaknessHitByArrow();
+		Transform.AddLocalPosition(_MovePos);
+		AdjustPosByCol();
+		ChangeState(ARROW_STATE::Pinned);
 	}
 	else
 	{
+		Transform.AddLocalPosition(_MovePos);
 		AdjustPosByCol();
 		ChangeState(ARROW_STATE::Fallen);
 	}
 }
 
-void Arrow::BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup)
+void Arrow::BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup, float4 _MovePos)
 {
 	BossBase* BossActor = dynamic_cast<BossBase*>(_CollisionGroup[0]->GetParentObject());
-	BossActor->HitArrow();
-
+	BossActor->BodyHitByArrow();
+	Transform.AddLocalPosition(_MovePos);
 	AdjustPosByCol();
 	PullingForce = 0.0f;
 	ChangeState(ARROW_STATE::Fallen);

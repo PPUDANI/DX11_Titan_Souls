@@ -73,6 +73,12 @@ public:
 	{
 		return StandartPullingForceByHit < PullingForce;
 	}
+
+	void SetOrderToYSort()
+	{
+		Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
+	}
+
 private:
 	// External Element
 	class Player* OwnerPlayer = nullptr;
@@ -117,8 +123,8 @@ private:
 	bool ArrowColCheckByState(const float4& _MovePos);
 	void AdjustPosByTileCol();
 	void AdjustPosByCol();
-	void WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup);
-	void BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup);
+	void WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup, float4 _MovePos);
+	void BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup, float4 _MovePos);
 
 private:
 	// Debug Mode

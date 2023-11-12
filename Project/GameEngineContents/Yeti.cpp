@@ -21,13 +21,22 @@ void Yeti::Start()
 	// Create Collision
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 50.0f, 50.0f, 1.0f });
+	Collision->Transform.SetLocalScale({ 40.0f, 20.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
-	WeaknessActorValue = true;
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
-	BodyCollision->SetCollisionType(ColType::SPHERE2D);
-	BodyCollision->Transform.SetLocalScale({ 90.0f, 90.0f, 1.0f });
+	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
+	BodyCollision->Transform.SetLocalScale({ 70.0f, 30.0f, 1.0f });
+
+	BodyCollision2 = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
+	BodyCollision2->SetCollisionType(ColType::AABBBOX2D);
+	BodyCollision2->Transform.SetLocalScale({ 70.0f, 30.0f, 1.0f });
+
+	RollingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
+	RollingCollision->SetCollisionType(ColType::AABBBOX2D);
+	RollingCollision->Transform.SetLocalScale({ 80.0f, 50.0f, 1.0f });
+	RollingCollision->Transform.SetLocalPosition(RollingColStandardPos);
+	RollingCollision->Off();
 
 	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
@@ -38,6 +47,7 @@ void Yeti::Start()
 
 	SetDirToDeg(270.0f);
 	DirectionUpdate();
+
 	//GameEngineInput::AddInputObject(this);
 
 	GravityForce = 1200.0f;
@@ -46,13 +56,21 @@ void Yeti::Start()
 void Yeti::Update(float _Delta)
 {
 	if (YETI_STATE::Sleep == CurState &&
-		true == IsHitArrow)
+		true == IsBodyHitByArrow)
 	{
 		WakeUpYeti();
 	}
+
+	if (true == IsWeaknessHitByArrow)
+	{
+		IsWeaknessHitByArrow = false;
+		ChangeState(YETI_STATE::Hit);
+	}
+
 	BossBase::Update(_Delta);
 
 	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
+	BodyCollision2->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
 
 	switch (CurState)
 	{
@@ -156,6 +174,7 @@ void Yeti::ChangeState(YETI_STATE _State)
 void Yeti::WakeUpYeti()
 {
 	ChangeState(YETI_STATE::Idle);
+	YetiIsWakeUpValue = true;
 }
 
 void Yeti::SetDirection(YETI_DIRECTION _Dir)
@@ -216,39 +235,86 @@ void Yeti::DirReflection()
 
 void Yeti::SetColScaleByDir()
 {
-	float4 PosByDir;
+	float4 BodyPosByDir;
+	float4 BodyScaleByDir;
+
+	float4 Body2PosByDir;
+	float4 Body2ScaleByDir;
+
+	float4 WeeknessPosByDir;
 
 	switch (CurDir)
 	{
 	case YETI_DIRECTION::Right:
-		PosByDir = float4{ 30.0f, 0.0f };
+		BodyPosByDir = { 5.0f, -10.0f };
+		BodyScaleByDir = { -50.0f, 70.0f, 1.0f };
+		Body2PosByDir = float4::ZERO;
+		Body2ScaleByDir = float4::ZERO;
+		WeeknessPosByDir = { -15.0f, 5.0f };
 		break;
 	case YETI_DIRECTION::RightUp:
-		PosByDir = float4{ 25.0f, 25.0f };
+		BodyPosByDir = { 5.0f, 23.0f };
+		BodyScaleByDir = { -70.0f, 20.0f , 1.0f };
+		Body2PosByDir = { 25.0f, -17.0f };
+		Body2ScaleByDir = { 30.0f, 60.0f, 1.0f };
+		WeeknessPosByDir = { -10.0f, 3.0f };
 		break;
 	case YETI_DIRECTION::Up:
-		PosByDir = float4{ 0.0f, 30.0f };
+		BodyPosByDir = { 0.0f, 30.0f };
+		BodyScaleByDir = { 80.0f, 30.0f , 1.0f };
+		Body2PosByDir = float4::ZERO;
+		Body2ScaleByDir = float4::ZERO;
+		WeeknessPosByDir = { 0.0f, 0.0f };
 		break;
 	case YETI_DIRECTION::LeftUp:
-		PosByDir = float4{ -25.0f, 25.0f };
+		BodyPosByDir = { -5.0f, 23.0f };
+		BodyScaleByDir = { -70.0f, 20.0f , 1.0f };
+		Body2PosByDir = { -25.0f, -17.0f };
+		Body2ScaleByDir = { 30.0f, 60.0f, 1.0f };
+		WeeknessPosByDir = { 10.0f, 3.0f };
 		break;
 	case YETI_DIRECTION::Left:
-		PosByDir = float4{ -30.0f, 0.0f };
+		BodyPosByDir = { -5.0f, -10.0f };
+		BodyScaleByDir = { 50.0f, 70.0f, 1.0f };
+		Body2PosByDir = float4::ZERO;
+		Body2ScaleByDir = float4::ZERO;
+		WeeknessPosByDir = { 15.0f, 5.0f };
 		break;
 	case YETI_DIRECTION::LeftDown:
-		PosByDir = float4{ -25.0f, -25.0f };
+		BodyPosByDir = { 15.0f, -30.0f };
+		BodyScaleByDir = { -40.0f, 40.0f, 1.0f };
+		Body2PosByDir = { -20.0f, -15.0f };
+		Body2ScaleByDir = { -30.0f, 40.0f, 1.0f };
+		WeeknessPosByDir = { 10.0f, 0.0f };
 		break;
 	case YETI_DIRECTION::Down:
-		PosByDir = float4{ 0.0f, -30.0f };
+		BodyPosByDir = { 0.0f, -30.0f };
+		BodyScaleByDir = { 90.0f, 40.0f, 1.0f };
+		Body2PosByDir = float4::ZERO;
+		Body2ScaleByDir = float4::ZERO;
+		WeeknessPosByDir = { 0.0f, 00.0f };
 		break;
 	case YETI_DIRECTION::RightDown:
-		PosByDir = float4{ 25.0f, -25.0f };
+		BodyPosByDir = { -15.0f, -30.0f };
+		BodyScaleByDir = { 40.0f, 40.0f, 1.0f };
+		Body2PosByDir = { 20.0f, -15.0f };
+		Body2ScaleByDir = { 30.0f, 40.0f, 1.0f };
+		WeeknessPosByDir = { -10.0f, 0.0f };
 		break;
 	default:
 		break;
 	}
 
-	BodyCollision->Transform.SetLocalPosition(BodyColStandardPos + PosByDir);
+	BodyCollision->Transform.SetLocalPosition(BodyColStandardPos + BodyPosByDir + RendererStandardPos);
+	BodyCollision->Transform.SetLocalScale(BodyScaleByDir);
+
+	if (true == BodyCollision2->IsUpdate())
+	{
+		BodyCollision2->Transform.SetLocalPosition(BodyColStandardPos + Body2PosByDir + RendererStandardPos);
+		BodyCollision2->Transform.SetLocalScale(Body2ScaleByDir);
+	}
+	
+	Collision->Transform.SetLocalPosition(BodyColStandardPos + WeeknessPosByDir + RendererStandardPos);
 }
 
 

@@ -19,8 +19,9 @@ void Player::Start()
 	CreateArrowInBagAnimation();
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Player);
-	BodyCollision->SetCollisionType(ColType::SPHERE2D);
+	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, -5.0f, 1.0f });
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetSprite("Player.png", 63);

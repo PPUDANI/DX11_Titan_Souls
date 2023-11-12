@@ -28,14 +28,14 @@ public:
 		CurMap = _CurMap;
 	}
 
-	inline void HitArrow()
+	inline void WeaknessHitByArrow()
 	{
-		IsHitArrow = true;
+		IsWeaknessHitByArrow = true;
 	}
 
-	inline bool IsWeaknessActor()
+	inline void BodyHitByArrow()
 	{
-		return WeaknessActorValue;
+		IsBodyHitByArrow = true;
 	}
 
 protected:
@@ -54,8 +54,8 @@ protected:
 	class TileMap* CurMap = nullptr;
 
 	// State
-	bool IsHitArrow = false;
-	bool WeaknessActorValue = false;
+	bool IsWeaknessHitByArrow = false;
+	bool IsBodyHitByArrow = false;
 
 protected:
 	void SetMoveDir(const float4& _CheckPos);

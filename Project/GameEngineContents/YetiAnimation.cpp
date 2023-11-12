@@ -7,7 +7,7 @@ void Yeti::CreateYetiAnimation()
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->SetImageScale({ 192.0f, 192.0f });
-	BodyRenderer->Transform.AddLocalPosition({ 0.0f,-5.0f });
+	BodyRenderer->Transform.AddLocalPosition(RendererStandardPos);
 	BodyRenderer->CreateAnimation("Sleep", "Yeti.png", 1.0f, 73, 73, false);
 
 	BodyRenderer->CreateAnimation("Side_Idle", "Yeti.png", 0.3f, 0, 2, true);
