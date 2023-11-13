@@ -18,14 +18,15 @@ void Snowball::Start()
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::SnowBall);
 	Collision->SetCollisionType(ColType::SPHERE2D);
-	Collision->Transform.SetLocalScale({ 48.0f, 48.0f });
+	Collision->Transform.SetLocalScale({ 32.0f, 32.0f });
 }
 
 void Snowball::Update(float _Delta)
 {
 	Transform.AddLocalPosition(AngleToPlayer * SnowballSpeed * _Delta);
 
-	if (true == TileColCheck())
+	if (true == TileColCheck() ||
+		Collision->Collision(COLLISION_TYPE::Player))
 	{
 		Death();
 	}

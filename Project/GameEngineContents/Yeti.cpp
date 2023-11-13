@@ -420,7 +420,9 @@ void Yeti::ThrowSnowball()
 	default:
 		break;
 	}
-	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(Transform.GetLocalPosition() + float4{0.0f, 40.0f}, MoveDirBasis, Order);
+	float4 StartPos = Transform.GetLocalPosition() + float4{ 0.0f, 40.0f };
+	SetMoveDir(StartPos);
+	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(StartPos, MoveDirBasis, Order);
 }
 
 void Yeti::ShakingScreenInit()
