@@ -25,7 +25,10 @@ void Snowball::Update(float _Delta)
 {
 	if (true == Collision->Collision(COLLISION_TYPE::Player))
 	{
-		EnymePlayer->ChangeState(PLAYER_STATE::Death);
+		if (false == EnymePlayer->InvincibilityModeIsOn())
+		{
+			EnymePlayer->ChangeState(PLAYER_STATE::Death);
+		}
 		Death();
 	}
 

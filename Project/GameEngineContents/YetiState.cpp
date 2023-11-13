@@ -44,14 +44,13 @@ void Yeti::LandingStart()
 
 	LandingTimer = 0.0f;
 	BodyCollisionOn();
-	RollingCollision->Off();
 	SetAnimByDir("Landing");
 }
 
 void Yeti::BlockedStart()
 {
 	ShakingScreenInit();
-
+	RollingCollision->Off();
 	DirReflection();
 	GravityValue = 600.0f;
 }

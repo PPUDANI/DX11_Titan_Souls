@@ -102,7 +102,12 @@ public:
 	{
 		ArrowInBagRenderer->On();
 	}
-	
+
+	inline bool InvincibilityModeIsOn()
+	{
+		return InvincibilityMode;
+	}
+
 private:
 
 	bool EnterEndValue = false;
