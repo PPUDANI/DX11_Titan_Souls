@@ -181,27 +181,9 @@ void Sludge::LandingUpdate(float _Delta)
 		ChangeState(JUMPBOSS_STATE::Idle);
 	}
 
-	GameEngineRandom Inst;
-	static int Count = 0;
-
-
 	if (2 >= DividedCount)
 	{
-		if (false == ShakingEnd &&
-			ScreenShakingTime > ScreenShakingTimer)
-		{
-			ScreenShakingTimer += _Delta;
-			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
-			ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
-			CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
-			CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-		}
-		else
-		{
-			CameraManager::AddCameraPosFromBoss = float4::ZERO;
-			ShakingEnd = true;
-		}
+		ShakingScreen(_Delta);
 	}
 }
 

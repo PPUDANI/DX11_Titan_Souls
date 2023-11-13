@@ -64,6 +64,13 @@ protected:
 	float4 MoveDirBasis = float4::ZERO;
 	float4 MoveAngle = float4::ZERO;
 	bool RandomMoveValue = false;
-private:
+protected:
+	void ShakingScreen(float _Delta);
 
+	int ShakingSeedCount = 0;
+	float ScreenShakingTime;
+	float ScreenShakingTimer = 0.0f;
+	float ShakingPerFrame = 0.0f;
+	bool ShakingEnd = false;
+	float ShakingLerpValue = 0.0f;
 };

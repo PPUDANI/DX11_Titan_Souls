@@ -88,9 +88,4 @@ private:
 	bool ReadyToJump = false;
 	float JumpChargeTime = 0.0f;
 private:
-	float ScreenShakingTime = 0.0f;
-	float ScreenShakingTimer = 0.0f;
-	float ShakingPerFrame = 0.0f;
-	bool ShakingEnd = false;
-	float ShakingLerpValue = 0.0f;
 };

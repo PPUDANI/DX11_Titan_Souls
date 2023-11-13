@@ -75,7 +75,6 @@ void Yeti::HitStart()
 
 void Yeti::DeathStart()
 {
-	//BodyRenderer->Transform.AddLocalPosition(-MoveDirBasis * 50.0f);
 	SetAnimByDir("Death");
 }
 
@@ -159,24 +158,7 @@ void Yeti::LandingUpdate(float _Delta)
 
 void Yeti::BlockedUpdate(float _Delta)
 {
-	GameEngineRandom Inst;
-	static int Count = 0;
-
-	if (false == ShakingEnd &&
-		ScreenShakingTime > ScreenShakingTimer)
-	{
-		ScreenShakingTimer += _Delta;
-		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
-		ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
-		CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
-		CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-	}
-	else
-	{
-		CameraManager::AddCameraPosFromBoss = float4::ZERO;
-		ShakingEnd = true;
-	}
+	ShakingScreen(_Delta);
 
 	Gravity(_Delta);
 	float4 MovePos = MoveDirBasis * RollingSpeed * DecreaseByBlocked * _Delta;

@@ -46,3 +46,25 @@ void BossBase::SetDirToDeg(float _Degree)
 	MoveAngle.Z = _Degree;
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }
+
+void BossBase::ShakingScreen(float _Delta)
+{
+	GameEngineRandom Inst;
+	ShakingSeedCount;
+
+	if (false == ShakingEnd &&
+		ScreenShakingTime > ScreenShakingTimer)
+	{
+		ScreenShakingTimer += _Delta;
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
+		ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
+		CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
+		CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+	}
+	else
+	{
+		CameraManager::AddCameraPosFromBoss = float4::ZERO;
+		ShakingEnd = true;
+	}
+}
