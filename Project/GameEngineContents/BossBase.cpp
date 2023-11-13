@@ -58,13 +58,13 @@ void BossBase::ShakingScreen(float _Delta)
 		ScreenShakingTimer += _Delta;
 		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
 		ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
-		CameraManager::AddCameraPosFromBoss.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+		CameraManager::AddCameraPosFromShaking.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
 		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
-		CameraManager::AddCameraPosFromBoss.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+		CameraManager::AddCameraPosFromShaking.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
 	}
 	else
 	{
-		CameraManager::AddCameraPosFromBoss = float4::ZERO;
+		CameraManager::AddCameraPosFromShaking = float4::ZERO;
 		ShakingEnd = true;
 	}
 }

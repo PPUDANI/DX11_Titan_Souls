@@ -70,6 +70,13 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 	LevelBase::LevelStart(_PrevLevel);
 	SpawnPlayer(_PrevLevel);
 	SpawnBoss();
+
+	if (nullptr != PlayerActor &&
+		nullptr != ArrowActor)
+	{
+		PlayerActor->GetArrow();
+		ArrowActor->ChangeState(ARROW_STATE::Hold);
+	}
 }
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)

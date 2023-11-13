@@ -13,6 +13,8 @@ public:
 	YetiRoom& operator=(const YetiRoom& _Other) = delete;
 	YetiRoom& operator=(YetiRoom&& _Other) noexcept = delete;
 
+	void SpawnSnowBall(const float4& _StartPos, const float4& _Angle);
+
 protected:
 
 private:
@@ -25,6 +27,7 @@ private:
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void SpawnBoss() override;
 
+
 	void OutputBossName();
 	void ReleaseBossName();
 
@@ -33,6 +36,7 @@ private:
 
 	// Yeti
 	std::shared_ptr<class Yeti> YetiActor = nullptr;
+	std::shared_ptr<class Snowball> SnowballActor = nullptr;
 
 private:
 	std::shared_ptr<class TriggerBox> EnterTheFloor1 = nullptr;
@@ -48,4 +52,7 @@ private:
 	bool BossIsDeath = false;
 	bool BossDeathPrecessingIsEnd = false;
 	void BossDeathProcessing();
+	void BossWakeUpProcessing();
+
+	bool WakeUpProcessingIsEnd = false;
 };

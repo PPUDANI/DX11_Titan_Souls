@@ -16,6 +16,7 @@ public:
 	static float4 AddCameraPosFromArrow;
 	static float4 AddCameraPosFromPlayer;
 	static float4 AddCameraPosFromBoss;
+	static float4 AddCameraPosFromShaking;
 
 	static float AddCameraZoomFromArrow;
 	static float AddCameraZoomFromPlayer;
@@ -23,7 +24,20 @@ public:
 
 	static float4 GetCameraPos(const float4& _TileEndPos)
 	{
-		float4 CameraPos = AddCameraPosFromArrow + AddCameraPosFromPlayer;
+		float4 CameraPos = float4::ZERO;
+
+		if (true == CalCameraPosFromArrow)
+		{
+			CameraPos += AddCameraPosFromArrow;
+		}
+		if (true == CalCameraPosFromPlayer)
+		{
+			CameraPos += AddCameraPosFromPlayer;
+		}
+		if (true == CalCameraPosFromBoss)
+		{
+			CameraPos += AddCameraPosFromBoss;
+		}
 
 		if (TurmSize > CameraPos.X - GlobalValue::WindowScale.hX())
 		{
@@ -41,7 +55,8 @@ public:
 		{
 			CameraPos.Y = _TileEndPos.Y + TurmSize + GlobalValue::WindowScale.hY();
 		}
-		CameraPos += AddCameraPosFromBoss;
+
+		CameraPos += AddCameraPosFromShaking;
 		CameraPos.Z = -100.0f;
 		CameraPos.W = 1.0f;
 		return CameraPos;
@@ -50,6 +65,7 @@ public:
 	static float GetCameraZoom()
 	{
 		float ZoomValue = AddCameraZoomFromPlayer + AddCameraZoomFromArrow + AddCameraZoomFromBoss;
+
 		if (0.1f > ZoomValue)
 		{
 			ZoomValue = 1.0f;
@@ -61,8 +77,42 @@ public:
 		return ZoomValue;
 	}
 
+	static void CalCameraPosFromArrowOn()
+	{
+		CalCameraPosFromArrow = true;
+	}
+
+	static void CalCameraPosFromArrowOff()
+	{
+		CalCameraPosFromArrow = false;
+	}
+
+	static void CalCameraPosFromPlayerOn()
+	{
+		CalCameraPosFromPlayer = true;
+	}
+
+	static void CalCameraPosFromPlayerOff()
+	{
+		CalCameraPosFromPlayer = false;
+	}
+
+	static void CalCameraPosFromBossOn()
+	{
+		CalCameraPosFromBoss = true;
+	}
+
+	static void CalCameraPosFromBossOff()
+	{
+		CalCameraPosFromBoss = false;
+	}
+
 protected:
 
 private:
 	static float TurmSize;
+
+	static bool CalCameraPosFromArrow;
+	static bool CalCameraPosFromPlayer;
+	static bool CalCameraPosFromBoss;
 };

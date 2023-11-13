@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Yeti.h"
+#include "YetiRoom.h"
 
 Yeti::Yeti()
 {
@@ -47,10 +48,6 @@ void Yeti::Start()
 
 	SetDirToDeg(270.0f);
 	DirectionUpdate();
-
-	//GameEngineInput::AddInputObject(this);
-
-	GravityForce = 1200.0f;
 }
 
 void Yeti::Update(float _Delta)
@@ -125,6 +122,11 @@ void Yeti::Update(float _Delta)
 
 		TData.SetLocalPosition(DownPos + Transform.GetLocalPosition());
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
+	}
+
+	if (true == YetiIsWakeUp())
+	{
+		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition())/2.0f;
 	}
 }
 
@@ -396,4 +398,18 @@ void Yeti::Gravity(float _Delta)
 	GravityValue -= GravityForce * _Delta;
 	float4 MovePos = GravityDir * GravityValue * _Delta;
 	Transform.AddLocalPosition(MovePos);
+}
+
+void Yeti::ThrowSnowball()
+{
+	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(Transform.GetLocalPosition(), MoveDirBasis);
+}
+
+void Yeti::ShakingScreenInit()
+{
+	ShakingEnd = false;
+	ScreenShakingTime = 1.0f;
+	ScreenShakingTimer = 0.0f;
+	ShakingPerFrame = 0.25f;
+	ShakingLerpValue = 10.0f;
 }

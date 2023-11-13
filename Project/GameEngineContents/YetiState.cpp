@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Yeti.h"
+#include "YetiRoom.h"
 
 void Yeti::SleepStart()
 {
@@ -14,6 +15,7 @@ void Yeti::IdleStart()
 void Yeti::ThrowingStart()
 {
 	ThrowCount = 0;
+	IsThrowing = false;
 	SetAnimByDir("Throwing");
 }
 
@@ -38,6 +40,8 @@ void Yeti::RollingStart()
 
 void Yeti::LandingStart()
 {
+	ShakingScreenInit();
+
 	LandingTimer = 0.0f;
 	BodyCollisionOn();
 	RollingCollision->Off();
@@ -46,11 +50,7 @@ void Yeti::LandingStart()
 
 void Yeti::BlockedStart()
 {
-	ShakingEnd = false;
-	ScreenShakingTime = 1.0f;
-	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.25f;
-	ShakingLerpValue = 10.0f;
+	ShakingScreenInit();
 
 	DirReflection();
 	GravityValue = 600.0f;
@@ -69,16 +69,17 @@ void Yeti::HitStart()
 	default:
 		break;
 	}
+
+	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
 	BodyCollisionOff();
 	SetAnimByDir("Hit");
 }
 
 void Yeti::DeathStart()
 {
+	
 	SetAnimByDir("Death");
 }
-
-
 
 void Yeti::SleepUpdate(float _Delta)
 {
@@ -104,16 +105,23 @@ void Yeti::IdleUpdate(float _Delta)
 
 void Yeti::ThrowingUpdate(float _Delta)
 {
+	if (false == IsThrowing &&
+		1 == BodyRenderer->GetCurIndex())
+	{
+		ThrowSnowball();
+		++ThrowCount;
+		IsThrowing = true;
+	}
+
 	if (BodyRenderer->IsCurAnimationEnd())
 	{
-		++ThrowCount;
+		IsThrowing = false;
 		if (ThrowMaxCount == ThrowCount)
 		{
 			ChangeState(YETI_STATE::Idle);
 			NextStateBuffer = YETI_STATE::ReadyToRoll;
 			return;
 		}
-
 		SetMoveDir(Transform.GetLocalPosition());
 		DirectionUpdate();
 
@@ -146,6 +154,8 @@ void Yeti::RollingUpdate(float _Delta)
 
 void Yeti::LandingUpdate(float _Delta)
 {
+	ShakingScreen(_Delta);
+
 	LandingTimer += _Delta;
 	if (LandingDelay < LandingTimer)
 	{

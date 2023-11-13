@@ -2,6 +2,7 @@
 #include "YetiRoom.h"
 
 #include "Yeti.h"
+#include "Snowball.h"
 
 YetiRoom::YetiRoom()
 {
@@ -55,6 +56,14 @@ void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
+	if (false == WakeUpProcessingIsEnd &&
+		nullptr != YetiActor &&
+		true == YetiActor->YetiIsWakeUp())
+	{
+		BossWakeUpProcessing();
+		WakeUpProcessingIsEnd = true;
+	}
+
 	if (YETI_STATE::Hit == YetiActor->GetCurState())
 	{
 		BossIsDeath = true;
@@ -64,13 +73,6 @@ void YetiRoom::Update(float _Delta)
 		false == BossDeathPrecessingIsEnd)
 	{
 		BossDeathProcessing();
-	}
-
-	if (nullptr != YetiActor &&
-		true == YetiActor->YetiIsWakeUp())
-	{
-		YetiActor->YetiIsWakeUpReset();
-		OutputBossName();
 	}
 
 	if (nullptr != FadeInActor &&
@@ -98,6 +100,7 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+	CameraManager::CalCameraPosFromArrowOn();
 	ReleaseBossEliment();
 }
 
@@ -119,6 +122,13 @@ void YetiRoom::SpawnBoss()
 		YetiActor->SetEnymeArrow(ArrowActor.get());
 		YetiActor->SetCurMap(TileMapActor.get());
 	}
+}
+
+void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle)
+{
+	SnowballActor = CreateActor<Snowball>(UPDATE_ORDER::Boss);
+	SnowballActor->Init(_StartPos, _Angle);
+	SnowballActor = nullptr;
 }
 
 void YetiRoom::Floor1TriggerFunc()
@@ -148,6 +158,12 @@ void YetiRoom::BossDeathProcessing()
 		FadeInActor->Init(FadeColor::White, 6.0f);
 		FadeInActor->SetFadeStartAlpha(0.4f);
 	}
+}
+
+void YetiRoom::BossWakeUpProcessing()
+{
+	CameraManager::CalCameraPosFromArrowOff();
+	OutputBossName();
 }
 
 void YetiRoom::ReleaseBossEliment()

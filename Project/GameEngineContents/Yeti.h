@@ -145,7 +145,7 @@ private:
 private:
 	void Gravity(float _Delta);
 	float GravityValue = 0.0f;
-	float GravityForce = 0.0f;
+	float GravityForce = 1200.0f;
 	float4 GravityDir = float4::UP;
 
 	float RollingSpeed = 1200.0f;
@@ -158,11 +158,16 @@ private:
 
 	float ThrowingDelay = 0.1f;
 	float ThrowingTimer = 0.0f;
+	bool IsThrowing = false;
 
 	unsigned int ThrowMaxCount = 4;
 	unsigned int ThrowCount = 0;
 	
 	float LandingDelay = 0.5f;
 	float LandingTimer = 0.0f;
+
+	void ThrowSnowball();
+
 private:
+	void ShakingScreenInit();
 };
