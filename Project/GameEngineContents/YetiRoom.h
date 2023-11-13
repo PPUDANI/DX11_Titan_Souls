@@ -13,7 +13,7 @@ public:
 	YetiRoom& operator=(const YetiRoom& _Other) = delete;
 	YetiRoom& operator=(YetiRoom&& _Other) noexcept = delete;
 
-	void SpawnSnowBall(const float4& _StartPos, const float4& _Angle);
+	void SpawnSnowBall(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order);
 
 protected:
 

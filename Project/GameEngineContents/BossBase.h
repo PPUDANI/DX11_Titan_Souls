@@ -23,7 +23,7 @@ public:
 		EnymeArrow = _ArrowPtr;
 	}
 
-	inline void SetCurMap(TileMap* _CurMap)
+	inline void TileMapSetting(TileMap* _CurMap)
 	{
 		CurMap = _CurMap;
 	}

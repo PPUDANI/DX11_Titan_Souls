@@ -100,6 +100,7 @@ private:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BodyRenderer = nullptr;
 	float4 RendererStandardPos = { 0.0f, -20.0f };
+	float4 ShadowStandardPos = { 0.0f, -30.0f };
 
 	void CreateYetiAnimation();
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);

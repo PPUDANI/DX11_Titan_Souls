@@ -4,6 +4,7 @@
 void Yeti::CreateYetiAnimation()
 {
 	GlobalLoad::LoadSpriteCut(10, 10, "Yeti.png", "Resource\\Texture\\Boss\\Yeti\\");
+	GlobalLoad::LoadSpriteSingle("YetiShadow.png", "Resource\\Texture\\Boss\\Yeti\\");
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->SetImageScale({ 192.0f, 192.0f });
@@ -51,6 +52,12 @@ void Yeti::CreateYetiAnimation()
 	BodyRenderer->CreateAnimation("Down_Death", "Yeti.png", 0.2f, 74, 76, false);
 	BodyRenderer->CreateAnimation("SideUp_Death", "Yeti.png", 0.2f, 84, 86, false);
 	BodyRenderer->CreateAnimation("SideDown_Death", "Yeti.png", 0.2f, 94, 96, false);
+
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
+	ShadowRenderer->SetSprite("YetiShadow.png");
+	ShadowRenderer->SetPivotType(PivotType::Bottom);
+	ShadowRenderer->SetImageScale({ 120.0f, 48.0f });
+	ShadowRenderer->GetColorData().MulColor.A = 0.3f;
 }
 
 void Yeti::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _Force /*= false*/)

@@ -44,10 +44,10 @@ void Sludge::LandingStart()
 
 	LerpRange = 0.97f;
 	ShakingEnd = false;
-	ScreenShakingTime = 1.0f;
+	ScreenShakingTime = 0.5f;
 	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.25f;
-	ShakingLerpValue = 8.0f - DividedCount;
+	ShakingPerFrame = 0.15f;
+	ShakingLerpValue = 10.0f - DividedCount;
 
 }
 

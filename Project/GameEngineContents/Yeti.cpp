@@ -69,6 +69,11 @@ void Yeti::Update(float _Delta)
 	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
 	BodyCollision2->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
 
+	if (YETI_STATE::Blocked != CurState)
+	{
+		JumpStartPos = Transform.GetLocalPosition();
+	}
+
 	switch (CurState)
 	{
 	case YETI_STATE::Sleep:
@@ -102,6 +107,9 @@ void Yeti::Update(float _Delta)
 		break;
 	}
 
+
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + ShadowStandardPos);
+
 	if (true == GetLevel()->IsDebug)
 	{
 		GameEngineTransform TData;
@@ -126,7 +134,7 @@ void Yeti::Update(float _Delta)
 
 	if (true == YetiIsWakeUp())
 	{
-		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition())/2.0f;
+		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) / 2.0f;
 	}
 }
 
@@ -252,7 +260,7 @@ void Yeti::SetColScaleByDir()
 		BodyScaleByDir = { -50.0f, 70.0f, 1.0f };
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
-		WeeknessPosByDir = { -15.0f, 5.0f };
+		WeeknessPosByDir = { -12.0f, 5.0f };
 		break;
 	case YETI_DIRECTION::RightUp:
 		BodyPosByDir = { 5.0f, 23.0f };
@@ -280,7 +288,7 @@ void Yeti::SetColScaleByDir()
 		BodyScaleByDir = { 50.0f, 70.0f, 1.0f };
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
-		WeeknessPosByDir = { 15.0f, 5.0f };
+		WeeknessPosByDir = { 12.0f, 5.0f };
 		break;
 	case YETI_DIRECTION::LeftDown:
 		BodyPosByDir = { 15.0f, -30.0f };
@@ -402,14 +410,24 @@ void Yeti::Gravity(float _Delta)
 
 void Yeti::ThrowSnowball()
 {
-	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(Transform.GetLocalPosition(), MoveDirBasis);
+	RENDERING_ORDER Order = RENDERING_ORDER::Y_SORT_ENTITY;
+	switch (CurDir)
+	{
+	case YETI_DIRECTION::LeftDown:
+	case YETI_DIRECTION::Down:
+	case YETI_DIRECTION::RightDown:
+		Order = RENDERING_ORDER::Y_SORT_ENTITY_FRONT;
+	default:
+		break;
+	}
+	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(Transform.GetLocalPosition() + float4{0.0f, 40.0f}, MoveDirBasis, Order);
 }
 
 void Yeti::ShakingScreenInit()
 {
 	ShakingEnd = false;
-	ScreenShakingTime = 1.0f;
+	ScreenShakingTime = 0.5f;
 	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.25f;
+	ShakingPerFrame = 0.15f;
 	ShakingLerpValue = 10.0f;
 }

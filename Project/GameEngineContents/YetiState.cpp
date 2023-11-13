@@ -54,7 +54,6 @@ void Yeti::BlockedStart()
 
 	DirReflection();
 	GravityValue = 600.0f;
-	JumpStartPos = Transform.GetLocalPosition();
 }
 
 void Yeti::HitStart()

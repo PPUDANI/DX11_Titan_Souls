@@ -120,14 +120,15 @@ void YetiRoom::SpawnBoss()
 		YetiActor->Transform.SetLocalPosition({ 1008.0f, -1492.0f });
 		YetiActor->SetEnymePlayer(PlayerActor.get());
 		YetiActor->SetEnymeArrow(ArrowActor.get());
-		YetiActor->SetCurMap(TileMapActor.get());
+		YetiActor->TileMapSetting(TileMapActor.get());
 	}
 }
 
-void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle)
+void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order)
 {
 	SnowballActor = CreateActor<Snowball>(UPDATE_ORDER::Boss);
-	SnowballActor->Init(_StartPos, _Angle);
+	SnowballActor->Init(_StartPos, _Angle, _Order);
+	SnowballActor->TileMapSetting(TileMapActor.get());
 	SnowballActor = nullptr;
 }
 

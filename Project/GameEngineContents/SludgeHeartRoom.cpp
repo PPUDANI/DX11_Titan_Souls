@@ -119,13 +119,13 @@ void SludgeHeartRoom::SpawnBoss()
 		SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
 		SludgeActor->SetEnymePlayer(PlayerActor.get());
 		SludgeActor->SetEnymeArrow(ArrowActor.get());
-		SludgeActor->SetCurMap(TileMapActor.get());
+		SludgeActor->TileMapSetting(TileMapActor.get());
 		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
 		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
 		HeartActor->SetEnymePlayer(PlayerActor.get());
 		HeartActor->SetEnymeArrow(ArrowActor.get());
-		HeartActor->SetCurMap(TileMapActor.get());
+		HeartActor->TileMapSetting(TileMapActor.get());
 		HeartActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
 		PutTheHeartInSludge();
@@ -196,7 +196,7 @@ void SludgeHeartRoom::SpawnDividedSludge(int _DividedCount, float4 _SpawnPos)
 
 	SludgeActor->SetEnymePlayer(PlayerActor.get());
 	SludgeActor->SetEnymeArrow(ArrowActor.get());
-	SludgeActor->SetCurMap(TileMapActor.get());
+	SludgeActor->TileMapSetting(TileMapActor.get());
 
 	SludgeActor->DividedSludgeInit(_DividedCount);
 	SludgeActor->Transform.SetLocalPosition(_SpawnPos);

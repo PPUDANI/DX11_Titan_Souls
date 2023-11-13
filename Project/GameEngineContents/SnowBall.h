@@ -13,10 +13,16 @@ public:
 	Snowball& operator=(const Snowball& _Other) = delete;
 	Snowball& operator=(Snowball&& _Other) noexcept = delete;
 
-	void Init(const float4& _StartPos, const float4& _Angle)
+	void TileMapSetting(TileMap* _TileMapPtr)
+	{
+		CurMap = _TileMapPtr;
+	}
+
+	void Init(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order)
 	{
 		Transform.SetLocalPosition(_StartPos);
 		AngleToPlayer = _Angle;
+		Renderer->SetRenderOrder(_Order);
 	}
 
 protected:
@@ -31,6 +37,8 @@ private:
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
 private:
+	TileMap* CurMap = nullptr;
+	bool TileColCheck();
 	float4 StartPos = float4::ZERO;
 	float4 AngleToPlayer = float4::ZERO;
 	
