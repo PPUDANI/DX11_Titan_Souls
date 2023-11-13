@@ -16,7 +16,7 @@ void Snowball::Start()
 	Renderer->SetSprite("SnowBall.png");
 	Renderer->SetImageScale({ 64.0f, 64.0f });
 
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::SnowBall);
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::YetiAttack);
 	Collision->SetCollisionType(ColType::SPHERE2D);
 	Collision->Transform.SetLocalScale({ 32.0f, 32.0f });
 }

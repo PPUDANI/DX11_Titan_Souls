@@ -76,7 +76,6 @@ void Yeti::HitStart()
 
 void Yeti::DeathStart()
 {
-	
 	SetAnimByDir("Death");
 }
 
@@ -186,6 +185,5 @@ void Yeti::HitUpdate(float _Delta)
 
 void Yeti::DeathUpdate(float _Delta)
 {
-
 }
 

@@ -257,7 +257,7 @@ void Yeti::SetColScaleByDir()
 	{
 	case YETI_DIRECTION::Right:
 		BodyPosByDir = { 5.0f, -10.0f };
-		BodyScaleByDir = { -50.0f, 70.0f, 1.0f };
+		BodyScaleByDir = { 50.0f, 70.0f, 1.0f };
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
 		WeeknessPosByDir = { -12.0f, 5.0f };
@@ -278,7 +278,7 @@ void Yeti::SetColScaleByDir()
 		break;
 	case YETI_DIRECTION::LeftUp:
 		BodyPosByDir = { -5.0f, 23.0f };
-		BodyScaleByDir = { -70.0f, 20.0f , 1.0f };
+		BodyScaleByDir = { 70.0f, 20.0f , 1.0f };
 		Body2PosByDir = { -25.0f, -17.0f };
 		Body2ScaleByDir = { 30.0f, 60.0f, 1.0f };
 		WeeknessPosByDir = { 10.0f, 3.0f };
@@ -292,7 +292,7 @@ void Yeti::SetColScaleByDir()
 		break;
 	case YETI_DIRECTION::LeftDown:
 		BodyPosByDir = { 15.0f, -30.0f };
-		BodyScaleByDir = { -40.0f, 40.0f, 1.0f };
+		BodyScaleByDir = { 40.0f, 40.0f, 1.0f };
 		Body2PosByDir = { -20.0f, -15.0f };
 		Body2ScaleByDir = { -30.0f, 40.0f, 1.0f };
 		WeeknessPosByDir = { 10.0f, 0.0f };
@@ -417,11 +417,14 @@ void Yeti::ThrowSnowball()
 	case YETI_DIRECTION::Down:
 	case YETI_DIRECTION::RightDown:
 		Order = RENDERING_ORDER::Y_SORT_ENTITY_FRONT;
+		break;
 	default:
 		break;
 	}
+
 	float4 StartPos = Transform.GetLocalPosition() + float4{ 0.0f, 40.0f };
 	SetMoveDir(StartPos);
+
 	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(StartPos, MoveDirBasis, Order);
 }
 

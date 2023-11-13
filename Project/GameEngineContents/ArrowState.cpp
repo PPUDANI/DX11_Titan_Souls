@@ -148,6 +148,7 @@ void Arrow::FallenUpdate(float _Delta)
 	}
 
 	PullingForce = std::lerp(PullingForce, 0.0f, 5.0f * _Delta);
+
 	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * std::powf(PullingForce, 2) * _Delta;
 	MoveAndColCheck(MovePos);
 
