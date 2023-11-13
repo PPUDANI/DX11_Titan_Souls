@@ -9,6 +9,12 @@ Icicle::~Icicle()
 {
 }
 
+void Icicle::Init(const float4& _TargetPoint)
+{
+	TargetPoint = _TargetPoint;
+	Transform.SetLocalPosition(TargetPoint + StandardHeight);
+}
+
 void Icicle::Start()
 {
 	GlobalLoad::LoadSpriteCut(8, 1, "Icicle.png", "Resource\\Texture\\Boss\\Yeti\\");
@@ -28,5 +34,14 @@ void Icicle::Start()
 
 void Icicle::Update(float _Delta)
 {
-
+	if (TargetPoint.Y < Transform.GetLocalPosition().Y)
+	{
+		GravityValue -= GravityForce * _Delta;
+		Transform.AddLocalPosition(GravityValue * _Delta);
+	}
+	else
+	{
+		Transform.SetLocalPosition(TargetPoint);
+		Renderer->ChangeAnimation("StuckInGround");
+	}
 }
