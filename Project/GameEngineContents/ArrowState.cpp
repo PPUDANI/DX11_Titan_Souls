@@ -8,6 +8,7 @@ void Arrow::HoldStart()
 	Renderer->ChangeAnimation("Idle");
 	Renderer->Off();
 	Collision->Off();
+	PickUpCollision->Off();
 }
 
 void Arrow::AimStart()
@@ -22,18 +23,19 @@ void Arrow::FlyingStart()
 	FiyTimer = 0.0f;
 
 	Collision->On();
-
 	OwnerPlayer->LostArrow();
 	CameraMoveDirectionBasis = FlyingDirectionBasis;
 }
 
 void Arrow::FallenStart()
 {
+	PickUpCollision->On();
 	AbleReturning = true;
 }
 
 void Arrow::ReturningStart()
 {
+	Collision->On();
 	PullingForce = 0.0f;
 }
 
@@ -41,6 +43,7 @@ void Arrow::PickUpStart()
 {
 	Renderer->ChangeAnimation("Get");
 	Collision->Off();
+	PickUpCollision->Off();
 }
 
 void Arrow::PinnedStart()
@@ -48,6 +51,7 @@ void Arrow::PinnedStart()
 	Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	Renderer->ChangeAnimation("Pinned");
 	Collision->Off();
+	PickUpCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
 
 	ShakingPerFrame = 0.0f;
@@ -148,6 +152,15 @@ void Arrow::FallenUpdate(float _Delta)
 	}
 
 	PullingForce = std::lerp(PullingForce, 0.0f, 5.0f * _Delta);
+
+	if (0.05f > PullingForce)
+	{
+		Collision->Off();
+	}
+	else
+	{
+		Collision->On();
+	}
 
 	float4 MovePos = FlyingDirectionBasis * DefaultSpeed * std::powf(PullingForce, 2) * _Delta;
 	MoveAndColCheck(MovePos);

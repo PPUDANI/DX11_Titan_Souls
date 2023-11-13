@@ -74,7 +74,7 @@ void Player::Update(float _Delta)
 			ChangeState(PLAYER_STATE::Death);
 		}
 
-		if (true == BodyCollision->Collision(COLLISION_TYPE::YetiAttack))
+		if (true == BodyCollision->Collision(COLLISION_TYPE::BossBody))
 		{
 			ChangeState(PLAYER_STATE::Death);
 		}

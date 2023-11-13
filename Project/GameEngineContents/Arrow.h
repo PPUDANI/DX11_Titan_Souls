@@ -114,6 +114,7 @@ private:
 	// Components
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
+	std::shared_ptr<GameEngineCollision> PickUpCollision = nullptr;
 	// Collision
 	float ArrowheadPosBasis = 12.0f;
 	float4 ArrowheadCheckPos = float4::ZERO;

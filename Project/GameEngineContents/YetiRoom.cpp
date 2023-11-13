@@ -129,6 +129,7 @@ void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle, REND
 	SnowballActor = CreateActor<Snowball>(UPDATE_ORDER::Boss);
 	SnowballActor->Init(_StartPos, _Angle, _Order);
 	SnowballActor->TileMapSetting(TileMapActor.get());
+	SnowballActor->PlayerSetting(PlayerActor.get());
 	SnowballActor = nullptr;
 }
 

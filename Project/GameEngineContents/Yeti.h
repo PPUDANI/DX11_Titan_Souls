@@ -149,7 +149,7 @@ private:
 	float GravityForce = 1200.0f;
 	float4 GravityDir = float4::UP;
 
-	float RollingSpeed = 1200.0f;
+	float RollingSpeed = 1400.0f;
 	float DecreaseByBlocked = 0.15f;
 	float4 JumpStartPos = float4::ZERO;
 

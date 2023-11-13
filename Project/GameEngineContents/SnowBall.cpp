@@ -23,10 +23,15 @@ void Snowball::Start()
 
 void Snowball::Update(float _Delta)
 {
+	if (true == Collision->Collision(COLLISION_TYPE::Player))
+	{
+		//EnymePlayer->ChangeState(PLAYER_STATE::Death);
+		Death();
+	}
+
 	Transform.AddLocalPosition(AngleToPlayer * SnowballSpeed * _Delta);
 
-	if (true == TileColCheck() ||
-		Collision->Collision(COLLISION_TYPE::Player))
+	if (true == TileColCheck())
 	{
 		Death();
 	}

@@ -24,6 +24,10 @@ void Arrow::Start()
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
+	PickUpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
+	PickUpCollision->SetCollisionType(ColType::AABBBOX2D);
+	PickUpCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
+
 	ChangeState(ARROW_STATE::Hold);
 
 	GameEngineInput::AddInputObject(this);
@@ -189,7 +193,7 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 		return Res;
 
 	case ARROW_STATE::Fallen:
-		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
+		if (true == PickUpCollision->Collision(COLLISION_TYPE::Player, _MovePos))
 		{
 			Transform.AddLocalPosition(_MovePos);
 			OwnerPlayer->OnArrowInBagRenderer();
@@ -202,7 +206,7 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 		return Res;
 
 	case ARROW_STATE::Returning:
-		if (true == Collision->Collision(COLLISION_TYPE::Player, _MovePos))
+		if (true == PickUpCollision->Collision(COLLISION_TYPE::Player, _MovePos))
 		{
 			Transform.AddLocalPosition(_MovePos);
 			OwnerPlayer->OnArrowInBagRenderer();

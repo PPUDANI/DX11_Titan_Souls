@@ -18,6 +18,11 @@ public:
 		CurMap = _TileMapPtr;
 	}
 
+	void PlayerSetting(Player* _PlayerPtr)
+	{
+		EnymePlayer = _PlayerPtr;
+	}
+
 	void Init(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order)
 	{
 		Transform.SetLocalPosition(_StartPos);
@@ -38,7 +43,10 @@ private:
 
 private:
 	TileMap* CurMap = nullptr;
+	Player* EnymePlayer = nullptr;
 	bool TileColCheck();
+
+
 	float4 StartPos = float4::ZERO;
 	float4 AngleToPlayer = float4::ZERO;
 	
