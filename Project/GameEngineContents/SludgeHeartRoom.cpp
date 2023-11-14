@@ -100,8 +100,11 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	// 액터 레벨이동 구현 
 	if (JUMPBOSS_STATE::Death != HeartActor->GetCurState())
 	{
-		HeartActor->Death();
-		HeartActor = nullptr;
+		if (nullptr != HeartActor)
+		{
+			HeartActor->Death();
+			HeartActor = nullptr;
+		}
 	}
 	else
 	{
@@ -146,8 +149,11 @@ void SludgeHeartRoom::ReleaseSludges()
 
 	for (size_t i = 0; i < ObjectType.size(); ++i)
 	{
-		ObjectType[i]->Death();
-		ObjectType[i] = nullptr;
+		if (nullptr != ObjectType[i])
+		{
+			ObjectType[i]->Death();
+			ObjectType[i] = nullptr;
+		}
 	}
 	ObjectType.clear();
 }
@@ -212,15 +218,15 @@ void SludgeHeartRoom::OutputBossName()
 	BossNameBack->Init("BossNameBG.png");
 	BossNameBack->Transform.SetLocalPosition({ 0.0f, -305.0f });
 
-	SludgeHeartScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
-	SludgeHeartScript->Init("SLUDGEHEART", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
-	SludgeHeartScript->FadeInit();
-	SludgeHeartScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
+	BossNameScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	BossNameScript->Init("SLUDGEHEART", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
+	BossNameScript->FadeInit();
+	BossNameScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
 	
-	GuardianScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
-	GuardianScript->Init("HEART OF THE GUARDIAN", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
-	GuardianScript->FadeInit();
-	GuardianScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
+	BossDescriptionScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	BossDescriptionScript->Init("HEART OF THE GUARDIAN", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
+	BossDescriptionScript->FadeInit();
+	BossDescriptionScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
 }
 
 void SludgeHeartRoom::ReleaseBossName()
@@ -231,15 +237,15 @@ void SludgeHeartRoom::ReleaseBossName()
 		BossNameBack = nullptr;
 	}
 
-	if (nullptr != SludgeHeartScript)
+	if (nullptr != BossNameScript)
 	{
-		SludgeHeartScript->Death();
-		SludgeHeartScript = nullptr;
+		BossNameScript->Death();
+		BossNameScript = nullptr;
 	}
 
-	if (nullptr != GuardianScript)
+	if (nullptr != BossDescriptionScript)
 	{
-		GuardianScript->Death();
-		GuardianScript = nullptr;
+		BossDescriptionScript->Death();
+		BossDescriptionScript = nullptr;
 	}
 }

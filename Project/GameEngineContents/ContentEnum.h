@@ -48,9 +48,10 @@ enum class COLLISION_TYPE
 	GetArrow,
 	AttackArrow,
 	Weakness,
-	Sludge,
 	BossBody,
-	YetiAttack,
+	BossBodyAttack,
+	Snowball,
+	Icicle,
 	DetectionRange,
 	EventPlace,
 };

@@ -49,6 +49,7 @@ void Yeti::LandingStart()
 
 void Yeti::BlockedStart()
 {
+	DropIcicle();
 	ShakingScreenInit();
 	RollingCollision->Off();
 	DirReflection();

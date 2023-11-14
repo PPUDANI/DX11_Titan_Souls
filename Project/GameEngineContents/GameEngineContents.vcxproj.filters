@@ -140,6 +140,9 @@
     <ClCompile Include="Snowball.cpp">
       <Filter>01. Actor\03. Boss\02. Yeti\01. Snowball</Filter>
     </ClCompile>
+    <ClCompile Include="IclcleState.cpp">
+      <Filter>01. Actor\03. Boss\02. Yeti\02. Icicle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />

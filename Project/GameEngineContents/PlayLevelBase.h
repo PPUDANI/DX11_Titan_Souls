@@ -32,8 +32,8 @@ protected:
 	std::shared_ptr<class FadeIn> BossDeathEffect = nullptr;
 
 	// AncientScript
-	std::shared_ptr<class AncientScript> SludgeHeartScript = nullptr;
-	std::shared_ptr<class AncientScript> GuardianScript = nullptr;
+	std::shared_ptr<class AncientScript> BossNameScript = nullptr;
+	std::shared_ptr<class AncientScript> BossDescriptionScript = nullptr;
 	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
 
 

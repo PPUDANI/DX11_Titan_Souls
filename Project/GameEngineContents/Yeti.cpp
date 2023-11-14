@@ -24,7 +24,7 @@ void Yeti::Start()
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 40.0f, 20.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
-
+	Collision->Off();
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 70.0f, 30.0f, 1.0f });
@@ -33,7 +33,7 @@ void Yeti::Start()
 	BodyCollision2->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision2->Transform.SetLocalScale({ 70.0f, 30.0f, 1.0f });
 
-	RollingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
+	RollingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBodyAttack);
 	RollingCollision->SetCollisionType(ColType::AABBBOX2D);
 	RollingCollision->Transform.SetLocalScale({ 80.0f, 50.0f, 1.0f });
 	RollingCollision->Transform.SetLocalPosition(RollingColStandardPos);
@@ -184,6 +184,7 @@ void Yeti::ChangeState(YETI_STATE _State)
 void Yeti::WakeUpYeti()
 {
 	ChangeState(YETI_STATE::Idle);
+	Collision->On();
 	YetiIsWakeUpValue = true;
 }
 
@@ -426,6 +427,13 @@ void Yeti::ThrowSnowball()
 	SetMoveDir(StartPos);
 
 	dynamic_cast<YetiRoom*>(GetLevel())->SpawnSnowBall(StartPos, MoveDirBasis, Order);
+}
+
+void Yeti::DropIcicle()
+{
+	float4 FirstTargetPos = Transform.GetLocalPosition() + float4{ 0.0f, 40.0f };
+	float4 IcicleMoveAngle = SetMoveDirReturn(FirstTargetPos);
+	dynamic_cast<YetiRoom*>(GetLevel())->SpawnIcicle(FirstTargetPos, IcicleMoveAngle);
 }
 
 void Yeti::ShakingScreenInit()

@@ -3,6 +3,7 @@
 
 #include "Yeti.h"
 #include "Snowball.h"
+#include "Icicle.h"
 
 YetiRoom::YetiRoom()
 {
@@ -42,8 +43,8 @@ void YetiRoom::Start()
 	ArrowActor->TileMapSetting(TileMapActor);
 
 	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
-	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1792.0f });
-	EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1808.0f });
+	EnterTheFloor1->SetPlaceScale({ 90.0f, 90.0f });
 	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
 
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
@@ -101,7 +102,11 @@ void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
 	CameraManager::CalCameraPosFromArrowOn();
-	ReleaseBossEliment();
+	ReleaseBoss();
+	ReleaseSnowball();
+	ReleaseIcicle();
+	ReleaseBossName();
+	WakeUpProcessingIsEnd = false;
 }
 
 
@@ -131,6 +136,39 @@ void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle, REND
 	SnowballActor->TileMapSetting(TileMapActor.get());
 	SnowballActor->PlayerSetting(PlayerActor.get());
 	SnowballActor = nullptr;
+}
+
+void YetiRoom::SpawnIcicle(const float4& _FirstTargetPos, const float4& _Angle)
+{
+	GameEngineRandom Inst;
+	static int Count = 0;
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++Count);
+
+	float4 TargetPos = _FirstTargetPos;
+	float4 DirBasis = float4::GetUnitVectorFromDeg(_Angle.Z);
+	float4 VirticalDirBasis = float4::GetUnitVectorFromDeg(_Angle.Z + 90.0f);
+
+	int Index = Inst.RandomInt(5, 15); // 고드름 개수
+	float4 StartHeight = { 0.0f, 1000.0f }; // 시작 높이
+
+	for (int i = 0; i < Index; ++i)
+	{
+		float IcicleSpacing = Inst.RandomFloat(75.0f, 150.0f); // 고드름 간격 편차
+		TargetPos += DirBasis * IcicleSpacing; // 방향에 따른 고드름 간격
+
+		float4 VirticalDeviation = VirticalDirBasis * Inst.RandomFloat(-30.0f, 30.0f); // 나열된 고드름 방향의 수직위치 오차(자연스러움)
+		if (true == TileMapActor->AllColCheck(TargetPos + VirticalDeviation))
+		{
+			break;
+		}
+
+		StartHeight.Y += 50.0f; // 가까울수록 순서대로 떨어짐(자연스러움)
+
+		IcicleActor = CreateActor<Icicle>(UPDATE_ORDER::Boss);
+		IcicleActor->Init(TargetPos + VirticalDeviation, StartHeight);
+		IcicleActor->PlayerSetting(PlayerActor.get());
+		IcicleActor = nullptr;
+	}
 }
 
 void YetiRoom::Floor1TriggerFunc()
@@ -168,13 +206,45 @@ void YetiRoom::BossWakeUpProcessing()
 	OutputBossName();
 }
 
-void YetiRoom::ReleaseBossEliment()
+void YetiRoom::ReleaseBoss()
 {
 	if (nullptr != YetiActor)
 	{
 		YetiActor->Death();
 		YetiActor = nullptr;
 	}
+}
+
+void YetiRoom::ReleaseSnowball()
+{
+	std::vector<std::shared_ptr<Snowball>> ObjectType = GetObjectGroupConvert<Snowball>(UPDATE_ORDER::Boss);
+
+	for (size_t i = 0; i < ObjectType.size(); ++i)
+	{
+		if (nullptr != ObjectType[i])
+		{
+			ObjectType[i]->Death();
+			ObjectType[i] = nullptr;
+		}
+	}
+
+	ObjectType.clear();
+}
+
+void YetiRoom::ReleaseIcicle()
+{
+	std::vector<std::shared_ptr<Icicle>> ObjectType = GetObjectGroupConvert<Icicle>(UPDATE_ORDER::Boss);
+
+	for (size_t i = 0; i < ObjectType.size(); ++i)
+	{
+		if (nullptr != ObjectType[i])
+		{
+		    ObjectType[i]->Death();
+		    ObjectType[i] = nullptr;
+		}
+	}
+
+	ObjectType.clear();
 }
 
 void YetiRoom::OutputBossName()
@@ -184,15 +254,15 @@ void YetiRoom::OutputBossName()
 	BossNameBack->Init("BossNameBG.png");
 	BossNameBack->Transform.SetLocalPosition({ 0.0f, -305.0f });
 
-	SludgeHeartScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
-	SludgeHeartScript->Init("YETI", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
-	SludgeHeartScript->FadeInit();
-	SludgeHeartScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
+	BossNameScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	BossNameScript->Init("YETI", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
+	BossNameScript->FadeInit();
+	BossNameScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
 
-	GuardianScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
-	GuardianScript->Init("OLD SNOW BEAST", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
-	GuardianScript->FadeInit();
-	GuardianScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
+	BossDescriptionScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	BossDescriptionScript->Init("OLD SNOW BEAST", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
+	BossDescriptionScript->FadeInit();
+	BossDescriptionScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
 }
 
 void YetiRoom::ReleaseBossName()
@@ -203,15 +273,15 @@ void YetiRoom::ReleaseBossName()
 		BossNameBack = nullptr;
 	}
 
-	if (nullptr != SludgeHeartScript)
+	if (nullptr != BossNameScript)
 	{
-		SludgeHeartScript->Death();
-		SludgeHeartScript = nullptr;
+		BossNameScript->Death();
+		BossNameScript = nullptr;
 	}
 
-	if (nullptr != GuardianScript)
+	if (nullptr != BossDescriptionScript)
 	{
-		GuardianScript->Death();
-		GuardianScript = nullptr;
+		BossDescriptionScript->Death();
+		BossDescriptionScript = nullptr;
 	}
 }

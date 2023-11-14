@@ -9,39 +9,76 @@ Icicle::~Icicle()
 {
 }
 
-void Icicle::Init(const float4& _TargetPoint)
+void Icicle::Init(const float4& _TargetPos, const float4& _Height)
 {
-	TargetPoint = _TargetPoint;
-	Transform.SetLocalPosition(TargetPoint + StandardHeight);
+	TargetPos = _TargetPos.RoundUpReturn();
+
+	Transform.SetLocalPosition(TargetPos + _Height);
 }
 
 void Icicle::Start()
 {
 	GlobalLoad::LoadSpriteCut(8, 1, "Icicle.png", "Resource\\Texture\\Boss\\Yeti\\");
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
-
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
+	Renderer->SetPivotType(PivotType::Bottom);
 	GameEngineRandom Inst;
 	Inst.SetSeed(reinterpret_cast<__int64>(this));
-	int RandomIndex = Inst.RandomInt(0, 3);
-	int StuckAnimationIndex = RandomIndex + 4;
+	RandomIndex = Inst.RandomInt(0, 3);
+	StuckAnimationIndex = RandomIndex + 4;
 
 	Renderer->SetSprite("Icicle.png", RandomIndex);
-	Renderer->CreateAnimation("StuckInGround", "Icicle.png", 1.0f, StuckAnimationIndex, StuckAnimationIndex, false);
+	Renderer->SetImageScale({ 64.0f, 64.0f });
 
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
+	FallingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Icicle);
+	FallingCollision->SetCollisionType(ColType::SPHERE2D);
+	FallingCollision->Transform.SetLocalScale({ 16.0f, 16.0f });
+	FallingCollision->Transform.SetLocalPosition({ 0.0f, -4.0f });
 
+	BlockedCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Icicle);
+	BlockedCollision->SetCollisionType(ColType::AABBBOX2D);
+	BlockedCollision->Transform.SetLocalScale({ 36.0f, 16.0f });
+	BlockedCollision->Transform.SetLocalPosition({ 0.0f, 8.0f });
+	BlockedCollision->Off();
 }
 
 void Icicle::Update(float _Delta)
 {
-	if (TargetPoint.Y < Transform.GetLocalPosition().Y)
+	switch (CurState)
 	{
-		GravityValue -= GravityForce * _Delta;
-		Transform.AddLocalPosition(GravityValue * _Delta);
+	case ICICLE_STATE::Falling:
+		FallingUpdate(_Delta);
+		break;
+	case ICICLE_STATE::Stuck:
+		StuckUpdate(_Delta);
+		break;
+	default:
+		break;
 	}
-	else
+
+	if (true == GetLevel()->IsDebug)
 	{
-		Transform.SetLocalPosition(TargetPoint);
-		Renderer->ChangeAnimation("StuckInGround");
+		GameEngineTransform TData;
+		TData.SetLocalRotation(Transform.GetLocalRotationEuler());
+		TData.SetLocalScale({ 5.0f, 5.0f });
+
+		TData.SetLocalPosition(TargetPos);
+		GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
+	}
+}
+
+void Icicle::ChangeState(ICICLE_STATE _State)
+{
+	CurState = _State;
+
+	switch (CurState)
+	{
+	case ICICLE_STATE::Falling:
+		FallingStart();
+		break;
+	case ICICLE_STATE::Stuck:
+		StuckStart();
+		break;
+	default:
+		break;
 	}
 }

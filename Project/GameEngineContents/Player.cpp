@@ -69,12 +69,7 @@ void Player::Update(float _Delta)
 
 	if (false == InvincibilityMode)
 	{
-		if (true == BodyCollision->Collision(COLLISION_TYPE::Sludge))
-		{
-			ChangeState(PLAYER_STATE::Death);
-		}
-
-		if (true == BodyCollision->Collision(COLLISION_TYPE::BossBody))
+		if (true == BodyCollision->Collision(COLLISION_TYPE::BossBodyAttack))
 		{
 			ChangeState(PLAYER_STATE::Death);
 		}

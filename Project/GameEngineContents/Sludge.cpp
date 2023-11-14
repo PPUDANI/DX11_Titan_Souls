@@ -34,7 +34,7 @@ void Sludge::Start()
 	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
 
 	// Collision setting
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Sludge);
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBodyAttack);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale(DefaultCollisionSizeBase);
 

@@ -211,6 +211,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="IclcleState.cpp" />
     <ClCompile Include="ImageActor.cpp">
       <SubType>
       </SubType>

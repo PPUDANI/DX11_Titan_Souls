@@ -168,7 +168,7 @@ private:
 	float LandingTimer = 0.0f;
 
 	void ThrowSnowball();
-
+	void DropIcicle();
 private:
 	void ShakingScreenInit();
 };
