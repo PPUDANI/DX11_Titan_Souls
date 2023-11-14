@@ -48,7 +48,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> ShadowRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> FallingCollision = nullptr;
 	std::shared_ptr<GameEngineCollision> BlockedCollision = nullptr;
-
+	EventParameter BlockedColParam;
 
 private:
 	float4 TargetPos = float4::ZERO;

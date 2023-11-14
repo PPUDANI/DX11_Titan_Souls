@@ -39,6 +39,12 @@ void Icicle::Start()
 	BlockedCollision->Transform.SetLocalScale({ 36.0f, 16.0f });
 	BlockedCollision->Transform.SetLocalPosition({ 0.0f, 8.0f });
 	BlockedCollision->Off();
+
+	BlockedColParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+		{
+			_Collisions->GetActor()->Death();
+			Death();
+		};
 }
 
 void Icicle::Update(float _Delta)

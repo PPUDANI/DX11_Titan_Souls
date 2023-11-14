@@ -43,8 +43,10 @@ void Icicle::FallingUpdate(float _Delta)
 
 void Icicle::StuckUpdate(float _Delta)
 {
-	if (true == BlockedCollision->Collision(COLLISION_TYPE::Snowball))
+	BlockedCollision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam);
+	if (true == BlockedCollision->Collision(COLLISION_TYPE::BossBodyAttack))
 	{
 		Death();
 	}
+
 }
