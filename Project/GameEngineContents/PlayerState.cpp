@@ -17,7 +17,7 @@ void Player::MoveStart()
 
 void Player::RollingStart()
 {
-	IsRollingingBlocked = false;
+	IsRollingBlocked = false;
 	DecelerationValue = 1.0f;
 	SetAnimByDir("Rolling");
 }
@@ -165,7 +165,7 @@ void Player::RollingUpdate(float _Delta)
 
 	if (true == CurDirColCheck())
 	{
-		IsRollingingBlocked = true;
+		IsRollingBlocked = true;
 		DirSpecularReflection();
 		// 임시 애니메이션
 		SetAnimByDir("Rolling", BodyRenderer->GetCurIndex(), true);
@@ -173,13 +173,11 @@ void Player::RollingUpdate(float _Delta)
 
 	float4 MovePos = PlayerDirDeg * DefaultSpeed * RollingForce;
 
-	if (true == IsRollingingBlocked)
+	if (true == IsRollingBlocked)
 	{
 		// Specular Reflection 추가하기
 		DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 		MovePos *= DecelerationValue;
-
-		//ContentsMath::Deceleration(DecelerationValue, 5.0f * _Delta);
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);

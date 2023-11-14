@@ -272,7 +272,7 @@ private:
 
 private:
 	// Rolling Variables
-	bool IsRollingingBlocked = false;
+	bool IsRollingBlocked = false;
 
 	// Rolling CoolDown Variables
 	bool IsRollingOnCooldown = false;
