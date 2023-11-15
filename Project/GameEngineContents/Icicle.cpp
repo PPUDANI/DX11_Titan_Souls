@@ -34,7 +34,7 @@ void Icicle::Start()
 	FallingCollision->Transform.SetLocalScale({ 16.0f, 16.0f });
 	FallingCollision->Transform.SetLocalPosition({ 0.0f, -4.0f });
 
-	BlockedCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Icicle);
+	BlockedCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BlockedCollision->SetCollisionType(ColType::AABBBOX2D);
 	BlockedCollision->Transform.SetLocalScale({ 36.0f, 16.0f });
 	BlockedCollision->Transform.SetLocalPosition({ 0.0f, 8.0f });
@@ -43,6 +43,7 @@ void Icicle::Start()
 	BlockedColParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
 			_Collisions->GetActor()->Death();
+			BlockedCollision->Death();
 			Death();
 		};
 }

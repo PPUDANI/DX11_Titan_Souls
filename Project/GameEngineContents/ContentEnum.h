@@ -4,9 +4,9 @@ enum class UPDATE_ORDER
 {
 	Map,
 	TriggerBox,
-	Player,
-	Arrow,
 	Boss,
+	Arrow,
+	Player,
 	UI,
 };
 
@@ -45,6 +45,7 @@ enum class RENDERING_ORDER
 enum class COLLISION_TYPE
 {
 	Player,
+	PlayerDir,
 	GetArrow,
 	AttackArrow,
 	Weakness,
