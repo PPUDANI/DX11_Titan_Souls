@@ -65,8 +65,13 @@ protected:
 	float4 MoveDirBasis = float4::ZERO;
 	float4 MoveAngle = float4::ZERO;
 	bool RandomMoveValue = false;
+
 protected:
 	void ShakingScreen(float _Delta);
+	GameEngineRandom Inst;
+
+	float ShakingFrame = 1.0f / 60.0f;
+	float FrameTimer = 0.0f;
 
 	int ShakingSeedCount = 0;
 	float ScreenShakingTime;

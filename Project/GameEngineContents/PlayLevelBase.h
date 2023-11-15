@@ -36,9 +36,10 @@ protected:
 	std::shared_ptr<class AncientScript> BossDescriptionScript = nullptr;
 	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
 
-
 	virtual void SpawnPlayer(GameEngineLevel* _PrevLevel) {}
 	virtual void SpawnBoss() {}
+	virtual void SpawnTriggerBox() {}
+	virtual void ReleaseTriggerBox() {}
 
 	void CreatePlayerElement();
 	void CursorDirRotation();

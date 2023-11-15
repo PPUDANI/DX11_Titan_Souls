@@ -23,6 +23,9 @@ private:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
+	void SpawnTriggerBox() override;
+	void ReleaseTriggerBox() override;
+
 private:
 	// TriggerBox
 	std::shared_ptr<class TriggerBox> EnterTheSludgeRoom = nullptr;

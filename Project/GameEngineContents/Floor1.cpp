@@ -40,16 +40,6 @@ void Floor1::Start()
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 
-	EnterTheSludgeRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToSludgeRoom");
-	EnterTheSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
-	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheSludgeRoom->SetTriggerFunction(std::bind(&Floor1::SludgeRoomTriggerFunc, this));
-
-	EnterTheYetiRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToYetiRoom");
-	EnterTheYetiRoom->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
-	EnterTheYetiRoom->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheYetiRoom->SetTriggerFunction(std::bind(&Floor1::YetiRoomTriggerFunc, this));
-
 	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
 	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1616.0f, -3232.0f });
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
@@ -64,6 +54,14 @@ void Floor1::Start()
 void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
+
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		SpawnTriggerBox();
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+	}
 }
 
 
@@ -117,6 +115,19 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 	return;
 }
 
+void Floor1::SpawnTriggerBox()
+{
+	EnterTheSludgeRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToSludgeRoom");
+	EnterTheSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
+	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheSludgeRoom->SetTriggerFunction(std::bind(&Floor1::SludgeRoomTriggerFunc, this));
+
+	EnterTheYetiRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToYetiRoom");
+	EnterTheYetiRoom->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
+	EnterTheYetiRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheYetiRoom->SetTriggerFunction(std::bind(&Floor1::YetiRoomTriggerFunc, this));
+}
+
 void Floor1::SludgeRoomTriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
@@ -148,5 +159,21 @@ void Floor1::YetiRoomTriggerFunc()
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
 		GameEngineCore::ChangeLevel("03.YetiRoom");
+	}
+}
+
+
+void Floor1::ReleaseTriggerBox()
+{
+	if (nullptr != EnterTheSludgeRoom)
+	{
+		EnterTheSludgeRoom->Death();
+		EnterTheSludgeRoom = nullptr;
+	}
+
+	if (nullptr != EnterTheYetiRoom)
+	{
+		EnterTheYetiRoom->Death();
+		EnterTheYetiRoom = nullptr;
 	}
 }

@@ -83,6 +83,8 @@ void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	LevelBase::LevelEnd(_NextLevel);
 
+	ReleaseTriggerBox();
+
 	if (nullptr != FadeOutActor)
 	{
 		FadeOutActor->Death();

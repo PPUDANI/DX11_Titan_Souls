@@ -6,7 +6,7 @@ enum class ICICLE_STATE
 	Stuck,
 };
 
-class Icicle : public GameEngineActor
+class Icicle : public BossBase
 {
 public:
 	// Constructor Destructor
@@ -20,14 +20,6 @@ public:
 	Icicle& operator=(Icicle&& _Other) noexcept = delete;
 
 	void Init(const float4& _TargetPos, const float4& _Height);
-
-	inline void PlayerSetting(Player* _PlayerPtr)
-	{
-		EnymePlayer = _PlayerPtr;
-	}
-
-private:
-	Player* EnymePlayer = nullptr;
 
 private:
 	// Inheritance
@@ -44,18 +36,15 @@ private:
 	void StuckUpdate(float _Delta);
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> ShadowRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> FallingCollision = nullptr;
-	std::shared_ptr<GameEngineCollision> BlockedCollision = nullptr;
 	EventParameter BlockedColParam;
 
 private:
 	float4 TargetPos = float4::ZERO;
 	float4 StandardHeight = float4::ZERO;
 
-	float GravityForce = 1500.0f;
-	float GravityValue = -500.0f;
+	float GravityForce = 2000.0f;
+	float GravityValue = -1000.0f;
 
 	int RandomIndex = 0;
 	int StuckAnimationIndex = 0;

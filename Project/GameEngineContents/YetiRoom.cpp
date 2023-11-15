@@ -42,11 +42,6 @@ void YetiRoom::Start()
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 
-	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
-	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1808.0f });
-	EnterTheFloor1->SetPlaceScale({ 90.0f, 90.0f });
-	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
-
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetColor({ 1.0f, 1.0f, 1.0f });
 	ScreenOverlayActor->SetAlpha(0.1f);
@@ -79,6 +74,7 @@ void YetiRoom::Update(float _Delta)
 	if (nullptr != FadeInActor &&
 		true == FadeInActor->FadeIsEnd())
 	{
+		SpawnTriggerBox();
 		FadeInActor->Death();
 		FadeInActor = nullptr;
 	}
@@ -129,6 +125,14 @@ void YetiRoom::SpawnBoss()
 	}
 }
 
+void YetiRoom::SpawnTriggerBox()
+{
+	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
+	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1808.0f });
+	EnterTheFloor1->SetPlaceScale({ 90.0f, 90.0f });
+	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
+}
+
 void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order)
 {
 	SnowballActor = CreateActor<Snowball>(UPDATE_ORDER::Boss);
@@ -166,7 +170,7 @@ void YetiRoom::SpawnIcicle(const float4& _FirstTargetPos, const float4& _Angle)
 
 		IcicleActor = CreateActor<Icicle>(UPDATE_ORDER::Boss);
 		IcicleActor->Init(TargetPos + VirticalDeviation, StartHeight);
-		IcicleActor->PlayerSetting(PlayerActor.get());
+		IcicleActor->SetEnymePlayer(PlayerActor.get());
 		IcicleActor = nullptr;
 	}
 }
@@ -283,5 +287,14 @@ void YetiRoom::ReleaseBossName()
 	{
 		BossDescriptionScript->Death();
 		BossDescriptionScript = nullptr;
+	}
+}
+
+void YetiRoom::ReleaseTriggerBox()
+{
+	if (nullptr != EnterTheFloor1)
+	{
+		EnterTheFloor1->Death();
+		EnterTheFloor1 = nullptr;
 	}
 }

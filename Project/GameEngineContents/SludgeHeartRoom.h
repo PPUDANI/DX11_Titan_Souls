@@ -29,10 +29,13 @@ private:
 	// Inheritance function
 	void SpawnBoss() override;
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
+	void SpawnTriggerBox() override;
+
 	void ReleaseSludges();
 	void PutTheHeartInSludge();
 	void OutputBossName();
 	void ReleaseBossName();
+	void ReleaseTriggerBox() override; 
 
 private:
 	// Boss Eliment

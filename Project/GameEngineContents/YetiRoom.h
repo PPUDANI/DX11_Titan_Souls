@@ -16,7 +16,6 @@ public:
 	void SpawnSnowBall(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order);
 	void SpawnIcicle(const float4& _FirstStartPos, const float4& _Angle);
 
-
 protected:
 
 private:
@@ -28,8 +27,13 @@ private:
 
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void SpawnBoss() override;
+	void SpawnTriggerBox() override;
+	void ReleaseTriggerBox() override;
 
 
+	void ReleaseBoss();
+	void ReleaseSnowball();
+	void ReleaseIcicle();
 	void OutputBossName();
 	void ReleaseBossName();
 
@@ -39,9 +43,6 @@ private:
 	std::shared_ptr<class Snowball> SnowballActor = nullptr;
 	std::shared_ptr<class Icicle> IcicleActor = nullptr;
 
-	void ReleaseBoss();
-	void ReleaseSnowball();
-	void ReleaseIcicle();
 
 private:
 	std::shared_ptr<class TriggerBox> EnterTheFloor1 = nullptr;

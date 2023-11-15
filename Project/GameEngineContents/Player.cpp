@@ -28,27 +28,27 @@ void Player::Start()
 	BodyCollision->Transform.SetLocalScale({ 24.0f, 24.0f, 1.0f });
 	BodyCollision->Transform.SetLocalPosition({ 0.0f, -5.0f, 1.0f });
 
-	UpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
-	UpCollision->SetCollisionType(ColType::AABBBOX2D);
-	UpCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
-	UpCollision->Transform.SetLocalPosition({ 0.0f, 5.0f, 1.0f });
-	DownCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
-	DownCollision->SetCollisionType(ColType::AABBBOX2D);
-	DownCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
-	DownCollision->Transform.SetLocalPosition({ 0.0f, -15.0f, 1.0f });
-	LeftCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
-	LeftCollision->SetCollisionType(ColType::AABBBOX2D);
-	LeftCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
-	LeftCollision->Transform.SetLocalPosition({ -10.0f, -5.0f, 1.0f });
-	RightCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
-	RightCollision->SetCollisionType(ColType::AABBBOX2D);
-	RightCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
-	RightCollision->Transform.SetLocalPosition({ 10.0f, -5.0f, 1.0f });
+	//UpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
+	//UpCollision->SetCollisionType(ColType::AABBBOX2D);
+	//UpCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
+	//UpCollision->Transform.SetLocalPosition({ 0.0f, 5.0f, 1.0f });
+	//DownCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
+	//DownCollision->SetCollisionType(ColType::AABBBOX2D);
+	//DownCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
+	//DownCollision->Transform.SetLocalPosition({ 0.0f, -15.0f, 1.0f });
+	//LeftCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
+	//LeftCollision->SetCollisionType(ColType::AABBBOX2D);
+	//LeftCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
+	//LeftCollision->Transform.SetLocalPosition({ -10.0f, -5.0f, 1.0f });
+	//RightCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PlayerDir);
+	//RightCollision->SetCollisionType(ColType::AABBBOX2D);
+	//RightCollision->Transform.SetLocalScale({ 3.0f, 3.0f, 1.0f });
+	//RightCollision->Transform.SetLocalPosition({ 10.0f, -5.0f, 1.0f });
 
-	Param.Stay = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
-		{
-			AdjustPosByBodyCollision();
-		};
+	//Param.Stay = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+	//	{
+	//		AdjustPosByBodyCollision();
+	//	};
 
 	ChangeState(PLAYER_STATE::StandUp);
 
@@ -667,10 +667,15 @@ void Player::BodyColCheck()
 	bool DownCheck = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalDownPos);
 	bool DownCheck2 = CurMap->AllColCheck(Transform.GetLocalPosition() + LocalDownPos2);
 
-	BodyColInfo.UpCheck = UpCheck || UpCheck2 || UpCollision->Collision(COLLISION_TYPE::BossBody);
-	BodyColInfo.DownCheck = DownCheck || DownCheck2 || DownCollision->Collision(COLLISION_TYPE::BossBody);
-	BodyColInfo.LeftCheck = LeftCheck || LeftCheck2 || LeftCollision->Collision(COLLISION_TYPE::BossBody);
-	BodyColInfo.RightCheck = RightCheck || RightCheck2 || RightCollision->Collision(COLLISION_TYPE::BossBody);
+	BodyColInfo.UpCheck = UpCheck || UpCheck2;
+	BodyColInfo.DownCheck = DownCheck || DownCheck2;
+	BodyColInfo.LeftCheck = LeftCheck || LeftCheck2;
+	BodyColInfo.RightCheck = RightCheck || RightCheck2;
+
+	//BodyColInfo.UpCheck = UpCheck || UpCheck2 || UpCollision->Collision(COLLISION_TYPE::BossBody);
+    //BodyColInfo.DownCheck = DownCheck || DownCheck2 || DownCollision->Collision(COLLISION_TYPE::BossBody);
+    //BodyColInfo.LeftCheck = LeftCheck || LeftCheck2 || LeftCollision->Collision(COLLISION_TYPE::BossBody);
+    //BodyColInfo.RightCheck = RightCheck || RightCheck2 || RightCollision->Collision(COLLISION_TYPE::BossBody);
 }
 
 void Player::TileColCheck()
@@ -874,41 +879,41 @@ void Player::AdjustPosByCol()
 	BodyColCheck();
 }
 
-void Player::AdjustPosByBodyCollision()
-{
-	while (true == BodyCollision->Collision(COLLISION_TYPE::BossBody))
-	{
-		switch (CurDir)
-		{
-		case PLAYER_DIRECTION::Right:
-			Transform.AddLocalPosition(-PlayerDirDeg);
-			break;
-		case PLAYER_DIRECTION::RightUp:
-
-			break;
-		case PLAYER_DIRECTION::Up:
-			Transform.AddLocalPosition(-PlayerDirDeg);
-			break;
-		case PLAYER_DIRECTION::LeftUp:
-
-			break;
-		case PLAYER_DIRECTION::Left:
-			Transform.AddLocalPosition(-PlayerDirDeg);
-			break;
-		case PLAYER_DIRECTION::LeftDown:
-
-			break;
-		case PLAYER_DIRECTION::Down:
-			Transform.AddLocalPosition(-PlayerDirDeg);
-			break;
-		case PLAYER_DIRECTION::RightDown:
-
-			break;
-		default:
-			break;
-		}
-	}
-}
+//void Player::AdjustPosByBodyCollision()
+//{
+//	while (true == BodyCollision->Collision(COLLISION_TYPE::BossBody))
+//	{
+//		switch (CurDir)
+//		{
+//		case PLAYER_DIRECTION::Right:
+//			Transform.AddLocalPosition(-PlayerDirDeg);
+//			break;
+//		case PLAYER_DIRECTION::RightUp:
+//
+//			break;
+//		case PLAYER_DIRECTION::Up:
+//			Transform.AddLocalPosition(-PlayerDirDeg);
+//			break;
+//		case PLAYER_DIRECTION::LeftUp:
+//
+//			break;
+//		case PLAYER_DIRECTION::Left:
+//			Transform.AddLocalPosition(-PlayerDirDeg);
+//			break;
+//		case PLAYER_DIRECTION::LeftDown:
+//
+//			break;
+//		case PLAYER_DIRECTION::Down:
+//			Transform.AddLocalPosition(-PlayerDirDeg);
+//			break;
+//		case PLAYER_DIRECTION::RightDown:
+//
+//			break;
+//		default:
+//			break;
+//		}
+//	}
+//}
 
 void Player::DirSpecularReflection()
 {

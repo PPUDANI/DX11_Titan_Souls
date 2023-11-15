@@ -41,11 +41,6 @@ void SludgeHeartRoom::Start()
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 
-	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
-	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
-	EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheFloor1->SetTriggerFunction(std::bind(&SludgeHeartRoom::Floor1TriggerFunc, this));
-
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
 	ScreenOverlayActor->SetAlpha(0.1f);
@@ -78,6 +73,7 @@ void SludgeHeartRoom::Update(float _Delta)
 	{
 		FadeInActor->Death();
 		FadeInActor = nullptr;
+		SpawnTriggerBox();
 	}
 }
 
@@ -141,6 +137,17 @@ void SludgeHeartRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 	return;
+}
+
+void SludgeHeartRoom::SpawnTriggerBox()
+{
+	if (nullptr == EnterTheFloor1)
+	{
+		EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
+		EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
+		EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
+		EnterTheFloor1->SetTriggerFunction(std::bind(&SludgeHeartRoom::Floor1TriggerFunc, this));
+	}
 }
 
 void SludgeHeartRoom::ReleaseSludges()
@@ -247,5 +254,14 @@ void SludgeHeartRoom::ReleaseBossName()
 	{
 		BossDescriptionScript->Death();
 		BossDescriptionScript = nullptr;
+	}
+}
+
+void SludgeHeartRoom::ReleaseTriggerBox()
+{
+	if (nullptr != EnterTheFloor1)
+	{
+		EnterTheFloor1->Death();
+		EnterTheFloor1 = nullptr;
 	}
 }

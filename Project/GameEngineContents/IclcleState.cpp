@@ -9,13 +9,14 @@ void Icicle::StuckStart()
 {
 	Transform.SetLocalPosition(TargetPos);
 
-	Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
-	Renderer->SetPivotType(PivotType::Center);
-	Renderer->SetSprite("Icicle.png", StuckAnimationIndex);
-	Renderer->SetImageScale({ 64.0f, 64.0f });
+	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
+	BodyRenderer->SetPivotType(PivotType::Center);
+	BodyRenderer->SetSprite("Icicle.png", StuckAnimationIndex);
+	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
 
 	FallingCollision->Off();
-	BlockedCollision->On();
+	Collision->On();
+
 }
 
 
@@ -43,10 +44,10 @@ void Icicle::FallingUpdate(float _Delta)
 
 void Icicle::StuckUpdate(float _Delta)
 {
-	BlockedCollision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam);
-	if (true == BlockedCollision->Collision(COLLISION_TYPE::BossBodyAttack))
+
+	Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam);
+	if (true == Collision->Collision(COLLISION_TYPE::BossBodyAttack))
 	{
 		Death();
 	}
-
 }

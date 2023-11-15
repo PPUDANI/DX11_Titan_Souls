@@ -19,31 +19,31 @@ void Icicle::Init(const float4& _TargetPos, const float4& _Height)
 void Icicle::Start()
 {
 	GlobalLoad::LoadSpriteCut(8, 1, "Icicle.png", "Resource\\Texture\\Boss\\Yeti\\");
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
-	Renderer->SetPivotType(PivotType::Bottom);
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
+	BodyRenderer->SetPivotType(PivotType::Bottom);
 	GameEngineRandom Inst;
 	Inst.SetSeed(reinterpret_cast<__int64>(this));
 	RandomIndex = Inst.RandomInt(0, 3);
 	StuckAnimationIndex = RandomIndex + 4;
 
-	Renderer->SetSprite("Icicle.png", RandomIndex);
-	Renderer->SetImageScale({ 64.0f, 64.0f });
+	BodyRenderer->SetSprite("Icicle.png", RandomIndex);
+	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
 
 	FallingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Icicle);
 	FallingCollision->SetCollisionType(ColType::SPHERE2D);
 	FallingCollision->Transform.SetLocalScale({ 16.0f, 16.0f });
 	FallingCollision->Transform.SetLocalPosition({ 0.0f, -4.0f });
 
-	BlockedCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
-	BlockedCollision->SetCollisionType(ColType::AABBBOX2D);
-	BlockedCollision->Transform.SetLocalScale({ 36.0f, 16.0f });
-	BlockedCollision->Transform.SetLocalPosition({ 0.0f, 8.0f });
-	BlockedCollision->Off();
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
+	Collision->SetCollisionType(ColType::AABBBOX2D);
+	Collision->Transform.SetLocalScale({ 36.0f, 16.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, 8.0f });
+	Collision->Off();
 
 	BlockedColParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
 			_Collisions->GetActor()->Death();
-			BlockedCollision->Death();
+			Collision->Death();
 			Death();
 		};
 }

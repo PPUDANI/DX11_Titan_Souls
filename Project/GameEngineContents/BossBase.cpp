@@ -73,22 +73,29 @@ void BossBase::SetDirToDeg(float _Degree)
 
 void BossBase::ShakingScreen(float _Delta)
 {
-	GameEngineRandom Inst;
-	ShakingSeedCount;
-
-	if (false == ShakingEnd &&
-		ScreenShakingTime > ScreenShakingTimer)
+	if (ShakingFrame < FrameTimer)
 	{
-		ScreenShakingTimer += _Delta;
-		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
-		ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * _Delta);
-		CameraManager::AddCameraPosFromShaking.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
-		CameraManager::AddCameraPosFromShaking.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+		if (false == ShakingEnd &&
+			ScreenShakingTime > ScreenShakingTimer)
+		{
+			ScreenShakingTimer += FrameTimer;
+			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
+			ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * FrameTimer);
+			CameraManager::AddCameraPosFromShaking.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
+			CameraManager::AddCameraPosFromShaking.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
+		}
+		else
+		{
+			CameraManager::AddCameraPosFromShaking = float4::ZERO;
+			ShakingEnd = true;
+		}
+
+		FrameTimer -= ShakingFrame;
 	}
 	else
 	{
-		CameraManager::AddCameraPosFromShaking = float4::ZERO;
-		ShakingEnd = true;
+		FrameTimer += _Delta;
 	}
+	
 }

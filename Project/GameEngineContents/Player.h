@@ -176,13 +176,13 @@ private:
 
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 
-	std::shared_ptr<GameEngineCollision> UpCollision = nullptr;
-	std::shared_ptr<GameEngineCollision> DownCollision = nullptr;
-	std::shared_ptr<GameEngineCollision> LeftCollision = nullptr;
-	std::shared_ptr<GameEngineCollision> RightCollision = nullptr;
+	//std::shared_ptr<GameEngineCollision> UpCollision = nullptr;
+	//std::shared_ptr<GameEngineCollision> DownCollision = nullptr;
+	//std::shared_ptr<GameEngineCollision> LeftCollision = nullptr;
+	//std::shared_ptr<GameEngineCollision> RightCollision = nullptr;
 
-	EventParameter Param;
-	void AdjustPosByBodyCollision();
+	//EventParameter Param;
+	//void AdjustPosByBodyCollision();
 
 	// Load Texture & Create Animation Functions
 	void CreatePlayerbodyAnimation();

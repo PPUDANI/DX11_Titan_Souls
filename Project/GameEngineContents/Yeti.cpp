@@ -439,8 +439,8 @@ void Yeti::DropIcicle()
 void Yeti::ShakingScreenInit()
 {
 	ShakingEnd = false;
-	ScreenShakingTime = 0.5f;
+	ScreenShakingTime = 1.0f;
 	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.15f;
-	ShakingLerpValue = 10.0f;
+	ShakingPerFrame = 0.2f;
+	ShakingLerpValue = 15.0f;
 }
