@@ -119,7 +119,7 @@ void Sludge::JumpUpdate(float _Delta)
 		{
 			if (false == FindPlayer)
 			{
-				SetMoveDirRandom(JumpStartPos, 70.0f);
+				SetMoveDirRandom(JumpStartPos, 100.0f);
 			}
 			else
 			{

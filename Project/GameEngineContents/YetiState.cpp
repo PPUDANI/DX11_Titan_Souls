@@ -71,6 +71,7 @@ void Yeti::HitStart()
 		break;
 	}
 
+	BodyRenderer->GetColorData().MulColor = { 0.8f, 0.8f, 0.8f };
 	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
 	BodyCollisionOff();
 	SetAnimByDir("Hit");
@@ -83,7 +84,11 @@ void Yeti::DeathStart()
 
 void Yeti::SleepUpdate(float _Delta)
 {
-
+	if (YETI_STATE::Sleep == CurState &&
+		true == IsBodyHitByArrow)
+	{
+		WakeUpYeti();
+	}
 }
 
 void Yeti::IdleUpdate(float _Delta)

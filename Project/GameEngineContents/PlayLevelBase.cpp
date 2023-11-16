@@ -13,7 +13,7 @@ void PlayLevelBase::Start()
 {
 	LevelBase::Start();
 	CreatePlayerElement();
-	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
+	//PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 }
 
 void PlayLevelBase::Update(float _Delta)
@@ -69,7 +69,6 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	LevelBase::LevelStart(_PrevLevel);
 	SpawnPlayer(_PrevLevel);
-	SpawnBoss();
 
 	if (nullptr != PlayerActor &&
 		nullptr != ArrowActor)

@@ -31,6 +31,7 @@ private:
 	void SpawnPlayer(GameEngineLevel* _PrevLevel) override;
 	void SpawnTriggerBox() override;
 
+	void ReleaseBoss();
 	void ReleaseSludges();
 	void PutTheHeartInSludge();
 	void OutputBossName();

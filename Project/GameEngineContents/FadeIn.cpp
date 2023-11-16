@@ -22,7 +22,7 @@ void FadeIn::Start()
 
 void FadeIn::Update(float _Delta)
 {
-	if(false == FadeEnd)
+	if (false == FadeEnd)
 	{
 		if (FadeRenderer->GetColorData().MulColor.A > 0.0f)
 		{

@@ -204,6 +204,50 @@ void Player::ChangeState(PLAYER_STATE _State)
 	}
 }
 
+void Player::ChangeStateFromLevel(PLAYER_STATE _State)
+{
+	CurState = _State;
+
+	switch (CurState)
+	{
+	case PLAYER_STATE::Idle:
+		IdleStart();
+		break;
+	case PLAYER_STATE::Move:
+		MoveStart();
+		break;
+	case PLAYER_STATE::Stop:
+		StopStart();
+		break;
+	case PLAYER_STATE::Rolling:
+		RollingStart();
+		break;
+	case PLAYER_STATE::Blocked:
+		BlockedStart();
+		break;
+	case PLAYER_STATE::Aim:
+		AimStart();
+		break;
+	case PLAYER_STATE::Returning:
+		ReturningStart();
+		break;
+	case PLAYER_STATE::Death:
+		DeathStart();
+		break;
+	case PLAYER_STATE::StandUp:
+		StandUpStart();
+		break;
+	case PLAYER_STATE::EnterLevel:
+		EnterLevelStart();
+		break;
+	case PLAYER_STATE::ExitLevel:
+		ExitLevelStart();
+		break;
+	default:
+		break;
+	}
+}
+
 void Player::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _Force /*= false*/)
 {
 	std::string AnimationName = "";

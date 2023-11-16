@@ -23,7 +23,6 @@ void SludgeHeartRoom::Start()
 		Window->AddDebugRenderTarget(1, "SludgeHeartRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
 
-	GetMainCamera()->SetZSort(RENDERING_ORDER::Shadow);
 
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
@@ -81,12 +80,16 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
 
+	if (false == BossIsDeath)
+	{
+		SpawnBoss();
+	}
+
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 		FadeInActor->Init(FadeColor::Black);
 	}
-
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
@@ -94,48 +97,36 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	PlayLevelBase::LevelEnd(_NextLevel);
 
 	// 액터 레벨이동 구현 
-	if (JUMPBOSS_STATE::Death != HeartActor->GetCurState())
+	if (false == BossIsDeath)
 	{
-		if (nullptr != HeartActor)
-		{
-			HeartActor->Death();
-			HeartActor = nullptr;
-		}
-	}
-	else
-	{
-		BossIsDeath = true;
+		ReleaseBoss();
 	}
 
-	ReleaseSludges();
 	ReleaseBossName();
 }
 
 void SludgeHeartRoom::SpawnBoss()
 {
-	if (false == BossIsDeath)
-	{
-		SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
-		SludgeActor->SetEnymePlayer(PlayerActor.get());
-		SludgeActor->SetEnymeArrow(ArrowActor.get());
-		SludgeActor->TileMapSetting(TileMapActor.get());
-		SludgeActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
+	SludgeActor = CreateActor<Sludge>(UPDATE_ORDER::Boss);
+	SludgeActor->SetEnymePlayer(PlayerActor.get());
+	SludgeActor->SetEnymeArrow(ArrowActor.get());
+	SludgeActor->TileMapSetting(TileMapActor.get());
+	SludgeActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
-		HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
-		HeartActor->SetEnymePlayer(PlayerActor.get());
-		HeartActor->SetEnymeArrow(ArrowActor.get());
-		HeartActor->TileMapSetting(TileMapActor.get());
-		HeartActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
+	HeartActor = CreateActor<Heart>(UPDATE_ORDER::Boss);
+	HeartActor->SetEnymePlayer(PlayerActor.get());
+	HeartActor->SetEnymeArrow(ArrowActor.get());
+	HeartActor->TileMapSetting(TileMapActor.get());
+	HeartActor->Transform.SetLocalPosition({ 1008.0f, -500.0f });
 
-		PutTheHeartInSludge();
-		SludgeActor = nullptr;
-	}
+	PutTheHeartInSludge();
+	SludgeActor = nullptr;
 }
 
 void SludgeHeartRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
-	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
+	PlayerActor->ChangeStateFromLevel(PLAYER_STATE::EnterLevel);
 	return;
 }
 
@@ -170,7 +161,15 @@ void SludgeHeartRoom::PutTheHeartInSludge()
 	HeartActor->SetOwnerSludge(SludgeActor.get());
 	SludgeActor->SetHeart(HeartActor.get());
 }
-
+void SludgeHeartRoom::ReleaseBoss()
+{
+	if (nullptr != HeartActor)
+	{
+		HeartActor->Death();
+		HeartActor = nullptr;
+	}
+	ReleaseSludges();
+}
 
 void SludgeHeartRoom::BossDeathProcessing()
 {

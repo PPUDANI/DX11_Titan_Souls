@@ -87,12 +87,16 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
 
+	if (false == BossIsDeath)
+	{
+		SpawnBoss();
+	}
+
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 		FadeInActor->Init(FadeColor::Black);
 	}
-	SpawnBoss();
 }
 
 
@@ -100,7 +104,12 @@ void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
 	CameraManager::CalCameraPosFromArrowOn();
-	ReleaseBoss();
+	CameraManager::AddCameraPosFromBoss = 0.0f;
+	if (false == BossIsDeath)
+	{
+		ReleaseBoss();
+	}
+
 	ReleaseSnowball();
 	ReleaseIcicle();
 	ReleaseBossName();
@@ -111,7 +120,7 @@ void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 void YetiRoom::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	PlayerActor->Transform.SetLocalPosition({ 1008.0f, -1792.0f });
-	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
+	PlayerActor->ChangeStateFromLevel(PLAYER_STATE::EnterLevel);
 	return;
 }
 

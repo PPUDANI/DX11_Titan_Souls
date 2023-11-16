@@ -27,7 +27,9 @@ public:
 		}
 
 		StartAlpha = _StartAlpha;
+		FadeRenderer->GetColorData().MulColor.A = StartAlpha;
 		FadeSpeed = (1.0f / _Second) * StartAlpha;
+		FadeEnd = false;
 	}
 
 	inline bool FadeIsEnd() const

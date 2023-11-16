@@ -89,22 +89,22 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 		{
 			//PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
-			PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 		}
 		else if ("02.SludgeHeartRoom" == _PrevLevel->GetName())
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
-			PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
+			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::ExitLevel);
 		}
 		else if ("03.YetiRoom" == _PrevLevel->GetName())
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
-			PlayerActor->ChangeState(PLAYER_STATE::ExitLevel);
+			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::ExitLevel);
 		}
 		else
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
-			PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 		}
 	}
 	else

@@ -110,9 +110,7 @@ public:
 
 private:
 
-	bool EnterEndValue = false;
 	float EnterTimer = 0.0f;
-	bool ExitEndValue = false;
 	float ExitTimer = 0.0f;
 
 private:
@@ -135,6 +133,7 @@ private:
 public:
 	// FMS Functions
 	void ChangeState(PLAYER_STATE _State);
+	void ChangeStateFromLevel(PLAYER_STATE _State);
 	PLAYER_STATE GetCurState()
 	{
 		return CurState;

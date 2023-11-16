@@ -53,12 +53,6 @@ void Yeti::Start()
 
 void Yeti::Update(float _Delta)
 {
-	if (YETI_STATE::Sleep == CurState &&
-		true == IsBodyHitByArrow)
-	{
-		WakeUpYeti();
-	}
-
 	if (true == IsWeaknessHitByArrow)
 	{
 		IsWeaknessHitByArrow = false;
