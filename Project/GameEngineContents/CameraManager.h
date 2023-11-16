@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 class CameraManager
 {
 public:
@@ -26,18 +26,21 @@ public:
 	{
 		float4 CameraPos = float4::ZERO;
 
-		if (true == CalCameraPosFromArrow)
+ 		if (true == CalCameraPosFromArrow)
 		{
 			CameraPos += AddCameraPosFromArrow;
 		}
+
 		if (true == CalCameraPosFromPlayer)
 		{
 			CameraPos += AddCameraPosFromPlayer;
 		}
+
 		if (true == CalCameraPosFromBoss)
 		{
 			CameraPos += AddCameraPosFromBoss;
 		}
+
 
 		if (TurmSize > CameraPos.X - GlobalValue::WindowScale.hX())
 		{
@@ -47,6 +50,7 @@ public:
 		{
 			CameraPos.X = _TileEndPos.X - TurmSize - GlobalValue::WindowScale.hX();
 		}
+
 		if (-TurmSize < CameraPos.Y + GlobalValue::WindowScale.hY())
 		{
 			CameraPos.Y = -GlobalValue::WindowScale.hY() - TurmSize;
@@ -58,7 +62,8 @@ public:
 
 		CameraPos += AddCameraPosFromShaking;
 		CameraPos.Z = -100.0f;
-		CameraPos.W = 1.0f;
+
+
 		return CameraPos;
 	}
 
@@ -75,6 +80,17 @@ public:
 			ZoomValue = 1.0f;
 		}
 		return ZoomValue;
+	}
+
+	static void CameraValueReset()
+	{
+		AddCameraPosFromArrow = float4::ZERO;
+		AddCameraPosFromPlayer = float4::ZERO;
+		AddCameraPosFromBoss = float4::ZERO;
+		AddCameraPosFromShaking = float4::ZERO;
+		AddCameraZoomFromArrow = 0.0f;
+		AddCameraZoomFromPlayer = 0.0f;
+		AddCameraZoomFromBoss = 0.0f;
 	}
 
 	static void CalCameraPosFromArrowOn()

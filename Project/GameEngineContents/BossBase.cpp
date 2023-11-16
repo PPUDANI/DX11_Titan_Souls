@@ -86,7 +86,7 @@ void BossBase::ShakingScreen(float _Delta)
 			CameraManager::AddCameraPosFromShaking.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
 		}
 		else
-		{
+		{ 
 			CameraManager::AddCameraPosFromShaking = float4::ZERO;
 			ShakingEnd = true;
 		}

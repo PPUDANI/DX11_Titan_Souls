@@ -104,7 +104,7 @@ void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
 	CameraManager::CalCameraPosFromArrowOn();
-	CameraManager::AddCameraPosFromBoss = 0.0f;
+	CameraManager::AddCameraPosFromBoss = float4::ZERO;
 	if (false == BossIsDeath)
 	{
 		ReleaseBoss();

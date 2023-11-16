@@ -69,6 +69,7 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	LevelBase::LevelStart(_PrevLevel);
 	SpawnPlayer(_PrevLevel);
+	CameraManager::CameraValueReset();
 
 	if (nullptr != PlayerActor &&
 		nullptr != ArrowActor)
