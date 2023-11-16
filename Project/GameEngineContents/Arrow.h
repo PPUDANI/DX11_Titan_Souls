@@ -162,7 +162,7 @@ private:
 
 	float PullOutDuration = 2.0f;
 	float PullOutTimer = 0.0f;
-	float ShakingPerFrame = 0.0f;
+
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;

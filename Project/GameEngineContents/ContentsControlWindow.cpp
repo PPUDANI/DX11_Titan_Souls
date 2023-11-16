@@ -12,6 +12,7 @@ void PositionTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 	std::list<std::shared_ptr<GameEngineObject>> PlayerActorList = _Level->GetObjectGroup(UPDATE_ORDER::Player);
 
+	
 	if (true == PlayerActorList.empty())
 	{
 		return;
@@ -23,13 +24,21 @@ void PositionTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 	std::list<std::shared_ptr<GameEngineObject>> ArrowActorList = _Level->GetObjectGroup(UPDATE_ORDER::Arrow);
 	std::shared_ptr<GameEngineObject> ArrowActor = ArrowActorList.front();
-	std::string ArrowrPos = ArrowActor.get()->Transform.GetWorldPosition().ToString();
+	std::string ArrorPos = ArrowActor.get()->Transform.GetWorldPosition().ToString();
+
 
 	ImGui::Text("\nPlayer Position");
 	ImGui::Button(PlayerPos.c_str());
 
 	ImGui::Text("\nArrow Position");
-	ImGui::Button(ArrowrPos.c_str());
+	ImGui::Button(ArrorPos.c_str());
+
+	std::shared_ptr<GameEngineCamera> CameraObject = _Level->GetMainCamera();
+
+
+	std::string CameraPos = _Level->GetMainCamera()->Transform.GetLocalPosition().ToString();
+	ImGui::Text("\nCamera Position");
+	ImGui::Button(CameraPos.c_str());
 
 	ImGui::Text("\n");
 	if (ImGui::Button("Collision OnOff"))

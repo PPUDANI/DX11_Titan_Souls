@@ -54,8 +54,6 @@ void Arrow::PinnedStart()
 	PickUpCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
 
-	ShakingPerFrame = 0.0f;
-	//Renderer->Transform.SetLocalPosition(DepthValue::PinnedArrow);
 }
 
 void Arrow::HoldUpdate(float _Delta)
