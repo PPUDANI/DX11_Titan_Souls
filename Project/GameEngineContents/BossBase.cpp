@@ -99,3 +99,10 @@ void BossBase::ShakingScreen(float _Delta)
 	}
 	
 }
+
+void BossBase::ShadowVariableByHeight(const float4& _JumpStartPos)
+{
+	float VariationRatio = std::abs(ShadowRenderer->Transform.GetLocalPosition().Y / _JumpStartPos.Y);
+	ShadowRenderer->SetImageScale(ShadowStandardScale * (1.0f - (ShadowScaleConstant * VariationRatio)));
+	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha * (1.0f - (ShadowAlphaConstant * VariationRatio));
+}

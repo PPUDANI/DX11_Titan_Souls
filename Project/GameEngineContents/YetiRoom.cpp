@@ -63,6 +63,8 @@ void YetiRoom::Update(float _Delta)
 	if (YETI_STATE::Hit == YetiActor->GetCurState())
 	{
 		BossIsDeath = true;
+		ReleaseIcicle();
+		ReleaseSnowball();
 	}
 
 	if (true == BossIsDeath &&
@@ -166,7 +168,7 @@ void YetiRoom::SpawnIcicle(const float4& _FirstTargetPos, const float4& _Angle)
 			break;
 		}
 
-		StartHeight.Y += 50.0f; // 가까울수록 순서대로 떨어짐(자연스러움)
+		StartHeight.Y += 75.0f; // 가까울수록 순서대로 떨어짐(자연스러움)
 
 		IcicleActor = CreateActor<Icicle>(UPDATE_ORDER::Boss);
 		IcicleActor->Init(TargetPos + VirticalDeviation, StartHeight);

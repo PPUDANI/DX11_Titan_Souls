@@ -12,13 +12,16 @@ Icicle::~Icicle()
 void Icicle::Init(const float4& _TargetPos, const float4& _Height)
 {
 	TargetPos = _TargetPos.RoundUpReturn();
+	Height = _Height;
 
-	Transform.SetLocalPosition(TargetPos + _Height);
+	Transform.SetLocalPosition(TargetPos + Height);
 }
 
 void Icicle::Start()
 {
 	GlobalLoad::LoadSpriteCut(8, 1, "Icicle.png", "Resource\\Texture\\Boss\\Yeti\\");
+	GlobalLoad::LoadSpriteSingle("IcicleShadow.png", "Resource\\Texture\\Boss\\Yeti\\");
+
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	GameEngineRandom Inst;
@@ -28,6 +31,39 @@ void Icicle::Start()
 
 	BodyRenderer->SetSprite("Icicle.png", RandomIndex);
 	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
+
+
+
+	switch (RandomIndex)
+	{
+	case 0:
+		ShadowStandardPos = { 0.0f, -3.0f };
+		ShadowStandardScale = { 80.0f, 80.0f, 1.0f };
+		break;
+	case 1:
+		ShadowStandardPos = { 0.0f, -5.0f };
+		ShadowStandardScale = { 64.0f, 64.0f, 1.0f };
+		break;
+	case 2:
+		ShadowStandardPos = { 0.0f, -5.0f };
+		ShadowStandardScale = { 64.0f, 64.0f, 1.0f };
+		break;
+	case 3:
+		ShadowStandardPos = { 0.0f, -3.0f };
+		ShadowStandardScale = { 80.0f, 80.0f, 1.0f };
+		break;
+	default:
+		break;
+	}
+
+	ShadowStandardAlpha = 0.5f;
+	ShadowScaleConstant = 1.0f;
+	ShadowAlphaConstant = 1.0f;
+
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
+	ShadowRenderer->SetSprite("IcicleShadow.png");
+	ShadowRenderer->SetImageScale(ShadowStandardScale);
+	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha;
 
 	FallingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Icicle);
 	FallingCollision->SetCollisionType(ColType::SPHERE2D);

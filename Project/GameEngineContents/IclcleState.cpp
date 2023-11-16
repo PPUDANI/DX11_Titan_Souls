@@ -8,6 +8,7 @@ void Icicle::FallingStart()
 void Icicle::StuckStart()
 {
 	Transform.SetLocalPosition(TargetPos);
+	ShadowRenderer->Transform.SetLocalPosition(ShadowStandardPos);
 
 	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
 	BodyRenderer->SetPivotType(PivotType::Center);
@@ -17,6 +18,7 @@ void Icicle::StuckStart()
 	FallingCollision->Off();
 	Collision->On();
 
+	LiveTimer = 0.0f;
 }
 
 
@@ -25,8 +27,10 @@ void Icicle::FallingUpdate(float _Delta)
 	if (TargetPos.Y < Transform.GetLocalPosition().Y)
 	{
 		GravityValue -= GravityForce * _Delta;
-		Transform.AddLocalPosition({ 0.0f, GravityValue * _Delta });
+		Height += float4{ 0.0f, GravityValue * _Delta };
 
+		Transform.SetLocalPosition(TargetPos + Height);
+		ShadowRenderer->Transform.SetLocalPosition(-Height + ShadowStandardPos);
 		if (20.0f > abs(TargetPos.Y - Transform.GetLocalPosition().Y) )
 		{	
 			if (false == EnymePlayer->InvincibilityModeIsOn() &&
@@ -40,13 +44,17 @@ void Icicle::FallingUpdate(float _Delta)
 	{
 		ChangeState(ICICLE_STATE::Stuck);
 	}
+
+	ShadowVariableByHeight(TargetPos);
 }
 
 void Icicle::StuckUpdate(float _Delta)
 {
+	LiveTimer += _Delta;
 
-	Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam);
-	if (true == Collision->Collision(COLLISION_TYPE::BossBodyAttack))
+	if (LiveTime < LiveTimer ||
+		true == Collision->Collision(COLLISION_TYPE::BossBodyAttack) ||
+		true == Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam))
 	{
 		Death();
 	}

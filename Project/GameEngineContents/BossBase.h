@@ -49,6 +49,14 @@ protected:
 	std::shared_ptr<GameEngineSpriteRenderer> ShadowRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
+	void ShadowVariableByHeight(const float4& _JumpStartPos);
+
+	float4 ShadowStandardPos = float4::ZERO;
+	float4 ShadowStandardScale = float4::ZERO;
+	float ShadowStandardAlpha = 0.0f;
+	float ShadowScaleConstant = 0.0f;
+	float ShadowAlphaConstant = 0.0f;
+
 	class Player* EnymePlayer = nullptr;
 	class Arrow* EnymeArrow = nullptr;
 	class TileMap* CurMap = nullptr;
@@ -68,6 +76,7 @@ protected:
 
 protected:
 	void ShakingScreen(float _Delta);
+
 	GameEngineRandom Inst;
 
 	float ShakingFrame = 1.0f / 60.0f;
@@ -79,4 +88,7 @@ protected:
 	float ShakingPerFrame = 0.0f;
 	bool ShakingEnd = false;
 	float ShakingLerpValue = 0.0f;
+protected:
+
+
 };

@@ -33,4 +33,7 @@
       <UniqueIdentifier>{ddb4fe43-a346-43ef-84f6-27740125d03c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="텍스트편집.txt" />
+  </ItemGroup>
 </Project>

@@ -25,6 +25,7 @@ void Yeti::Start()
 	Collision->Transform.SetLocalScale({ 40.0f, 20.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
 	Collision->Off();
+
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 70.0f, 30.0f, 1.0f });
@@ -107,9 +108,8 @@ void Yeti::Update(float _Delta)
 		break;
 	}
 
-
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + ShadowStandardPos);
-
+	
 	if (true == GetLevel()->IsDebug)
 	{
 		GameEngineTransform TData;

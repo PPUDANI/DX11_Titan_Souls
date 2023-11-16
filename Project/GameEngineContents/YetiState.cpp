@@ -45,6 +45,8 @@ void Yeti::LandingStart()
 	LandingTimer = 0.0f;
 	BodyCollisionOn();
 	SetAnimByDir("Landing");
+
+	ShadowRenderer->SetImageScale(ShadowStandardScale);
 }
 
 void Yeti::BlockedStart()
@@ -172,6 +174,8 @@ void Yeti::BlockedUpdate(float _Delta)
 	float4 MovePos = MoveDirBasis * RollingSpeed * DecreaseByBlocked * _Delta;
 	Transform.AddLocalPosition(MovePos);
 	JumpStartPos += MovePos;
+
+	ShadowVariableByHeight(JumpStartPos);
 }
 
 void Yeti::HitUpdate(float _Delta)

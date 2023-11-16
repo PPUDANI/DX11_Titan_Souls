@@ -53,11 +53,17 @@ void Yeti::CreateYetiAnimation()
 	BodyRenderer->CreateAnimation("SideUp_Death", "Yeti.png", 0.2f, 84, 86, false);
 	BodyRenderer->CreateAnimation("SideDown_Death", "Yeti.png", 0.2f, 94, 96, false);
 
-	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
+	ShadowStandardPos = { 0.0f, -30.0f };
+	ShadowStandardScale = { 120.0f, 48.0f, 1.0f };
+	ShadowStandardAlpha = 0.5f;
+	ShadowScaleConstant = 3.0f;
+	ShadowAlphaConstant = 5.0f;
+
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetSprite("YetiShadow.png");
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
-	ShadowRenderer->SetImageScale({ 120.0f, 48.0f });
-	ShadowRenderer->GetColorData().MulColor.A = 0.3f;
+	ShadowRenderer->SetImageScale(ShadowStandardScale);
+	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha;
 }
 
 void Yeti::SetAnimByDir(std::string_view _AnimName, int _Frame /*= 0*/, bool _Force /*= false*/)

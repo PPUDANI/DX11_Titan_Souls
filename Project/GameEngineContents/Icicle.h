@@ -41,11 +41,15 @@ private:
 
 private:
 	float4 TargetPos = float4::ZERO;
+	float4 Height = float4::ZERO;
 	float4 StandardHeight = float4::ZERO;
 
-	float GravityForce = 2000.0f;
+	float GravityForce = 1500.0f;
 	float GravityValue = -1000.0f;
 
 	int RandomIndex = 0;
 	int StuckAnimationIndex = 0;
+
+	float LiveTime = 10.0f;
+	float LiveTimer = 0.0f;
 };
