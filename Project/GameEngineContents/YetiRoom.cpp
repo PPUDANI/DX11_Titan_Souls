@@ -43,7 +43,7 @@ void YetiRoom::Start()
 	ArrowActor->TileMapSetting(TileMapActor);
 
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
-	ScreenOverlayActor->SetColor({ 1.0f, 1.0f, 1.0f });
+	ScreenOverlayActor->SetColor({ 0.8f, 0.8f, 0.8f });
 	ScreenOverlayActor->SetAlpha(0.1f);
 }
 
@@ -103,8 +103,10 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+
 	CameraManager::CalCameraPosFromArrowOn();
 	CameraManager::AddCameraPosFromBoss = float4::ZERO;
+
 	if (false == BossIsDeath)
 	{
 		ReleaseBoss();
@@ -113,7 +115,6 @@ void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	ReleaseSnowball();
 	ReleaseIcicle();
 	ReleaseBossName();
-	WakeUpProcessingIsEnd = false;
 }
 
 

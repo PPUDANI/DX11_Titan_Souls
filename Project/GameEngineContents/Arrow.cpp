@@ -284,6 +284,7 @@ void Arrow::BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 	BossActor->BodyHitByArrow();
 	Transform.AddLocalPosition(_MovePos);
 	AdjustPosByCol();
-	PullingForce = 0.0f;
+	DirSpecularReflection();
+	PullingForce /= 2.0f;
 	ChangeState(ARROW_STATE::Fallen);
 }

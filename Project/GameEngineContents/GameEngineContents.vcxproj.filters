@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <Filter>02. Level\01. Title Level</Filter>
     </ClCompile>
@@ -18,16 +17,10 @@
       <Filter>02. Level\05. Knight Elhanan Level</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
-      <Filter>00. Global\PreCompile</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalLoad.cpp">
-      <Filter>00. Global</Filter>
+      <Filter>00. Global\01. PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevelBase.cpp">
       <Filter>02. Level\00.  LevelBase</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalValue.cpp">
-      <Filter>00. Global</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>01. Actor\01. Map</Filter>
@@ -81,49 +74,49 @@
       <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
     </ClCompile>
     <ClCompile Include="TriggerBox.cpp">
-      <Filter>01. Actor\05. TriggerBox</Filter>
+      <Filter>01. Actor\05. Trigger Box</Filter>
     </ClCompile>
     <ClCompile Include="ContentsControlWindow.cpp">
-      <Filter>00. Global\IMGUI</Filter>
+      <Filter>00. Global\04. IMGUI</Filter>
     </ClCompile>
     <ClCompile Include="TitleLevelState.cpp">
       <Filter>02. Level\01. Title Level</Filter>
     </ClCompile>
     <ClCompile Include="FadeImage.cpp">
-      <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade Image</Filter>
     </ClCompile>
     <ClCompile Include="FadeImageState.cpp">
-      <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade Image</Filter>
     </ClCompile>
     <ClCompile Include="FadeIn.cpp">
-      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
     </ClCompile>
     <ClCompile Include="FadeOut.cpp">
-      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
     </ClCompile>
     <ClCompile Include="OverlayActor.cpp">
-      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
     </ClCompile>
     <ClCompile Include="ScreenOverlay.cpp">
-      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
     </ClCompile>
     <ClCompile Include="ImageActor.cpp">
-      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Image Actor</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMaskEffect.cpp">
       <Filter>04. Effect</Filter>
     </ClCompile>
     <ClCompile Include="TextActor.cpp">
-      <Filter>01. Actor\06. VersatileActor\Text\00. Base</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="SelectText.cpp">
-      <Filter>01. Actor\06. VersatileActor\Text\01. Select</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\01. Select</Filter>
     </ClCompile>
     <ClCompile Include="AncientScript.cpp">
-      <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\03. AncientScript</Filter>
     </ClCompile>
     <ClCompile Include="AncientScriptState.cpp">
-      <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\03. AncientScript</Filter>
     </ClCompile>
     <ClCompile Include="Yeti.cpp">
       <Filter>01. Actor\03. Boss\02. Yeti\00. Yeti</Filter>
@@ -143,12 +136,17 @@
     <ClCompile Include="IclcleState.cpp">
       <Filter>01. Actor\03. Boss\02. Yeti\02. Icicle</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsCore.cpp">
+      <Filter>00. Global\00. Contents Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalLoad.cpp">
+      <Filter>00. Global\02. Global Load</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalValue.cpp">
+      <Filter>00. Global\03. Globa lValue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ContentsCore.h" />
-    <ClInclude Include="ContentEnum.h">
-      <Filter>00. Global</Filter>
-    </ClInclude>
     <ClInclude Include="TitleLevel.h">
       <Filter>02. Level\01. Title Level</Filter>
     </ClInclude>
@@ -162,22 +160,16 @@
       <Filter>02. Level\05. Knight Elhanan Level</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
-      <Filter>00. Global\PreCompile</Filter>
+      <Filter>00. Global\01. PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="PlayLevelBase.h">
       <Filter>02. Level\00.  LevelBase</Filter>
-    </ClInclude>
-    <ClInclude Include="GlobalValue.h">
-      <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="Floor1.h">
       <Filter>02. Level\02. MainHub Level</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
-    </ClInclude>
-    <ClInclude Include="GlobalLoad.h">
-      <Filter>00. Global</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>01. Actor\01. Map</Filter>
@@ -210,43 +202,43 @@
       <Filter>01. Actor\04. Camera</Filter>
     </ClInclude>
     <ClInclude Include="TriggerBox.h">
-      <Filter>01. Actor\05. TriggerBox</Filter>
+      <Filter>01. Actor\05. Trigger Box</Filter>
     </ClInclude>
     <ClInclude Include="ContentsControlWindow.h">
-      <Filter>00. Global\IMGUI</Filter>
+      <Filter>00. Global\04. IMGUI</Filter>
     </ClInclude>
     <ClInclude Include="FadeImage.h">
-      <Filter>01. Actor\06. VersatileActor\FadeImage</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade Image</Filter>
     </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
       <Filter>02. Level\03. Sludge Heart Level</Filter>
     </ClInclude>
     <ClInclude Include="FadeIn.h">
-      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
     </ClInclude>
     <ClInclude Include="FadeOut.h">
-      <Filter>01. Actor\06. VersatileActor\Fade</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
     </ClInclude>
     <ClInclude Include="ScreenOverlay.h">
-      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
     </ClInclude>
     <ClInclude Include="OverlayActor.h">
-      <Filter>01. Actor\06. VersatileActor\Overlay</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
     </ClInclude>
     <ClInclude Include="ImageActor.h">
-      <Filter>01. Actor\06. VersatileActor\ImageActor</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Image Actor</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMaskEffect.h">
       <Filter>04. Effect</Filter>
     </ClInclude>
     <ClInclude Include="TextActor.h">
-      <Filter>01. Actor\06. VersatileActor\Text\00. Base</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\00. Base</Filter>
     </ClInclude>
     <ClInclude Include="SelectText.h">
-      <Filter>01. Actor\06. VersatileActor\Text\01. Select</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\01. Select</Filter>
     </ClInclude>
     <ClInclude Include="AncientScript.h">
-      <Filter>01. Actor\06. VersatileActor\Text\03. AncientScript</Filter>
+      <Filter>01. Actor\06. Versatile Actor\Text\03. AncientScript</Filter>
     </ClInclude>
     <ClInclude Include="Yeti.h">
       <Filter>01. Actor\03. Boss\02. Yeti\00. Yeti</Filter>
@@ -257,13 +249,22 @@
     <ClInclude Include="Snowball.h">
       <Filter>01. Actor\03. Boss\02. Yeti\01. Snowball</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsCore.h">
+      <Filter>00. Global\00. Contents Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalLoad.h">
+      <Filter>00. Global\02. Global Load</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentEnum.h">
+      <Filter>00. Global\03. Globa lValue</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalValue.h">
+      <Filter>00. Global\03. Globa lValue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Global">
       <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00. Global\PreCompile">
-      <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Level">
       <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
@@ -289,53 +290,11 @@
     <Filter Include="01. Actor\03. Boss\00. Base">
       <UniqueIdentifier>{93c6a8f9-e5d6-4095-bf6e-a841fc6d1260}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\00. ActorBase">
-      <UniqueIdentifier>{a3a65cc8-1684-4b7b-a745-317f7a82ac98}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Actor\04. Camera">
       <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00. Global\IMGUI">
-      <UniqueIdentifier>{02dbdd72-bf18-4dcb-9802-1b2dbb834d12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\05. TriggerBox">
-      <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor">
-      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\FadeImage">
-      <UniqueIdentifier>{2181bd69-5b3d-45b8-b00f-58c8da29a00c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Fade">
-      <UniqueIdentifier>{4339af8b-2735-4aaa-85c4-59781effc249}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Overlay">
-      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\ImageActor">
-      <UniqueIdentifier>{98f43c60-67e6-40bb-8a95-7cc8df1a456e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. UI">
       <UniqueIdentifier>{bff1805d-5edb-49ee-a1a1-0e04756237a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Effect">
-      <UniqueIdentifier>{cd517c0e-47f0-4bc6-b6c9-4e4b1b46ee78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Text">
-      <UniqueIdentifier>{80c2b80b-3ad0-4fa0-9073-28e2c4d100c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Text\00. Base">
-      <UniqueIdentifier>{07f0fc20-fe85-40c0-9abd-3d057092026b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Text\01. Select">
-      <UniqueIdentifier>{5be8e43f-afe3-4b65-b2b3-c01924736ae4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Text\02. QuestionText">
-      <UniqueIdentifier>{e01db052-25e4-4f6d-8b57-36b535f24be9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. VersatileActor\Text\03. AncientScript">
-      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Actor\03. Boss\02. Yeti">
       <UniqueIdentifier>{8993cf01-ed96-4040-962b-d996e5b21118}</UniqueIdentifier>
@@ -381,6 +340,60 @@
     </Filter>
     <Filter Include="01. Actor\03. Boss\01. Sludge Heart\03. Debris">
       <UniqueIdentifier>{6726e26a-21d3-4ad7-a36f-8fa9d22b8e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor">
+      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Fade">
+      <UniqueIdentifier>{4339af8b-2735-4aaa-85c4-59781effc249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Overlay">
+      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Text">
+      <UniqueIdentifier>{80c2b80b-3ad0-4fa0-9073-28e2c4d100c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Text\00. Base">
+      <UniqueIdentifier>{07f0fc20-fe85-40c0-9abd-3d057092026b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Text\01. Select">
+      <UniqueIdentifier>{5be8e43f-afe3-4b65-b2b3-c01924736ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Text\02. QuestionText">
+      <UniqueIdentifier>{e01db052-25e4-4f6d-8b57-36b535f24be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Text\03. AncientScript">
+      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\05. Trigger Box">
+      <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\00. Actor Base">
+      <UniqueIdentifier>{a3a65cc8-1684-4b7b-a745-317f7a82ac98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Fade Image">
+      <UniqueIdentifier>{2181bd69-5b3d-45b8-b00f-58c8da29a00c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Versatile Actor\Image Actor">
+      <UniqueIdentifier>{98f43c60-67e6-40bb-8a95-7cc8df1a456e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\04. IMGUI">
+      <UniqueIdentifier>{02dbdd72-bf18-4dcb-9802-1b2dbb834d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\00. Contents Core">
+      <UniqueIdentifier>{059e1a89-402f-4014-84c9-ec55ce8b5acd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\01. PreCompile">
+      <UniqueIdentifier>{108f427d-bc5e-4b09-931c-7005e16f8af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\02. Global Load">
+      <UniqueIdentifier>{17559cdb-1ec4-40a9-a77e-dd1be231f8d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\03. Globa lValue">
+      <UniqueIdentifier>{8dd2b722-0ca9-403c-844a-19ee5d95f26f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Effect">
+      <UniqueIdentifier>{cd517c0e-47f0-4bc6-b6c9-4e4b1b46ee78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
