@@ -46,6 +46,7 @@ private:
 
 	bool BossIsDeath = false;
 	bool BossDeathPrecessingIsEnd = false;
+	bool BossFirstHitPrecessingIsEnd = false;
 	void BossDeathProcessing();
 
 private:

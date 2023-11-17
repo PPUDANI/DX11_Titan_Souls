@@ -61,9 +61,10 @@ void SludgeHeartRoom::Update(float _Delta)
 	}
 
 	if (nullptr != HeartActor &&
-		true == HeartActor->IsFirstHit())
+		true == HeartActor->IsFirstHit() &&
+		false == BossFirstHitPrecessingIsEnd)
 	{
-		HeartActor->SetFirstHit(false);
+		BossFirstHitPrecessingIsEnd = true;
 		OutputBossName();
 	}
 

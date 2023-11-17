@@ -9,6 +9,7 @@ void Yeti::SleepStart()
 
 void Yeti::IdleStart()
 {
+	BodyCollisionOn();
 	SetAnimByDir("Idle");
 }
 
@@ -44,6 +45,8 @@ void Yeti::LandingStart()
 
 	LandingTimer = 0.0f;
 	BodyCollisionOn();
+
+	RollingCollision->Off();
 	SetAnimByDir("Landing");
 
 	ShadowRenderer->SetImageScale(ShadowStandardScale);
@@ -53,7 +56,6 @@ void Yeti::BlockedStart()
 {
 	DropIcicle();
 	ShakingScreenInit();
-	RollingCollision->Off();
 	DirReflection();
 	GravityValue = 600.0f;
 }

@@ -53,7 +53,6 @@ void Heart::Update(float _Delta)
 	if (true == IsWeaknessHitByArrow)
 	{
 		ChangeState(JUMPBOSS_STATE::Death);
-		return;
 	}
 
 	PosUpdate();
@@ -61,4 +60,16 @@ void Heart::Update(float _Delta)
 	JumpBoss::Update(_Delta);
 
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+
+	if (true == FirstHitValue &&
+		JUMPBOSS_STATE::Death != CurState)
+	{
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, 3.0f * _Delta);
+	}
+	else if(ARROW_STATE::Pinned != EnymeArrow->GetCurState())
+	{
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 0.0f, 3.0f * _Delta);
+	}
+
+	CameraManager::AddCameraPosFromBoss = ((Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
 }

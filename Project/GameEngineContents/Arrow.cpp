@@ -21,11 +21,11 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
-	Collision->SetCollisionType(ColType::AABBBOX2D);
+	Collision->SetCollisionType(ColType::SPHERE2D);
 	Collision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
 	PickUpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
-	PickUpCollision->SetCollisionType(ColType::AABBBOX2D);
+	PickUpCollision->SetCollisionType(ColType::SPHERE2D);
 	PickUpCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
 	ChangeState(ARROW_STATE::Hold);
@@ -284,7 +284,11 @@ void Arrow::BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 	BossActor->BodyHitByArrow();
 	Transform.AddLocalPosition(_MovePos);
 	AdjustPosByCol();
-	DirSpecularReflection();
+
 	PullingForce /= 2.0f;
-	ChangeState(ARROW_STATE::Fallen);
+	if (ARROW_STATE::Flying == CurState)
+	{
+		ChangeState(ARROW_STATE::Fallen);
+		DirSpecularReflection();
+	}
 }

@@ -92,8 +92,7 @@ private:
 	void DeathUpdate(float _Delta);
 
 private:
-	YETI_DIRECTION CurDir = YETI_DIRECTION::Down;
-	void SetDirection(YETI_DIRECTION _Dir);
+	YETI_DIRECTION CurDir = YETI_DIRECTION::Up;
 	void DirectionUpdate();
 	void DirReflection();
 
@@ -105,6 +104,7 @@ private:
 	void SetAnimByDir(std::string_view _AnimName, int _Frame = 0, bool _Force = false);
 
 private:
+	std::shared_ptr<class GameEngineCollision> Collision2 = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCollision2 = nullptr;
 	std::shared_ptr<class GameEngineCollision> RollingCollision = nullptr;
@@ -116,6 +116,7 @@ private:
 	inline void BodyCollisionOff()
 	{
 		Collision->Off();
+		Collision2->Off();
 		BodyCollision->Off();
 		BodyCollision2->Off();
 	}
@@ -123,13 +124,14 @@ private:
 	inline void BodyCollisionOn()
 	{
 		Collision->On();
+		Collision2->On();
 		BodyCollision->On();
 		BodyCollision2->On();
 	}
 
 	float4 BodyColStandardPos = { 0.0f, 50.0f };
-	float4 WeeknessColStandardPos = { 0.0f, 0.0f };
-	float4 RollingColStandardPos = { 0.0f, 0.0f };
+	float4 WeaknessColStandardPos = float4::ZERO;
+	float4 RollingColStandardPos = float4::ZERO;
 
 	bool TileColCheck(float4& _MovePos);
 	void AdjustLeftPosByTileCol(float4& _MovePos);

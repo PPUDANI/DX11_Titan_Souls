@@ -130,7 +130,7 @@ void YetiRoom::SpawnBoss()
 	if (nullptr == YetiActor)
 	{
 		YetiActor = CreateActor<Yeti>(UPDATE_ORDER::Boss);
-		YetiActor->Transform.SetLocalPosition({ 1008.0f, -1492.0f });
+		YetiActor->Transform.SetLocalPosition({ 1008.0f, -1092.0f });
 		YetiActor->SetEnymePlayer(PlayerActor.get());
 		YetiActor->SetEnymeArrow(ArrowActor.get());
 		YetiActor->TileMapSetting(TileMapActor.get());
@@ -218,7 +218,7 @@ void YetiRoom::BossDeathProcessing()
 
 void YetiRoom::BossWakeUpProcessing()
 {
-	CameraManager::CalCameraPosFromArrowOff();
+	//CameraManager::CalCameraPosFromArrowOff();
 	OutputBossName();
 }
 

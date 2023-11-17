@@ -16,15 +16,20 @@ void Yeti::Start()
 
 	// Create Renderer
 	CreateYetiAnimation();
-	SetDirection(YETI_DIRECTION::Down);
 	ChangeState(YETI_STATE::Sleep);
 
 	// Create Collision
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
-	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 40.0f, 20.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
+	Collision->SetCollisionType(ColType::SPHERE2D);
+	Collision->Transform.SetLocalScale({ 15.0f, 15.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ -30.0f, 0.0f });
 	Collision->Off();
+
+	Collision2 = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
+	Collision2->SetCollisionType(ColType::SPHERE2D);
+	Collision2->Transform.SetLocalScale({ 15.0f, 15.0f, 1.0f });
+	Collision2->Transform.SetLocalPosition({ 30.0f, 0.0f });
+	Collision2->Off();
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
@@ -126,10 +131,16 @@ void Yeti::Update(float _Delta)
 		GameEngineDebug::DrawBox2D(TData, { 1, 1, 0, 1 });
 	}
 
-	if (true == YetiIsWakeUp())
+	if (true == YetiIsWakeUp() &&
+		YETI_STATE::Death != CurState)
 	{
-		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) / 2.0f;
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, 3.0f *_Delta);
 	}
+	else
+	{
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 0.0f, 3.0f * _Delta);
+	}
+	CameraManager::AddCameraPosFromBoss = ((Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
 }
 
 void Yeti::ChangeState(YETI_STATE _State)
@@ -182,54 +193,54 @@ void Yeti::WakeUpYeti()
 	YetiIsWakeUpValue = true;
 }
 
-void Yeti::SetDirection(YETI_DIRECTION _Dir)
-{
-	CurDir = _Dir;
-}
-
 void Yeti::DirectionUpdate()
 {
+	YETI_DIRECTION PrevDir = CurDir;
 	int DividedAngleIndex = static_cast<int>(MoveAngle.Z / 22.5f);
 
 	switch (DividedAngleIndex)
 	{
 	case 0:
 	case 15:
-		SetDirection(YETI_DIRECTION::Right);
+		CurDir = YETI_DIRECTION::Right;
 		break;
 	case 1:
 	case 2:
-		SetDirection(YETI_DIRECTION::RightUp);
+		CurDir = YETI_DIRECTION::RightUp;
 		break;
 	case 3:
 	case 4:
-		SetDirection(YETI_DIRECTION::Up);
+		CurDir = YETI_DIRECTION::Up;
 		break;
 	case 5:
 	case 6:
-		SetDirection(YETI_DIRECTION::LeftUp);
+		CurDir = YETI_DIRECTION::LeftUp;
 		break;
 	case 7:
 	case 8:
-		SetDirection(YETI_DIRECTION::Left);
+		CurDir = YETI_DIRECTION::Left;
 		break;
 	case 9:
 	case 10:
-		SetDirection(YETI_DIRECTION::LeftDown);
+		CurDir = YETI_DIRECTION::LeftDown;
 		break;
 	case 11:
 	case 12:
-		SetDirection(YETI_DIRECTION::Down);
+		CurDir = YETI_DIRECTION::Down;
 		break;
 	case 13:
 	case 14:
-		SetDirection(YETI_DIRECTION::RightDown);
+		CurDir = YETI_DIRECTION::RightDown;
 		break;
 	default:
 		break;
 	}
 
-	SetColScaleByDir();
+	if (CurDir != PrevDir)
+	{
+		SetColScaleByDir();
+	}
+
 }
 
 void Yeti::DirReflection()
@@ -246,66 +257,127 @@ void Yeti::SetColScaleByDir()
 	float4 Body2PosByDir;
 	float4 Body2ScaleByDir;
 
-	float4 WeeknessPosByDir;
+	float4 WeaknessPosByDir;
+	float4 Weakness2PosByDir;
+
+	float4 WeaknessScaleByDir;
+	float4 Weakness2ScaleByDir;
 
 	switch (CurDir)
 	{
 	case YETI_DIRECTION::Right:
-		BodyPosByDir = { 5.0f, -10.0f };
-		BodyScaleByDir = { 50.0f, 70.0f, 1.0f };
+		BodyPosByDir = { 0.0f, -10.0f };
+		BodyScaleByDir = { 40.0f, 70.0f, 1.0f };
+
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
-		WeeknessPosByDir = { -12.0f, 5.0f };
+
+		WeaknessPosByDir = { -25.0f, 7.0f };
+		WeaknessScaleByDir = { 18.0f , 18.0f , 1.0f };
+
+		Weakness2PosByDir = float4::ZERO;
+		Weakness2ScaleByDir = float4::ZERO;
 		break;
+
 	case YETI_DIRECTION::RightUp:
 		BodyPosByDir = { 5.0f, 23.0f };
-		BodyScaleByDir = { -70.0f, 20.0f , 1.0f };
+		BodyScaleByDir = { 70.0f, 20.0f , 1.0f };
+
 		Body2PosByDir = { 25.0f, -17.0f };
 		Body2ScaleByDir = { 30.0f, 60.0f, 1.0f };
-		WeeknessPosByDir = { -10.0f, 3.0f };
+
+		WeaknessPosByDir = { 0.0f, 5.0f };
+		WeaknessScaleByDir = { 22.0f , 22.0f , 1.0f };
+
+		Weakness2PosByDir = { -20.0f, 5.0f };
+		Weakness2ScaleByDir = { 22.0f , 22.0f , 1.0f };
 		break;
+
 	case YETI_DIRECTION::Up:
 		BodyPosByDir = { 0.0f, 30.0f };
 		BodyScaleByDir = { 80.0f, 30.0f , 1.0f };
+
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
-		WeeknessPosByDir = { 0.0f, 0.0f };
+
+		WeaknessPosByDir = { 10.0f, 2.0f };
+		WeaknessScaleByDir = { 22.0f , 20.0f , 1.0f };
+
+		Weakness2PosByDir = { -10.0f, 2.0f };
+		Weakness2ScaleByDir = { 22.0f , 20.0f , 1.0f };
 		break;
+
 	case YETI_DIRECTION::LeftUp:
 		BodyPosByDir = { -5.0f, 23.0f };
 		BodyScaleByDir = { 70.0f, 20.0f , 1.0f };
+
 		Body2PosByDir = { -25.0f, -17.0f };
 		Body2ScaleByDir = { 30.0f, 60.0f, 1.0f };
-		WeeknessPosByDir = { 10.0f, 3.0f };
+
+		WeaknessPosByDir = { 0.0f, 5.0f };
+		WeaknessScaleByDir = { 22.0f , 22.0f , 1.0f };
+
+		Weakness2PosByDir = { 20.0f, 5.0f };
+		Weakness2ScaleByDir = { 22.0f , 22.0f , 1.0f };
 		break;
+
 	case YETI_DIRECTION::Left:
-		BodyPosByDir = { -5.0f, -10.0f };
-		BodyScaleByDir = { 50.0f, 70.0f, 1.0f };
+		BodyPosByDir = { 0.0f, -10.0f };
+		BodyScaleByDir = { 40.0f, 70.0f, 1.0f };
+
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
-		WeeknessPosByDir = { 12.0f, 5.0f };
+
+		WeaknessPosByDir = { 25.0f, 7.0f };
+		WeaknessScaleByDir = { 18.0f , 18.0f , 1.0f };
+
+		Weakness2PosByDir = float4::ZERO;
+		Weakness2ScaleByDir = float4::ZERO;
 		break;
+
 	case YETI_DIRECTION::LeftDown:
-		BodyPosByDir = { 15.0f, -30.0f };
+		BodyPosByDir = { 13.0f, -30.0f };
 		BodyScaleByDir = { 40.0f, 40.0f, 1.0f };
-		Body2PosByDir = { -20.0f, -15.0f };
-		Body2ScaleByDir = { -30.0f, 40.0f, 1.0f };
-		WeeknessPosByDir = { 10.0f, 0.0f };
+
+		Body2PosByDir = { -22.0f, -17.0f };
+		Body2ScaleByDir = { -30.0f, 30.0f, 1.0f };
+
+		WeaknessPosByDir = { -10.0f, -5.0f };
+		WeaknessScaleByDir = { 22.0f , 22.0f , 1.0f };
+
+		Weakness2PosByDir = { 10.0f, -5.0f };
+		Weakness2ScaleByDir = { 22.0f , 22.0f , 1.0f };
 		break;
+
 	case YETI_DIRECTION::Down:
 		BodyPosByDir = { 0.0f, -30.0f };
 		BodyScaleByDir = { 90.0f, 40.0f, 1.0f };
+
 		Body2PosByDir = float4::ZERO;
 		Body2ScaleByDir = float4::ZERO;
-		WeeknessPosByDir = { 0.0f, 00.0f };
+
+		WeaknessPosByDir = { -10.0f, 2.0f };
+		WeaknessScaleByDir = { -22.0f , 20.0f , 1.0f };
+
+		Weakness2PosByDir = { 10.0f, 2.0f };
+		Weakness2ScaleByDir = { -22.0f , 20.0f , 1.0f };
 		break;
+
 	case YETI_DIRECTION::RightDown:
-		BodyPosByDir = { -15.0f, -30.0f };
+
+		BodyPosByDir = { -13.0f, -30.0f };
 		BodyScaleByDir = { 40.0f, 40.0f, 1.0f };
-		Body2PosByDir = { 20.0f, -15.0f };
-		Body2ScaleByDir = { 30.0f, 40.0f, 1.0f };
-		WeeknessPosByDir = { -10.0f, 0.0f };
+
+		Body2PosByDir = { 22.0f, -17.0f };
+		Body2ScaleByDir = { -30.0f, 30.0f, 1.0f };
+
+		WeaknessPosByDir = { 10.0f, -5.0f };
+		WeaknessScaleByDir = { 22.0f , 22.0f , 1.0f };
+
+		Weakness2PosByDir = { -10.0f, -5.0f };
+		Weakness2ScaleByDir = { 22.0f , 22.0f , 1.0f };
 		break;
+
 	default:
 		break;
 	}
@@ -313,13 +385,14 @@ void Yeti::SetColScaleByDir()
 	BodyCollision->Transform.SetLocalPosition(BodyColStandardPos + BodyPosByDir + RendererStandardPos);
 	BodyCollision->Transform.SetLocalScale(BodyScaleByDir);
 
-	if (true == BodyCollision2->IsUpdate())
-	{
-		BodyCollision2->Transform.SetLocalPosition(BodyColStandardPos + Body2PosByDir + RendererStandardPos);
-		BodyCollision2->Transform.SetLocalScale(Body2ScaleByDir);
-	}
+	BodyCollision2->Transform.SetLocalPosition(BodyColStandardPos + Body2PosByDir + RendererStandardPos);
+	BodyCollision2->Transform.SetLocalScale(Body2ScaleByDir);
 	
-	Collision->Transform.SetLocalPosition(BodyColStandardPos + WeeknessPosByDir + RendererStandardPos);
+	Collision->Transform.SetLocalPosition(BodyColStandardPos + WeaknessPosByDir + RendererStandardPos);
+	Collision2->Transform.SetLocalPosition(BodyColStandardPos + Weakness2PosByDir + RendererStandardPos);
+
+	Collision->Transform.SetLocalScale(WeaknessScaleByDir);
+	Collision2->Transform.SetLocalScale(Weakness2ScaleByDir);
 }
 
 

@@ -72,7 +72,7 @@ void Icicle::Start()
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 36.0f, 16.0f });
+	Collision->Transform.SetLocalScale({ 36.0f, 20.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 8.0f });
 	Collision->Off();
 

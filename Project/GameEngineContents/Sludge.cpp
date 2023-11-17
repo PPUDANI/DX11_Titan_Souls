@@ -140,6 +140,7 @@ void Sludge::Update(float _Delta)
 	// Collision Position Setting
 	float4 CollisionPos = float4::ZERO;
 	Collision->Transform.SetLocalPosition(CollisionPos);
+
 }
 
 void Sludge::DecreaseY(float _SpeedPerSecond)

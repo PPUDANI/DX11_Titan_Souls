@@ -88,7 +88,6 @@ protected:
 	float ShakingPerFrame = 0.0f;
 	bool ShakingEnd = false;
 	float ShakingLerpValue = 0.0f;
-protected:
 
-
+	float CameraPosLerpForce = 0.0f;
 };
