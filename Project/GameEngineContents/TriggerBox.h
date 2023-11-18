@@ -16,19 +16,23 @@ public:
 
 	using TriggerFunction = std::function<void()>;
 
-	TriggerFunction TriggerFunc = nullptr;
-
+	TriggerFunction EnterTriggerFunc = nullptr;
+	TriggerFunction StayTriggerFunc = nullptr;
 
 	inline void SetPlaceScale(const float4& _Sclae)
 	{
 		PlaceCol->Transform.SetLocalScale(_Sclae);
 	}
 
-	inline void SetTriggerFunction(TriggerFunction _Func)
+	inline void SetEnterTriggerFunc(TriggerFunction _Func)
 	{
-		TriggerFunc = _Func;
+		EnterTriggerFunc = _Func;
 	}
 
+	inline void SetStayTriggerFunc(TriggerFunction _Func)
+	{
+		StayTriggerFunc = _Func;
+	}
 
 protected:
 

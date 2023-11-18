@@ -38,7 +38,7 @@ void Arrow::Update(float _Delta)
 	// ArrowheadCheckPos Update
 	ArrowheadCheckPos = FlyingDirectionBasis * ArrowheadPosBasis;
 
-	if (true == DebugingMode &&
+	if (true == GetLevel()->IsDebug &&
 		ARROW_STATE::Hold != CurState &&
 		ARROW_STATE::PickUp != CurState)
 	{

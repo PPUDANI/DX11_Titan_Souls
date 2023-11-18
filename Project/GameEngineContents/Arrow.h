@@ -59,11 +59,6 @@ public:
 		ArrowAngleDeg += _Angle;
 	}
 
-	void DebugingModeSwitch()
-	{
-		DebugingMode = !DebugingMode;
-	}
-
 	void DecreasePullingForce(float _Delta)
 	{
 		PullingForce = std::lerp(PullingForce, 0.0f, _Delta);
@@ -129,7 +124,6 @@ private:
 
 private:
 	// Debug Mode
-	bool DebugingMode = false;
 	void DirSpecularReflection();
 	void DebugRender();
 

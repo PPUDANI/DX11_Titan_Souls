@@ -72,6 +72,15 @@ void TitleLevel::Start()
 	ExitText->Transform.SetLocalPosition({ 568.0f, -624.0f });
 	ExitText->Off();
 
+	// BGM, AMBIENCE
+	GlobalLoad::LoadSound("Forest.ogg", "Resource\\Sound\\Ambience\\");
+	GlobalLoad::LoadSound("Opening.ogg", "Resource\\Sound\\Title\\");
+	GlobalLoad::LoadSound("Motif.ogg", "Resource\\Sound\\Title\\");
+
+	// Button
+	GlobalLoad::LoadSound("Select.ogg", "Resource\\Sound\\Title\\");
+	GlobalLoad::LoadSound("StartGame.ogg", "Resource\\Sound\\Title\\");
+
 
 	GetMainCamera()->Transform.SetLocalPosition({ 568.0f, -568.0f });
 
@@ -105,20 +114,12 @@ void TitleLevel::Update(float _Delta)
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ChangeState(TITLE_STATE::GAMEPAD);
+	BackgroundPlay("Opening.ogg");
+	AmbiencePlay("Forest.ogg", 10000);
 }
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	//GameEngineSprite::Release("GamePad.png");
-	//GameEngineSprite::Release("Acidnerve.png");
-	//GameEngineSprite::Release("Devolver.png");
-	//GameEngineSprite::Release("TitleLogo.png");
-
-	//GameEngineTexture::Release("GamePad.png");
-	//GameEngineTexture::Release("Acidnerve.png");
-	//GameEngineTexture::Release("Devolver.png");
-	//GameEngineTexture::Release("TitleLogo.png");
-
 	if (nullptr != FadeOutActor)
 	{
 		FadeOutActor->Death();
@@ -130,6 +131,10 @@ void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 		FadeInActor->Death();
 		FadeInActor = nullptr;
 	}
+
+	BackgroundStop();
+	Background2Stop();
+	AmbienceStop();
 }
 
 void TitleLevel::ChangeState(TITLE_STATE _State)
@@ -180,4 +185,30 @@ void TitleLevel::MainTitleActorOff()
 	{
 		ExitText->Off();
 	}
+}
+
+void TitleLevel::SetSelectAction()
+{
+	switch (CurSelectMenu)
+	{
+	case SELECT_MENU::START:
+		StartText->SelectOn();
+		OptionText->SelectOff();
+		ExitText->SelectOff();
+		break;
+	case SELECT_MENU::OPTION:
+		StartText->SelectOff();
+		OptionText->SelectOn();
+		ExitText->SelectOff();
+		break;
+	case SELECT_MENU::EXIT:
+		StartText->SelectOff();
+		OptionText->SelectOff();
+		ExitText->SelectOn();
+		break;
+	default:
+		break;
+	}
+
+	EffectPlay("Select.ogg");
 }

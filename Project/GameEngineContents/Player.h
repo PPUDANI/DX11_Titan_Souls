@@ -57,13 +57,6 @@ public:
 	// Debuging Mode
 	void DebugRender();
 
-	void DebugingModeSwitch()
-	{
-		DebugingMode = !DebugingMode;
-	}
-
-	bool DebugingMode = false;
-
 	// TileMap
 	void TileMapSetting(std::shared_ptr<TileMap> _Map)
 	{

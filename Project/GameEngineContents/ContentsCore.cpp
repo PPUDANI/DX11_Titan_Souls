@@ -10,8 +10,6 @@
 #include "Floor1.h"
 #include "SludgeHeartRoom.h"
 #include "YetiRoom.h"
-#include "KnightElhananRoom.h"
-#include "Jam.h"
 #include "ContentsControlWindow.h"
 
 
@@ -53,9 +51,6 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<Floor1>("01.Floor1");
 	GameEngineCore::CreateLevel<SludgeHeartRoom>("02.SludgeHeartRoom");
 	GameEngineCore::CreateLevel<YetiRoom>("03.YetiRoom");
-	GameEngineCore::CreateLevel<KnightElhananRoom>("04.KnightElhananRoom");
-	GameEngineCore::CreateLevel<Jam>("05.Jam");
-
 
 	GameEngineCore::ChangeLevel("00.TitleLevel");
 
@@ -64,7 +59,6 @@ void ContentsCore::Start()
 
 void ContentsCore::Update(float _Delta)
 {
-
 	// 임시 레벨 변경
 	if (true == GameEngineInput::IsDown(VK_F1, this))
 	{
@@ -82,14 +76,7 @@ void ContentsCore::Update(float _Delta)
 	{
 		GameEngineCore::ChangeLevel("03.YetiRoom");
 	}
-	if (true == GameEngineInput::IsDown(VK_F5, this))
-	{
-		GameEngineCore::ChangeLevel("04.KnightElhananRoom");
-	}
-	if (true == GameEngineInput::IsDown(VK_F6, this))
-	{
-		GameEngineCore::ChangeLevel("05.Jam");
-	}
+
 }
 
 void ContentsCore::Release()

@@ -16,11 +16,19 @@ void TriggerBox::Start()
 	PlaceCol->Transform.SetLocalScale({10.0f, 10.0f, 0.0f});
 	PlaceCol->Transform.SetLocalPosition({0.0f, 0.0f, 0.0f});
 
+	Param.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+		{
+			if (nullptr != EnterTriggerFunc)
+			{
+				EnterTriggerFunc();
+			}
+		};
+
 	Param.Stay = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
-			if (nullptr != TriggerFunc)
+			if (nullptr != StayTriggerFunc)
 			{
-				TriggerFunc();
+				StayTriggerFunc();
 			}
 		};
 }

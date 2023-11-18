@@ -43,6 +43,10 @@ void SludgeHeartRoom::Start()
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
 	ScreenOverlayActor->SetAlpha(0.1f);
+
+	GlobalLoad::LoadSound("AcidNerve.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Sewer.ogg", "Resource\\Sound\\Ambience\\");
+	
 }
 
 void SludgeHeartRoom::Update(float _Delta)
@@ -52,6 +56,7 @@ void SludgeHeartRoom::Update(float _Delta)
 	if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
 	{
 		BossIsDeath = true;
+		BackgroundStop();
 	}
 
 	if (true == BossIsDeath &&
@@ -65,6 +70,7 @@ void SludgeHeartRoom::Update(float _Delta)
 		false == BossFirstHitPrecessingIsEnd)
 	{
 		BossFirstHitPrecessingIsEnd = true;
+		BackgroundPlay("AcidNerve.ogg", 10000);
 		OutputBossName();
 	}
 
@@ -89,8 +95,10 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black);
+		FadeInActor->Init(FadeColor::Black, 1.5f);
 	}
+
+	AmbiencePlay("Sewer.ogg", 10000);
 }
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
@@ -138,7 +146,8 @@ void SludgeHeartRoom::SpawnTriggerBox()
 		EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
 		EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1856.0f });
 		EnterTheFloor1->SetPlaceScale({ 90.0f, 60.0f });
-		EnterTheFloor1->SetTriggerFunction(std::bind(&SludgeHeartRoom::Floor1TriggerFunc, this));
+		EnterTheFloor1->SetEnterTriggerFunc(std::bind(&SludgeHeartRoom::ExitRoomTriggerFunc, this));
+		EnterTheFloor1->SetStayTriggerFunc(std::bind(&SludgeHeartRoom::Floor1TriggerFunc, this));
 	}
 }
 
@@ -193,7 +202,7 @@ void SludgeHeartRoom::Floor1TriggerFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black);
+		FadeOutActor->Init(FadeColor::Black, 1.5f);
 	}
 
 	if (true == FadeOutActor->FadeIsEnd())

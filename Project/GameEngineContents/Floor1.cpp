@@ -49,6 +49,11 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
+
+	// BGM, AMBIENCE
+	GlobalLoad::LoadSound("StillLake.ogg", "Resource\\Sound\\Ambience\\");
+	GlobalLoad::LoadSound("Overworld1.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Colossus.ogg", "Resource\\Sound\\BGM\\");
 }
 
 void Floor1::Update(float _Delta)
@@ -72,8 +77,11 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black);
+		FadeInActor->Init(FadeColor::Black, 1.5f);
 	}
+
+	BackgroundPlay("Overworld1.ogg", 10000);
+	AmbiencePlay("StillLake.ogg", 10000);
 }
 
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
@@ -120,22 +128,25 @@ void Floor1::SpawnTriggerBox()
 	EnterTheSludgeRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToSludgeRoom");
 	EnterTheSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheSludgeRoom->SetTriggerFunction(std::bind(&Floor1::SludgeRoomTriggerFunc, this));
+	EnterTheSludgeRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterRoomTriggerFunc, this));
+	EnterTheSludgeRoom->SetStayTriggerFunc(std::bind(&Floor1::SludgeRoomStayTriggerFunc, this));
 
 	EnterTheYetiRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToYetiRoom");
 	EnterTheYetiRoom->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
 	EnterTheYetiRoom->SetPlaceScale({ 90.0f, 60.0f });
-	EnterTheYetiRoom->SetTriggerFunction(std::bind(&Floor1::YetiRoomTriggerFunc, this));
+	EnterTheYetiRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterRoomTriggerFunc, this));
+	EnterTheYetiRoom->SetStayTriggerFunc(std::bind(&Floor1::YetiRoomStayTriggerFunc, this));
+
 }
 
-void Floor1::SludgeRoomTriggerFunc()
+void Floor1::SludgeRoomStayTriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black);
+		FadeOutActor->Init(FadeColor::Black, 1.5f);
 	}
 
 	if (true == FadeOutActor->FadeIsEnd())
@@ -145,14 +156,14 @@ void Floor1::SludgeRoomTriggerFunc()
 	}
 }
 
-void Floor1::YetiRoomTriggerFunc()
+void Floor1::YetiRoomStayTriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black, 0.75f);
+		FadeOutActor->Init(FadeColor::Black, 1.5f);
 	}
 
 	if (true == FadeOutActor->FadeIsEnd())
@@ -161,7 +172,6 @@ void Floor1::YetiRoomTriggerFunc()
 		GameEngineCore::ChangeLevel("03.YetiRoom");
 	}
 }
-
 
 void Floor1::ReleaseTriggerBox()
 {

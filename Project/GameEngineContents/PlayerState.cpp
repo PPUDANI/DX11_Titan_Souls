@@ -114,6 +114,12 @@ void Player::IdleUpdate(float _Delta)
 
 void Player::MoveUpdate(float _Delta)
 {
+	//if (2 == BodyRenderer->GetCurIndex() ||
+	//	5 == BodyRenderer->GetCurIndex())
+	//{
+	//	
+	//}
+
 	// Death Check
 	if (true == GameEngineInput::IsPress('K', this))
 	{
@@ -149,6 +155,7 @@ void Player::MoveUpdate(float _Delta)
 
 		Transform.AddLocalPosition(MovePos * _Delta);
 	}
+
 }
 
 void Player::RollingUpdate(float _Delta)
@@ -318,7 +325,7 @@ void Player::StandUpUpdate(float _Delta)
 
 void Player::EnterLevelUpdate(float _Delta)
 {
-	if (1.0f < EnterTimer)
+	if (1.5f < EnterTimer)
 	{
 		EnterTimer = 0.0f;
 		ChangeState(PLAYER_STATE::Idle);
@@ -329,13 +336,13 @@ void Player::EnterLevelUpdate(float _Delta)
 	}
 
 	float4 MovePos = float4::ZERO;
-	MovePos.Y = 60.0f * _Delta;
+	MovePos.Y = 40.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }
 
 void Player::ExitLevelUpdate(float _Delta)
 {
-	if (1.0f < ExitTimer)
+	if (1.5f < ExitTimer)
 	{
 		ExitTimer = 0.0f;
 		ChangeState(PLAYER_STATE::Idle);
@@ -346,6 +353,6 @@ void Player::ExitLevelUpdate(float _Delta)
 	}
 
 	float4 MovePos = float4::ZERO;
-	MovePos.Y = -60.0f * _Delta;
+	MovePos.Y = -40.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }

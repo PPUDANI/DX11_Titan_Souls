@@ -15,7 +15,7 @@ public:
 
 	static void LoadSpriteSingle(std::string_view _FileName, std::string_view _FilePath);
 	static void LoadSpriteCut(int _IndexX, int _IndexY, std::string_view _FileName, std::string_view _FilePath);
-
+	static void LoadSound(std::string_view _FileName, std::string_view _FilePath);
 protected:
 
 private:

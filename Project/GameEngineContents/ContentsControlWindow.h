@@ -16,7 +16,7 @@ public:
 	}
 };
 
-class PositionTab : public Tab
+class ObjectPosition : public Tab
 {
 	// TestLevelMemeber
 	int Select = 0;
@@ -25,7 +25,22 @@ class PositionTab : public Tab
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime);
 
 public:
-	PositionTab(std::string_view _Name)
+	ObjectPosition(std::string_view _Name)
+		: Tab(_Name)
+	{
+	}
+};
+
+class Setting : public Tab
+{
+	// TestLevelMemeber
+	int Select = 0;
+	std::shared_ptr<GameEngineObject> SelectObject = nullptr;
+
+	void OnGUI(GameEngineLevel* _Level, float _DeltaTime);
+
+public:
+	Setting(std::string_view _Name)
 		: Tab(_Name)
 	{
 	}

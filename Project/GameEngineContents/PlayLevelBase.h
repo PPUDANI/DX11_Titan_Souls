@@ -45,6 +45,8 @@ protected:
 	void CursorDirRotation();
 	void ArrowDirRotation();
 	
+	void EnterRoomTriggerFunc();
+	void ExitRoomTriggerFunc();
 private:
 
 	// PostEffect

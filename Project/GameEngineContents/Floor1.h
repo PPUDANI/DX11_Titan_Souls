@@ -29,10 +29,10 @@ private:
 private:
 	// TriggerBox
 	std::shared_ptr<class TriggerBox> EnterTheSludgeRoom = nullptr;
-	void SludgeRoomTriggerFunc();
+	void SludgeRoomStayTriggerFunc();
 
 	std::shared_ptr<class TriggerBox> EnterTheYetiRoom = nullptr;
-	void YetiRoomTriggerFunc();
+	void YetiRoomStayTriggerFunc();
 
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;

@@ -4,17 +4,11 @@
     <ClCompile Include="TitleLevel.cpp">
       <Filter>02. Level\01. Title Level</Filter>
     </ClCompile>
-    <ClCompile Include="Jam.cpp">
-      <Filter>02. Level\02. MainHub Level</Filter>
-    </ClCompile>
     <ClCompile Include="SludgeHeartRoom.cpp">
       <Filter>02. Level\03. Sludge Heart Level</Filter>
     </ClCompile>
     <ClCompile Include="YetiRoom.cpp">
       <Filter>02. Level\04. Yeti Level</Filter>
-    </ClCompile>
-    <ClCompile Include="KnightElhananRoom.cpp">
-      <Filter>02. Level\05. Knight Elhanan Level</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>00. Global\01. PreCompile</Filter>
@@ -39,9 +33,6 @@
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseCursor.cpp">
-      <Filter>03. UI</Filter>
     </ClCompile>
     <ClCompile Include="LevelBase.cpp">
       <Filter>02. Level\00.  LevelBase</Filter>
@@ -68,7 +59,7 @@
       <Filter>01. Actor\03. Boss\01. Sludge Heart\00. GravityActor</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
-      <Filter>01. Actor\04. Camera</Filter>
+      <Filter>05. Camera</Filter>
     </ClCompile>
     <ClCompile Include="ArrowState.cpp">
       <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
@@ -83,40 +74,31 @@
       <Filter>02. Level\01. Title Level</Filter>
     </ClCompile>
     <ClCompile Include="FadeImage.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Fade Image</Filter>
+      <Filter>03. UI\03. Image\01. Fade Image</Filter>
     </ClCompile>
     <ClCompile Include="FadeImageState.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Fade Image</Filter>
+      <Filter>03. UI\03. Image\01. Fade Image</Filter>
     </ClCompile>
     <ClCompile Include="FadeIn.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
+      <Filter>03. UI\02. Seceen Overlay\01. Fade Actor</Filter>
     </ClCompile>
     <ClCompile Include="FadeOut.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
+      <Filter>03. UI\02. Seceen Overlay\01. Fade Actor</Filter>
     </ClCompile>
     <ClCompile Include="OverlayActor.cpp">
       <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenOverlay.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageActor.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Image Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMaskEffect.cpp">
-      <Filter>04. Effect</Filter>
-    </ClCompile>
     <ClCompile Include="TextActor.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Text\00. Base</Filter>
+      <Filter>03. UI\01. Text\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="SelectText.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Text\01. Select</Filter>
+      <Filter>03. UI\01. Text\01. Select</Filter>
     </ClCompile>
     <ClCompile Include="AncientScript.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Text\03. AncientScript</Filter>
+      <Filter>03. UI\01. Text\03. AncientScript</Filter>
     </ClCompile>
     <ClCompile Include="AncientScriptState.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Text\03. AncientScript</Filter>
+      <Filter>03. UI\01. Text\03. AncientScript</Filter>
     </ClCompile>
     <ClCompile Include="Yeti.cpp">
       <Filter>01. Actor\03. Boss\02. Yeti\00. Yeti</Filter>
@@ -143,21 +125,30 @@
       <Filter>00. Global\02. Global Load</Filter>
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
-      <Filter>00. Global\03. Globa lValue</Filter>
+      <Filter>00. Global\03. Global Value</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseCursor.cpp">
+      <Filter>03. UI\00. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageActor.cpp">
+      <Filter>03. UI\03. Image\00. Default</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenOverlay.cpp">
+      <Filter>03. UI\02. Seceen Overlay\00. ScreenOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMaskEffect.cpp">
+      <Filter>07. Effect\01. Player Mask Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundRandomPlayer.cpp">
+      <Filter>06. Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
       <Filter>02. Level\01. Title Level</Filter>
     </ClInclude>
-    <ClInclude Include="Jam.h">
-      <Filter>02. Level\02. MainHub Level</Filter>
-    </ClInclude>
     <ClInclude Include="YetiRoom.h">
       <Filter>02. Level\04. Yeti Level</Filter>
-    </ClInclude>
-    <ClInclude Include="KnightElhananRoom.h">
-      <Filter>02. Level\05. Knight Elhanan Level</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>00. Global\01. PreCompile</Filter>
@@ -173,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>01. Actor\01. Map</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseCursor.h">
-      <Filter>03. UI</Filter>
     </ClInclude>
     <ClInclude Include="LevelBase.h">
       <Filter>02. Level\00.  LevelBase</Filter>
@@ -199,7 +187,7 @@
       <Filter>01. Actor\03. Boss\01. Sludge Heart\00. GravityActor</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
-      <Filter>01. Actor\04. Camera</Filter>
+      <Filter>05. Camera</Filter>
     </ClInclude>
     <ClInclude Include="TriggerBox.h">
       <Filter>01. Actor\05. Trigger Box</Filter>
@@ -208,37 +196,28 @@
       <Filter>00. Global\04. IMGUI</Filter>
     </ClInclude>
     <ClInclude Include="FadeImage.h">
-      <Filter>01. Actor\06. Versatile Actor\Fade Image</Filter>
+      <Filter>03. UI\03. Image\01. Fade Image</Filter>
     </ClInclude>
     <ClInclude Include="SludgeHeartRoom.h">
       <Filter>02. Level\03. Sludge Heart Level</Filter>
     </ClInclude>
     <ClInclude Include="FadeIn.h">
-      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
+      <Filter>03. UI\02. Seceen Overlay\01. Fade Actor</Filter>
     </ClInclude>
     <ClInclude Include="FadeOut.h">
-      <Filter>01. Actor\06. Versatile Actor\Fade</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenOverlay.h">
-      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
+      <Filter>03. UI\02. Seceen Overlay\01. Fade Actor</Filter>
     </ClInclude>
     <ClInclude Include="OverlayActor.h">
       <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
     </ClInclude>
-    <ClInclude Include="ImageActor.h">
-      <Filter>01. Actor\06. Versatile Actor\Image Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMaskEffect.h">
-      <Filter>04. Effect</Filter>
-    </ClInclude>
     <ClInclude Include="TextActor.h">
-      <Filter>01. Actor\06. Versatile Actor\Text\00. Base</Filter>
+      <Filter>03. UI\01. Text\00. Base</Filter>
     </ClInclude>
     <ClInclude Include="SelectText.h">
-      <Filter>01. Actor\06. Versatile Actor\Text\01. Select</Filter>
+      <Filter>03. UI\01. Text\01. Select</Filter>
     </ClInclude>
     <ClInclude Include="AncientScript.h">
-      <Filter>01. Actor\06. Versatile Actor\Text\03. AncientScript</Filter>
+      <Filter>03. UI\01. Text\03. AncientScript</Filter>
     </ClInclude>
     <ClInclude Include="Yeti.h">
       <Filter>01. Actor\03. Boss\02. Yeti\00. Yeti</Filter>
@@ -256,10 +235,25 @@
       <Filter>00. Global\02. Global Load</Filter>
     </ClInclude>
     <ClInclude Include="ContentEnum.h">
-      <Filter>00. Global\03. Globa lValue</Filter>
+      <Filter>00. Global\03. Global Value</Filter>
     </ClInclude>
     <ClInclude Include="GlobalValue.h">
-      <Filter>00. Global\03. Globa lValue</Filter>
+      <Filter>00. Global\03. Global Value</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCursor.h">
+      <Filter>03. UI\00. Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageActor.h">
+      <Filter>03. UI\03. Image\00. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenOverlay.h">
+      <Filter>03. UI\02. Seceen Overlay\00. ScreenOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMaskEffect.h">
+      <Filter>07. Effect\01. Player Mask Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundRandomPlayer.h">
+      <Filter>06. Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -289,9 +283,6 @@
     </Filter>
     <Filter Include="01. Actor\03. Boss\00. Base">
       <UniqueIdentifier>{93c6a8f9-e5d6-4095-bf6e-a841fc6d1260}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\04. Camera">
-      <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. UI">
       <UniqueIdentifier>{bff1805d-5edb-49ee-a1a1-0e04756237a8}</UniqueIdentifier>
@@ -332,9 +323,6 @@
     <Filter Include="02. Level\01. Title Level">
       <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Level\05. Knight Elhanan Level">
-      <UniqueIdentifier>{df21c2a4-4760-4894-88b6-7c3484920700}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Level\00.  LevelBase">
       <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
     </Filter>
@@ -344,38 +332,11 @@
     <Filter Include="01. Actor\06. Versatile Actor">
       <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Fade">
-      <UniqueIdentifier>{4339af8b-2735-4aaa-85c4-59781effc249}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Overlay">
-      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Text">
-      <UniqueIdentifier>{80c2b80b-3ad0-4fa0-9073-28e2c4d100c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Text\00. Base">
-      <UniqueIdentifier>{07f0fc20-fe85-40c0-9abd-3d057092026b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Text\01. Select">
-      <UniqueIdentifier>{5be8e43f-afe3-4b65-b2b3-c01924736ae4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Text\02. QuestionText">
-      <UniqueIdentifier>{e01db052-25e4-4f6d-8b57-36b535f24be9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Text\03. AncientScript">
-      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Actor\05. Trigger Box">
       <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Actor\00. Actor Base">
       <UniqueIdentifier>{a3a65cc8-1684-4b7b-a745-317f7a82ac98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Fade Image">
-      <UniqueIdentifier>{2181bd69-5b3d-45b8-b00f-58c8da29a00c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Image Actor">
-      <UniqueIdentifier>{98f43c60-67e6-40bb-8a95-7cc8df1a456e}</UniqueIdentifier>
     </Filter>
     <Filter Include="00. Global\04. IMGUI">
       <UniqueIdentifier>{02dbdd72-bf18-4dcb-9802-1b2dbb834d12}</UniqueIdentifier>
@@ -389,11 +350,59 @@
     <Filter Include="00. Global\02. Global Load">
       <UniqueIdentifier>{17559cdb-1ec4-40a9-a77e-dd1be231f8d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00. Global\03. Globa lValue">
+    <Filter Include="03. UI\00. Mouse">
+      <UniqueIdentifier>{641581ea-1330-4375-bc22-29b698194501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\03. Global Value">
       <UniqueIdentifier>{8dd2b722-0ca9-403c-844a-19ee5d95f26f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Effect">
+    <Filter Include="01. Actor\06. Versatile Actor\Overlay">
+      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Text">
+      <UniqueIdentifier>{80c2b80b-3ad0-4fa0-9073-28e2c4d100c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Text\00. Base">
+      <UniqueIdentifier>{07f0fc20-fe85-40c0-9abd-3d057092026b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Text\01. Select">
+      <UniqueIdentifier>{5be8e43f-afe3-4b65-b2b3-c01924736ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Text\02. QuestionText">
+      <UniqueIdentifier>{e01db052-25e4-4f6d-8b57-36b535f24be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Text\03. AncientScript">
+      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\02. Seceen Overlay">
+      <UniqueIdentifier>{32e8e412-db45-48f3-894d-dd6fad796792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\03. Image">
+      <UniqueIdentifier>{98f43c60-67e6-40bb-8a95-7cc8df1a456e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\02. Seceen Overlay\01. Fade Actor">
+      <UniqueIdentifier>{4339af8b-2735-4aaa-85c4-59781effc249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\03. Image\01. Fade Image">
+      <UniqueIdentifier>{2181bd69-5b3d-45b8-b00f-58c8da29a00c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\03. Image\00. Default">
+      <UniqueIdentifier>{3fa56be9-58ba-41cf-85ed-d7f3e68c9550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\02. Seceen Overlay\00. ScreenOverlay">
+      <UniqueIdentifier>{401e9d51-3211-4211-84ef-12d6b15c6686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Sound">
+      <UniqueIdentifier>{3b9f6755-f4ab-4606-b05a-2eae74200705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Camera">
+      <UniqueIdentifier>{209b5c2c-88a5-4e75-9a33-bd789115b96f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect">
       <UniqueIdentifier>{cd517c0e-47f0-4bc6-b6c9-4e4b1b46ee78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\01. Player Mask Effect">
+      <UniqueIdentifier>{da887fdf-8aae-45af-8e11-5e364efb3976}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

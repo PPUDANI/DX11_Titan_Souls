@@ -14,6 +14,8 @@ void PlayLevelBase::Start()
 	LevelBase::Start();
 	CreatePlayerElement();
 	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
+
+	GlobalLoad::LoadSound("EnterDoor.ogg", "Resource\\Sound\\Player\\Door\\");
 }
 
 void PlayLevelBase::Update(float _Delta)
@@ -46,16 +48,6 @@ void PlayLevelBase::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('I', this))
 	{
 		IsDebug = !IsDebug;
-	}
-
-	// DebugingMode Key
-	if (true == GameEngineInput::IsDown('O', this))
-	{
-		if (true == IsDebug)
-		{
-			PlayerActor->DebugingModeSwitch();
-			ArrowActor->DebugingModeSwitch();
-		}
 	}
 
 	CursorDirRotation();
@@ -172,4 +164,19 @@ void PlayLevelBase::ArrowDirRotation()
 	//{
 	//	ArrowActor->SetRenderOrder(RENDERING_DEPTH::Arrow2);
 	//}
+}
+
+void PlayLevelBase::EnterRoomTriggerFunc()
+{
+	BackgroundStop();
+	Background2Stop();
+	AmbienceStop();
+	EffectPlay("EnterDoor.ogg");
+}
+
+void PlayLevelBase::ExitRoomTriggerFunc()
+{
+	BackgroundStop();
+	BackgroundStop();
+	AmbienceStop();
 }

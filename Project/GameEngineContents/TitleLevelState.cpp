@@ -10,7 +10,6 @@ void TitleLevel::GamePadStart()
 
 	GamePadImage->Reset();
 	GamePadImage->On();
-
 }
 
 void TitleLevel::AcidnerveStart()
@@ -35,6 +34,7 @@ void TitleLevel::DevolverStart()
 
 void TitleLevel::MainTitleStart()
 {
+	Background2Play("Motif.ogg");
 	FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 	FadeInActor->Init(FadeColor::Black);
 
@@ -57,8 +57,13 @@ void TitleLevel::MainTitleStart()
 
 void TitleLevel::GameStartStart()
 {
+	BackgroundStop();
+	Background2Stop();
+	AmbienceStop();
+	EffectPlay("StartGame.ogg");
+
 	FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-	FadeOutActor->Init(FadeColor::Black);
+	FadeOutActor->Init(FadeColor::Black, 2.0f);
 }
 
 void TitleLevel::GamePadUpdate(float _Delta)
@@ -141,6 +146,7 @@ void TitleLevel::MainTitleUpdate(float _Delta)
 			break;
 		case SELECT_MENU::EXIT:
 			CurSelectMenu = SELECT_MENU::START;
+			break;
 		default:
 			break;
 		}
@@ -150,30 +156,6 @@ void TitleLevel::MainTitleUpdate(float _Delta)
 	{
 		PrevSelectMenu = CurSelectMenu;
 		SetSelectAction();
-	}
-}
-
-void TitleLevel::SetSelectAction()
-{
-	switch (CurSelectMenu)
-	{
-	case SELECT_MENU::START:
-		StartText->SelectOn();
-		OptionText->SelectOff();
-		ExitText->SelectOff();
-		break;
-	case SELECT_MENU::OPTION:
-		StartText->SelectOff();
-		OptionText->SelectOn();
-		ExitText->SelectOff();
-		break;
-	case SELECT_MENU::EXIT:
-		StartText->SelectOff();
-		OptionText->SelectOff();
-		ExitText->SelectOn();
-		break;
-	default:
-		break;
 	}
 }
 

@@ -45,6 +45,10 @@ void YetiRoom::Start()
 	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	ScreenOverlayActor->SetColor({ 0.8f, 0.8f, 0.8f });
 	ScreenOverlayActor->SetAlpha(0.1f);
+
+	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
+	
 }
 
 
@@ -63,6 +67,7 @@ void YetiRoom::Update(float _Delta)
 	if (YETI_STATE::Hit == YetiActor->GetCurState())
 	{
 		BossIsDeath = true;
+		BackgroundStop();
 		ReleaseIcicle();
 		ReleaseSnowball();
 	}
@@ -95,8 +100,10 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black);
+		FadeInActor->Init(FadeColor::Black, 1.5f);
 	}
+
+	AmbiencePlay("Dungeon.ogg");
 }
 
 
@@ -142,7 +149,8 @@ void YetiRoom::SpawnTriggerBox()
 	EnterTheFloor1 = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterTheFloor1");
 	EnterTheFloor1->Transform.SetLocalPosition({ 1008.0f, -1808.0f });
 	EnterTheFloor1->SetPlaceScale({ 90.0f, 90.0f });
-	EnterTheFloor1->SetTriggerFunction(std::bind(&YetiRoom::Floor1TriggerFunc, this));
+	EnterTheFloor1->SetEnterTriggerFunc(std::bind(&YetiRoom::ExitRoomTriggerFunc, this));
+	EnterTheFloor1->SetStayTriggerFunc(std::bind(&YetiRoom::Floor1TriggerFunc, this));
 }
 
 void YetiRoom::SpawnSnowBall(const float4& _StartPos, const float4& _Angle, RENDERING_ORDER _Order)
@@ -194,7 +202,7 @@ void YetiRoom::Floor1TriggerFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black);
+		FadeOutActor->Init(FadeColor::Black, 1.5f);
 	}
 
 	if (true == FadeOutActor->FadeIsEnd())
@@ -218,7 +226,7 @@ void YetiRoom::BossDeathProcessing()
 
 void YetiRoom::BossWakeUpProcessing()
 {
-	//CameraManager::CalCameraPosFromArrowOff();
+	BackgroundPlay("Yeti.ogg", 10000);
 	OutputBossName();
 }
 

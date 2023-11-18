@@ -1,6 +1,10 @@
 #include "PreCompile.h"
 #include "LevelBase.h"
 
+float LevelBase::BackgroundVolume = 1.0f;
+float LevelBase::AmbienceVolume = 1.0f;
+float LevelBase::EffectVolume = 1.0f;
+
 LevelBase::LevelBase()
 {
 }
@@ -19,10 +23,6 @@ void LevelBase::Start()
 
 void LevelBase::Update(float _Delta)
 {
-	//std::string FPS;
-	//FPS = std::to_string(static_cast<int>(1.0f / _Delta));
-	//FPS += "\n";
-	//OutputDebugStringA(FPS.c_str());
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)
@@ -32,6 +32,8 @@ void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 
 void LevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 {
-
+	BackgroundPlayer.Stop();
+	BackgroundPlayer2.Stop();
+	AmbiencePlayer.Stop();
 }
 

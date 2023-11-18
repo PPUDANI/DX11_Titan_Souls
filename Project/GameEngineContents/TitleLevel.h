@@ -15,7 +15,7 @@ enum class SELECT_MENU
 	EXIT,
 };
 
-class TitleLevel : public GameEngineLevel
+class TitleLevel : public LevelBase
 {
 public:
 	// Constructor Destructor
@@ -74,6 +74,7 @@ private:
 	std::shared_ptr<class ImageActor> TitleLogo = nullptr;
 
 	void MainTitleActorOff();
+
 private:
 	// Text Actor
 	std::shared_ptr<class SelectText> StartText = nullptr;
@@ -87,4 +88,7 @@ private:
 	float4 UnSelectedColor = { 0.4f, 0.4f, 0.4f, 1.0f };
 
 	void SetSelectAction();
+
+private:
+
 };

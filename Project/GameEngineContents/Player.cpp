@@ -147,7 +147,7 @@ void Player::Update(float _Delta)
 	BodyColCheck();
 	AdjustPosByCol();
 
-	if (true == DebugingMode)
+	if (true == GetLevel()->IsDebug)
 	{
 		DebugRender();
 	}
