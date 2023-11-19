@@ -57,8 +57,6 @@ void Player::StandUpStart()
 
 void Player::EnterLevelStart()
 {
-	BodyCollision->Off();
-
 	EnterTimer = 0.0f;
 
 	BodyRenderer->ChangeAnimation("EnterLevel");
@@ -70,8 +68,6 @@ void Player::EnterLevelStart()
 
 void Player::ExitLevelStart()
 {
-	BodyCollision->Off();
-
 	ExitTimer = 0.0f;
 
 	BodyRenderer->ChangeAnimation("ExitLevel");

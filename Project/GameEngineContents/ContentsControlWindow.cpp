@@ -4,12 +4,12 @@
 void ContentsControlWindow::Start()
 {
 	Tabs.push_back(std::make_shared<LevelChangeTab>("LevelChangeTab"));
-	Tabs.push_back(std::make_shared<ObjectPosition>("PositionTab"));
+	Tabs.push_back(std::make_shared<Information>("Information"));
 	Tabs.push_back(std::make_shared<Setting>("Setting"));
 	CurTab = Tabs[1];
 }
 
-void ObjectPosition::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
+void Information::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 	std::list<std::shared_ptr<GameEngineObject>> PlayerActorList = _Level->GetObjectGroup(UPDATE_ORDER::Player);
 	

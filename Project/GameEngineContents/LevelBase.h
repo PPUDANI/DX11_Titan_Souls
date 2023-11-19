@@ -161,6 +161,45 @@ protected:
 	}
 
 
+	void BackFadeInVolume(float _Delta)
+	{
+		FadeVolumeRatio += _Delta;
+		if (1.0f < FadeVolumeRatio)
+		{
+			FadeVolumeRatio = 1.0f;
+			FadeInVolume = false;
+		}
+
+		BackgroundPlayer.SetVolume(BackgroundVolume * FadeVolumeRatio);
+		BackgroundPlayer2.SetVolume(BackgroundVolume * FadeVolumeRatio);
+		AmbiencePlayer.SetVolume(AmbienceVolume * FadeVolumeRatio);
+	}
+
+	void BackFadeOutVolume(float _Delta)
+	{
+		FadeVolumeRatio -= _Delta;
+		if (0.0f > FadeVolumeRatio)
+		{
+			FadeVolumeRatio = 0.0f;
+			FadeOutVolume = false;
+		}
+
+		BackgroundPlayer.SetVolume(BackgroundVolume * FadeVolumeRatio);
+		BackgroundPlayer2.SetVolume(BackgroundVolume * FadeVolumeRatio);
+		AmbiencePlayer.SetVolume(AmbienceVolume * FadeVolumeRatio);
+	}
+
+	void FadeInVolumeIsOn()
+	{
+		FadeInVolume = true;
+		FadeOutVolume = false;
+	}
+
+	void FadeOutVolumeIsOn()
+	{
+		FadeInVolume = false;
+		FadeOutVolume = true;
+	}
 
 private:
 	GameEngineSoundPlayer BackgroundPlayer;
@@ -172,4 +211,9 @@ private:
 	static float AmbienceVolume;
 	static float EffectVolume;
 
+private:
+	bool FadeInVolume = true;
+	bool FadeOutVolume = false;
+
+	float FadeVolumeRatio = 0.0f;
 };

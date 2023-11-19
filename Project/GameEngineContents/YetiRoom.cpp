@@ -51,7 +51,6 @@ void YetiRoom::Start()
 	
 }
 
-
 void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
@@ -85,6 +84,7 @@ void YetiRoom::Update(float _Delta)
 		FadeInActor->Death();
 		FadeInActor = nullptr;
 	}
+
 }
 
 
@@ -210,6 +210,7 @@ void YetiRoom::Floor1TriggerFunc()
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);
 		GameEngineCore::ChangeLevel("01.Floor1");
 	}
+
 }
 
 void YetiRoom::BossDeathProcessing()

@@ -81,6 +81,7 @@ void SludgeHeartRoom::Update(float _Delta)
 		FadeInActor = nullptr;
 		SpawnTriggerBox();
 	}
+
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)

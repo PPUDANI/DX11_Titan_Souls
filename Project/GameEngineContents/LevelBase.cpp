@@ -4,7 +4,6 @@
 float LevelBase::BackgroundVolume = 1.0f;
 float LevelBase::AmbienceVolume = 1.0f;
 float LevelBase::EffectVolume = 1.0f;
-
 LevelBase::LevelBase()
 {
 }
@@ -23,6 +22,14 @@ void LevelBase::Start()
 
 void LevelBase::Update(float _Delta)
 {
+	if (true == FadeInVolume)
+	{
+		BackFadeInVolume(_Delta);
+	}
+	else if (true == FadeOutVolume)
+	{
+		BackFadeOutVolume(_Delta);
+	}
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)

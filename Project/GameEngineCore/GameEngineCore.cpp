@@ -59,7 +59,10 @@ void GameEngineCore::Update()
 	//{
 	//	DeltaTime = 1.0f / 60.0f;
 	//}
-
+	if (0.2f < DeltaTime)
+	{
+		DeltaTime = 0.0f;
+	}
 	GameEngineSound::Update();
 	CoreObject->Update(DeltaTime);
 

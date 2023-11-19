@@ -148,7 +148,7 @@ void Floor1::SludgeRoomStayTriggerFunc()
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
 		FadeOutActor->Init(FadeColor::Black, 1.5f);
 	}
-
+	
 	if (true == FadeOutActor->FadeIsEnd())
 	{
 		PlayerActor->ChangeState(PLAYER_STATE::Idle);

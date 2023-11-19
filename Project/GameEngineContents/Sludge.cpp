@@ -141,6 +141,20 @@ void Sludge::Update(float _Delta)
 	float4 CollisionPos = float4::ZERO;
 	Collision->Transform.SetLocalPosition(CollisionPos);
 
+	if (nullptr != HeartActor)
+	{
+		if (true == HeartActor->IsFirstHit()&&
+			JUMPBOSS_STATE::Death != CurState)
+		{
+			CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, 3.0f * _Delta);
+		}
+		else if (ARROW_STATE::Pinned != EnymeArrow->GetCurState())
+		{
+			CameraPosLerpForce = std::lerp(CameraPosLerpForce, 0.0f, 3.0f * _Delta);
+		}
+
+		CameraManager::AddCameraPosFromBoss = ((JumpStartPos - EnymePlayer->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
+	}
 }
 
 void Sludge::DecreaseY(float _SpeedPerSecond)

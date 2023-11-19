@@ -89,6 +89,7 @@ void TitleLevel::Start()
 
 void TitleLevel::Update(float _Delta)
 {
+	LevelBase::Update(_Delta);
 	switch (CurState)
 	{
 	case TITLE_STATE::GAMEPAD:
@@ -113,6 +114,7 @@ void TitleLevel::Update(float _Delta)
 
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	LevelBase::LevelStart(_PrevLevel);
 	ChangeState(TITLE_STATE::GAMEPAD);
 	BackgroundPlay("Opening.ogg");
 	AmbiencePlay("Forest.ogg", 10000);
@@ -120,6 +122,7 @@ void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	LevelBase::LevelEnd(_NextLevel);
 	if (nullptr != FadeOutActor)
 	{
 		FadeOutActor->Death();
@@ -131,10 +134,6 @@ void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 		FadeInActor->Death();
 		FadeInActor = nullptr;
 	}
-
-	BackgroundStop();
-	Background2Stop();
-	AmbienceStop();
 }
 
 void TitleLevel::ChangeState(TITLE_STATE _State)

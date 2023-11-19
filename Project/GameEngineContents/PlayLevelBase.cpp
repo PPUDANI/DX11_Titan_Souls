@@ -69,6 +69,7 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 		PlayerActor->GetArrow();
 		ArrowActor->ChangeState(ARROW_STATE::Hold);
 	}
+	FadeInVolumeIsOn();
 }
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
@@ -168,15 +169,11 @@ void PlayLevelBase::ArrowDirRotation()
 
 void PlayLevelBase::EnterRoomTriggerFunc()
 {
-	BackgroundStop();
-	Background2Stop();
-	AmbienceStop();
 	EffectPlay("EnterDoor.ogg");
+	FadeOutVolumeIsOn();
 }
 
 void PlayLevelBase::ExitRoomTriggerFunc()
 {
-	BackgroundStop();
-	BackgroundStop();
-	AmbienceStop();
+	FadeOutVolumeIsOn();
 }
