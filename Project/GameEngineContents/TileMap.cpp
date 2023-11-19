@@ -769,3 +769,17 @@ bool TileMap::AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData)
 	}
 	return false;
 }
+
+TILE_MATERIAL_TYPE TileMap::GetCurTileMatIndex(const float4& _Pos)
+{
+	TILE_MATERIAL_TYPE MatIndex = TILE_MATERIAL_TYPE::Floor1Tile;
+
+	if (nullptr != MATTileMaps[0])
+	{
+		float4 CheckIndex = MATTileMaps[0]->PosToIndex(_Pos);
+		CheckIndex.Y = -CheckIndex.Y;
+
+		MatIndex = static_cast<TILE_MATERIAL_TYPE>(MATTileMapInfos[0][CheckIndex.iY()][CheckIndex.iX()]);
+	}
+	return MatIndex;
+}

@@ -14,6 +14,7 @@ public:
 	void SetLoop(int _Count);
 	void SetVolume(float _Volume);
 	void Stop();
+	bool IsPlaying();
 	std::string GetCurSoundName();
 
 	GameEngineSoundPlayer() 

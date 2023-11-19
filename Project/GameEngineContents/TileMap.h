@@ -51,6 +51,7 @@ public:
 	bool TriangleColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 	bool AirColCheck(float4 _Pos, TILE_COLLISION_TYPE& _TypeData);
 
+	TILE_MATERIAL_TYPE GetCurTileMatIndex(const float4& _Pos);
 
 	float4 GetTileMapSize() const
 	{

@@ -17,6 +17,7 @@ void Player::MoveStart()
 
 void Player::RollingStart()
 {
+	EffectSoundPlay("Roll.ogg");
 	IsRollingBlocked = false;
 	DecelerationValue = 1.0f;
 	SetAnimByDir("Rolling");
@@ -110,12 +111,7 @@ void Player::IdleUpdate(float _Delta)
 
 void Player::MoveUpdate(float _Delta)
 {
-	//if (2 == BodyRenderer->GetCurIndex() ||
-	//	5 == BodyRenderer->GetCurIndex())
-	//{
-	//	
-	//}
-
+	StepSoundPlay();
 	// Death Check
 	if (true == GameEngineInput::IsPress('K', this))
 	{
@@ -172,6 +168,8 @@ void Player::RollingUpdate(float _Delta)
 
 	if (true == CurDirColCheck())
 	{
+		EffectSoundStop();
+		EffectSoundPlay("Roll_bash.ogg");
 		IsRollingBlocked = true;
 		DirSpecularReflection();
 		// 임시 애니메이션

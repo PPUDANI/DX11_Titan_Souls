@@ -4,15 +4,23 @@
 
 Player::Player()
 {
+	StoneStepRandomPlayer = new SoundRandomPlayer();
+	GrassStepRandomPlayer = new SoundRandomPlayer();
 }
 
 Player::~Player()
 {
+	delete StoneStepRandomPlayer;
+	StoneStepRandomPlayer = nullptr;
+
+	delete GrassStepRandomPlayer;
+	GrassStepRandomPlayer = nullptr;
 }
 
 
 void Player::Start()
 {
+
 	// Load Textures & Create Animations
 	CreatePlayerbodyAnimation();
 	CreateBowAnimation();
@@ -50,6 +58,9 @@ void Player::Start()
 	//		AdjustPosByBodyCollision();
 	//	};
 
+	SoundLoad();
+	SetRandomPlayer();
+	
 	ChangeState(PLAYER_STATE::StandUp);
 
 	GameEngineInput::AddInputObject(this);

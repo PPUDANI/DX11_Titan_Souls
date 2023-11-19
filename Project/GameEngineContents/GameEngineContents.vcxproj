@@ -167,6 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActorBase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="AncientScript.cpp">
       <SubType>
       </SubType>
@@ -224,6 +228,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerSound.cpp" />
     <ClCompile Include="SelectText.cpp">
       <SubType>
       </SubType>
@@ -326,6 +331,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActorBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="AncientScript.h">
       <SubType>
       </SubType>

@@ -67,6 +67,17 @@ enum class TILE_COLLISION_TYPE
 	RIGHTDOWN_TRIANGLE = 227,
 };
 
+enum class TILE_MATERIAL_TYPE
+{
+	Empty = 0,
+	Grass = 1,
+	Snow = 8,
+	Floor1Tile = 12,
+	YetiRock = 14,
+	SludgeTile = 28,
+	Vine = 50,
+};
+
 enum class FadeColor
 {
 	Black,

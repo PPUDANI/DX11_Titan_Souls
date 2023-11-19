@@ -34,10 +34,7 @@ void Sludge::FallStart()
 
 void Sludge::LandingStart()
 {
-	if (false == Collision->IsDeath())
-	{
-		Collision->On();
-	}
+	Collision->On();
 
 	MaxScale = 366.0f;
 	MinScale = 146.0f;
@@ -48,7 +45,6 @@ void Sludge::LandingStart()
 	ScreenShakingTimer = 0.0f;
 	ShakingPerFrame = 0.15f;
 	ShakingLerpValue = 10.0f - DividedCount;
-
 }
 
 void Sludge::DivisionStart()

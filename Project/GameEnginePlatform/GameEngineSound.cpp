@@ -28,6 +28,16 @@ void GameEngineSoundPlayer::Stop()
 	Control->stop();
 }
 
+bool GameEngineSoundPlayer::IsPlaying()
+{
+	bool Result = false;
+	if (FMOD_OK != Control->isPlaying(&Result))
+	{
+		return false;
+	}
+	return Result;
+}
+
 std::string GameEngineSoundPlayer::GetCurSoundName()
 {
 	FMOD::Sound* _Sound;

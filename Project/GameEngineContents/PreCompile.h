@@ -42,6 +42,7 @@
 // Actor
 #include "CameraManager.h"
 #include "TileMap.h"
+#include "ActorBase.h"
 #include "Player.h"
 #include "Arrow.h"
 #include "BossBase.h"
@@ -61,6 +62,7 @@
 
 // Post Effect
 #include "PlayerMaskEffect.h"
+#include "SoundRandomPlayer.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

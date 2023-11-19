@@ -13,7 +13,7 @@ public:
 	SoundRandomPlayer& operator=(const SoundRandomPlayer& _Other) = delete;
 	SoundRandomPlayer& operator=(SoundRandomPlayer&& _Other) noexcept = delete;
 
-	void InputSoundList(GameEngineSoundPlayer& _SoundPlayer, std::vector<std::string_view> _SoundList)
+	void InputSoundList(GameEngineSoundPlayer _SoundPlayer, std::vector<std::string_view> _SoundList)
 	{
 		SoundList = _SoundList;
 		SoundPlayer = _SoundPlayer;

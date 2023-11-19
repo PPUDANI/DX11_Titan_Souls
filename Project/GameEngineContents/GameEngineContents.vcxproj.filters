@@ -31,9 +31,6 @@
     <ClCompile Include="PlayerAnimation.cpp">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>01. Actor\02. Player Element\00. Player</Filter>
-    </ClCompile>
     <ClCompile Include="LevelBase.cpp">
       <Filter>02. Level\00.  LevelBase</Filter>
     </ClCompile>
@@ -141,6 +138,15 @@
     </ClCompile>
     <ClCompile Include="SoundRandomPlayer.cpp">
       <Filter>06. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorBase.cpp">
+      <Filter>01. Actor\00. Actor Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSound.cpp">
+      <Filter>01. Actor\02. Player Element\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>01. Actor\02. Player Element\00. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="SoundRandomPlayer.h">
       <Filter>06. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorBase.h">
+      <Filter>01. Actor\00. Actor Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

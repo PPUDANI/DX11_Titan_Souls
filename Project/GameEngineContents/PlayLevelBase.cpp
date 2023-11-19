@@ -15,7 +15,7 @@ void PlayLevelBase::Start()
 	CreatePlayerElement();
 	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 
-	GlobalLoad::LoadSound("EnterDoor.ogg", "Resource\\Sound\\Player\\Door\\");
+	GlobalLoad::LoadSound("EnterDoor.ogg", "Resource\\Sound\\Effect\\Door\\");
 }
 
 void PlayLevelBase::Update(float _Delta)
