@@ -53,10 +53,8 @@ void Sludge::LandingStart()
 
 void Sludge::DivisionStart()
 {
-	if (false == Collision->IsDeath())
-	{
-		Collision->Off();
-	}
+	Collision->Off();
+
 	MaxScale = 346.0f;
 	MinScale = 166.0f;
 	MoveSpeed = DefaultMoveSpeed * (1.0f - DividedCount * 0.1f);
