@@ -18,6 +18,14 @@ public:
 	static std::vector<std::string_view> PlayerStoneStepList;
 	static std::vector<std::string_view> PlayerGrassStepList;
 
+	// Sludge
+	static std::vector<std::string_view> SludgeDivision0List;
+	static std::vector<std::string_view> SludgeDivision1List;
+	static std::vector<std::string_view> SludgeDivision2List;
+	static std::vector<std::string_view> SludgeDivision3List;
+	static std::vector<std::string_view> SludgeSlice;
+	static std::vector<std::string_view> HeartList;
+
 	// Yeti
 	static std::vector<std::string_view> YetiRollList;
 	static std::vector<std::string_view> YetiBlockedList;

@@ -28,11 +28,79 @@ std::vector<std::string_view> GlobalValue::PlayerGrassStepList
 	"Grass_Step7.ogg",
 	"Grass_Step8.ogg"
 };
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////  Yeti  ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////  Sludge  //////////////////////////////////////////////////////////////////////////////////////////////////
+std::vector<std::string_view> GlobalValue::SludgeDivision0List
+{
+	"Biggest1.ogg",
+	"Biggest2.ogg",
+	"Biggest3.ogg",
+	"Biggest4.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::SludgeDivision1List
+{
+	"Big1.ogg",
+	"Big2.ogg",
+	"Big3.ogg",
+	"Big4.ogg",
+	"Big5.ogg",
+	"Big6.ogg",
+	"Big7.ogg",
+	"Big8.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::SludgeDivision2List
+{
+	"Medium1.ogg",
+	"Medium2.ogg",
+	"Medium3.ogg",
+	"Medium4.ogg",
+	"Medium5.ogg",
+	"Medium6.ogg",
+	"Medium7.ogg",
+	"Medium8.ogg",
+	"Medium9.ogg",
+	"Medium10.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::SludgeDivision3List
+{
+	"Small1.ogg",
+	"Small2.ogg",
+	"Small3.ogg",
+	"Small4.ogg",
+	"Small5.ogg",
+	"Small6.ogg",
+	"Small7.ogg",
+	"Small8.ogg",
+	"Small9.ogg",
+	"Small10.ogg",
+	"Small11.ogg",
+	"Small12.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::HeartList
+{
+	"Smallest1.ogg",
+	"Smallest2.ogg",
+	"Smallest3.ogg",
+	"Smallest4.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::SludgeSlice
+{
+	"Slice1.ogg",
+	"Slice2.ogg",
+	"Slice3.ogg",
+	"Slice4.ogg"
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////  Yeti  ////////////////////////////////////////////////////////////////////////////////////////////////////
 std::vector<std::string_view> GlobalValue::YetiRollList
 {
 	"Yeti_Roll1.ogg",

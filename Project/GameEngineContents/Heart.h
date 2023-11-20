@@ -51,9 +51,12 @@ private:
 	void DeathUpdate(float _Delta) override;
 
 private:
-
-	std::shared_ptr<GameEngineCollision> Collision2 = nullptr;
 	class Sludge* OwnerSludge = nullptr;
 
 	bool FirstHitValue = false;
+
+	static SoundRandomPlayer LandPlayer;
+	static bool SoundIsLoaded;
+	void SoundLoad();
+
 };

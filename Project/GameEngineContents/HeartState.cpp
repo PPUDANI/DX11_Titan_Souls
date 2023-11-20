@@ -32,6 +32,7 @@ void Heart::FallStart()
 
 void Heart::LandingStart()
 {
+	LandPlayer.RandomPlay();
 	BodyRenderer->ChangeAnimation("Landing");
 	Collision->On();
 }
@@ -48,6 +49,7 @@ void Heart::OutOfSludgeStart()
 
 void Heart::DeathStart()
 {
+	Collision->Off();
 	BodyRenderer->ChangeAnimation("Death");
 	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
 }

@@ -2,6 +2,16 @@
 #include "Sludge.h"
 #include "Heart.h"
 #include "SludgeHeartRoom.h"
+
+SoundRandomPlayer Sludge::Division0LandPlayer(GlobalValue::SludgeDivision0List);
+SoundRandomPlayer Sludge::Division1LandPlayer(GlobalValue::SludgeDivision1List);
+SoundRandomPlayer Sludge::Division2LandPlayer(GlobalValue::SludgeDivision2List);
+SoundRandomPlayer Sludge::Division3LandPlayer(GlobalValue::SludgeDivision3List);
+SoundRandomPlayer Sludge::SlicePlayer(GlobalValue::SludgeSlice);
+
+bool Sludge::SoundIsLoaded = false;
+
+
 Sludge::Sludge()
 {
 }
@@ -13,7 +23,7 @@ Sludge::~Sludge()
 void Sludge::Start()
 {
 	JumpBoss::Start();
-
+	SoundLoad();
 	GlobalLoad::LoadSpriteCut(2, 1, "Sludge.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	GlobalLoad::LoadSpriteSingle("Shadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	RenderPosBase = DefaultRenderPosBase;
@@ -231,4 +241,45 @@ void Sludge::DividedSludgeInit(int _DividedCount)
 	AddMoveDirByArrow(-90.0f);
 	SetByDivided();
 	PlayerDetectionRange->On();
+}
+
+void Sludge::SoundLoad()
+{
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
+	size_t Index = GlobalValue::SludgeDivision0List.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SludgeDivision0List[i], "Resource\\Sound\\Boss\\SludgeHeart\\");
+	}
+
+	Index = GlobalValue::SludgeDivision1List.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SludgeDivision1List[i], "Resource\\Sound\\Boss\\SludgeHeart\\");
+	}
+
+	Index = GlobalValue::SludgeDivision2List.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SludgeDivision2List[i], "Resource\\Sound\\Boss\\SludgeHeart\\");
+	}
+
+	Index = GlobalValue::SludgeDivision3List.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SludgeDivision3List[i], "Resource\\Sound\\Boss\\SludgeHeart\\");
+	}
+
+	Index = GlobalValue::SludgeSlice.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SludgeSlice[i], "Resource\\Sound\\Boss\\SludgeHeart\\");
+	}
+
 }

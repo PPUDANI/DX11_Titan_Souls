@@ -34,6 +34,23 @@ void Sludge::FallStart()
 
 void Sludge::LandingStart()
 {
+	switch (DividedCount)
+	{
+	case 0:
+		Division0LandPlayer.RandomPlay();
+		break;
+	case 1:
+		Division1LandPlayer.RandomPlay();
+		break;
+	case 2:
+		Division2LandPlayer.RandomPlay();
+		break;
+	case 3:
+		Division3LandPlayer.RandomPlay();
+		break;
+	default:
+		break;
+	}
 	Collision->On();
 
 	MaxScale = 366.0f;
@@ -49,6 +66,8 @@ void Sludge::LandingStart()
 
 void Sludge::DivisionStart()
 {
+	SlicePlayer.RandomPlay();
+
 	Collision->Off();
 
 	MaxScale = 346.0f;

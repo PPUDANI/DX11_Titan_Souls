@@ -87,5 +87,14 @@ private:
 
 	bool ReadyToJump = false;
 	float JumpChargeTime = 0.0f;
+
 private:
+	static SoundRandomPlayer Division0LandPlayer;
+	static SoundRandomPlayer Division1LandPlayer;
+	static SoundRandomPlayer Division2LandPlayer;
+	static SoundRandomPlayer Division3LandPlayer;
+	static SoundRandomPlayer SlicePlayer;
+
+	static bool SoundIsLoaded;
+	void SoundLoad();
 };

@@ -73,14 +73,6 @@ void Yeti::Update(float _Delta)
 
 	BossBase::Update(_Delta);
 
-	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
-	BodyCollision2->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
-
-	if (YETI_STATE::Blocked != CurState)
-	{
-		JumpStartPos = Transform.GetLocalPosition();
-	}
-
 	switch (CurState)
 	{
 	case YETI_STATE::Sleep:
@@ -112,6 +104,14 @@ void Yeti::Update(float _Delta)
 		break;
 	default:
 		break;
+	}
+
+	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
+	BodyCollision2->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
+
+	if (YETI_STATE::Blocked != CurState)
+	{
+		JumpStartPos = Transform.GetLocalPosition();
 	}
 
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + ShadowStandardPos);

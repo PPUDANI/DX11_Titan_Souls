@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Heart.h"
 
+SoundRandomPlayer Heart::LandPlayer(GlobalValue::HeartList);
+bool Heart::SoundIsLoaded = false;
 
 Heart::Heart()
 {
@@ -13,7 +15,7 @@ Heart::~Heart()
 void Heart::Start()
 {
 	JumpBoss::Start();
-
+	SoundLoad();
 	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 	GlobalLoad::LoadSpriteSingle("Shadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
 	RenderPosBase = { 0.0f, -24.0f };
@@ -60,4 +62,20 @@ void Heart::Update(float _Delta)
 	JumpBoss::Update(_Delta);
 
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+}
+
+void Heart::SoundLoad()
+{
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
+	size_t Index = GlobalValue::HeartList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::HeartList[i], "Resource\\Sound\\Boss\\SludgeHeart\\");
+	}
 }
