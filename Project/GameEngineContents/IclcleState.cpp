@@ -19,6 +19,8 @@ void Icicle::StuckStart()
 	Collision->On();
 
 	LiveTimer = 0.0f;
+
+	LandPlayer.RandomPlay();
 }
 
 

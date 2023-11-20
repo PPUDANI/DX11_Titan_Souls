@@ -23,6 +23,7 @@ protected:
 	float4 CursorAngle = float4::ZERO;
 
 public:
+
 	void SetGlobalVolume(float _Value)
 	{
 		if (0.0f > _Value)

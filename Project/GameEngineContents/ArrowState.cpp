@@ -4,6 +4,7 @@
 
 void Arrow::HoldStart()
 {
+	EffectSoundStop();
 	PullingForce = 0.0f;
 	Renderer->ChangeAnimation("Idle");
 	Renderer->Off();
@@ -13,6 +14,8 @@ void Arrow::HoldStart()
 
 void Arrow::AimStart()
 {
+	EffectSoundPlay("arrow_charge.ogg");
+
 	Renderer->ChangeAnimation("Idle");
 	ZoomRatio = 1.0f;
 	CameraMovePos = 0.0f;
@@ -20,6 +23,8 @@ void Arrow::AimStart()
 
 void Arrow::FlyingStart()
 {
+	EffectSoundStop();
+	EffectSoundPlay("arrow_shoot.ogg");
 	FiyTimer = 0.0f;
 
 	Collision->On();
@@ -41,6 +46,9 @@ void Arrow::ReturningStart()
 
 void Arrow::PickUpStart()
 {
+	EffectSoundStop();
+	EffectSoundPlay("Pickuparrow.ogg");
+
 	Renderer->ChangeAnimation("Get");
 	Collision->Off();
 	PickUpCollision->Off();
@@ -53,7 +61,6 @@ void Arrow::PinnedStart()
 	Collision->Off();
 	PickUpCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;
-
 }
 
 void Arrow::HoldUpdate(float _Delta)

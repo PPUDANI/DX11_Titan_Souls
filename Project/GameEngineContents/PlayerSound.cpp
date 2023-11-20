@@ -3,6 +3,13 @@
 
 void Player::SoundLoad() 
 {
+	if (true == SoundIsLoad)
+	{
+		return;
+	}
+
+	SoundIsLoad = true;
+
 	// Stone Step
 	GlobalLoad::LoadSound("Stone_Step1.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
 	GlobalLoad::LoadSound("Stone_Step2.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
@@ -28,37 +35,6 @@ void Player::SoundLoad()
 
 }
 
-void Player::SetRandomPlayer()
-{
-	std::vector<std::string_view> SoundList =
-	{
-	"Stone_Step1.ogg",
-	"Stone_Step2.ogg",
-	"Stone_Step3.ogg",
-	"Stone_Step4.ogg",
-	"Stone_Step5.ogg",
-	"Stone_Step6.ogg",
-	"Stone_Step7.ogg",
-	"Stone_Step8.ogg"
-	};
-	StoneStepRandomPlayer->InputSoundList(EffectPlayer, SoundList);
-	SoundList.clear();
-
-	SoundList =
-	{
-	"Grass_Step1.ogg",
-	"Grass_Step2.ogg",
-	"Grass_Step3.ogg",
-	"Grass_Step4.ogg",
-	"Grass_Step5.ogg",
-	"Grass_Step6.ogg",
-	"Grass_Step7.ogg",
-	"Grass_Step8.ogg"
-	};
-
-	GrassStepRandomPlayer->InputSoundList(EffectPlayer, SoundList);
-	SoundList.clear();
-}
 
 void Player::StepSoundPlay()
 {
@@ -82,7 +58,7 @@ void Player::StepSoundPlay()
 	switch (Type)
 	{
 	case TILE_MATERIAL_TYPE::Grass:
-		GrassStepRandomPlayer->RandomPlay();
+		GrassStepRandomPlayer.RandomPlay();
 		break;
 	case TILE_MATERIAL_TYPE::Snow:
 		break;
@@ -93,7 +69,7 @@ void Player::StepSoundPlay()
 	case TILE_MATERIAL_TYPE::SludgeTile:
 	case TILE_MATERIAL_TYPE::Empty:
 	default:
-		StoneStepRandomPlayer->RandomPlay();
+		StoneStepRandomPlayer.RandomPlay();
 		break;
 	}
 }

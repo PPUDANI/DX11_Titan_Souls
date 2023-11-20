@@ -50,10 +50,6 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	// BGM, AMBIENCE
-	GlobalLoad::LoadSound("StillLake.ogg", "Resource\\Sound\\Ambience\\");
-	GlobalLoad::LoadSound("Overworld1.ogg", "Resource\\Sound\\BGM\\");
-	GlobalLoad::LoadSound("Colossus.ogg", "Resource\\Sound\\BGM\\");
 }
 
 void Floor1::Update(float _Delta)
@@ -186,4 +182,13 @@ void Floor1::ReleaseTriggerBox()
 		EnterTheYetiRoom->Death();
 		EnterTheYetiRoom = nullptr;
 	}
+}
+
+void Floor1::SoundLoad()
+{
+	// BGM, AMBIENCE
+	GlobalLoad::LoadSound("StillLake.ogg", "Resource\\Sound\\Ambience\\");
+	GlobalLoad::LoadSound("Overworld1.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Colossus.ogg", "Resource\\Sound\\BGM\\");
+
 }

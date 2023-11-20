@@ -90,5 +90,4 @@ private:
 	void SetSelectAction();
 
 private:
-
 };

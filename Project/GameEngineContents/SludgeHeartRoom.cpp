@@ -44,9 +44,6 @@ void SludgeHeartRoom::Start()
 	ScreenOverlayActor->SetColor({ 0.0f, 0.2f, 0.0f });
 	ScreenOverlayActor->SetAlpha(0.1f);
 
-	GlobalLoad::LoadSound("AcidNerve.ogg", "Resource\\Sound\\BGM\\");
-	GlobalLoad::LoadSound("Sewer.ogg", "Resource\\Sound\\Ambience\\");
-	
 }
 
 void SludgeHeartRoom::Update(float _Delta)
@@ -274,4 +271,12 @@ void SludgeHeartRoom::ReleaseTriggerBox()
 		EnterTheFloor1->Death();
 		EnterTheFloor1 = nullptr;
 	}
+}
+
+
+void SludgeHeartRoom::SoundLoad()
+{
+	GlobalLoad::LoadSound("AcidNerve.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Sewer.ogg", "Resource\\Sound\\Ambience\\");
+
 }

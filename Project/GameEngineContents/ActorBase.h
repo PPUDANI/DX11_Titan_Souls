@@ -17,17 +17,18 @@ protected:
 	// Inheritance Functions
 	void Start() override;
 	void Update(float _Delta) override;
+
+protected:
 	void EffectSoundStop()
 	{
 		EffectPlayer.Stop();
 	}
 
-	void EffectSoundPlay(std::string_view _SoundName)
+	void EffectSoundPlay(std::string_view _SoundName, int _Loop = 0)
 	{
-		EffectPlayer = GameEngineSound::SoundPlay(_SoundName);
+		EffectPlayer = GameEngineSound::SoundPlay(_SoundName, _Loop);
 		EffectPlayer.SetVolume(LevelBase::GetEffectVolume());
 	}
 
 	GameEngineSoundPlayer EffectPlayer;
-private:
 };

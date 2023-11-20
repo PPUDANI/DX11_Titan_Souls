@@ -1,12 +1,17 @@
 #include "PreCompile.h"
 #include "Icicle.h"
 
+SoundRandomPlayer Icicle::LandPlayer(GlobalValue::IcicleLandList);
+SoundRandomPlayer Icicle::SmashPlayer(GlobalValue::IcicleSmashList);
+
 Icicle::Icicle()
 {
+
 }
 
 Icicle::~Icicle()
 {
+
 }
 
 void Icicle::Init(const float4& _TargetPos, const float4& _Height)
@@ -31,8 +36,6 @@ void Icicle::Start()
 
 	BodyRenderer->SetSprite("Icicle.png", RandomIndex);
 	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
-
-
 
 	switch (RandomIndex)
 	{

@@ -324,16 +324,11 @@ private:
 	}
 
 private:
-	class SoundRandomPlayer* StoneStepRandomPlayer = nullptr;
-	class SoundRandomPlayer* GrassStepRandomPlayer = nullptr;
-	class SoundRandomPlayer* IceStepRandomPlayer = nullptr;
+	static class SoundRandomPlayer StoneStepRandomPlayer;
+	static class SoundRandomPlayer GrassStepRandomPlayer;
 
-	class SoundRandomPlayer* Ice = nullptr;
-
-
+	static bool SoundIsLoad;
 	void SoundLoad();
-	void SetRandomPlayer();
-
 	void StepSoundPlay();
 
 	int PrevStepInex = 0;

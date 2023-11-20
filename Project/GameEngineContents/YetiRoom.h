@@ -61,4 +61,7 @@ private:
 	void BossWakeUpProcessing();
 
 	bool WakeUpProcessingIsEnd = false;
+
+private:
+	void SoundLoad() override;
 };

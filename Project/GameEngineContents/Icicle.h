@@ -52,4 +52,9 @@ private:
 
 	float LiveTime = 10.0f;
 	float LiveTimer = 0.0f;
+
+private:
+	static SoundRandomPlayer LandPlayer;
+	static SoundRandomPlayer SmashPlayer;
+
 };

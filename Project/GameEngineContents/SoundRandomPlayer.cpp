@@ -1,14 +1,15 @@
 #include "PreCompile.h"
 #include "SoundRandomPlayer.h"
 
-SoundRandomPlayer::SoundRandomPlayer()
-{
-}
 
 SoundRandomPlayer::~SoundRandomPlayer()
 {
 }
 
+void SoundRandomPlayer::InputSoundList(std::vector<std::string_view> _SoundList)
+{
+	SoundList = _SoundList;
+}
 void SoundRandomPlayer::RandomPlay()
 {
 	if (true == SoundList.empty())

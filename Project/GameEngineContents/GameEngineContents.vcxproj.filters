@@ -148,6 +148,9 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
     </ClCompile>
+    <ClCompile Include="ArrowSound.cpp">
+      <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">

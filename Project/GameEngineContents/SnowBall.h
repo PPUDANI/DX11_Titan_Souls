@@ -1,6 +1,6 @@
 #pragma once
 
-class Snowball : public GameEngineActor
+class Snowball : public ActorBase
 {
 public:
 	// Constructor Destructor
@@ -41,6 +41,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
+	bool SoundIsPlay = false;
 private:
 	TileMap* CurMap = nullptr;
 	Player* EnymePlayer = nullptr;
@@ -51,4 +52,6 @@ private:
 	float4 AngleToPlayer = float4::ZERO;
 	
 	float SnowballSpeed = 1500.0f;
+
+	static class SoundRandomPlayer ThrowPlayer;
 };

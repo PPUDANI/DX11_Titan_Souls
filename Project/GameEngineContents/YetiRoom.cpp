@@ -46,9 +46,6 @@ void YetiRoom::Start()
 	ScreenOverlayActor->SetColor({ 0.8f, 0.8f, 0.8f });
 	ScreenOverlayActor->SetAlpha(0.1f);
 
-	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
-	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
-	
 }
 
 void YetiRoom::Update(float _Delta)
@@ -231,6 +228,8 @@ void YetiRoom::BossWakeUpProcessing()
 	OutputBossName();
 }
 
+
+
 void YetiRoom::ReleaseBoss()
 {
 	if (nullptr != YetiActor)
@@ -317,5 +316,36 @@ void YetiRoom::ReleaseTriggerBox()
 	{
 		EnterTheFloor1->Death();
 		EnterTheFloor1 = nullptr;
+	}
+}
+
+void YetiRoom::SoundLoad()
+{
+	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
+	GlobalLoad::LoadSound("Impact.ogg", "Resource\\Sound\\Player\\Death\\");
+
+	size_t Index = GlobalValue::SnowballThrowList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SnowballThrowList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
+	Index = GlobalValue::SnowballImpactList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::SnowballImpactList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
+	Index = GlobalValue::IcicleLandList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::IcicleLandList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
+	Index = GlobalValue::IcicleSmashList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::IcicleSmashList[i], "Resource\\Sound\\Boss\\Yeti\\");
 	}
 }

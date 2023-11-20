@@ -90,4 +90,18 @@ protected:
 	float ShakingLerpValue = 0.0f;
 
 	float CameraPosLerpForce = 0.0f;
+
+protected:
+	void EffectSoundStop()
+	{
+		EffectPlayer.Stop();
+	}
+
+	void EffectSoundPlay(std::string_view _SoundName)
+	{
+		EffectPlayer = GameEngineSound::SoundPlay(_SoundName);
+		EffectPlayer.SetVolume(LevelBase::GetEffectVolume());
+	}
+
+	GameEngineSoundPlayer EffectPlayer;
 };

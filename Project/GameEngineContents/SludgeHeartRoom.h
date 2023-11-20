@@ -56,4 +56,7 @@ private:
 
 	// Overlay
 	std::shared_ptr<class ScreenOverlay> ScreenOverlayActor = nullptr;
+
+private:
+	void SoundLoad() override;
 }; 

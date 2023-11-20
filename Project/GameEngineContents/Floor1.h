@@ -40,4 +40,7 @@ private:
 
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect;
+
+private:
+	void SoundLoad() override;
 };

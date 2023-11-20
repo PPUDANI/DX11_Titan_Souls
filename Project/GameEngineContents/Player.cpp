@@ -2,19 +2,18 @@
 #include "Player.h"
 #include "Arrow.h"
 
+bool Player::SoundIsLoad = false;
+SoundRandomPlayer Player::StoneStepRandomPlayer(GlobalValue::PlayerStoneStepList);
+SoundRandomPlayer Player::GrassStepRandomPlayer(GlobalValue::PlayerGrassStepList);
+
 Player::Player()
 {
-	StoneStepRandomPlayer = new SoundRandomPlayer();
-	GrassStepRandomPlayer = new SoundRandomPlayer();
+
 }
 
 Player::~Player()
 {
-	delete StoneStepRandomPlayer;
-	StoneStepRandomPlayer = nullptr;
 
-	delete GrassStepRandomPlayer;
-	GrassStepRandomPlayer = nullptr;
 }
 
 
@@ -59,7 +58,6 @@ void Player::Start()
 	//	};
 
 	SoundLoad();
-	SetRandomPlayer();
 	
 	ChangeState(PLAYER_STATE::StandUp);
 

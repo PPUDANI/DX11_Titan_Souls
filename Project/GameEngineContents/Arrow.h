@@ -12,7 +12,7 @@ enum class ARROW_STATE
 	Pinned,
 };
 
-class Arrow : public GameEngineActor
+class Arrow : public ActorBase
 {
 public:
 	// Constructor Destructor
@@ -160,4 +160,7 @@ private:
 public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;
+private:
+	static bool SoundIsLoad;
+	void SoundLoad();
 };

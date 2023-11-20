@@ -47,6 +47,8 @@ protected:
 	
 	void EnterRoomTriggerFunc();
 	void ExitRoomTriggerFunc();
+
+	virtual void SoundLoad() {};
 private:
 
 	// PostEffect

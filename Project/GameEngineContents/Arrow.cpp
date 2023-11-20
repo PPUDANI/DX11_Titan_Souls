@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Arrow.h"
 
+bool Arrow::SoundIsLoad = false;
 Arrow::Arrow()
 {
 }
@@ -28,8 +29,11 @@ void Arrow::Start()
 	PickUpCollision->SetCollisionType(ColType::SPHERE2D);
 	PickUpCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
-	ChangeState(ARROW_STATE::Hold);
 
+	SoundLoad();
+
+
+	ChangeState(ARROW_STATE::Hold);
 	GameEngineInput::AddInputObject(this);
 }
 
@@ -137,6 +141,7 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 				if (false == IsBlocked)
 				{
 					DirSpecularReflection();
+					
 				}
 				PullingForce /= 2.0f;
 			}
@@ -260,6 +265,7 @@ void Arrow::DebugRender()
 }
 
 
+
 void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _CollisionGroup, float4 _MovePos)
 {
 	if (StandartPullingForceByHit < PullingForce)
@@ -292,3 +298,4 @@ void Arrow::BossBodyCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 		DirSpecularReflection();
 	}
 }
+
