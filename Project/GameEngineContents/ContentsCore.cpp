@@ -38,11 +38,10 @@ void ContentsCore::Start()
 
 	// Map Texture Load
 	GlobalLoad::LoadSpriteCut(16, 16, "Spectiles.png", "Resource\\Texture\\Map\\");
-	GlobalLoad::LoadSpriteCut(64, 64, "Jam.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Underworld.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Overworld.png", "Resource\\Texture\\Map\\");
 	GlobalLoad::LoadSpriteCut(64, 64, "Overworld2.png", "Resource\\Texture\\Map\\");
-
+	
 	// UI Texture Load
 	GlobalLoad::LoadSpriteSingle("BossNameBG.png", "Resource\\Texture\\UI\\");
 
