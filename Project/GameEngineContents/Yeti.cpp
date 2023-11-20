@@ -2,6 +2,12 @@
 #include "Yeti.h"
 #include "YetiRoom.h"
 
+SoundRandomPlayer Yeti::RollPlayer(GlobalValue::YetiRollList);
+SoundRandomPlayer Yeti::BlockedPlayer(GlobalValue::YetiBlockedList);
+SoundRandomPlayer Yeti::LandPlayer(GlobalValue::YetiLandList);
+
+bool Yeti::SoundIsLoaded = false;
+
 Yeti::Yeti()
 {
 }
@@ -16,6 +22,7 @@ void Yeti::Start()
 
 	// Create Renderer
 	CreateYetiAnimation();
+	SoundLoad();
 	ChangeState(YETI_STATE::Sleep);
 
 	// Create Collision
@@ -510,4 +517,33 @@ void Yeti::ShakingScreenInit()
 	ScreenShakingTimer = 0.0f;
 	ShakingPerFrame = 0.2f;
 	ShakingLerpValue = 15.0f;
+}
+
+void Yeti::SoundLoad()
+{
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
+	size_t Index = GlobalValue::YetiRollList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::YetiRollList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
+	Index = GlobalValue::YetiBlockedList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::YetiBlockedList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
+	Index = GlobalValue::YetiLandList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::YetiLandList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
 }

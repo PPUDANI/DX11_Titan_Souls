@@ -26,6 +26,7 @@ void Icicle::Start()
 {
 	GlobalLoad::LoadSpriteCut(8, 1, "Icicle.png", "Resource\\Texture\\Boss\\Yeti\\");
 	GlobalLoad::LoadSpriteSingle("IcicleShadow.png", "Resource\\Texture\\Boss\\Yeti\\");
+	SoundLoad();
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
@@ -126,5 +127,29 @@ void Icicle::ChangeState(ICICLE_STATE _State)
 		break;
 	default:
 		break;
+	}
+}
+
+void Icicle::SoundLoad()
+{
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
+	GlobalLoad::LoadSound("Crush.ogg", "Resource\\Sound\\Player\\Death\\");
+
+	size_t Index = GlobalValue::IcicleLandList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::IcicleLandList[i], "Resource\\Sound\\Boss\\Yeti\\");
+	}
+
+	Index = GlobalValue::IcicleSmashList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::IcicleSmashList[i], "Resource\\Sound\\Boss\\Yeti\\");
 	}
 }

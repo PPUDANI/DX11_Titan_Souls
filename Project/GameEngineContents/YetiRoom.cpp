@@ -321,31 +321,13 @@ void YetiRoom::ReleaseTriggerBox()
 
 void YetiRoom::SoundLoad()
 {
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
 	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
 	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
-	GlobalLoad::LoadSound("Impact.ogg", "Resource\\Sound\\Player\\Death\\");
-
-	size_t Index = GlobalValue::SnowballThrowList.size();
-	for (size_t i = 0; i < Index; ++i)
-	{
-		GlobalLoad::LoadSound(GlobalValue::SnowballThrowList[i], "Resource\\Sound\\Boss\\Yeti\\");
-	}
-
-	Index = GlobalValue::SnowballImpactList.size();
-	for (size_t i = 0; i < Index; ++i)
-	{
-		GlobalLoad::LoadSound(GlobalValue::SnowballImpactList[i], "Resource\\Sound\\Boss\\Yeti\\");
-	}
-
-	Index = GlobalValue::IcicleLandList.size();
-	for (size_t i = 0; i < Index; ++i)
-	{
-		GlobalLoad::LoadSound(GlobalValue::IcicleLandList[i], "Resource\\Sound\\Boss\\Yeti\\");
-	}
-
-	Index = GlobalValue::IcicleSmashList.size();
-	for (size_t i = 0; i < Index; ++i)
-	{
-		GlobalLoad::LoadSound(GlobalValue::IcicleSmashList[i], "Resource\\Sound\\Boss\\Yeti\\");
-	}
 }

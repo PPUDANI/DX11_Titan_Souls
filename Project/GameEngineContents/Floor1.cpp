@@ -186,6 +186,13 @@ void Floor1::ReleaseTriggerBox()
 
 void Floor1::SoundLoad()
 {
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
 	// BGM, AMBIENCE
 	GlobalLoad::LoadSound("StillLake.ogg", "Resource\\Sound\\Ambience\\");
 	GlobalLoad::LoadSound("Overworld1.ogg", "Resource\\Sound\\BGM\\");

@@ -3,12 +3,12 @@
 
 void Player::SoundLoad() 
 {
-	if (true == SoundIsLoad)
+	if (true == SoundIsLoaded)
 	{
 		return;
 	}
 
-	SoundIsLoad = true;
+	SoundIsLoaded = true;
 
 	// Stone Step
 	GlobalLoad::LoadSound("Stone_Step1.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");

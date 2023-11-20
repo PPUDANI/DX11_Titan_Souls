@@ -3,12 +3,12 @@
 
 void Arrow::SoundLoad()
 {
-	if (true == SoundIsLoad)
+	if (true == SoundIsLoaded)
 	{
 		return;
 	}
 
-	SoundIsLoad = true;
+	SoundIsLoaded = true;
 
 	GlobalLoad::LoadSound("arrow_charge.ogg", "Resource\\Sound\\Player\\Arrow\\");
 	GlobalLoad::LoadSound("arrow_shoot.ogg", "Resource\\Sound\\Player\\Arrow\\");

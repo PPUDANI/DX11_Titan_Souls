@@ -104,4 +104,6 @@ protected:
 	}
 
 	GameEngineSoundPlayer EffectPlayer;
+
+	static bool SoundIsLoded;
 };

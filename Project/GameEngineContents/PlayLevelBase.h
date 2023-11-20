@@ -48,6 +48,7 @@ protected:
 	void EnterRoomTriggerFunc();
 	void ExitRoomTriggerFunc();
 
+	bool SoundIsLoaded = false;
 	virtual void SoundLoad() {};
 private:
 

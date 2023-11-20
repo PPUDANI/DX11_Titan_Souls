@@ -171,5 +171,14 @@ private:
 	void ThrowSnowball();
 	void DropIcicle();
 private:
-	void ShakingScreenInit();
+	void ShakingScreenInit(); 
+
+private:
+	static bool SoundIsLoaded;
+	void SoundLoad();
+
+	static SoundRandomPlayer RollPlayer;
+	static SoundRandomPlayer BlockedPlayer;
+	
+	static SoundRandomPlayer LandPlayer;
 };

@@ -59,7 +59,7 @@ void Player::StandUpStart()
 void Player::EnterLevelStart()
 {
 	EnterTimer = 0.0f;
-
+	BodyCollision->Off();
 	BodyRenderer->ChangeAnimation("EnterLevel");
 	BowRenderer->ChangeAnimation("EnterLevel");
 	ArrowInBagRenderer->ChangeAnimation("EnterLevel");
@@ -70,7 +70,7 @@ void Player::EnterLevelStart()
 void Player::ExitLevelStart()
 {
 	ExitTimer = 0.0f;
-
+	BodyCollision->Off();
 	BodyRenderer->ChangeAnimation("ExitLevel");
 	BowRenderer->ChangeAnimation("ExitLevel");
 	ArrowInBagRenderer->ChangeAnimation("ExitLevel");
@@ -319,6 +319,7 @@ void Player::StandUpUpdate(float _Delta)
 
 void Player::EnterLevelUpdate(float _Delta)
 {
+	StepSoundPlay();
 	if (1.5f < EnterTimer)
 	{
 		EnterTimer = 0.0f;
@@ -336,6 +337,7 @@ void Player::EnterLevelUpdate(float _Delta)
 
 void Player::ExitLevelUpdate(float _Delta)
 {
+	StepSoundPlay();
 	if (1.5f < ExitTimer)
 	{
 		ExitTimer = 0.0f;

@@ -327,7 +327,7 @@ private:
 	static class SoundRandomPlayer StoneStepRandomPlayer;
 	static class SoundRandomPlayer GrassStepRandomPlayer;
 
-	static bool SoundIsLoad;
+	static bool SoundIsLoaded;
 	void SoundLoad();
 	void StepSoundPlay();
 

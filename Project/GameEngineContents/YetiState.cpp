@@ -30,6 +30,8 @@ void Yeti::ReadyToRollStart()
 
 void Yeti::RollingStart()
 {
+	RollPlayer.RandomPlay();
+
 	SetMoveDir(Transform.GetLocalPosition());
 	DirectionUpdate();
 
@@ -41,6 +43,7 @@ void Yeti::RollingStart()
 
 void Yeti::LandingStart()
 {
+	LandPlayer.RandomPlay();
 	ShakingScreenInit();
 
 	LandingTimer = 0.0f;
@@ -54,6 +57,8 @@ void Yeti::LandingStart()
 
 void Yeti::BlockedStart()
 {
+	RollPlayer.Stop();
+	BlockedPlayer.RandomPlay();
 	DropIcicle();
 	ShakingScreenInit();
 	DirReflection();

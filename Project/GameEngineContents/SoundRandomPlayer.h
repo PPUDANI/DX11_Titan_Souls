@@ -18,7 +18,13 @@ public:
 
 	void InputSoundList(std::vector<std::string_view> _SoundList);
 
-	void RandomPlay();
+	void RandomPlay(float AddSoundVolume= 0.0f, int _Loop = 0);
+
+	inline void Stop()
+	{
+		SoundPlayer.Stop();
+	}
+
 protected:
 
 private:

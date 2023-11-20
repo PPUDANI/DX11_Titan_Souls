@@ -19,6 +19,9 @@ public:
 	static std::vector<std::string_view> PlayerGrassStepList;
 
 	// Yeti
+	static std::vector<std::string_view> YetiRollList;
+	static std::vector<std::string_view> YetiBlockedList;
+	static std::vector<std::string_view> YetiLandList;
 	static std::vector<std::string_view> SnowballThrowList;
 	static std::vector<std::string_view> SnowballImpactList;
 	static std::vector<std::string_view> IcicleLandList;

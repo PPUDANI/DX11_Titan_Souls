@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "Arrow.h"
 
-bool Arrow::SoundIsLoad = false;
+bool Arrow::SoundIsLoaded = false;
 Arrow::Arrow()
 {
 }

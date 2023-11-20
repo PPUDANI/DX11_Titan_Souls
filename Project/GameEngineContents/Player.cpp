@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Arrow.h"
 
-bool Player::SoundIsLoad = false;
+bool Player::SoundIsLoaded = false;
 SoundRandomPlayer Player::StoneStepRandomPlayer(GlobalValue::PlayerStoneStepList);
 SoundRandomPlayer Player::GrassStepRandomPlayer(GlobalValue::PlayerGrassStepList);
 

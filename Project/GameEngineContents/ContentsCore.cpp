@@ -55,6 +55,7 @@ void ContentsCore::Start()
 	GameEngineCore::ChangeLevel("00.TitleLevel");
 
 	GameEngineInput::AddInputObject(this);
+
 }
 
 void ContentsCore::Update(float _Delta)

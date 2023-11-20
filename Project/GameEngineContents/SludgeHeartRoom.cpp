@@ -276,7 +276,15 @@ void SludgeHeartRoom::ReleaseTriggerBox()
 
 void SludgeHeartRoom::SoundLoad()
 {
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
 	GlobalLoad::LoadSound("AcidNerve.ogg", "Resource\\Sound\\BGM\\");
 	GlobalLoad::LoadSound("Sewer.ogg", "Resource\\Sound\\Ambience\\");
+
 
 }

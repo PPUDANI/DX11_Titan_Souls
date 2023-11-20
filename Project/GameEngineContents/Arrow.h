@@ -161,6 +161,6 @@ public:
 	//CurMap EndPos
 	float4 TileEndPos = float4::ZERO;
 private:
-	static bool SoundIsLoad;
+	static bool SoundIsLoaded;
 	void SoundLoad();
 };

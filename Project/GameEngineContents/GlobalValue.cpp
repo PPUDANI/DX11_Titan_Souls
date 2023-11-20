@@ -32,6 +32,33 @@ std::vector<std::string_view> GlobalValue::PlayerGrassStepList
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////  Yeti  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+std::vector<std::string_view> GlobalValue::YetiRollList
+{
+	"Yeti_Roll1.ogg",
+	"Yeti_Roll2.ogg",
+	"Yeti_Roll3.ogg",
+	"Yeti_Roll4.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::YetiBlockedList
+{
+	"YetiBallImpact1.ogg",
+	"YetiBallImpact2.ogg",
+	"YetiBallImpact3.ogg",
+	"YetiBallImpact4.ogg"
+};
+
+std::vector<std::string_view> GlobalValue::YetiLandList
+{
+	"YetiLand1.ogg",
+	"YetiLand2.ogg",
+	"YetiLand3.ogg",
+	"YetiLand4.ogg"
+};
+
+
+
 std::vector<std::string_view> GlobalValue::SnowballThrowList
 {
 	"SnowThrow1.ogg",

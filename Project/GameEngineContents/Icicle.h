@@ -57,4 +57,7 @@ private:
 	static SoundRandomPlayer LandPlayer;
 	static SoundRandomPlayer SmashPlayer;
 
+	static bool SoundIsLoaded;
+	void SoundLoad();
+
 };

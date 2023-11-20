@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Icicle.h"
 
+bool Icicle::SoundIsLoaded = false;
+
 void Icicle::FallingStart()
 {
 }
@@ -38,6 +40,7 @@ void Icicle::FallingUpdate(float _Delta)
 			if (false == EnymePlayer->InvincibilityModeIsOn() &&
 				true == FallingCollision->Collision(COLLISION_TYPE::Player))
 			{
+				EffectSoundPlay("Crush.ogg");
 				EnymePlayer->ChangeState(PLAYER_STATE::Death);
 			}
 		}
@@ -58,6 +61,8 @@ void Icicle::StuckUpdate(float _Delta)
 		true == Collision->Collision(COLLISION_TYPE::BossBodyAttack) ||
 		true == Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam))
 	{
+		SmashPlayer.RandomPlay();
 		Death();
 	}
 }
+
