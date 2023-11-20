@@ -88,7 +88,7 @@ void YetiRoom::Update(float _Delta)
 void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-
+	WakeUpProcessingIsEnd = false;
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
