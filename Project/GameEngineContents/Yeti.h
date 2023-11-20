@@ -70,7 +70,6 @@ private:
 	YETI_STATE CurState = YETI_STATE::Sleep;
 	YETI_STATE NextStateBuffer = YETI_STATE::Sleep;
 
-
 	void SleepStart();
 	void IdleStart();
 	void ThrowingStart();
@@ -179,6 +178,5 @@ private:
 
 	static SoundRandomPlayer RollPlayer;
 	static SoundRandomPlayer BlockedPlayer;
-	
 	static SoundRandomPlayer LandPlayer;
 };

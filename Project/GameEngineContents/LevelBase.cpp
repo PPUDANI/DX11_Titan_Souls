@@ -14,6 +14,7 @@ LevelBase::~LevelBase()
 
 void LevelBase::Start()
 {
+	SetBackgroundVolume(0.5f);
 	GetMainCamera()->SetYSort(RENDERING_ORDER::Y_SORT_ENTITY);
 	CursorActor = CreateActor<MouseCursor>(UPDATE_ORDER::UI);
 	OffDebug();

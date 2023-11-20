@@ -39,6 +39,10 @@
 #include "LevelBase.h"
 #include "PlayLevelBase.h"
 
+// Post Effect
+#include "PlayerMaskEffect.h"
+#include "SoundRandomPlayer.h"
+
 // Actor
 #include "CameraManager.h"
 #include "TileMap.h"
@@ -60,9 +64,6 @@
 #include "SelectText.h"
 #include "AncientScript.h"
 
-// Post Effect
-#include "PlayerMaskEffect.h"
-#include "SoundRandomPlayer.h"
 
 // UI
 #include <GameEngineCore/GameEngineUIRenderer.h>

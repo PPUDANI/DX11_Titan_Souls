@@ -21,11 +21,11 @@ void Arrow::Start()
 	Renderer->CreateAnimation("Get", "Player.png", 0.06f, 220, 223, false);
 	Renderer->CreateAnimation("Pinned", "Player.png", 10.0f, 62, 62, false);
 
-	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
+	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
 	Collision->SetCollisionType(ColType::SPHERE2D);
 	Collision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 
-	PickUpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::GetArrow);
+	PickUpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PickupArrow);
 	PickUpCollision->SetCollisionType(ColType::SPHERE2D);
 	PickUpCollision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
 

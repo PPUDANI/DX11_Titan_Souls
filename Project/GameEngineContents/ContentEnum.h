@@ -46,7 +46,7 @@ enum class COLLISION_TYPE
 {
 	Player,
 	PlayerDir,
-	GetArrow,
+	PickupArrow,
 	AttackArrow,
 	Weakness,
 	BossBody,

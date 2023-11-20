@@ -50,21 +50,22 @@ void Sludge::Start()
 
 	CollisionParam.Enter = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
 		{
-			if (false == EnymeArrow->HitSpeedCheck())
+			if (true == EnymeArrow->HitSpeedCheck())
 			{
-				return;
-			}
-			++DividedCount;
-			if (3 >= DividedCount)
-			{
-				IsDivision = true;
-			}
-			if (1 == DividedCount)
-			{
-				if (nullptr != HeartActor)
+				Collision->Off();
+				++DividedCount;
+				if (3 >= DividedCount)
 				{
-					HeartActor->SetFirstHit(true);
-					PlayerDetectionRange->On();
+					IsDivision = true;
+				}
+
+				if (1 == DividedCount)
+				{
+					if (nullptr != HeartActor)
+					{
+						HeartActor->SetFirstHit(true);
+						PlayerDetectionRange->On();
+					}
 				}
 			}
 		};
@@ -84,6 +85,7 @@ void Sludge::Start()
 
 void Sludge::Update(float _Delta)
 {
+
 	// JumpStartPos 초기값 설정
 	if (float4::ZERO == JumpStartPos)
 	{
@@ -103,14 +105,15 @@ void Sludge::Update(float _Delta)
 	// Sludge 분열 (최대 3번)
 	if (false == MaxDivision)
 	{
-
-		if (true == Collision->CollisionEvent(COLLISION_TYPE::GetArrow, CollisionParam))
+		if (true == Collision->CollisionEvent(COLLISION_TYPE::AttackArrow, CollisionParam))
 		{
 			if (false == EnymeArrow->HitSpeedCheck())
 			{
 				EnymeArrow->DecreasePullingForce(5.0f * _Delta);
 			}
+
 		}
+
 		if (3 >= DividedCount)
 		{
 			if (true == IsDivision)
@@ -142,14 +145,12 @@ void Sludge::Update(float _Delta)
 		}
 	}
 
+
+
 	JumpBoss::Update(_Delta);
 
 	// Heart position setting
 	HeartPos = { 0.0f, RenderScale.Y / 4.0f - 16.0f * static_cast<float>(DividedCount) };
-
-	// Collision Position Setting
-	float4 CollisionPos = float4::ZERO;
-	Collision->Transform.SetLocalPosition(CollisionPos);
 
 	if (nullptr != HeartActor)
 	{

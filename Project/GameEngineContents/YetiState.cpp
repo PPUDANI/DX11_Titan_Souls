@@ -87,6 +87,7 @@ void Yeti::HitStart()
 void Yeti::DeathStart()
 {
 	SetAnimByDir("Death");
+	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
 }
 
 void Yeti::SleepUpdate(float _Delta)

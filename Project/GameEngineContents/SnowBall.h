@@ -53,7 +53,7 @@ private:
 	
 	float SnowballSpeed = 1500.0f;
 
-	static class SoundRandomPlayer ThrowPlayer;
+	static SoundRandomPlayer ThrowPlayer;
 
 	static bool SoundIsLoaded;
 	void SoundLoad();

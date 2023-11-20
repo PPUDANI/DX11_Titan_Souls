@@ -106,9 +106,6 @@ void Yeti::Update(float _Delta)
 		break;
 	}
 
-	BodyCollision->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
-	BodyCollision2->CollisionEvent(COLLISION_TYPE::AttackArrow, Param);
-
 	if (YETI_STATE::Blocked != CurState)
 	{
 		JumpStartPos = Transform.GetLocalPosition();

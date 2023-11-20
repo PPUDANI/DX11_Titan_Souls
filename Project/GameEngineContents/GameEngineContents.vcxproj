@@ -190,6 +190,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ColossusBody.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ColossusHand.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsControlWindow.cpp" />
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
@@ -349,6 +357,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ColossusBody.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ColossusHand.h">
       <SubType>
       </SubType>
     </ClInclude>

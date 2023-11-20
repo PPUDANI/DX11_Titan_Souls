@@ -102,7 +102,7 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
-
+	BossFirstHitPrecessingIsEnd = false;
 	// 액터 레벨이동 구현 
 	if (false == BossIsDeath)
 	{

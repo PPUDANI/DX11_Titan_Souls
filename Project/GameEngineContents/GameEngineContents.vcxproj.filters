@@ -151,6 +151,12 @@
     <ClCompile Include="ArrowSound.cpp">
       <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
     </ClCompile>
+    <ClCompile Include="ColossusBody.cpp">
+      <Filter>01. Actor\03. Boss\03. Colossus</Filter>
+    </ClCompile>
+    <ClCompile Include="ColossusHand.cpp">
+      <Filter>01. Actor\03. Boss\03. Colossus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -266,6 +272,12 @@
     </ClInclude>
     <ClInclude Include="ActorBase.h">
       <Filter>01. Actor\00. Actor Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ColossusBody.h">
+      <Filter>01. Actor\03. Boss\03. Colossus</Filter>
+    </ClInclude>
+    <ClInclude Include="ColossusHand.h">
+      <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +427,9 @@
     </Filter>
     <Filter Include="07. Effect\01. Player Mask Effect">
       <UniqueIdentifier>{da887fdf-8aae-45af-8e11-5e364efb3976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\03. Boss\03. Colossus">
+      <UniqueIdentifier>{270541da-3f1e-4b52-b64d-b75c3db9f43c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
