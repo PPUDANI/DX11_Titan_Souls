@@ -98,15 +98,18 @@ void Player::Update(float _Delta)
 		InvincibilityMode = !InvincibilityMode;
 	}
 
-	if (false == InvincibilityMode)
+	if (false == InvincibilityMode &&
+		PLAYER_STATE::Death != CurState)
 	{
 		if (true == BodyCollision->Collision(COLLISION_TYPE::BossBodyAttack))
 		{
+			EffectSoundPlay("Crush.ogg");
 			ChangeState(PLAYER_STATE::Death);
 		}
 
 		if (true == BodyCollision->Collision(COLLISION_TYPE::Weakness))
 		{
+			EffectSoundPlay("Crush.ogg");
 			ChangeState(PLAYER_STATE::Death);
 		}
 	}

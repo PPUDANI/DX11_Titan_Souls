@@ -33,6 +33,9 @@ void Player::SoundLoad()
 	GlobalLoad::LoadSound("Roll.ogg", "Resource\\Sound\\Player\\Roll\\");
 	GlobalLoad::LoadSound("Roll_bash.ogg", "Resource\\Sound\\Player\\Roll\\");
 
+	// Death
+	GlobalLoad::LoadSound("Crush.ogg", "Resource\\Sound\\Player\\Death\\");
+
 }
 
 
