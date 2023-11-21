@@ -18,6 +18,7 @@ public:
 
 	TriggerFunction EnterTriggerFunc = nullptr;
 	TriggerFunction StayTriggerFunc = nullptr;
+	TriggerFunction ExitTriggerFunc = nullptr;
 
 	inline void SetPlaceScale(const float4& _Sclae)
 	{
@@ -32,6 +33,11 @@ public:
 	inline void SetStayTriggerFunc(TriggerFunction _Func)
 	{
 		StayTriggerFunc = _Func;
+	}
+
+	inline void SetExitTriggerFunc(TriggerFunction _Func)
+	{
+		ExitTriggerFunc = _Func;
 	}
 
 protected:

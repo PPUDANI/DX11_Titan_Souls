@@ -31,6 +31,14 @@ void TriggerBox::Start()
 				StayTriggerFunc();
 			}
 		};
+
+	Param.Exit = [&](class GameEngineCollision* _This, class GameEngineCollision* _Collisions)
+		{
+			if (nullptr != ExitTriggerFunc)
+			{
+				ExitTriggerFunc();
+			}
+		};
 }
 
 void TriggerBox::Update(float _Delta)

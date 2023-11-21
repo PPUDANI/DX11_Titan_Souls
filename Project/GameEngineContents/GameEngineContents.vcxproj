@@ -194,7 +194,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ColossusHand.cpp">
+    <ClCompile Include="Hand.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -220,6 +220,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Hand_State.cpp" />
     <ClCompile Include="Icicle.cpp">
       <SubType>
       </SubType>
@@ -364,7 +365,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ColossusHand.h">
+    <ClInclude Include="Hand.h">
       <SubType>
       </SubType>
     </ClInclude>

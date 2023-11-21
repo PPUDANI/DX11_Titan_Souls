@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Floor1.h"
 #include <GameEngineCore/GameEngineCoreWindow.h>
+#include "Hand.h"
 
 Floor1::Floor1()
 {
@@ -69,7 +70,7 @@ void Floor1::Update(float _Delta)
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-
+	SpawnBoss();
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
@@ -117,6 +118,28 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	}
 	return;
+}
+
+void Floor1::SpawnBoss()
+{
+	LeftHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
+	LeftHandActor->Init(HAND_DIR::Left);
+	LeftHandActor->Transform.SetLocalPosition({ 1456.0f, -1984.0f });
+
+	RightHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
+	RightHandActor->Init(HAND_DIR::Right);
+	RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
+
+	LeftHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+	LeftHandPlayerDetectionRange->Transform.SetLocalPosition({ 1406.0f, -2100.0f });
+	LeftHandPlayerDetectionRange->SetPlaceScale({ 420.0f, 350.0f });
+	LeftHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterLeftDetectionRange, this));
+
+	RightHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+	RightHandPlayerDetectionRange->Transform.SetLocalPosition({ 1826.0f, -2100.0f });
+	RightHandPlayerDetectionRange->SetPlaceScale({ 420.0f, 350.0f });
+	RightHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
+
 }
 
 void Floor1::SpawnTriggerBox()
@@ -198,4 +221,16 @@ void Floor1::SoundLoad()
 	GlobalLoad::LoadSound("Overworld1.ogg", "Resource\\Sound\\BGM\\");
 	GlobalLoad::LoadSound("Colossus.ogg", "Resource\\Sound\\BGM\\");
 
+}
+
+void Floor1::EnterLeftDetectionRange()
+{
+	LeftIsDetected = true;
+	RightIsDetected = false;
+}
+
+void Floor1::EnterRightDetectionRange()
+{
+	LeftIsDetected = false;
+	RightIsDetected = true;
 }

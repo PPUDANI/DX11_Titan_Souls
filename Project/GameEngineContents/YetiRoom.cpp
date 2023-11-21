@@ -169,7 +169,7 @@ void YetiRoom::SpawnIcicle(const float4& _FirstTargetPos, const float4& _Angle)
 	float4 DirBasis = float4::GetUnitVectorFromDeg(_Angle.Z);
 	float4 VirticalDirBasis = float4::GetUnitVectorFromDeg(_Angle.Z + 90.0f);
 
-	int Index = Inst.RandomInt(5, 15); // 고드름 개수
+	int Index = Inst.RandomInt(10, 15); // 고드름 개수
 	float4 StartHeight = { 0.0f, 1000.0f }; // 시작 높이
 
 	for (int i = 0; i < Index; ++i)

@@ -20,7 +20,7 @@
       <Filter>01. Actor\01. Map</Filter>
     </ClCompile>
     <ClCompile Include="Floor1.cpp">
-      <Filter>02. Level\02. MainHub Level</Filter>
+      <Filter>02. Level\02. Floor1 Level</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>01. Actor\02. Player Element\01. Arrow</Filter>
@@ -154,7 +154,10 @@
     <ClCompile Include="ColossusBody.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
-    <ClCompile Include="ColossusHand.cpp">
+    <ClCompile Include="Hand.cpp">
+      <Filter>01. Actor\03. Boss\03. Colossus</Filter>
+    </ClCompile>
+    <ClCompile Include="Hand_State.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
   </ItemGroup>
@@ -172,7 +175,7 @@
       <Filter>02. Level\00.  LevelBase</Filter>
     </ClInclude>
     <ClInclude Include="Floor1.h">
-      <Filter>02. Level\02. MainHub Level</Filter>
+      <Filter>02. Level\02. Floor1 Level</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
@@ -276,7 +279,7 @@
     <ClInclude Include="ColossusBody.h">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClInclude>
-    <ClInclude Include="ColossusHand.h">
+    <ClInclude Include="Hand.h">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClInclude>
   </ItemGroup>
@@ -340,9 +343,6 @@
     </Filter>
     <Filter Include="02. Level\03. Sludge Heart Level">
       <UniqueIdentifier>{f1631e0c-c2f3-41f3-9183-8a402dcb4b87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Level\02. MainHub Level">
-      <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Level\01. Title Level">
       <UniqueIdentifier>{e884d415-2682-4b16-81a1-797bb861610c}</UniqueIdentifier>
@@ -428,8 +428,11 @@
     <Filter Include="07. Effect\01. Player Mask Effect">
       <UniqueIdentifier>{da887fdf-8aae-45af-8e11-5e364efb3976}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Level\02. Floor1 Level">
+      <UniqueIdentifier>{f535a8e6-429f-4e03-8c3c-6dfc4cba2655}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01. Actor\03. Boss\03. Colossus">
-      <UniqueIdentifier>{270541da-3f1e-4b52-b64d-b75c3db9f43c}</UniqueIdentifier>
+      <UniqueIdentifier>{dae5e2e2-c906-43d5-8f00-a173bf126f52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
