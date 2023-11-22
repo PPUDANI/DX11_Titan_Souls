@@ -1,6 +1,6 @@
 #pragma once
 
-class ColossusBody
+class ColossusBody : public GameEngineActor
 {
 public:
 	// Constructor Destructor
@@ -13,8 +13,14 @@ public:
 	ColossusBody& operator=(const ColossusBody& _Other) = delete;
 	ColossusBody& operator=(ColossusBody&& _Other) noexcept = delete;
 
-protected:
+private:
+	void Start() override;
+	void Update(float _Delta) override;
 
 private:
+	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr; 
+	std::shared_ptr<GameEngineSpriteRenderer> MaskRenderer = nullptr;
+
+	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
 };

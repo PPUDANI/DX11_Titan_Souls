@@ -2,7 +2,8 @@
 #include "Floor1.h"
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include "Hand.h"
-
+#include "ColossusBody.h"
+#include "ColossusBodyMask.h"
 Floor1::Floor1()
 {
 }
@@ -15,12 +16,14 @@ void Floor1::Start()
 {
 	PlayLevelBase::Start();
 
+	ColossusEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<ColossusBodyMask>();
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 
 	if (nullptr != Window)
 	{
 		Window->AddDebugRenderTarget(0, "Floor1RenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
+
 
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
@@ -141,12 +144,19 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 
 void Floor1::SpawnBoss()
 {
+	if (nullptr == BossBodyActor)
+	{
+		BossBodyActor = CreateActor<ColossusBody>(UPDATE_ORDER::Boss);
+		BossBodyActor->Transform.SetLocalPosition({ 1616.0f, -1984.0f });
+
+	}
+
 	if (nullptr == LeftHandActor)
 	{
 		LeftHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
 		LeftHandActor->Init(HAND_DIR::Left);
-		LeftHandActor->Transform.SetLocalPosition({ 1456.0f, -1984.0f });
 		LeftHandActor->SetEnymePlayer(PlayerActor.get());
+		LeftHandActor->Transform.SetLocalPosition({ 1456.0f, -1984.0f });
 		LeftHandActor->ChangeState(HAND_STATE::Sleep);
 	}
 
@@ -154,10 +164,11 @@ void Floor1::SpawnBoss()
 	{
 		RightHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
 		RightHandActor->Init(HAND_DIR::Right);
-		RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
 		RightHandActor->SetEnymePlayer(PlayerActor.get());
+		RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
 		RightHandActor->ChangeState(HAND_STATE::Sleep);
 	}
+
 
 	if (nullptr == LeftHandPlayerDetectionRange)
 	{

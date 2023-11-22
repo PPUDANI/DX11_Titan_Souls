@@ -160,6 +160,9 @@
     <ClCompile Include="Hand_State.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
+    <ClCompile Include="ColossusBodyMask.cpp">
+      <Filter>07. Effect\02. ColossusMask</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -281,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="Hand.h">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
+    </ClInclude>
+    <ClInclude Include="ColossusBodyMask.h">
+      <Filter>07. Effect\02. ColossusMask</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -433,6 +439,9 @@
     </Filter>
     <Filter Include="01. Actor\03. Boss\03. Colossus">
       <UniqueIdentifier>{dae5e2e2-c906-43d5-8f00-a173bf126f52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\02. ColossusMask">
+      <UniqueIdentifier>{f40f200b-d402-4ef9-9790-1029da511fe8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

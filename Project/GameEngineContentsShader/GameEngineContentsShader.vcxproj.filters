@@ -9,5 +9,8 @@
     <FxCompile Include="PlayerMaskEffect.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="ColossusBodyMask.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

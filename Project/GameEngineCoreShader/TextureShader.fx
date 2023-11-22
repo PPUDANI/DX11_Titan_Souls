@@ -157,8 +157,8 @@ PixelOut TextureShader_PS(PixelOutPut _Input) : SV_Target0
         ScreenPos.x += MaskScreenScale.x * 0.5f;
         ScreenPos.y += MaskScreenScale.y * 0.5f;
         
-        ScreenPos.x -= MaskPivot.x;
-        ScreenPos.y += MaskPivot.y;
+        ScreenPos.x = MaskPivot.x;
+        ScreenPos.y = MaskPivot.y;
     }
     
     if (IsMask == 1 && MaskTex[ScreenPos].r <= 0.0f)
@@ -196,6 +196,9 @@ PixelOut TextureShader_PS(PixelOutPut _Input) : SV_Target0
     {
         Result.Color3 = Color;
     }
-    
+    if (0 < Target4)
+    {
+        Result.Color4 = Color;
+    }
     return Result;
 }

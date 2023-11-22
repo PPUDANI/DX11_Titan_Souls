@@ -47,9 +47,11 @@ private:
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
 	// PostEffect
-	std::shared_ptr<class PlayerMaskEffect> PlayerEffect = nullptr;
-
+	std::shared_ptr<class ColossusBodyMask> ColossusEffect = nullptr;
 private:
+
+	std::shared_ptr<class ColossusBody> BossBodyActor = nullptr;
+
 	std::shared_ptr<class Hand> LeftHandActor = nullptr;
 	std::shared_ptr<class Hand> RightHandActor = nullptr;
 

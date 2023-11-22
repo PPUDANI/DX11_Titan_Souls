@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="ColossusBodyMask.fx" />
     <FxCompile Include="PlayerMaskEffect.fx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -12,6 +12,7 @@ void Player::CreatePlayerbodyAnimation()
 	BodyRenderer->SetImageScale(GlobalValue::StandardTextureScale);
 	BodyRenderer->Transform.SetLocalPosition(DefaultRendererPos);
 	BodyRenderer->RenderBaseInfoValue.Target1 = 1;
+
 	// Idle Animations
 	BodyRenderer->CreateAnimation("Right_Idle", "Player.png", 1.0f, 0, 0, false);
 	BodyRenderer->CreateAnimation("Up_Idle", "Player.png", 1.0f, 32, 32, false);

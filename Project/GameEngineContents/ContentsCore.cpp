@@ -96,7 +96,15 @@ void ContentsCore::ContentsShaderLoad()
 		GameEngineShader::AutoCompile(File);
 	}
 
-	std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("PlayerMaskEffect");
-	Mat->SetVertexShader("PlayerMaskEffect_VS");
-	Mat->SetPixelShader("PlayerMaskEffect_PS");
+	{
+		std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("PlayerMaskEffect");
+		Mat->SetVertexShader("PlayerMaskEffect_VS");
+		Mat->SetPixelShader("PlayerMaskEffect_PS");
+	}
+
+	{
+		std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("ColossusBodyMask");
+		Mat->SetVertexShader("ColossusBodyMask_VS");
+		Mat->SetPixelShader("ColossusBodyMask_PS");
+	}
 }
