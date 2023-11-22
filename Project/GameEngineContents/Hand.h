@@ -31,8 +31,17 @@ public:
 	Hand& operator=(Hand&& _Other) noexcept = delete;
 
 	void Init(HAND_DIR _Dir);
+	void ChangeState(HAND_STATE _State);
 
-protected:
+	static inline bool ModeSwitchIsAble()
+	{
+		return ModeSwitchIsAbleValue;
+	}
+
+	static bool AttackModeIsSwitch;
+
+private:
+	static bool ModeSwitchIsAbleValue;
 
 private:
 	void Start() override;
@@ -40,13 +49,26 @@ private:
 
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
-	std::shared_ptr<GameEngineCollision> Collision = nullptr;
+	std::shared_ptr<GameEngineCollision> AttackCollision = nullptr;
+	
+	void CollisionOn()
+	{
+		Collision->On();
+		AttackCollision->On();
+	}
+
+	void CollisionOff()
+	{
+		Collision->Off();
+		AttackCollision->Off();
+	}
 
 private:
 	HAND_STATE CurState = HAND_STATE::NONE;
+	HAND_STATE PrevState = HAND_STATE::NONE;
 	HAND_DIR CurDir = HAND_DIR::NONE;
 
-	void ChangeState(HAND_STATE _State);
+
 	void SleepStart();
 	void HideStart();
 	void HoverStart();
@@ -58,4 +80,36 @@ private:
 	void HoverUpdate(float _Delta);
 	void FallUpdate(float _Delta);
 	void LandUpdate(float _Delta);
+
+private:
+	float MaxHeight = 180.0f;
+	float MinHeignt = 10.0f;
+	float CurHeignt = 0.0f;
+
+private:
+	// Gravity
+	void Gravity(float _Delta);
+	float GravityValue = 0.0f;
+	float GravityForce = 0.0f;
+	float4 GravityDir = float4::UP;
+
+private:
+	float MoveSpeed = 250.0f;
+	float4 FloorCheckPos = float4::ZERO;
+
+	void MoveToPlayer(float _Delta, const float4& _StartPos);
+
+private:
+	float HoverCoolTime = 1.0f;
+	float HoverTimer = 0.0f;
+
+private:
+	float LandCoolTime = 0.75f;
+	float LandTimer = 0.0f;
+
+private:
+	static const float4 HidePos;
+	//float4 MaxHoverRotation = { 0.0f, 0.0f, 20.0f };
+	//float4 MinHoverRotation = { 0.0f, 0.0f, 0.0f };
+	//float4 CurHoverRotation = { 0.0f, 0.0f, 0.0f };
 };

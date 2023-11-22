@@ -1,5 +1,12 @@
 #pragma once
 
+enum class ATTACKHAND_DIR
+{
+	NONE,
+	Left,
+	Right
+};
+
 class Floor1 : public PlayLevelBase
 {
 public:
@@ -52,11 +59,10 @@ private:
 	void EnterLeftDetectionRange();
 	void EnterRightDetectionRange();
 
-	void ExitLeftDetectionRange();
-	void ExitRightDetectionRange();
+	ATTACKHAND_DIR AttackDir = ATTACKHAND_DIR::NONE;
 
-	bool LeftIsDetected = false;
-	bool RightIsDetected = false;
+	void SwitchToAttackModeLeftHand();
+	void SwitchToAttackModeRightHand();
 
 private:
 	void SoundLoad() override;

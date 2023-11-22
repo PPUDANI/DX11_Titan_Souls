@@ -64,6 +64,25 @@ void Floor1::Update(float _Delta)
 		FadeInActor->Death();
 		FadeInActor = nullptr;
 	}
+
+
+	// 공격모드 변경
+	if (true == Hand::AttackModeIsSwitch &&
+		true == Hand::ModeSwitchIsAble())
+	{
+		Hand::AttackModeIsSwitch = false;
+		switch (AttackDir)
+		{
+		case ATTACKHAND_DIR::Left:
+			SwitchToAttackModeLeftHand();
+			break;
+		case ATTACKHAND_DIR::Right:
+			SwitchToAttackModeRightHand();
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 
@@ -108,13 +127,13 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 		}
 		else
 		{
-			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
+			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2270.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 		}
 	}
 	else
 	{
-		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
+		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2270.0f });
 		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	}
 	return;
@@ -122,24 +141,39 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 
 void Floor1::SpawnBoss()
 {
-	LeftHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
-	LeftHandActor->Init(HAND_DIR::Left);
-	LeftHandActor->Transform.SetLocalPosition({ 1456.0f, -1984.0f });
+	if (nullptr == LeftHandActor)
+	{
+		LeftHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
+		LeftHandActor->Init(HAND_DIR::Left);
+		LeftHandActor->Transform.SetLocalPosition({ 1456.0f, -1984.0f });
+		LeftHandActor->SetEnymePlayer(PlayerActor.get());
+		LeftHandActor->ChangeState(HAND_STATE::Sleep);
+	}
 
-	RightHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
-	RightHandActor->Init(HAND_DIR::Right);
-	RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
+	if (nullptr == RightHandActor)
+	{
+		RightHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
+		RightHandActor->Init(HAND_DIR::Right);
+		RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
+		RightHandActor->SetEnymePlayer(PlayerActor.get());
+		RightHandActor->ChangeState(HAND_STATE::Sleep);
+	}
 
-	LeftHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
-	LeftHandPlayerDetectionRange->Transform.SetLocalPosition({ 1406.0f, -2100.0f });
-	LeftHandPlayerDetectionRange->SetPlaceScale({ 420.0f, 350.0f });
-	LeftHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterLeftDetectionRange, this));
+	if (nullptr == LeftHandPlayerDetectionRange)
+	{
+		LeftHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+		LeftHandPlayerDetectionRange->Transform.SetLocalPosition({ 1386.0f, -2100.0f });
+		LeftHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 350.0f });
+		LeftHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterLeftDetectionRange, this));
+	}
 
-	RightHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
-	RightHandPlayerDetectionRange->Transform.SetLocalPosition({ 1826.0f, -2100.0f });
-	RightHandPlayerDetectionRange->SetPlaceScale({ 420.0f, 350.0f });
-	RightHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
-
+	if (nullptr == RightHandPlayerDetectionRange)
+	{
+		RightHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+		RightHandPlayerDetectionRange->Transform.SetLocalPosition({ 1846.0f, -2100.0f });
+		RightHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 350.0f });
+		RightHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
+	}
 }
 
 void Floor1::SpawnTriggerBox()
@@ -225,12 +259,38 @@ void Floor1::SoundLoad()
 
 void Floor1::EnterLeftDetectionRange()
 {
-	LeftIsDetected = true;
-	RightIsDetected = false;
+	AttackDir = ATTACKHAND_DIR::Left;
+	Hand::AttackModeIsSwitch = true;
 }
 
 void Floor1::EnterRightDetectionRange()
 {
-	LeftIsDetected = false;
-	RightIsDetected = true;
+	AttackDir = ATTACKHAND_DIR::Right;
+	Hand::AttackModeIsSwitch = true;
+}
+
+void Floor1::SwitchToAttackModeLeftHand()
+{
+	if (nullptr != LeftHandActor)
+	{
+		LeftHandActor->ChangeState(HAND_STATE::Hover);
+	}
+
+	if (nullptr != RightHandActor)
+	{
+		RightHandActor->ChangeState(HAND_STATE::Hide);
+	}
+}
+
+void Floor1::SwitchToAttackModeRightHand()
+{
+	if (nullptr != LeftHandActor)
+	{
+		LeftHandActor->ChangeState(HAND_STATE::Hide);
+	}
+
+	if (nullptr != RightHandActor)
+	{
+		RightHandActor->ChangeState(HAND_STATE::Hover);
+	}
 }

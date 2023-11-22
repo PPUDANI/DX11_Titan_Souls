@@ -67,6 +67,7 @@ protected:
 
 protected:
 	void SetMoveDir(const float4& _CheckPos);
+	void SetMoveDir(const float4& _CheckPos, const float4& _EndPos);
 	float4 SetMoveDirReturn(const float4& _CheckPos);
 	void SetDirToDeg(float _Degree);
 	// Move
