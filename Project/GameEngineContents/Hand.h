@@ -19,6 +19,7 @@ enum class HAND_DIR
 
 class Hand : public BossBase
 {
+	friend class ColossusBody;
 public:
 	// Constructor Destructor
 	Hand();
@@ -94,7 +95,8 @@ private:
 	float4 GravityDir = float4::UP;
 
 private:
-	float MoveSpeed = 250.0f;
+	float MoveRatio = 0.0f;
+	float MoveSpeed = 0.0f;
 	float4 FloorCheckPos = float4::ZERO;
 
 	void MoveToPlayer(float _Delta, const float4& _StartPos);

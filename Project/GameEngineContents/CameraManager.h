@@ -69,7 +69,7 @@ public:
 
 	static float GetCameraZoom()
 	{
-		float ZoomValue = AddCameraZoomFromPlayer + AddCameraZoomFromArrow + AddCameraZoomFromBoss;
+		float ZoomValue = AddCameraZoomFromPlayer * AddCameraZoomFromArrow * AddCameraZoomFromBoss;
 
 		if (0.1f > ZoomValue)
 		{
@@ -88,9 +88,9 @@ public:
 		AddCameraPosFromPlayer = float4::ZERO;
 		AddCameraPosFromBoss = float4::ZERO;
 		AddCameraPosFromShaking = float4::ZERO;
-		AddCameraZoomFromArrow = 0.0f;
-		AddCameraZoomFromPlayer = 0.0f;
-		AddCameraZoomFromBoss = 0.0f;
+		AddCameraZoomFromArrow = 1.0f;
+		AddCameraZoomFromPlayer = 1.0f;
+		AddCameraZoomFromBoss = 1.0f;
 	}
 
 	static void CalCameraPosFromArrowOn()

@@ -49,12 +49,12 @@ void Hand::Start()
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBodyAttack);
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
-	AttackCollision->Transform.SetLocalScale({ 50.0f, 36.0f });
+	AttackCollision->Transform.SetLocalScale({ 64.0f, 36.0f });
 	AttackCollision->Transform.SetLocalPosition({ 0.0f, -10.0f });
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 50.0f, 36.0f });
+	Collision->Transform.SetLocalScale({ 64.0f, 36.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f });
 
 	GravityForce = 1500.0f;
@@ -141,20 +141,26 @@ void Hand::Gravity(float _Delta)
 
 void Hand::MoveToPlayer(float _Delta, const float4& _StartPos)
 {
-	float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
-	float4 StartPos = _StartPos - FloorCheckPos;
-	float LengthStartPosToPlayer = DirectX::XMVectorGetX(DirectX::XMVector2Length(StartPos.DirectXVector));
+	//float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
+	//float4 StartPos = _StartPos - FloorCheckPos;
+	//float LengthStartPosToPlayer = DirectX::XMVectorGetX(DirectX::XMVector2Length(StartPos.DirectXVector));
+	float4 MovePos = _StartPos - FloorCheckPos;
 
-	if (5.0f > LengthStartPosToPlayer)
-	{
-		FloorCheckPos = _StartPos;
-		float4 SetPos = Transform.GetLocalPosition();
-		SetPos.X = FloorCheckPos.X;
-		Transform.SetLocalPosition(SetPos);
-	}
-	else
-	{
-		FloorCheckPos += MovePos;
-		Transform.AddLocalPosition(MovePos);
-	}
+	MoveRatio = std::lerp(MoveRatio, 1.0f, _Delta * MoveSpeed);
+	MovePos *= MoveRatio;
+	FloorCheckPos += MovePos;
+	Transform.AddLocalPosition(MovePos);
+
+	//if (5.0f > LengthStartPosToPlayer)
+	//{
+	//	FloorCheckPos = _StartPos;
+	//	float4 SetPos = Transform.GetLocalPosition();
+	//	SetPos.X = FloorCheckPos.X;
+	//	Transform.SetLocalPosition(SetPos);
+	//}
+	//else
+	//{
+	//	FloorCheckPos += MovePos;
+	//	Transform.AddLocalPosition(MovePos);
+	//}
 }

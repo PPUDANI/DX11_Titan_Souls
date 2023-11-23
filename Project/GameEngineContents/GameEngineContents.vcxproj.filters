@@ -163,7 +163,7 @@
     <ClCompile Include="ColossusBodyMask.cpp">
       <Filter>07. Effect\02. ColossusMask</Filter>
     </ClCompile>
-    <ClCompile Include="BodyState.cpp">
+    <ClCompile Include="ColossusBodyState.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
   </ItemGroup>

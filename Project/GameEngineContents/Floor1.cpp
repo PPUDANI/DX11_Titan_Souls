@@ -74,6 +74,7 @@ void Floor1::Update(float _Delta)
 		Hand::AttackModeIsSwitch = false;
 		switch (AttackDir)
 		{
+		case ATTACKHAND_DIR::NONE:
 		case ATTACKHAND_DIR::Left:
 			SwitchToAttackModeLeftHand();
 			break;
@@ -148,6 +149,8 @@ void Floor1::SpawnBoss()
 	{
 		BossBodyActor = CreateActor<ColossusBody>(UPDATE_ORDER::Boss);
 		BossBodyActor->Transform.SetLocalPosition({ 1616.0f, -1888.0f });
+		BossBodyActor->ChangeState(BODY_STATE::Sleep);
+		BossBodyActor->SetEnymePlayer(PlayerActor.get());
 	}
 
 	if (nullptr == LeftHandActor)
@@ -167,7 +170,6 @@ void Floor1::SpawnBoss()
 		RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
 		RightHandActor->ChangeState(HAND_STATE::Sleep);
 	}
-
 
 	if (nullptr == LeftHandPlayerDetectionRange)
 	{

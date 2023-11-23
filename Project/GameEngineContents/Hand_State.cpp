@@ -4,17 +4,22 @@
 
 void Hand::SleepStart()
 {
+	ModeSwitchIsAbleValue = false;
 	FloorCheckPos = Transform.GetLocalPosition();
 	Renderer->ChangeAnimation("Idle");
 }
 
 void Hand::HideStart()
 {
+	MoveRatio = 0.0f;
 	Renderer->ChangeAnimation("InHide");
+
+	MoveSpeed = 0.03f;
 }
 
 void Hand::HoverStart()
 {
+	MoveRatio = 0.0f;
 	CollisionOff();
 	HoverTimer = 0.0f;
 	ModeSwitchIsAbleValue = false;
@@ -22,6 +27,7 @@ void Hand::HoverStart()
 	{
 		Renderer->ChangeAnimation("InHover");
 	}
+	MoveSpeed = 0.1f;
 }
 
 void Hand::FallStart()
@@ -61,7 +67,7 @@ void Hand::HoverUpdate(float _Delta)
 
 	if (MaxHeight + FloorCheckPos.Y > Transform.GetLocalPosition().Y)
 	{
-		Transform.AddLocalPosition({ 0.0f, 300.0f * _Delta });
+		Transform.AddLocalPosition({ 0.0f, 500.0f * _Delta });
 	}
 
 	SetMoveDir(FloorCheckPos);
