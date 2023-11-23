@@ -12,8 +12,9 @@ ColossusBody::~ColossusBody()
 
 void ColossusBody::Start()
 {
+	SoundLoad();
 	GlobalLoad::LoadSpriteSingle("ColossusBody.png", "Resource\\Texture\\Boss\\Colossus\\");
-	GlobalLoad::LoadSpriteSingle("BodyLight2.png", "Resource\\Texture\\Boss\\Colossus\\");
+	GlobalLoad::LoadSpriteSingle("BodyLight.png", "Resource\\Texture\\Boss\\Colossus\\");
 	GlobalLoad::LoadSpriteCut(5, 1, "ColossusHead.png", "Resource\\Texture\\Boss\\Colossus\\");
 	GlobalLoad::LoadSpriteCut(2, 1, "ColossusShoulder.png", "Resource\\Texture\\Boss\\Colossus\\");
 
@@ -21,24 +22,22 @@ void ColossusBody::Start()
 	BodyRenderer->SetPivotType(PivotType::Bottom);
 	BodyRenderer->SetSprite("ColossusBody.png");
 	BodyRenderer->SetImageScale({ 192.0f, 192.0f, 1.0f });
-	BodyRenderer->Transform.SetLocalPosition({ 0.0f, 0.0f });
 
 	BodyLightRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
 	BodyLightRenderer->SetPivotType(PivotType::Bottom);
-	BodyLightRenderer->SetSprite("BodyLight2.png");
+	BodyLightRenderer->SetSprite("BodyLight.png");
 	BodyLightRenderer->SetImageScale({ 192.0f, 192.0f, 1.0f });
-	BodyLightRenderer->Transform.SetLocalPosition({ 0.0f, 0.0f });
 	BodyLightRenderer->GetColorData().MulColor.A = 0.0f;
 
 	HeadRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
 	HeadRenderer->SetPivotType(PivotType::Bottom);
 	HeadRenderer->SetImageScale({ 128.0f, 128.0f, 1.0f });
-	HeadRenderer->Transform.SetLocalPosition({ 0.0f, 128.0f });
+	HeadRenderer->Transform.SetLocalPosition({ 0.0f, 104.0f });
 
 	HeadRenderer->CreateAnimation("Sleep", "ColossusHead.png", 1.0f, 0, 0, true);
-	HeadRenderer->CreateAnimation("WakeUp", "ColossusHead.png", 0.1f, 0, 2, false);
+	HeadRenderer->CreateAnimation("WakeUp", "ColossusHead.png", 0.5f, 0, 1, false);
 	HeadRenderer->CreateAnimation("Idle", "ColossusHead.png", 1.0f, 2, 2, true);
-	HeadRenderer->CreateAnimation("Angry", "ColossusHead.png", 2.0f, 3, 3, false);
+	HeadRenderer->CreateAnimation("Shouting", "ColossusHead.png", 2.0f, 3, 3, false);
 	HeadRenderer->CreateAnimation("Death", "ColossusHead.png", 1.0f, 4, 4, true);
 
 	LeftShoulderRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
@@ -65,9 +64,9 @@ void ColossusBody::Start()
 	BodyCollision2->Off();
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
-	Collision->SetCollisionType(ColType::SPHERE2D);
+	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 32.0f, 32.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 64.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, 32.0f });
 	Collision->Off();
 
 }
@@ -82,6 +81,9 @@ void ColossusBody::Update(float _Delta)
 	case BODY_STATE::WakeUp:
 		WakeUpUpdate(_Delta);
 		break;
+	case BODY_STATE::Shouting:
+		ShoutingUpdate(_Delta);
+		break;
 	case BODY_STATE::Idle:
 		IdleUpdate(_Delta);
 		break;
@@ -95,15 +97,19 @@ void ColossusBody::Update(float _Delta)
 		break;
 	}
 
-	if (BODY_STATE::Sleep != CurState &&
-		BODY_STATE::WakeUp != CurState)
+	switch (CurState)
 	{
-		WakeUpRatio = std::lerp(WakeUpRatio, 0.5f, 5.0f * _Delta);
-		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) * WakeUpRatio;
-
-		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 5.0f * _Delta);
+	case BODY_STATE::Idle:
+	case BODY_STATE::Hit:
+		CameraMoveRatio = std::lerp(CameraMoveRatio, 0.5f, 3.0f * _Delta);
+		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) * CameraMoveRatio;
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 3.0f * _Delta);
 		CameraManager::AddCameraZoomFromBoss = ZoomRatio;
+		break;
+	default:
+		break;
 	}
+
 }
 
 
@@ -118,6 +124,9 @@ void ColossusBody::ChangeState(BODY_STATE _State)
 		break;
 	case BODY_STATE::WakeUp:
 		WakeUpStart();
+		break;
+	case BODY_STATE::Shouting:
+		ShoutingStart();
 		break;
 	case BODY_STATE::Idle:
 		IdleStart();
@@ -158,4 +167,11 @@ void ColossusBody::Levitaion(float _Delta)
 	{
 		BodyLightRenderer->GetColorData().MulColor.A = sinf(Radian + 1.5f);
 	}
+}
+
+void ColossusBody::SoundLoad()
+{
+	// BGM, AMBIENCE
+	GlobalLoad::LoadSound("Roar.ogg", "Resource\\Sound\\Boss\\Colossus\\");
+
 }

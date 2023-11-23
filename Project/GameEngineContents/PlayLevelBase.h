@@ -36,6 +36,8 @@ protected:
 	std::shared_ptr<class AncientScript> BossDescriptionScript = nullptr;
 	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
 
+
+
 	virtual void SpawnPlayer(GameEngineLevel* _PrevLevel) {}
 	virtual void SpawnBoss() {}
 	virtual void SpawnTriggerBox() {}
@@ -48,10 +50,14 @@ protected:
 	void EnterRoomTriggerFunc();
 	void ExitRoomTriggerFunc();
 
-	bool SoundIsLoaded = false;
 	virtual void SoundLoad() {};
-private:
 
+	void ReleaseBossName();
+protected:
+	bool BossIsDeath = false;
+	bool SoundIsLoaded = false;
+
+private:
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect = nullptr;
 };

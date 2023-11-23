@@ -3,7 +3,7 @@
 
 bool Hand::ModeSwitchIsAbleValue = true;
 bool Hand::AttackModeIsSwitch = true;
-const float4 Hand::HidePos = { 1616.0f, -1850.0f };
+const float4 Hand::HidePos = { 1616.0f, -1896.0f };
 
 Hand::Hand()
 {
@@ -22,7 +22,8 @@ void Hand::Init(HAND_DIR _Dir)
 	case HAND_DIR::Left:
 		break;
 	case HAND_DIR::Right:
-		Renderer->LeftFlip();
+		BodyRenderer->LeftFlip();
+		ShadowRenderer->LeftFlip();
 		break;
 	default:
 		break;
@@ -35,17 +36,34 @@ void Hand::Init(HAND_DIR _Dir)
 void Hand::Start()
 {
 	GlobalLoad::LoadSpriteCut(3, 1, "ColossusHand.png", "Resource\\Texture\\Boss\\Colossus");
+	GlobalLoad::LoadSpriteCut(3, 1, "ColossusHandShadow.png", "Resource\\Texture\\Boss\\Colossus");
 
-	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
-	Renderer->SetPivotType(PivotType::Bottom);
-	Renderer->SetImageScale({ 128.0f, 128.0f , 1.0f});
-	Renderer->Transform.SetLocalPosition({ 0.0f , -50.0f });
-	Renderer->CreateAnimation("Idle", "ColossusHand.png", 10.0f, 0, 0, true);
-	Renderer->CreateAnimation("Hide", "ColossusHand.png", 10.0f, 2, 2, true);
-	Renderer->CreateAnimation("InHide", "ColossusHand.png", 0.2f, 0, 2, false);
-	Renderer->CreateAnimation("InHover", "ColossusHand.png", 0.2f, 2, 0, false);
+	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
+	BodyRenderer->SetPivotType(PivotType::Bottom);
+	BodyRenderer->SetImageScale({ 128.0f, 128.0f , 1.0f});
+	BodyRenderer->Transform.SetLocalPosition({ 0.0f , -40.0f });
+	BodyRenderer->CreateAnimation("Idle", "ColossusHand.png", 10.0f, 0, 0, true);
+	BodyRenderer->CreateAnimation("Hide", "ColossusHand.png", 10.0f, 2, 2, true);
+	BodyRenderer->CreateAnimation("InHide", "ColossusHand.png", 0.2f, 0, 2, false);
+	BodyRenderer->CreateAnimation("InHover", "ColossusHand.png", 0.2f, 2, 0, false);
 
-	Renderer->ChangeAnimation("Idle");
+	ShadowStandardPos = { 0.0f, -30.0f };
+	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
+
+	ShadowStandardAlpha = 0.5f;
+	ShadowScaleConstant = 3.0f;
+	ShadowAlphaConstant = 5.0f;
+
+	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
+	ShadowRenderer->SetPivotType(PivotType::Bottom);
+	ShadowRenderer->SetImageScale(ShadowStandardScale);
+
+	ShadowRenderer->CreateAnimation("Idle", "ColossusHandShadow.png", 10.0f, 0, 0, true);
+	ShadowRenderer->CreateAnimation("Hide", "ColossusHandShadow.png", 10.0f, 2, 2, true);
+	ShadowRenderer->CreateAnimation("InHide", "ColossusHandShadow.png", 0.2f, 0, 2, false);
+	ShadowRenderer->CreateAnimation("InHover", "ColossusHandShadow.png", 0.2f, 2, 0, false);
+
+	ChangeAnimaion("Idle");
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBodyAttack);
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
@@ -57,7 +75,7 @@ void Hand::Start()
 	Collision->Transform.SetLocalScale({ 64.0f, 36.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f });
 
-	GravityForce = 1500.0f;
+	GravityForce = 3000.0f;
 }
 
 void Hand::Update(float _Delta)
@@ -79,9 +97,20 @@ void Hand::Update(float _Delta)
 	case HAND_STATE::Land:
 		LandUpdate(_Delta);
 		break;
+	case HAND_STATE::Hit:
+		HitUpdate(_Delta);
+		break;
+	case HAND_STATE::Death:
+		DeathUpdate(_Delta);
+		break;
 	default:
 		break;
 	}
+
+
+	ShadowRenderer->Transform.SetWorldPosition(FloorCheckPos + ShadowStandardPos);
+
+	ShadowVariableByHeight(FloorCheckPos);
 
 	if (true == GetLevel()->IsDebug)
 	{
@@ -115,6 +144,12 @@ void Hand::ChangeState(HAND_STATE _State)
 		break;
 	case HAND_STATE::Land:
 		LandStart();
+		break;
+	case HAND_STATE::Hit:
+		HitStart();
+		break;
+	case HAND_STATE::Death:
+		DeathStart();
 		break;
 	default:
 		break;
@@ -163,4 +198,10 @@ void Hand::MoveToPlayer(float _Delta, const float4& _StartPos)
 	//	FloorCheckPos += MovePos;
 	//	Transform.AddLocalPosition(MovePos);
 	//}
+}
+
+void Hand::ChangeAnimaion(std::string_view _AnimationName)
+{
+	BodyRenderer->ChangeAnimation(_AnimationName);
+	ShadowRenderer->ChangeAnimation(_AnimationName);
 }

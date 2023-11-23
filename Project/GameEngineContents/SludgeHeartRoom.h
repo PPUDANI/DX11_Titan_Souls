@@ -35,7 +35,6 @@ private:
 	void ReleaseSludges();
 	void PutTheHeartInSludge();
 	void OutputBossName();
-	void ReleaseBossName();
 	void ReleaseTriggerBox() override; 
 
 private:
@@ -44,7 +43,6 @@ private:
 	std::shared_ptr<class Sludge> SludgeActor = nullptr;
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
-	bool BossIsDeath = false;
 	bool BossDeathPrecessingIsEnd = false;
 	bool BossFirstHitPrecessingIsEnd = false;
 	void BossDeathProcessing();

@@ -108,8 +108,6 @@ void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		ReleaseBoss();
 	}
-
-	ReleaseBossName();
 }
 
 void SludgeHeartRoom::SpawnBoss()
@@ -241,27 +239,6 @@ void SludgeHeartRoom::OutputBossName()
 	BossDescriptionScript->Init("HEART OF THE GUARDIAN", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
 	BossDescriptionScript->FadeInit();
 	BossDescriptionScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
-}
-
-void SludgeHeartRoom::ReleaseBossName()
-{
-	if (nullptr != BossNameBack)
-	{
-		BossNameBack->Death();
-		BossNameBack = nullptr;
-	}
-
-	if (nullptr != BossNameScript)
-	{
-		BossNameScript->Death();
-		BossNameScript = nullptr;
-	}
-
-	if (nullptr != BossDescriptionScript)
-	{
-		BossDescriptionScript->Death();
-		BossDescriptionScript = nullptr;
-	}
 }
 
 void SludgeHeartRoom::ReleaseTriggerBox()

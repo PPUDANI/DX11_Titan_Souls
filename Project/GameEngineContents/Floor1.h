@@ -67,4 +67,10 @@ private:
 
 private:
 	void SoundLoad() override;
+
+	bool FightBossPage = false;
+	void BossPageProcessing();
+	void OutputBossName();
+	void BossStateUpdate();
+	void BossDeathProcessing();
 };

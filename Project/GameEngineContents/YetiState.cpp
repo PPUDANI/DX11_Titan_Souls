@@ -80,13 +80,13 @@ void Yeti::HitStart()
 
 	BodyRenderer->GetColorData().MulColor = { 0.8f, 0.8f, 0.8f };
 	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
-	BodyCollisionOff();
 	SetAnimByDir("Hit");
 }
 
 void Yeti::DeathStart()
 {
 	SetAnimByDir("Death");
+	BodyCollisionOff();
 	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
 }
 

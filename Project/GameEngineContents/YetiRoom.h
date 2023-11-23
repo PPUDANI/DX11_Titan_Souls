@@ -55,7 +55,6 @@ private:
 	std::shared_ptr<class FadeIn> FadeInByKillBoss = nullptr;
 
 private:
-	bool BossIsDeath = false;
 	bool BossDeathPrecessingIsEnd = false;
 	void BossDeathProcessing();
 	void BossWakeUpProcessing();

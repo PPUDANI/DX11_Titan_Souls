@@ -8,6 +8,8 @@ enum class HAND_STATE
 	Hover,
 	Fall,
 	Land,
+	Hit,
+	Death,
 };
 
 enum class HAND_DIR
@@ -49,7 +51,6 @@ private:
 	void Update(float _Delta) override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
 	std::shared_ptr<GameEngineCollision> AttackCollision = nullptr;
 	
 	void CollisionOn()
@@ -75,16 +76,20 @@ private:
 	void HoverStart();
 	void FallStart();
 	void LandStart();
+	void HitStart();
+	void DeathStart();
 
 	void SleepUpdate(float _Delta);
 	void HideUpdate(float _Delta);
 	void HoverUpdate(float _Delta);
 	void FallUpdate(float _Delta);
 	void LandUpdate(float _Delta);
+	void HitUpdate(float _Delta);
+	void DeathUpdate(float _Delta);
 
 private:
 	float MaxHeight = 180.0f;
-	float MinHeignt = 10.0f;
+	float MinHeignt = 40.0f;
 	float CurHeignt = 0.0f;
 
 private:
@@ -105,13 +110,11 @@ private:
 	float HoverCoolTime = 1.0f;
 	float HoverTimer = 0.0f;
 
-private:
 	float LandCoolTime = 0.75f;
 	float LandTimer = 0.0f;
 
-private:
 	static const float4 HidePos;
-	//float4 MaxHoverRotation = { 0.0f, 0.0f, 20.0f };
-	//float4 MinHoverRotation = { 0.0f, 0.0f, 0.0f };
-	//float4 CurHoverRotation = { 0.0f, 0.0f, 0.0f };
+
+private:
+	void ChangeAnimaion(std::string_view _AnimationMane);
 };

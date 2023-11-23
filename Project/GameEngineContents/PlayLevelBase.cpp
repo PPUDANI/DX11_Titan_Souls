@@ -77,6 +77,8 @@ void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	LevelBase::LevelEnd(_NextLevel);
 
+	ReleaseBossName();
+
 	ReleaseTriggerBox();
 
 	if (nullptr != FadeOutActor)
@@ -177,4 +179,25 @@ void PlayLevelBase::EnterRoomTriggerFunc()
 void PlayLevelBase::ExitRoomTriggerFunc()
 {
 	FadeOutVolumeIsOn();
+}
+
+void PlayLevelBase::ReleaseBossName()
+{
+	if (nullptr != BossNameBack)
+	{
+		BossNameBack->Death();
+		BossNameBack = nullptr;
+	}
+
+	if (nullptr != BossNameScript)
+	{
+		BossNameScript->Death();
+		BossNameScript = nullptr;
+	}
+
+	if (nullptr != BossDescriptionScript)
+	{
+		BossDescriptionScript->Death();
+		BossDescriptionScript = nullptr;
+	}
 }

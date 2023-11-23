@@ -6,13 +6,13 @@ void Hand::SleepStart()
 {
 	ModeSwitchIsAbleValue = false;
 	FloorCheckPos = Transform.GetLocalPosition();
-	Renderer->ChangeAnimation("Idle");
+	ChangeAnimaion("Idle");
 }
 
 void Hand::HideStart()
 {
 	MoveRatio = 0.0f;
-	Renderer->ChangeAnimation("InHide");
+	ChangeAnimaion("InHide");
 
 	MoveSpeed = 0.03f;
 }
@@ -25,7 +25,7 @@ void Hand::HoverStart()
 	ModeSwitchIsAbleValue = false;
 	if (HAND_STATE::Hide == PrevState)
 	{
-		Renderer->ChangeAnimation("InHover");
+		ChangeAnimaion("InHover");
 	}
 	MoveSpeed = 0.1f;
 }
@@ -42,6 +42,18 @@ void Hand::LandStart()
 }
 
 
+void Hand::HitStart()
+{
+	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
+}
+
+void Hand::DeathStart()
+{
+	GravityValue = 0.0f;
+	GravityForce = 1200.0f;
+}
+
+
 void Hand::SleepUpdate(float _Delta)
 {
 
@@ -49,6 +61,11 @@ void Hand::SleepUpdate(float _Delta)
 
 void Hand::HideUpdate(float _Delta)
 {
+	if (MinHeignt + FloorCheckPos.Y > Transform.GetLocalPosition().Y)
+	{
+		Transform.AddLocalPosition({ 0.0f, 10.0f * _Delta });
+	}
+
 	SetMoveDir(FloorCheckPos, HidePos);
 	MoveToPlayer(_Delta, HidePos);
 }
@@ -94,5 +111,27 @@ void Hand::LandUpdate(float _Delta)
 	{
 		LandTimer += _Delta;
 	}
+}
+
+void Hand::HitUpdate(float _Delta)
+{
+
+}
+
+void Hand::DeathUpdate(float _Delta)
+{
+	if (FloorCheckPos.Y > Transform.GetLocalPosition().Y)
+	{
+		float4 MovePos = Transform.GetLocalPosition();
+		MovePos.Y = FloorCheckPos.Y;
+		Transform.SetLocalPosition(MovePos);
+
+		ChangeState(HAND_STATE::Sleep);
+		return;
+	}
+
+	GravityValue -= GravityForce * _Delta;
+	float4 MovePos = GravityDir * GravityValue * _Delta;
+	Transform.AddLocalPosition(MovePos);
 
 }

@@ -3,7 +3,8 @@
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include "Hand.h"
 #include "ColossusBody.h"
-#include "ColossusBodyMask.h"
+
+
 Floor1::Floor1()
 {
 }
@@ -57,41 +58,17 @@ void Floor1::Start()
 void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
-
-	if (nullptr != FadeInActor &&
-		true == FadeInActor->FadeIsEnd())
-	{
-		SpawnTriggerBox();
-		FadeInActor->Death();
-		FadeInActor = nullptr;
-	}
-
-
-	// 공격모드 변경
-	if (true == Hand::AttackModeIsSwitch &&
-		true == Hand::ModeSwitchIsAble())
-	{
-		Hand::AttackModeIsSwitch = false;
-		switch (AttackDir)
-		{
-		case ATTACKHAND_DIR::NONE:
-		case ATTACKHAND_DIR::Left:
-			SwitchToAttackModeLeftHand();
-			break;
-		case ATTACKHAND_DIR::Right:
-			SwitchToAttackModeRightHand();
-			break;
-		default:
-			break;
-		}
-	}
+	BossStateUpdate();
 }
 
 
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	SpawnBoss();
+	if (false == BossIsDeath)
+	{
+		SpawnBoss();
+	}
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
@@ -105,8 +82,11 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+	if (true == BossIsDeath)
+	{
+		ReleaseBoss();
+	}
 
-	ReleaseBoss();
 }
 
 void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
@@ -145,20 +125,12 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 
 void Floor1::SpawnBoss()
 {
-	if (nullptr == BossBodyActor)
-	{
-		BossBodyActor = CreateActor<ColossusBody>(UPDATE_ORDER::Boss);
-		BossBodyActor->Transform.SetLocalPosition({ 1616.0f, -1888.0f });
-		BossBodyActor->ChangeState(BODY_STATE::Sleep);
-		BossBodyActor->SetEnymePlayer(PlayerActor.get());
-	}
-
 	if (nullptr == LeftHandActor)
 	{
 		LeftHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
 		LeftHandActor->Init(HAND_DIR::Left);
 		LeftHandActor->SetEnymePlayer(PlayerActor.get());
-		LeftHandActor->Transform.SetLocalPosition({ 1456.0f, -1984.0f });
+		LeftHandActor->Transform.SetLocalPosition({ 1488.0f, -1968.0f });
 		LeftHandActor->ChangeState(HAND_STATE::Sleep);
 	}
 
@@ -167,8 +139,19 @@ void Floor1::SpawnBoss()
 		RightHandActor = CreateActor<Hand>(UPDATE_ORDER::Boss);
 		RightHandActor->Init(HAND_DIR::Right);
 		RightHandActor->SetEnymePlayer(PlayerActor.get());
-		RightHandActor->Transform.SetLocalPosition({ 1776.0f, -1984.0f });
+		RightHandActor->Transform.SetLocalPosition({ 1744.0f, -1968.0f });
 		RightHandActor->ChangeState(HAND_STATE::Sleep);
+	}
+
+	if (nullptr == BossBodyActor)
+	{
+		BossBodyActor = CreateActor<ColossusBody>(UPDATE_ORDER::Boss);
+		BossBodyActor->Transform.SetLocalPosition({ 1616.0f, -1888.0f });
+		BossBodyActor->ChangeState(BODY_STATE::Sleep);
+		BossBodyActor->SetEnymePlayer(PlayerActor.get());
+		BossBodyActor->SetEnymeArrow(ArrowActor.get());
+		BossBodyActor->SetLeftHand(LeftHandActor.get());
+		BossBodyActor->SetRightHand(RightHandActor.get());
 	}
 
 	if (nullptr == LeftHandPlayerDetectionRange)
@@ -338,4 +321,95 @@ void Floor1::SwitchToAttackModeRightHand()
 	{
 		RightHandActor->ChangeState(HAND_STATE::Hover);
 	}
+}
+
+
+void Floor1::BossPageProcessing()
+{
+	BackgroundStop();
+	BackgroundPlay("Colossus.ogg");
+}
+
+
+void Floor1::OutputBossName()
+{
+	// BossName Actor
+	BossNameBack = CreateActor<FadeImage>(UPDATE_ORDER::UI);
+	BossNameBack->Init("BossNameBG.png");
+	BossNameBack->Transform.SetLocalPosition({ 0.0f, -305.0f });
+
+	BossNameScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	BossNameScript->Init("GOL IATH", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
+	BossNameScript->FadeInit();
+	BossNameScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
+
+	BossDescriptionScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
+	BossDescriptionScript->Init("GUADIAN OF THE FIRST GATE", FONT_TYPE::ANCIENT, { 16.0f, 16.0f });
+	BossDescriptionScript->FadeInit();
+	BossDescriptionScript->Transform.SetLocalPosition({ 0.0f, -325.0f });
+}
+
+void Floor1::BossStateUpdate()
+{
+	if (false == BossIsDeath)
+	{
+		if (BODY_STATE::Hit == BossBodyActor->GetCurState())
+		{
+			BossDeathProcessing();
+			return;
+		}
+
+		if (BODY_STATE::WakeUp == BossBodyActor->GetCurState())
+		{
+			BackgroundStop();
+		}
+
+		if (BODY_STATE::Idle == BossBodyActor->GetCurState() &&
+			false == FightBossPage)
+		{
+			OutputBossName();
+			FightBossPage = true;
+			BossPageProcessing();
+		}
+
+		if (nullptr != FadeInActor &&
+			true == FadeInActor->FadeIsEnd())
+		{
+			SpawnTriggerBox();
+			FadeInActor->Death();
+			FadeInActor = nullptr;
+		}
+
+
+		// 공격모드 변경
+		if (true == Hand::AttackModeIsSwitch &&
+			true == Hand::ModeSwitchIsAble())
+		{
+			Hand::AttackModeIsSwitch = false;
+			switch (AttackDir)
+			{
+			case ATTACKHAND_DIR::NONE:
+			case ATTACKHAND_DIR::Left:
+				SwitchToAttackModeLeftHand();
+				break;
+			case ATTACKHAND_DIR::Right:
+				SwitchToAttackModeRightHand();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
+void Floor1::BossDeathProcessing()
+{
+	BossIsDeath = true;
+	BackgroundStop();
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::White, 3.0f, 0.5f);
+	}
+
 }

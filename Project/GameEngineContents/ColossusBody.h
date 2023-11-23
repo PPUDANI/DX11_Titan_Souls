@@ -5,6 +5,7 @@ enum class BODY_STATE
 	NONE,
 	Sleep,
 	WakeUp,
+	Shouting,
 	Idle,
 	Hit,
 	Death,
@@ -25,6 +26,11 @@ public:
 	ColossusBody& operator=(ColossusBody&& _Other) noexcept = delete;
 
 	void ChangeState(BODY_STATE _State);
+
+	BODY_STATE GetCurState() const
+	{
+		return CurState;
+	}
 
 	void SetLeftHand(class Hand* _Hand)
 	{
@@ -58,18 +64,20 @@ private:
 
 	void SleepStart();
 	void WakeUpStart();
+	void ShoutingStart();
 	void IdleStart();
 	void HitStart();
 	void DeathStart();
 
 	void SleepUpdate(float _Delta);
 	void WakeUpUpdate(float _Delta);
+	void ShoutingUpdate(float _Delta);
 	void IdleUpdate(float _Delta);
 	void HitUpdate(float _Delta);
 	void DeathUpdate(float _Delta);
 
 private:
-	float WakeUpRatio = 0.0f;
+	float CameraMoveRatio = 0.0f;
 	float ZoomRatio = 1.0f;
 
 private:
@@ -79,4 +87,7 @@ private:
 	float MovingHeight = 10.0f;
 
 	void Levitaion(float _Delta);
+
+private:
+	void SoundLoad();
 };
