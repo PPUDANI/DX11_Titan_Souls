@@ -182,6 +182,7 @@
     </ClCompile>
     <ClCompile Include="ArrowSound.cpp" />
     <ClCompile Include="ArrowState.cpp" />
+    <ClCompile Include="BodyState.cpp" />
     <ClCompile Include="BossBase.cpp">
       <SubType>
       </SubType>

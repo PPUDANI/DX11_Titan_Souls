@@ -15,8 +15,6 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
-
-	ColossusEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<ColossusBodyMask>();
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 
 	if (nullptr != Window)
@@ -106,6 +104,8 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+
+	ReleaseBoss();
 }
 
 void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
@@ -147,8 +147,7 @@ void Floor1::SpawnBoss()
 	if (nullptr == BossBodyActor)
 	{
 		BossBodyActor = CreateActor<ColossusBody>(UPDATE_ORDER::Boss);
-		BossBodyActor->Transform.SetLocalPosition({ 1616.0f, -1984.0f });
-
+		BossBodyActor->Transform.SetLocalPosition({ 1616.0f, -1888.0f });
 	}
 
 	if (nullptr == LeftHandActor)
@@ -249,6 +248,39 @@ void Floor1::ReleaseTriggerBox()
 	{
 		EnterTheYetiRoom->Death();
 		EnterTheYetiRoom = nullptr;
+	}
+}
+
+void Floor1::ReleaseBoss()
+{
+	if (nullptr != BossBodyActor)
+	{
+		BossBodyActor->Death();
+		BossBodyActor = nullptr;
+	}
+
+	if (nullptr != LeftHandActor)
+	{
+		LeftHandActor->Death();
+		LeftHandActor = nullptr;
+	}
+
+	if (nullptr != RightHandActor)
+	{
+		RightHandActor->Death();
+		RightHandActor = nullptr;
+	}
+
+	if (nullptr != LeftHandPlayerDetectionRange)
+	{
+		LeftHandPlayerDetectionRange->Death();
+		LeftHandPlayerDetectionRange = nullptr;
+	}
+
+	if (nullptr != RightHandPlayerDetectionRange)
+	{
+		RightHandPlayerDetectionRange->Death();
+		RightHandPlayerDetectionRange = nullptr;
 	}
 }
 

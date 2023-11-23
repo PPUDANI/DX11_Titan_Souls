@@ -34,6 +34,7 @@ private:
 	void SpawnTriggerBox() override;
 	void ReleaseTriggerBox() override;
 
+	void ReleaseBoss();
 private:
 	// TriggerBox
 	std::shared_ptr<class TriggerBox> EnterTheSludgeRoom = nullptr;
@@ -46,8 +47,6 @@ private:
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
-	// PostEffect
-	std::shared_ptr<class ColossusBodyMask> ColossusEffect = nullptr;
 private:
 
 	std::shared_ptr<class ColossusBody> BossBodyActor = nullptr;
