@@ -158,6 +158,9 @@ void Floor1::SpawnBoss()
 		BossBodyActor->SetEnymeArrow(ArrowActor.get());
 		BossBodyActor->SetLeftHand(LeftHandActor.get());
 		BossBodyActor->SetRightHand(RightHandActor.get());
+
+		LeftHandActor->SetBodyActor(BossBodyActor.get());
+		RightHandActor->SetBodyActor(BossBodyActor.get());
 	}
 
 	if (nullptr == LeftHandPlayerDetectionRange)

@@ -13,7 +13,7 @@ enum class BODY_STATE
 
 class ColossusBody : public BossBase
 {
-	
+	friend class Hand;
 public:
 	// Constructor Destructor
 	ColossusBody();
@@ -41,7 +41,7 @@ public:
 	{
 		RightHand = _Hand;
 	}
-
+	
 private:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -57,6 +57,8 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> RightShoulderRenderer = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> LeftShoulderRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
+
+	std::shared_ptr<GameEngineCollision> AttackRange = nullptr;
 
 private:
 	BODY_STATE CurState = BODY_STATE::NONE;

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Hand.h"
+#include "ColossusBody.h"
 
 bool Hand::ModeSwitchIsAbleValue = true;
 bool Hand::AttackModeIsSwitch = true;
@@ -107,9 +108,7 @@ void Hand::Update(float _Delta)
 		break;
 	}
 
-
 	ShadowRenderer->Transform.SetWorldPosition(FloorCheckPos + ShadowStandardPos);
-
 	ShadowVariableByHeight(FloorCheckPos);
 
 	if (true == GetLevel()->IsDebug)
@@ -182,10 +181,21 @@ void Hand::MoveToPlayer(float _Delta, const float4& _StartPos)
 	{
 		MoveRatio = std::lerp(MoveRatio, 1.0f, _Delta * MoveSpeed);
 		MovePos *= MoveRatio;
+
 		FloorCheckPos += MovePos;
 		Transform.AddLocalPosition(MovePos);
 	}
 
+	float4 VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition();
+	float DistanceFromBody = DirectX::XMVectorGetX(DirectX::XMVector2Length(VectorHandFromBody.DirectXVector));
+
+	while (400.0f < DistanceFromBody)
+	{
+		VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition();
+		DistanceFromBody = DirectX::XMVectorGetX(DirectX::XMVector2Length(VectorHandFromBody.DirectXVector));
+		FloorCheckPos -= Body->MoveDirBasis;
+		Transform.AddLocalPosition(-Body->MoveDirBasis);
+	}
 }
 
 void Hand::ChangeAnimaion(std::string_view _AnimationName)

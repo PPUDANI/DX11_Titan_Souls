@@ -55,6 +55,7 @@ enum class COLLISION_TYPE
 	Icicle,
 	DetectionRange,
 	EventPlace,
+	NONE,
 };
 
 enum class TILE_COLLISION_TYPE

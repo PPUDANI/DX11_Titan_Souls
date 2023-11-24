@@ -63,10 +63,30 @@ void ColossusBody::Start()
 	Collision->Transform.SetLocalPosition({ 0.0f, 48.0f });
 	Collision->Off();
 
+	AttackRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::NONE);
+	AttackRange->SetCollisionType(ColType::SPHERE2D);
+	AttackRange->Transform.SetLocalScale({ 800.0f, 800.0f, 1.0f });
+	AttackRange->Off();
+
+	GameEngineInput::AddInputObject(this);
 }
+
 
 void ColossusBody::Update(float _Delta)
 {
+
+	if (true == GameEngineInput::IsDown('O', this))
+	{
+		if (false == AttackRange->IsUpdate())
+		{
+			AttackRange->On();
+		}
+		else
+		{
+			AttackRange->Off();
+		}
+	}
+
 	switch (CurState)
 	{
 	case BODY_STATE::Sleep:
@@ -103,6 +123,8 @@ void ColossusBody::Update(float _Delta)
 	default:
 		break;
 	}
+
+	SetMoveDir(Transform.GetLocalPosition());
 
 }
 

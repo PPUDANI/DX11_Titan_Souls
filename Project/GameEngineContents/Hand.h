@@ -33,9 +33,8 @@ public:
 	Hand& operator=(const Hand& _Other) = delete;
 	Hand& operator=(Hand&& _Other) noexcept = delete;
 
-	void Init(HAND_DIR _Dir);
-	void ChangeState(HAND_STATE _State);
 
+public:
 	static inline bool ModeSwitchIsAble()
 	{
 		return ModeSwitchIsAbleValue;
@@ -45,6 +44,19 @@ public:
 
 private:
 	static bool ModeSwitchIsAbleValue;
+
+public:
+	void Init(HAND_DIR _Dir);
+	void ChangeState(HAND_STATE _State);
+
+	void SetBodyActor(ColossusBody* _Body)
+	{
+		Body = _Body;
+	}
+
+private:
+	class ColossusBody* Body = nullptr;
+
 
 private:
 	void Start() override;
