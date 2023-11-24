@@ -50,41 +50,39 @@ void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
-	if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
+	if (false == BossIsDeath)
 	{
-		BossIsDeath = true;
-		BackgroundStop();
-	}
+		if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
+		{
+			BossIsDeath = true;
+			BackgroundStop();
+		}
 
-	if (true == BossIsDeath &&
-		false == BossDeathPrecessingIsEnd)
+		if (true == BossIsDeath &&
+			false == BossDeathPrecessingIsEnd)
+		{
+			BossDeathProcessing();
+		}
+
+		if (nullptr != HeartActor &&
+			true == HeartActor->IsFirstHit() &&
+			false == BossFirstHitPrecessingIsEnd)
+		{
+			BossFirstHitPrecessingIsEnd = true;
+			BackgroundPlay("AcidNerve.ogg", 10000);
+			OutputBossName();
+		}
+	}
+	if (false == StartProcessingIsEnd)
 	{
-		BossDeathProcessing();
+		StartProcessing();
 	}
-
-	if (nullptr != HeartActor &&
-		true == HeartActor->IsFirstHit() &&
-		false == BossFirstHitPrecessingIsEnd)
-	{
-		BossFirstHitPrecessingIsEnd = true;
-		BackgroundPlay("AcidNerve.ogg", 10000);
-		OutputBossName();
-	}
-
-	if (nullptr != FadeInActor &&
-		true == FadeInActor->FadeIsEnd())
-	{
-		FadeInActor->Death();
-		FadeInActor = nullptr;
-		SpawnTriggerBox();
-	}
-
 }
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-
+	StartProcessingIsEnd = false;
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
@@ -264,4 +262,16 @@ void SludgeHeartRoom::SoundLoad()
 	GlobalLoad::LoadSound("Sewer.ogg", "Resource\\Sound\\Ambience\\");
 
 
+}
+
+void SludgeHeartRoom::StartProcessing()
+{
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		StartProcessingIsEnd = true;
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+		SpawnTriggerBox();
+	}
 }

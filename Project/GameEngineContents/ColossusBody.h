@@ -57,7 +57,6 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> RightShoulderRenderer = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> LeftShoulderRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
-	std::shared_ptr<GameEngineCollision> BodyCollision2 = nullptr;
 
 private:
 	BODY_STATE CurState = BODY_STATE::NONE;

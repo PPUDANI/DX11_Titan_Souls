@@ -11,6 +11,7 @@ void Hand::SleepStart()
 
 void Hand::HideStart()
 {
+	Collision->On();
 	MoveRatio = 0.0f;
 	ChangeAnimaion("InHide");
 
@@ -20,7 +21,7 @@ void Hand::HideStart()
 void Hand::HoverStart()
 {
 	MoveRatio = 0.0f;
-	CollisionOff();
+	AllCollisionOff();
 	HoverTimer = 0.0f;
 	ModeSwitchIsAbleValue = false;
 	if (HAND_STATE::Hide == PrevState)
@@ -32,12 +33,13 @@ void Hand::HoverStart()
 
 void Hand::FallStart()
 {
+	AllCollisionOn();
 	GravityValue = -700.0f;
 }
 
 void Hand::LandStart()
 {
-	CollisionOn();
+	AllCollisionOff();
 	LandTimer = 0.0f;
 }
 

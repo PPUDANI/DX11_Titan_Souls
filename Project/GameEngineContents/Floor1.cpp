@@ -59,12 +59,18 @@ void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 	BossStateUpdate();
+
+	if (false == StartProcessingIsEnd)
+	{
+		StartProcessing();
+	}
 }
 
 
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
+	StartProcessingIsEnd = false;
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
@@ -82,7 +88,7 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
-	if (true == BossIsDeath)
+	if (false == BossIsDeath)
 	{
 		ReleaseBoss();
 	}
@@ -372,15 +378,6 @@ void Floor1::BossStateUpdate()
 			BossPageProcessing();
 		}
 
-		if (nullptr != FadeInActor &&
-			true == FadeInActor->FadeIsEnd())
-		{
-			SpawnTriggerBox();
-			FadeInActor->Death();
-			FadeInActor = nullptr;
-		}
-
-
 		// 공격모드 변경
 		if (true == Hand::AttackModeIsSwitch &&
 			true == Hand::ModeSwitchIsAble())
@@ -412,4 +409,16 @@ void Floor1::BossDeathProcessing()
 		FadeInActor->Init(FadeColor::White, 3.0f, 0.5f);
 	}
 
+}
+
+void Floor1::StartProcessing()
+{
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		StartProcessingIsEnd = true;
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+		SpawnTriggerBox();
+	}
 }

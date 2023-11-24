@@ -14,3 +14,7 @@ float CameraManager::AddCameraZoomFromBoss = 1.0f;
 bool CameraManager::CalCameraPosFromArrow = true;
 bool CameraManager::CalCameraPosFromPlayer = true;
 bool CameraManager::CalCameraPosFromBoss = true;
+
+bool CameraManager::CalCameraZoomFromArrow = true;
+bool CameraManager::CalCameraZoomFromPlayer = true;
+bool CameraManager::CalCameraZoomFromBoss = true;

@@ -12,6 +12,7 @@ void ColossusBody::SleepStart()
 void ColossusBody::WakeUpStart()
 {
 	CameraManager::CalCameraPosFromArrowOff();
+	CameraManager::CalCameraZoomFromArrowOff();
 	CameraMoveRatio = 0.0f;
 	HeadRenderer->ChangeAnimation("WakeUp");
 
@@ -35,6 +36,11 @@ void ColossusBody::ShoutingStart()
 void ColossusBody::IdleStart()
 {
 	CameraManager::CalCameraPosFromArrowOn();
+	CameraManager::CalCameraZoomFromArrowOn();
+
+
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
+
 	Collision->On();
 	HeadRenderer->ChangeAnimation("Idle");
 
@@ -61,9 +67,6 @@ void ColossusBody::SleepUpdate(float _Delta)
 {
 	if (true == IsBodyHitByArrow)
 	{
-		BodyCollision2->On();
-		BodyCollision->Transform.SetLocalScale({ 64.0f, 32.0f, 1.0f });
-		BodyCollision->Transform.SetLocalPosition({ -48.0f, 64.0f });
 		ChangeState(BODY_STATE::WakeUp);
 		return;
 	}

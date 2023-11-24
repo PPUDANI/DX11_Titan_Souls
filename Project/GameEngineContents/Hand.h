@@ -53,13 +53,13 @@ private:
 private:
 	std::shared_ptr<GameEngineCollision> AttackCollision = nullptr;
 	
-	void CollisionOn()
+	void AllCollisionOn()
 	{
 		Collision->On();
 		AttackCollision->On();
 	}
 
-	void CollisionOff()
+	void AllCollisionOff()
 	{
 		Collision->Off();
 		AttackCollision->Off();

@@ -3,7 +3,7 @@
 
 bool Hand::ModeSwitchIsAbleValue = true;
 bool Hand::AttackModeIsSwitch = true;
-const float4 Hand::HidePos = { 1616.0f, -1896.0f };
+const float4 Hand::HidePos = { 1616.0f, -1920.0f };
 
 Hand::Hand()
 {
@@ -176,28 +176,16 @@ void Hand::Gravity(float _Delta)
 
 void Hand::MoveToPlayer(float _Delta, const float4& _StartPos)
 {
-	//float4 MovePos = MoveDirBasis * MoveSpeed * _Delta;
-	//float4 StartPos = _StartPos - FloorCheckPos;
-	//float LengthStartPosToPlayer = DirectX::XMVectorGetX(DirectX::XMVector2Length(StartPos.DirectXVector));
 	float4 MovePos = _StartPos - FloorCheckPos;
 
-	MoveRatio = std::lerp(MoveRatio, 1.0f, _Delta * MoveSpeed);
-	MovePos *= MoveRatio;
-	FloorCheckPos += MovePos;
-	Transform.AddLocalPosition(MovePos);
+	if (0.9f > MoveRatio)
+	{
+		MoveRatio = std::lerp(MoveRatio, 1.0f, _Delta * MoveSpeed);
+		MovePos *= MoveRatio;
+		FloorCheckPos += MovePos;
+		Transform.AddLocalPosition(MovePos);
+	}
 
-	//if (5.0f > LengthStartPosToPlayer)
-	//{
-	//	FloorCheckPos = _StartPos;
-	//	float4 SetPos = Transform.GetLocalPosition();
-	//	SetPos.X = FloorCheckPos.X;
-	//	Transform.SetLocalPosition(SetPos);
-	//}
-	//else
-	//{
-	//	FloorCheckPos += MovePos;
-	//	Transform.AddLocalPosition(MovePos);
-	//}
 }
 
 void Hand::ChangeAnimaion(std::string_view _AnimationName)

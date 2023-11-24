@@ -73,4 +73,8 @@ private:
 	void OutputBossName();
 	void BossStateUpdate();
 	void BossDeathProcessing();
+
+	bool StartProcessingIsEnd = false;
+	void StartProcessing();
+
 };

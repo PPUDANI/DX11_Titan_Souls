@@ -24,6 +24,7 @@ void Arrow::Start()
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::AttackArrow);
 	Collision->SetCollisionType(ColType::SPHERE2D);
 	Collision->Transform.SetLocalScale({ 10.0f, 10.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f, 1.0f });
 
 	PickUpCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::PickupArrow);
 	PickUpCollision->SetCollisionType(ColType::SPHERE2D);
@@ -281,6 +282,8 @@ void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 		Transform.AddLocalPosition(_MovePos);
 		AdjustPosByCol();
 		ChangeState(ARROW_STATE::Fallen);
+		PullingForce /= 2.0f;
+		DirSpecularReflection();
 	}
 }
 

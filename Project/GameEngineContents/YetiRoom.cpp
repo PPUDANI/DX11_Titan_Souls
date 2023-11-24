@@ -52,42 +52,42 @@ void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
-	if (false == WakeUpProcessingIsEnd &&
-		nullptr != YetiActor &&
-		true == YetiActor->YetiIsWakeUp())
+	if (false == BossIsDeath)
 	{
-		BossWakeUpProcessing();
-		WakeUpProcessingIsEnd = true;
+		if (false == WakeUpProcessingIsEnd &&
+			nullptr != YetiActor &&
+			true == YetiActor->YetiIsWakeUp())
+		{
+			BossWakeUpProcessing();
+			WakeUpProcessingIsEnd = true;
+		}
+
+		if (YETI_STATE::Hit == YetiActor->GetCurState())
+		{
+			BossIsDeath = true;
+			BackgroundStop();
+			ReleaseIcicle();
+			ReleaseSnowball();
+		}
+
+		if (true == BossIsDeath &&
+			false == BossDeathPrecessingIsEnd)
+		{
+			BossDeathProcessing();
+		}
 	}
 
-	if (YETI_STATE::Hit == YetiActor->GetCurState())
+	if (false == StartProcessingIsEnd)
 	{
-		BossIsDeath = true;
-		BackgroundStop();
-		ReleaseIcicle();
-		ReleaseSnowball();
+		StartProcessing();
 	}
-
-	if (true == BossIsDeath &&
-		false == BossDeathPrecessingIsEnd)
-	{
-		BossDeathProcessing();
-	}
-
-	if (nullptr != FadeInActor &&
-		true == FadeInActor->FadeIsEnd())
-	{
-		SpawnTriggerBox();
-		FadeInActor->Death();
-		FadeInActor = nullptr;
-	}
-
 }
 
 
 void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
+	StartProcessingIsEnd = false;
 	WakeUpProcessingIsEnd = false;
 	if (false == BossIsDeath)
 	{
@@ -330,4 +330,16 @@ void YetiRoom::SoundLoad()
 
 	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
 	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
+}
+
+void YetiRoom::StartProcessing()
+{
+	if (nullptr != FadeInActor &&
+		true == FadeInActor->FadeIsEnd())
+	{
+		StartProcessingIsEnd = true;
+		FadeInActor->Death();
+		FadeInActor = nullptr;
+		SpawnTriggerBox();
+	}
 }

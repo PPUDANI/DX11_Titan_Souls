@@ -63,4 +63,8 @@ private:
 
 private:
 	void SoundLoad() override;
+
+private:
+	bool StartProcessingIsEnd = false;
+	void StartProcessing();
 };

@@ -58,7 +58,9 @@ void Arrow::PinnedStart()
 {
 	EffectSoundPlay("ArrowImpact.ogg");
 	Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
+	Transform.AddLocalPosition(FlyingDirectionBasis * 10.0f);
 	Renderer->ChangeAnimation("Pinned");
+
 	Collision->Off();
 	PickUpCollision->Off();
 	PinnedRotationDir = Transform.GetLocalRotationEuler().Z;

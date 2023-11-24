@@ -69,7 +69,12 @@ public:
 
 	static float GetCameraZoom()
 	{
-		float ZoomValue = AddCameraZoomFromPlayer * AddCameraZoomFromArrow * AddCameraZoomFromBoss;
+		float ZoomValue = AddCameraZoomFromPlayer * AddCameraZoomFromBoss;
+
+		if (true == CalCameraZoomFromArrow)
+		{
+			ZoomValue *= AddCameraZoomFromArrow;
+		}
 
 		if (0.1f > ZoomValue)
 		{
@@ -92,7 +97,8 @@ public:
 		AddCameraZoomFromPlayer = 1.0f;
 		AddCameraZoomFromBoss = 1.0f;
 	}
-
+	
+	// Pos
 	static void CalCameraPosFromArrowOn()
 	{
 		CalCameraPosFromArrow = true;
@@ -123,6 +129,17 @@ public:
 		CalCameraPosFromBoss = false;
 	}
 
+	// Zoom
+	static void CalCameraZoomFromArrowOn()
+	{
+		CalCameraZoomFromArrow = true;
+	}
+
+	static void CalCameraZoomFromArrowOff()
+	{
+		CalCameraZoomFromArrow = false;
+	}
+
 protected:
 
 private:
@@ -131,4 +148,8 @@ private:
 	static bool CalCameraPosFromArrow;
 	static bool CalCameraPosFromPlayer;
 	static bool CalCameraPosFromBoss;
+
+	static bool CalCameraZoomFromArrow;
+	static bool CalCameraZoomFromPlayer;
+	static bool CalCameraZoomFromBoss;
 };
