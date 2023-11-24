@@ -82,7 +82,7 @@ private:
 	float ZoomRatio = 1.0f;
 
 private:
-	// Medal 물리변수
+	// Physical
 	float Speed = 2.0f;
 	float Radian = GameEngineMath::PI / 2.0f;
 	float MovingHeight = 10.0f;

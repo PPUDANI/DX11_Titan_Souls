@@ -28,13 +28,13 @@ void Hand::HoverStart()
 	{
 		ChangeAnimaion("InHover");
 	}
-	MoveSpeed = 0.1f;
+	MoveSpeed = 0.05f;
 }
 
 void Hand::FallStart()
 {
 	AllCollisionOn();
-	GravityValue = -1200.0f;
+	GravityValue = -500.0f;
 }
 
 void Hand::LandStart()
@@ -65,9 +65,10 @@ void Hand::HideUpdate(float _Delta)
 {
 	if (MinHeignt + FloorCheckPos.Y > Transform.GetLocalPosition().Y)
 	{
-		Transform.AddLocalPosition({ 0.0f, 10.0f * _Delta });
+		Transform.AddLocalPosition({ 0.0f, 100.0f * _Delta });
 	}
 
+	Levitaion(_Delta);
 	SetMoveDir(FloorCheckPos, HidePos);
 	MoveToPlayer(_Delta, HidePos);
 }
@@ -86,15 +87,17 @@ void Hand::HoverUpdate(float _Delta)
 
 	if (MaxHeight + FloorCheckPos.Y > Transform.GetLocalPosition().Y)
 	{
-		Transform.AddLocalPosition({ 0.0f, 500.0f * _Delta });
+		Transform.AddLocalPosition({ 0.0f, 200.0f * _Delta });
 	}
 
+	HoverRotation(_Delta);
 	SetMoveDir(FloorCheckPos);
 	MoveToPlayer(_Delta, EnymePlayer->Transform.GetLocalPosition());
 }
 
 void Hand::FallUpdate(float _Delta)
 {
+	FallRotation(_Delta);
 	Gravity(_Delta);
 }
 

@@ -4,7 +4,7 @@
 
 bool Hand::ModeSwitchIsAbleValue = true;
 bool Hand::AttackModeIsSwitch = true;
-const float4 Hand::HidePos = { 1616.0f, -1920.0f };
+const float4 Hand::HidePos = { 1616.0f, -1928.0f };
 
 Hand::Hand()
 {
@@ -52,7 +52,7 @@ void Hand::Start()
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
 
 	ShadowStandardAlpha = 0.5f;
-	ShadowScaleConstant = 3.0f;
+	ShadowScaleConstant = 5.0f;
 	ShadowAlphaConstant = 5.0f;
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
@@ -76,7 +76,7 @@ void Hand::Start()
 	Collision->Transform.SetLocalScale({ 64.0f, 36.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f });
 
-	GravityForce = 3000.0f;
+	GravityForce = 5000.0f;
 }
 
 void Hand::Update(float _Delta)
@@ -202,4 +202,69 @@ void Hand::ChangeAnimaion(std::string_view _AnimationName)
 {
 	BodyRenderer->ChangeAnimation(_AnimationName);
 	ShadowRenderer->ChangeAnimation(_AnimationName);
+}
+
+void Hand::HoverRotation(float _Delta)
+{
+	switch (CurDir)
+	{
+	case HAND_DIR::Left:
+		CurRotation.Z -= _Delta * HoverRotationSpeed;
+		if (-HoverMaxRotation.Z > CurRotation.Z)
+		{
+			CurRotation = -HoverMaxRotation;
+		}
+		break;
+	case HAND_DIR::Right:
+		CurRotation.Z += _Delta * HoverRotationSpeed;
+		if (HoverMaxRotation.Z < CurRotation.Z)
+		{
+			CurRotation = HoverMaxRotation;
+		}
+		break;
+	default:
+		break;
+	}
+	Transform.SetLocalRotation(CurRotation);
+}
+
+void Hand::FallRotation(float _Delta)
+{
+	switch (CurDir)
+	{
+	case HAND_DIR::Left:
+		CurRotation.Z += _Delta * FallRotationSpeed;
+		if (FallMaxRotation.Z < CurRotation.Z)
+		{
+			CurRotation = FallMaxRotation;
+		}
+		break;
+	case HAND_DIR::Right:
+		CurRotation.Z -= _Delta * FallRotationSpeed;
+		if (FallMaxRotation.Z > CurRotation.Z)
+		{
+			CurRotation = FallMaxRotation;
+		}
+		break;
+	default:
+		break;
+	}
+
+	Transform.SetLocalRotation(CurRotation);
+}
+
+
+void Hand::Levitaion(float _Delta)
+{
+	Radian += Speed * _Delta;
+
+	if (Radian >= GameEngineMath::PI2 + GameEngineMath::PI / 2.0f)
+	{
+		Radian = GameEngineMath::PI / 2.0f;
+	}
+
+	float Ratio = cosf(Radian) * MovingHeight;
+	float4 AddPos = { 0.0f, Ratio };
+
+	Transform.AddLocalPosition(AddPos * _Delta);
 }

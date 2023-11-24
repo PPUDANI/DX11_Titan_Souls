@@ -129,4 +129,22 @@ private:
 
 private:
 	void ChangeAnimaion(std::string_view _AnimationMane);
+
+private:
+	void HoverRotation(float _Delta);
+	void FallRotation(float _Delta);
+
+	float4 HoverMaxRotation = { 0.0f, 0.0f, 10.0f };
+	float4 FallMaxRotation = float4::ZERO;
+	float4 CurRotation = float4::ZERO;
+
+	float HoverRotationSpeed = 10.0f;
+	float FallRotationSpeed = 50.0f;
+private:
+    // Physical
+	float Speed = 3.0f;
+	float Radian = 0.0f;
+	float MovingHeight = 20.0f;
+
+	void Levitaion(float _Delta);
 };
