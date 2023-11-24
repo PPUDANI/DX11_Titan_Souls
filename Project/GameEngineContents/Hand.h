@@ -139,7 +139,7 @@ private:
 	float4 CurRotation = float4::ZERO;
 
 	float HoverRotationSpeed = 10.0f;
-	float FallRotationSpeed = 50.0f;
+	float FallRotationSpeed = 70.0f;
 private:
     // Physical
 	float Speed = 3.0f;

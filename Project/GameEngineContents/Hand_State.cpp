@@ -34,7 +34,7 @@ void Hand::HoverStart()
 void Hand::FallStart()
 {
 	AllCollisionOn();
-	GravityValue = -500.0f;
+	GravityValue = -1000.0f;
 }
 
 void Hand::LandStart()

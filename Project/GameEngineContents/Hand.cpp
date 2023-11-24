@@ -76,7 +76,7 @@ void Hand::Start()
 	Collision->Transform.SetLocalScale({ 64.0f, 36.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f });
 
-	GravityForce = 5000.0f;
+	GravityForce = 3000.0f;
 }
 
 void Hand::Update(float _Delta)
