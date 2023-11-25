@@ -56,7 +56,7 @@ void Hand::LandStart()
 	ScreenShakingTime = 1.0f;
 	ScreenShakingTimer = 0.0f;
 	ShakingPerFrame = 0.2f;
-	ShakingLerpValue = 15.0f;
+	ShakingLerpValue = 10.0f;
 
 	FistAttackPlayer.RandomPlay();
 	SetLandCollision();
