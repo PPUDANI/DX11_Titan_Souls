@@ -38,10 +38,13 @@ private:
 private:
 	// TriggerBox
 	std::shared_ptr<class TriggerBox> EnterTheSludgeRoom = nullptr;
-	void SludgeRoomStayTriggerFunc();
+	void StaySludgeRoomTriggerFunc();
 
 	std::shared_ptr<class TriggerBox> EnterTheYetiRoom = nullptr;
-	void YetiRoomStayTriggerFunc();
+	void StayYetiRoomTriggerFunc();
+
+	std::shared_ptr<class TriggerBox> EnterTheColossusRoom = nullptr;
+	void EnterColossusRoomTriggerFunc();
 
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
@@ -56,6 +59,8 @@ private:
 
 	std::shared_ptr<class TriggerBox> LeftHandPlayerDetectionRange = nullptr;
 	std::shared_ptr<class TriggerBox> RightHandPlayerDetectionRange = nullptr;
+
+
 
 	void EnterLeftDetectionRange();
 	void EnterRightDetectionRange();

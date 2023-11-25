@@ -6,14 +6,23 @@ void Hand::SleepStart()
 {
 	ModeSwitchIsAbleValue = false;
 	FloorCheckPos = Transform.GetLocalPosition();
-	ChangeAnimaion("Idle");
+
+	if (HAND_STATE::Death != PrevState)
+	{
+		ChangeAnimaion("Idle");
+	}
 }
 
 void Hand::HideStart()
 {
+	Collision->Transform.SetLocalScale({ 80.0f, 16.0f });
 	Collision->On();
+	AttackCollision->Off();
 	MoveRatio = 0.0f;
 	ChangeAnimaion("InHide");
+
+	ShadowStandardScale = { 176.0f, 176.0f , 1.0f };
+	ShadowScaleConstant = 10.0f;
 
 	MoveSpeed = 0.03f;
 }
@@ -28,18 +37,23 @@ void Hand::HoverStart()
 	{
 		ChangeAnimaion("InHover");
 	}
+
+	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
+	ShadowScaleConstant = 3.0f;
+
 	MoveSpeed = 0.05f;
 }
 
 void Hand::FallStart()
 {
-	AllCollisionOn();
 	GravityValue = -1000.0f;
 }
 
 void Hand::LandStart()
 {
-	AllCollisionOff();
+	Collision->Transform.SetLocalScale({ 64.0f, 32.0f });
+	AllCollisionOn();
+	AttackCollision->Off();
 	LandTimer = 0.0f;
 }
 
@@ -90,14 +104,14 @@ void Hand::HoverUpdate(float _Delta)
 		Transform.AddLocalPosition({ 0.0f, 250.0f * _Delta });
 	}
 
-	HoverRotation(_Delta);
+	HoverRotationUpdate(_Delta);
 	SetMoveDir(FloorCheckPos);
 	MoveToPlayer(_Delta, EnymePlayer->Transform.GetLocalPosition() + float4{0.0f, -8.0f});
 }
 
 void Hand::FallUpdate(float _Delta)
 {
-	FallRotation(_Delta);
+	FallRotationUpdate(_Delta);
 	Gravity(_Delta);
 }
 
@@ -135,6 +149,7 @@ void Hand::DeathUpdate(float _Delta)
 		return;
 	}
 
+	FallRotationUpdate(_Delta);
 	GravityValue -= GravityForce * _Delta;
 	float4 MovePos = GravityDir * GravityValue * _Delta;
 	Transform.AddLocalPosition(MovePos);

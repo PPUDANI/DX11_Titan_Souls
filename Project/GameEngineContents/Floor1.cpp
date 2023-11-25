@@ -117,13 +117,13 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 		}
 		else
 		{
-			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2270.0f });
+			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2670.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 		}
 	}
 	else
 	{
-		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2270.0f });
+		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2670.0f });
 		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
 	}
 	return;
@@ -186,17 +186,22 @@ void Floor1::SpawnTriggerBox()
 	EnterTheSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
 	EnterTheSludgeRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterRoomTriggerFunc, this));
-	EnterTheSludgeRoom->SetStayTriggerFunc(std::bind(&Floor1::SludgeRoomStayTriggerFunc, this));
+	EnterTheSludgeRoom->SetStayTriggerFunc(std::bind(&Floor1::StaySludgeRoomTriggerFunc, this));
 
 	EnterTheYetiRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToYetiRoom");
 	EnterTheYetiRoom->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
 	EnterTheYetiRoom->SetPlaceScale({ 90.0f, 60.0f });
 	EnterTheYetiRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterRoomTriggerFunc, this));
-	EnterTheYetiRoom->SetStayTriggerFunc(std::bind(&Floor1::YetiRoomStayTriggerFunc, this));
+	EnterTheYetiRoom->SetStayTriggerFunc(std::bind(&Floor1::StayYetiRoomTriggerFunc, this));
+
+	EnterTheColossusRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
+	EnterTheColossusRoom->Transform.SetLocalPosition({ 1616.0f, -2512.0f });
+	EnterTheColossusRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheColossusRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterColossusRoomTriggerFunc, this));
 
 }
 
-void Floor1::SludgeRoomStayTriggerFunc()
+void Floor1::StaySludgeRoomTriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 
@@ -213,7 +218,7 @@ void Floor1::SludgeRoomStayTriggerFunc()
 	}
 }
 
-void Floor1::YetiRoomStayTriggerFunc()
+void Floor1::StayYetiRoomTriggerFunc()
 {
 	PlayerActor->ChangeState(PLAYER_STATE::EnterLevel);
 
@@ -242,6 +247,12 @@ void Floor1::ReleaseTriggerBox()
 	{
 		EnterTheYetiRoom->Death();
 		EnterTheYetiRoom = nullptr;
+	}
+
+	if (nullptr != EnterTheColossusRoom)
+	{
+		EnterTheColossusRoom->Death();
+		EnterTheColossusRoom = nullptr;
 	}
 }
 
@@ -411,7 +422,6 @@ void Floor1::BossDeathProcessing()
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 		FadeInActor->Init(FadeColor::White, 3.0f, 0.5f);
 	}
-
 }
 
 void Floor1::StartProcessing()
@@ -424,4 +434,9 @@ void Floor1::StartProcessing()
 		FadeInActor = nullptr;
 		SpawnTriggerBox();
 	}
+}
+
+void Floor1::EnterColossusRoomTriggerFunc()
+{
+
 }

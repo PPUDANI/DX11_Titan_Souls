@@ -52,7 +52,7 @@ void Hand::Start()
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
 
 	ShadowStandardAlpha = 0.5f;
-	ShadowScaleConstant = 5.0f;
+	ShadowScaleConstant = 3.0f;
 	ShadowAlphaConstant = 5.0f;
 
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
@@ -68,13 +68,13 @@ void Hand::Start()
 
 	AttackCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBodyAttack);
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
-	AttackCollision->Transform.SetLocalScale({ 64.0f, 36.0f });
-	AttackCollision->Transform.SetLocalPosition({ 0.0f, -10.0f });
+	AttackCollision->Transform.SetLocalScale({ 64.0f, 32.0f });
+	AttackCollision->Transform.SetLocalPosition({ 0.0f, 0.0f });
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
-	Collision->Transform.SetLocalScale({ 64.0f, 36.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, -10.0f });
+	Collision->Transform.SetLocalScale({ 64.0f, 32.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, 0.0f });
 
 	GravityForce = 3000.0f;
 }
@@ -204,23 +204,23 @@ void Hand::ChangeAnimaion(std::string_view _AnimationName)
 	ShadowRenderer->ChangeAnimation(_AnimationName);
 }
 
-void Hand::HoverRotation(float _Delta)
+void Hand::HoverRotationUpdate(float _Delta)
 {
-	HoverMaxRotationUpdate();
+	HoverMaxRotationValueUpdate();
 
-	CurRotation.Z = std::lerp(CurRotation.Z, HoverMaxRotation, HoverRotationSpeed * _Delta);
+	CurRotation.Z = std::lerp(CurRotation.Z, HoverRotation, HoverRotationSpeed * _Delta);
 
 	Transform.SetLocalRotation(CurRotation);
 }
 
-void Hand::FallRotation(float _Delta)
+void Hand::FallRotationUpdate(float _Delta)
 {
 	CurRotation.Z = std::lerp(CurRotation.Z, FallMaxRotation, FallRotationSpeed * _Delta);
 
 	Transform.SetLocalRotation(CurRotation);
 }
 
-void Hand::HoverMaxRotationUpdate()
+void Hand::HoverMaxRotationValueUpdate()
 {
 	float4 VectorBodyToHand = Body->Transform.GetLocalPosition() - FloorCheckPos;
 
@@ -238,7 +238,7 @@ void Hand::HoverMaxRotationUpdate()
 	// -90 ~ 90µµ°¡ ³ª¿È
 	float Ratio = (AngleBodyToHand / 90);
 
-	HoverMaxRotation = MaxRotation * Ratio;
+	HoverRotation = HoverMaxRotation * Ratio;
 }
 
 

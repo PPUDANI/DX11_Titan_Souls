@@ -281,9 +281,6 @@ void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 	{
 		Transform.AddLocalPosition(_MovePos);
 		AdjustPosByCol();
-		ChangeState(ARROW_STATE::Fallen);
-		PullingForce /= 2.0f;
-		DirSpecularReflection();
 	}
 }
 

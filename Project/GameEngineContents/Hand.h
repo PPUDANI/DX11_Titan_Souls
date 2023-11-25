@@ -101,7 +101,7 @@ private:
 
 private:
 	float MaxHeight = 230.0f;
-	float MinHeignt = 40.0f;
+	float MinHeignt = 30.0f;
 	float CurHeignt = 0.0f;
 
 private:
@@ -134,21 +134,24 @@ private:
 	void ChangeAnimaion(std::string_view _AnimationMane);
 
 private:
-	void HoverRotation(float _Delta);
-	void FallRotation(float _Delta);
-	void HoverMaxRotationUpdate();
+	void HoverRotationUpdate(float _Delta);
+	void FallRotationUpdate(float _Delta);
+	void HoverMaxRotationValueUpdate();
 
-	float HoverMaxRotation = 0.0f;
+	float HoverMaxRotation = 15.0f;
+	float HoverRotation = 0.0f;
+
 	float FallMaxRotation = 0.0f;
+
 	float4 CurRotation = float4::ZERO;
 
-	float MaxRotation = 15.0f;
+
 	float HoverRotationSpeed = 5.0f;
 	float FallRotationSpeed = 10.0f;
 private:
     // Physical
 	float Speed = 3.0f;
-	float Radian = 0.0f;
+	float Radian = GameEngineMath::PI;
 	float MovingHeight = 20.0f;
 
 	void Levitaion(float _Delta);

@@ -59,8 +59,8 @@ void ColossusBody::Start()
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::SPHERE2D);
-	Collision->Transform.SetLocalScale({ 28.0f, 28.0f, 1.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 48.0f });
+	Collision->Transform.SetLocalScale({ 40.0f, 40.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
 	Collision->Off();
 
 	AttackRange = CreateComponent<GameEngineCollision>(COLLISION_TYPE::NONE);
