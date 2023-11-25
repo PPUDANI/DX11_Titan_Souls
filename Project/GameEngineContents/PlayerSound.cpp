@@ -61,7 +61,7 @@ void Player::StepSoundPlay()
 	switch (Type)
 	{
 	case TILE_MATERIAL_TYPE::Grass:
-		GrassStepRandomPlayer.RandomPlay();
+		GrassStepRandomPlayer.RandomPlay(0.5f);
 		break;
 	case TILE_MATERIAL_TYPE::Snow:
 		break;
@@ -72,7 +72,7 @@ void Player::StepSoundPlay()
 	case TILE_MATERIAL_TYPE::SludgeTile:
 	case TILE_MATERIAL_TYPE::Empty:
 	default:
-		StoneStepRandomPlayer.RandomPlay();
+		StoneStepRandomPlayer.RandomPlay(0.5f);
 		break;
 	}
 }

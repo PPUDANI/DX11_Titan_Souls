@@ -187,7 +187,5 @@ void ColossusBody::Levitaion(float _Delta)
 
 void ColossusBody::SoundLoad()
 {
-	// BGM, AMBIENCE
 	GlobalLoad::LoadSound("Roar.ogg", "Resource\\Sound\\Boss\\Colossus\\");
-
 }

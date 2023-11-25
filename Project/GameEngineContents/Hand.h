@@ -170,4 +170,11 @@ private:
 	float MovingHeight = 20.0f;
 
 	void Levitaion(float _Delta);
+
+private:
+
+	static SoundRandomPlayer FistAttackPlayer;
+
+	bool SoundIsLoaded = false;
+	void SoundLoad();
 };

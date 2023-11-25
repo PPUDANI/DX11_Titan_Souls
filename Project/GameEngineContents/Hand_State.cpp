@@ -52,6 +52,7 @@ void Hand::FallStart()
 
 void Hand::LandStart()
 {
+	FistAttackPlayer.RandomPlay();
 	SetHideCollision();
 	LandTimer = 0.0f;
 }

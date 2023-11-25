@@ -4,7 +4,10 @@
 
 bool Hand::ModeSwitchIsAbleValue = true;
 bool Hand::AttackModeIsSwitch = true;
+
 const float4 Hand::HidePos = { 1616.0f, -1928.0f };
+
+SoundRandomPlayer Hand::FistAttackPlayer(GlobalValue::FistAttackList);
 
 Hand::Hand()
 {
@@ -36,6 +39,7 @@ void Hand::Init(HAND_DIR _Dir)
 
 void Hand::Start()
 {
+	SoundLoad();
 	GlobalLoad::LoadSpriteCut(3, 1, "ColossusHand.png", "Resource\\Texture\\Boss\\Colossus");
 	GlobalLoad::LoadSpriteCut(3, 1, "ColossusHandShadow.png", "Resource\\Texture\\Boss\\Colossus");
 
@@ -254,4 +258,20 @@ void Hand::Levitaion(float _Delta)
 	float4 AddPos = { 0.0f, Ratio };
 
 	Transform.AddLocalPosition(AddPos * _Delta);
+}
+
+void Hand::SoundLoad()
+{
+	if(true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
+	size_t Index = GlobalValue::FistAttackList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::FistAttackList[i], "Resource\\Sound\\Boss\\Colossus\\");
+	}
 }

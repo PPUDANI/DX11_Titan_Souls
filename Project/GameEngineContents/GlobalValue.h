@@ -35,6 +35,9 @@ public:
 	static std::vector<std::string_view> IcicleLandList;
 	static std::vector<std::string_view> IcicleSmashList;
 
+	// Colossus
+	static std::vector<std::string_view> FistAttackList;
+
 protected:
 
 private:
