@@ -124,7 +124,7 @@ void Arrow::ChangeState(ARROW_STATE _State)
 
 void Arrow::MoveAndColCheck(const float4& _MovePos)
 {
-	float4 _MovePosUnit = FlyingDirectionBasis;
+	float4 _MovePosUnit = FlyingDirectionBasis / 2.0f;
 
 	int IndexInt = static_cast<int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 
@@ -194,8 +194,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		Res = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
-			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		Res = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
+			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
 		return Res;
 
 	case ARROW_STATE::Fallen:
@@ -207,8 +207,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		Res = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
-			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		Res = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
+			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
 		return Res;
 
 	case ARROW_STATE::Returning:
@@ -220,8 +220,8 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		Res = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
-			Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		Res = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
+			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
 		return Res;
 
 	default:

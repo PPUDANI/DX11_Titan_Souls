@@ -54,12 +54,12 @@ void ColossusBody::Start()
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
-	BodyCollision->Transform.SetLocalScale({ 128.0f, 64.0f, 1.0f });
+	BodyCollision->Transform.SetLocalScale({ 128.0f, 32.0f, 1.0f });
 	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
-	Collision->SetCollisionType(ColType::SPHERE2D);
-	Collision->Transform.SetLocalScale({ 40.0f, 40.0f, 1.0f });
+	Collision->SetCollisionType(ColType::AABBBOX2D);
+	Collision->Transform.SetLocalScale({ 30.0f, 30.0f, 1.0f });
 	Collision->Transform.SetLocalPosition({ 0.0f, 60.0f });
 	Collision->Off();
 
@@ -75,7 +75,6 @@ void ColossusBody::Start()
 
 void ColossusBody::Update(float _Delta)
 {
-
 	if (true == GameEngineInput::IsDown('O', this))
 	{
 		if (false == AttackRange->IsUpdate())

@@ -60,8 +60,6 @@ private:
 	std::shared_ptr<class TriggerBox> LeftHandPlayerDetectionRange = nullptr;
 	std::shared_ptr<class TriggerBox> RightHandPlayerDetectionRange = nullptr;
 
-
-
 	void EnterLeftDetectionRange();
 	void EnterRightDetectionRange();
 
@@ -73,13 +71,17 @@ private:
 private:
 	void SoundLoad() override;
 
-	bool FightBossPage = false;
-	void BossPageProcessing();
-	void OutputBossName();
-	void BossStateUpdate();
-	void BossDeathProcessing();
-
 	bool StartProcessingIsEnd = false;
 	void StartProcessing();
 
+	bool BossPageIsFight = false;
+	void BossPageProcessing();
+
+	void OutputBossName();
+	void BossStateUpdate();
+
+	bool BossHitProcessingIsEnd = false;
+	void BossHitProcessing();
+
+	void BossDeathProcessing();
 };

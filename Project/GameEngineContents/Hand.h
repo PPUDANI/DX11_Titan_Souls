@@ -77,6 +77,21 @@ private:
 		AttackCollision->Off();
 	}
 
+	void SetHideCollision()
+	{
+		Collision->Transform.SetLocalScale({ 80.0f, 32.0f });
+		Collision->Transform.SetLocalPosition({ 0.0f, 0.0f });
+		Collision->On();
+		AttackCollision->Off();
+	}
+
+	void SetLandCollision()
+	{
+		Collision->Transform.SetLocalScale({ 64.0f, 32.0f });
+		Collision->Transform.SetLocalPosition({ 0.0f, 0.0f });
+		AllCollisionOn();
+	}
+
 private:
 	HAND_STATE CurState = HAND_STATE::NONE;
 	HAND_STATE PrevState = HAND_STATE::NONE;

@@ -44,4 +44,5 @@ void TriggerBox::Start()
 void TriggerBox::Update(float _Delta)
 {
 	PlaceCol->CollisionEvent(COLLISION_TYPE::Player, Param);
+
 }

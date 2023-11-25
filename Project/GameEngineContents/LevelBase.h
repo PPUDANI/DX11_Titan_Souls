@@ -52,6 +52,20 @@ public:
 		SetBackgroundVolume();
 	}
 
+	void SetBackground2Volume(float _Value)
+	{
+		if (0.0f > _Value)
+		{
+			_Value = 0.0f;
+		}
+		else if (2.0f < _Value)
+		{
+			_Value = 2.0f;
+		}
+		Background2Volume = _Value;
+		SetBackground2Volume();
+	}
+
 	void SetAmbienceVolume(float _Value)
 	{
 		if (0.0f > _Value)
@@ -83,7 +97,11 @@ public:
 	void SetBackgroundVolume()
 	{
 		BackgroundPlayer.SetVolume(BackgroundVolume);
-		BackgroundPlayer2.SetVolume(BackgroundVolume);
+	}
+
+	void SetBackground2Volume()
+	{
+		BackgroundPlayer2.SetVolume(Background2Volume);
 	}
 
 	void SetAmbienceVolume()
@@ -99,6 +117,7 @@ public:
 	void SetAllVolume()
 	{
 		SetBackgroundVolume();
+		SetBackground2Volume();
 		SetAmbienceVolume();
 		SetEffectVolume();
 	}
@@ -106,6 +125,10 @@ public:
 	static inline float GetBackgroundVolume()
 	{
 		return BackgroundVolume;
+	}
+	static inline float GetBackground2Volume()
+	{
+		return Background2Volume;
 	}
 
 	static inline float GetAmbienceVolume()
@@ -129,7 +152,7 @@ protected:
 	void Background2Play(std::string_view _SoundName, int _Loop = 0)
 	{
 		BackgroundPlayer2 = GameEngineSound::SoundPlay(_SoundName, _Loop);
-		BackgroundPlayer2.SetVolume(BackgroundVolume);
+		BackgroundPlayer2.SetVolume(Background2Volume);
 	}
 
 	void AmbiencePlay(std::string_view _SoundName, int _Loop = 0)
@@ -164,42 +187,80 @@ protected:
 
 	void BackFadeInVolume(float _Delta)
 	{
-		FadeVolumeRatio += _Delta;
-		if (1.0f < FadeVolumeRatio)
+		BackFadeVolumeRatio += _Delta;
+		if (1.0f < BackFadeVolumeRatio)
 		{
-			FadeVolumeRatio = 1.0f;
-			FadeInVolume = false;
+			BackFadeVolumeRatio = 1.0f;
+			BackFadeInVolumeValue = false;
 		}
 
-		BackgroundPlayer.SetVolume(BackgroundVolume * FadeVolumeRatio);
-		BackgroundPlayer2.SetVolume(BackgroundVolume * FadeVolumeRatio);
-		AmbiencePlayer.SetVolume(AmbienceVolume * FadeVolumeRatio);
+		BackgroundPlayer.SetVolume(BackgroundVolume * BackFadeVolumeRatio);
+		BackgroundPlayer2.SetVolume(BackgroundVolume * BackFadeVolumeRatio);
 	}
 
 	void BackFadeOutVolume(float _Delta)
 	{
-		FadeVolumeRatio -= _Delta;
-		if (0.0f > FadeVolumeRatio)
+		BackFadeVolumeRatio -= _Delta;
+		if (0.0f > BackFadeVolumeRatio)
 		{
-			FadeVolumeRatio = 0.0f;
-			FadeOutVolume = false;
+			BackFadeVolumeRatio = 0.0f;
+			BackFadeOutVolumeValue = false;
 		}
 
-		BackgroundPlayer.SetVolume(BackgroundVolume * FadeVolumeRatio);
-		BackgroundPlayer2.SetVolume(BackgroundVolume * FadeVolumeRatio);
-		AmbiencePlayer.SetVolume(AmbienceVolume * FadeVolumeRatio);
+		BackgroundPlayer.SetVolume(BackgroundVolume * BackFadeVolumeRatio);
+		BackgroundPlayer2.SetVolume(BackgroundVolume * BackFadeVolumeRatio);
 	}
 
-	void FadeInVolumeIsOn()
+	void AmbienceFadeInVolume(float _Delta)
 	{
-		FadeInVolume = true;
-		FadeOutVolume = false;
+		AmbienceFadeVolumeRatio += _Delta;
+		if (1.0f < AmbienceFadeVolumeRatio)
+		{
+			AmbienceFadeVolumeRatio = 1.0f;
+			AmbienceFadeInVolumeValue = false;
+		}
+
+		AmbiencePlayer.SetVolume(AmbienceVolume * AmbienceFadeVolumeRatio);
 	}
 
-	void FadeOutVolumeIsOn()
+	void AmbienceFadeOutVolume(float _Delta)
 	{
-		FadeInVolume = false;
-		FadeOutVolume = true;
+		AmbienceFadeVolumeRatio -= _Delta;
+		if (0.0f > AmbienceFadeVolumeRatio)
+		{
+			AmbienceFadeVolumeRatio = 0.0f;
+			AmbienceFadeOutVolumeValue = false;
+		}
+
+		AmbiencePlayer.SetVolume(AmbienceVolume * AmbienceFadeVolumeRatio);
+	}
+
+	void BackFadeInVolumeOn()
+	{
+		BackFadeVolumeRatio = 0.0f;
+		BackFadeInVolumeValue = true;
+		BackFadeOutVolumeValue = false;
+	}
+
+	void BackFadeOutVolumeOn()
+	{
+		BackFadeVolumeRatio = 1.0f;
+		BackFadeInVolumeValue = false;
+		BackFadeOutVolumeValue = true;
+	}
+
+	void AmbienceFadeInVolumeOn()
+	{
+		AmbienceFadeVolumeRatio = 0.0f;
+		AmbienceFadeInVolumeValue = true;
+		AmbienceFadeOutVolumeValue = false;
+	}
+
+	void AmbienceFadeOutVolumeOn()
+	{
+		AmbienceFadeVolumeRatio = 1.0f;
+		AmbienceFadeInVolumeValue = false;
+		AmbienceFadeOutVolumeValue = true;
 	}
 
 private:
@@ -209,12 +270,17 @@ private:
 	GameEngineSoundPlayer EffectPlayer;
 
 	static float BackgroundVolume;
+	static float Background2Volume;
 	static float AmbienceVolume;
 	static float EffectVolume;
 
 private:
-	bool FadeInVolume = true;
-	bool FadeOutVolume = false;
+	bool BackFadeInVolumeValue = true;
+	bool BackFadeOutVolumeValue = false;
 
-	float FadeVolumeRatio = 0.0f;
+	bool AmbienceFadeInVolumeValue = true;
+	bool AmbienceFadeOutVolumeValue = false;
+
+	float BackFadeVolumeRatio = 0.0f;
+	float AmbienceFadeVolumeRatio = 0.0f;
 };

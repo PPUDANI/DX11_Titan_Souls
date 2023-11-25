@@ -48,7 +48,7 @@ void Hand::Start()
 	BodyRenderer->CreateAnimation("InHide", "ColossusHand.png", 0.2f, 0, 2, false);
 	BodyRenderer->CreateAnimation("InHover", "ColossusHand.png", 0.2f, 2, 0, false);
 
-	ShadowStandardPos = { 0.0f, -25.0f };
+	ShadowStandardPos = { 0.0f, -30.0f };
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
 
 	ShadowStandardAlpha = 0.5f;
@@ -74,7 +74,6 @@ void Hand::Start()
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
 	Collision->Transform.SetLocalScale({ 64.0f, 32.0f });
-	Collision->Transform.SetLocalPosition({ 0.0f, 0.0f });
 
 	GravityForce = 3000.0f;
 }
@@ -179,11 +178,11 @@ void Hand::MoveToPlayer(float _Delta, const float4& _StartPos)
 
 	if (0.9f > MoveRatio)
 	{
-		MoveRatio = std::lerp(MoveRatio, 1.0f, _Delta * MoveSpeed);
-		MovePos *= MoveRatio;
+		MoveRatio = std::lerp(MoveRatio, 1.0f, _Delta);
+		MovePos *= MoveRatio * MoveSpeed;
 
-		FloorCheckPos += MovePos;
-		Transform.AddLocalPosition(MovePos);
+		FloorCheckPos += MovePos * _Delta;
+		Transform.AddLocalPosition(MovePos * _Delta);
 	}
 
 	float4 VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition() - float4{0.0f, -50.0f};

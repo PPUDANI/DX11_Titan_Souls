@@ -75,6 +75,7 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		SpawnBoss();
 	}
+
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
@@ -178,6 +179,8 @@ void Floor1::SpawnBoss()
 		RightHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
 		RightHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
 	}
+
+	BossPageIsFight = false;
 }
 
 void Floor1::SpawnTriggerBox()
@@ -346,8 +349,8 @@ void Floor1::SwitchToAttackModeRightHand()
 
 void Floor1::BossPageProcessing()
 {
-	BackgroundStop();
-	BackgroundPlay("Colossus.ogg");
+	OutputBossName();
+	Background2Play("Colossus.ogg", 10000);
 }
 
 
@@ -373,22 +376,29 @@ void Floor1::BossStateUpdate()
 {
 	if (false == BossIsDeath)
 	{
-		if (BODY_STATE::Hit == BossBodyActor->GetCurState())
+		if (BODY_STATE::Death == BossBodyActor->GetCurState())
 		{
+			BossIsDeath = true;
 			BossDeathProcessing();
+		}
+
+		if (BODY_STATE::Hit == BossBodyActor->GetCurState() ||
+			false == BossHitProcessingIsEnd)
+		{
+			BossHitProcessingIsEnd = true;
+			BossHitProcessing();
 			return;
 		}
 
 		if (BODY_STATE::WakeUp == BossBodyActor->GetCurState())
 		{
-			BackgroundStop();
+			SetBackgroundVolume(0.0f);
 		}
 
 		if (BODY_STATE::Idle == BossBodyActor->GetCurState() &&
-			false == FightBossPage)
+			false == BossPageIsFight)
 		{
-			OutputBossName();
-			FightBossPage = true;
+			BossPageIsFight = true;
 			BossPageProcessing();
 		}
 
@@ -413,15 +423,20 @@ void Floor1::BossStateUpdate()
 	}
 }
 
-void Floor1::BossDeathProcessing()
+void Floor1::BossHitProcessing()
 {
-	BossIsDeath = true;
-	BackgroundStop();
+	Background2Stop();
 	if (nullptr == FadeInActor)
 	{
 		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
 		FadeInActor->Init(FadeColor::White, 3.0f, 0.5f);
 	}
+}
+
+void Floor1::BossDeathProcessing()
+{
+	SetBackgroundVolume(0.5f);
+	BackFadeInVolumeOn();
 }
 
 void Floor1::StartProcessing()

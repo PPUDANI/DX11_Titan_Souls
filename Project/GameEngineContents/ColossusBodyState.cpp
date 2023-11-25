@@ -15,7 +15,6 @@ void ColossusBody::WakeUpStart()
 	CameraManager::CalCameraZoomFromArrowOff();
 	CameraMoveRatio = 0.0f;
 	HeadRenderer->ChangeAnimation("WakeUp");
-
 }
 
 void ColossusBody::ShoutingStart()
@@ -58,7 +57,11 @@ void ColossusBody::HitStart()
 
 void ColossusBody::DeathStart()
 {
+	BodyCollision->Transform.SetLocalScale({ 128.0f, 32.0f, 1.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
+	Collision->Off();
 	BodyLightRenderer->GetColorData().MulColor.A = 0.0f;
+	HeadRenderer->ChangeAnimation("Death");
 }
 
 void ColossusBody::SleepUpdate(float _Delta)

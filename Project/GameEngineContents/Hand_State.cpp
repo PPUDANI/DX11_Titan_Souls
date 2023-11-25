@@ -15,22 +15,23 @@ void Hand::SleepStart()
 
 void Hand::HideStart()
 {
-	Collision->Transform.SetLocalScale({ 80.0f, 16.0f });
-	Collision->On();
-	AttackCollision->Off();
+	Radian = GameEngineMath::PI;
+	SetHideCollision();
+
 	MoveRatio = 0.0f;
 	ChangeAnimaion("InHide");
 
 	ShadowStandardScale = { 176.0f, 176.0f , 1.0f };
 	ShadowScaleConstant = 10.0f;
 
-	MoveSpeed = 0.03f;
+	MoveSpeed = 10.0f;
 }
 
 void Hand::HoverStart()
 {
-	MoveRatio = 0.0f;
 	AllCollisionOff();
+
+	MoveRatio = 0.0f;
 	HoverTimer = 0.0f;
 	ModeSwitchIsAbleValue = false;
 	if (HAND_STATE::Hide == PrevState)
@@ -41,7 +42,7 @@ void Hand::HoverStart()
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
 	ShadowScaleConstant = 3.0f;
 
-	MoveSpeed = 0.05f;
+	MoveSpeed = 20.0f;
 }
 
 void Hand::FallStart()
@@ -51,9 +52,7 @@ void Hand::FallStart()
 
 void Hand::LandStart()
 {
-	Collision->Transform.SetLocalScale({ 64.0f, 32.0f });
-	AllCollisionOn();
-	AttackCollision->Off();
+	SetHideCollision();
 	LandTimer = 0.0f;
 }
 
@@ -65,8 +64,11 @@ void Hand::HitStart()
 
 void Hand::DeathStart()
 {
+	Collision->On();
 	GravityValue = 0.0f;
 	GravityForce = 1200.0f;
+	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
+	ShadowScaleConstant = 3.0f;
 }
 
 
