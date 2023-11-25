@@ -166,16 +166,16 @@ void Floor1::SpawnBoss()
 	if (nullptr == LeftHandPlayerDetectionRange)
 	{
 		LeftHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
-		LeftHandPlayerDetectionRange->Transform.SetLocalPosition({ 1386.0f, -2100.0f });
-		LeftHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 350.0f });
+		LeftHandPlayerDetectionRange->Transform.SetLocalPosition({ 1386.0f, -2140.0f });
+		LeftHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
 		LeftHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterLeftDetectionRange, this));
 	}
 
 	if (nullptr == RightHandPlayerDetectionRange)
 	{
 		RightHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
-		RightHandPlayerDetectionRange->Transform.SetLocalPosition({ 1846.0f, -2100.0f });
-		RightHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 350.0f });
+		RightHandPlayerDetectionRange->Transform.SetLocalPosition({ 1846.0f, -2140.0f });
+		RightHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
 		RightHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
 	}
 }

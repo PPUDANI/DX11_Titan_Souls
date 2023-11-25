@@ -82,17 +82,17 @@ void Hand::HoverUpdate(float _Delta)
 		CurPos.Y = MaxHeight + FloorCheckPos.Y;
 		Transform.SetLocalPosition(CurPos);
 	}
-	
+
 	HoverTimer += _Delta;
 
 	if (MaxHeight + FloorCheckPos.Y > Transform.GetLocalPosition().Y)
 	{
-		Transform.AddLocalPosition({ 0.0f, 200.0f * _Delta });
+		Transform.AddLocalPosition({ 0.0f, 250.0f * _Delta });
 	}
 
 	HoverRotation(_Delta);
 	SetMoveDir(FloorCheckPos);
-	MoveToPlayer(_Delta, EnymePlayer->Transform.GetLocalPosition());
+	MoveToPlayer(_Delta, EnymePlayer->Transform.GetLocalPosition() + float4{0.0f, -8.0f});
 }
 
 void Hand::FallUpdate(float _Delta)

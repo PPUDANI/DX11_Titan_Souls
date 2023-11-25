@@ -61,8 +61,6 @@ void ColossusBody::DeathStart()
 	BodyLightRenderer->GetColorData().MulColor.A = 0.0f;
 }
 
-
-
 void ColossusBody::SleepUpdate(float _Delta)
 {
 	if (true == IsBodyHitByArrow)
@@ -79,7 +77,7 @@ void ColossusBody::WakeUpUpdate(float _Delta)
 	CameraMoveRatio = std::lerp(CameraMoveRatio, 1.0f, 3.0f * _Delta);
 	CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition() + float4{ 0.0f, 20.0f }) * CameraMoveRatio;
 
-	if (0.99f < CameraMoveRatio)
+	if (0.999f < CameraMoveRatio)
 	{
 		ChangeState(BODY_STATE::Shouting);
 		return;
@@ -97,7 +95,7 @@ void ColossusBody::ShoutingUpdate(float _Delta)
 
 	ZoomRatio = std::lerp(ZoomRatio, 0.8f, 5.0f * _Delta);
 	CameraManager::AddCameraZoomFromBoss = ZoomRatio;
-
+	CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition() + float4{ 0.0f, 20.0f });
 	ShakingScreen(_Delta);
 }
 

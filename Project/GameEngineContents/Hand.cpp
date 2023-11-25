@@ -48,7 +48,7 @@ void Hand::Start()
 	BodyRenderer->CreateAnimation("InHide", "ColossusHand.png", 0.2f, 0, 2, false);
 	BodyRenderer->CreateAnimation("InHover", "ColossusHand.png", 0.2f, 2, 0, false);
 
-	ShadowStandardPos = { 0.0f, -30.0f };
+	ShadowStandardPos = { 0.0f, -25.0f };
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
 
 	ShadowStandardAlpha = 0.5f;
@@ -186,12 +186,12 @@ void Hand::MoveToPlayer(float _Delta, const float4& _StartPos)
 		Transform.AddLocalPosition(MovePos);
 	}
 
-	float4 VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition();
+	float4 VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition() - float4{0.0f, -50.0f};
 	float DistanceFromBody = DirectX::XMVectorGetX(DirectX::XMVector2Length(VectorHandFromBody.DirectXVector));
 
-	while (400.0f < DistanceFromBody)
+	while (450.0f < DistanceFromBody)
 	{
-		VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition();
+		VectorHandFromBody = FloorCheckPos - Body->Transform.GetLocalPosition() - float4{ 0.0f, -50.0f };
 		DistanceFromBody = DirectX::XMVectorGetX(DirectX::XMVector2Length(VectorHandFromBody.DirectXVector));
 		FloorCheckPos -= Body->MoveDirBasis;
 		Transform.AddLocalPosition(-Body->MoveDirBasis);
@@ -206,51 +206,39 @@ void Hand::ChangeAnimaion(std::string_view _AnimationName)
 
 void Hand::HoverRotation(float _Delta)
 {
-	switch (CurDir)
-	{
-	case HAND_DIR::Left:
-		CurRotation.Z -= _Delta * HoverRotationSpeed;
-		if (-HoverMaxRotation.Z > CurRotation.Z)
-		{
-			CurRotation = -HoverMaxRotation;
-		}
-		break;
-	case HAND_DIR::Right:
-		CurRotation.Z += _Delta * HoverRotationSpeed;
-		if (HoverMaxRotation.Z < CurRotation.Z)
-		{
-			CurRotation = HoverMaxRotation;
-		}
-		break;
-	default:
-		break;
-	}
+	HoverMaxRotationUpdate();
+
+	CurRotation.Z = std::lerp(CurRotation.Z, HoverMaxRotation, HoverRotationSpeed * _Delta);
+
 	Transform.SetLocalRotation(CurRotation);
 }
 
 void Hand::FallRotation(float _Delta)
 {
-	switch (CurDir)
-	{
-	case HAND_DIR::Left:
-		CurRotation.Z += _Delta * FallRotationSpeed;
-		if (FallMaxRotation.Z < CurRotation.Z)
-		{
-			CurRotation = FallMaxRotation;
-		}
-		break;
-	case HAND_DIR::Right:
-		CurRotation.Z -= _Delta * FallRotationSpeed;
-		if (FallMaxRotation.Z > CurRotation.Z)
-		{
-			CurRotation = FallMaxRotation;
-		}
-		break;
-	default:
-		break;
-	}
+	CurRotation.Z = std::lerp(CurRotation.Z, FallMaxRotation, FallRotationSpeed * _Delta);
 
 	Transform.SetLocalRotation(CurRotation);
+}
+
+void Hand::HoverMaxRotationUpdate()
+{
+	float4 VectorBodyToHand = Body->Transform.GetLocalPosition() - FloorCheckPos;
+
+	float AngleBodyToHand;
+	AngleBodyToHand = DirectX::XMConvertToDegrees(atan2f(VectorBodyToHand.Y, VectorBodyToHand.X));
+
+	while (-90.0f > AngleBodyToHand)
+	{
+		AngleBodyToHand += 360.0f;
+	}
+
+	AngleBodyToHand -= 90.0;
+
+
+	// -90 ~ 90µµ°¡ ³ª¿È
+	float Ratio = (AngleBodyToHand / 90);
+
+	HoverMaxRotation = MaxRotation * Ratio;
 }
 
 

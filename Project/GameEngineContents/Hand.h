@@ -100,7 +100,7 @@ private:
 	void DeathUpdate(float _Delta);
 
 private:
-	float MaxHeight = 180.0f;
+	float MaxHeight = 230.0f;
 	float MinHeignt = 40.0f;
 	float CurHeignt = 0.0f;
 
@@ -115,6 +115,9 @@ private:
 	float MoveRatio = 0.0f;
 	float MoveSpeed = 0.0f;
 	float4 FloorCheckPos = float4::ZERO;
+
+	float4 LeftRangeCenterValue = { -200.0f, -150.0f };
+	float4 RightRangeCenterValue = { 200.0f, -150.0f };
 
 	void MoveToPlayer(float _Delta, const float4& _StartPos);
 
@@ -133,13 +136,15 @@ private:
 private:
 	void HoverRotation(float _Delta);
 	void FallRotation(float _Delta);
+	void HoverMaxRotationUpdate();
 
-	float4 HoverMaxRotation = { 0.0f, 0.0f, 10.0f };
-	float4 FallMaxRotation = float4::ZERO;
+	float HoverMaxRotation = 0.0f;
+	float FallMaxRotation = 0.0f;
 	float4 CurRotation = float4::ZERO;
 
-	float HoverRotationSpeed = 10.0f;
-	float FallRotationSpeed = 70.0f;
+	float MaxRotation = 15.0f;
+	float HoverRotationSpeed = 5.0f;
+	float FallRotationSpeed = 10.0f;
 private:
     // Physical
 	float Speed = 3.0f;
