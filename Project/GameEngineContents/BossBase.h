@@ -49,8 +49,9 @@ protected:
 	std::shared_ptr<GameEngineSpriteRenderer> ShadowRenderer = nullptr;
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
-	void ShadowVariableByHeight(const float4& _JumpStartPos);
-
+	void ShadowVariableByHeightUpdate(const float4& _JumpStartPos);
+	void ShadowAlphaByHeightUpdate(const float4& _JumpStartPos);
+	
 	float4 ShadowStandardPos = float4::ZERO;
 	float4 ShadowStandardScale = float4::ZERO;
 	float ShadowStandardAlpha = 0.0f;
@@ -84,7 +85,7 @@ protected:
 	float FrameTimer = 0.0f;
 
 	int ShakingSeedCount = 0;
-	float ScreenShakingTime;
+	float ScreenShakingTime = 0.0f;
 	float ScreenShakingTimer = 0.0f;
 	float ShakingPerFrame = 0.0f;
 	bool ShakingEnd = false;

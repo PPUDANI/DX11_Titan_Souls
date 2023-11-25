@@ -49,8 +49,8 @@ void Hand::Start()
 	BodyRenderer->Transform.SetLocalPosition({ 0.0f , -40.0f });
 	BodyRenderer->CreateAnimation("Idle", "ColossusHand.png", 10.0f, 0, 0, true);
 	BodyRenderer->CreateAnimation("Hide", "ColossusHand.png", 10.0f, 2, 2, true);
-	BodyRenderer->CreateAnimation("InHide", "ColossusHand.png", 0.2f, 0, 2, false);
-	BodyRenderer->CreateAnimation("InHover", "ColossusHand.png", 0.2f, 2, 0, false);
+	BodyRenderer->CreateAnimation("InHide", "ColossusHand.png", 0.25f, 0, 2, false);
+	BodyRenderer->CreateAnimation("InHover", "ColossusHand.png", 0.25f, 2, 0, false);
 
 	ShadowStandardPos = { 0.0f, -30.0f };
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
@@ -65,8 +65,8 @@ void Hand::Start()
 
 	ShadowRenderer->CreateAnimation("Idle", "ColossusHandShadow.png", 10.0f, 0, 0, true);
 	ShadowRenderer->CreateAnimation("Hide", "ColossusHandShadow.png", 10.0f, 2, 2, true);
-	ShadowRenderer->CreateAnimation("InHide", "ColossusHandShadow.png", 0.2f, 0, 2, false);
-	ShadowRenderer->CreateAnimation("InHover", "ColossusHandShadow.png", 0.2f, 2, 0, false);
+	ShadowRenderer->CreateAnimation("InHide", "ColossusHandShadow.png", 0.25f, 0, 2, false);
+	ShadowRenderer->CreateAnimation("InHover", "ColossusHandShadow.png", 0.25f, 2, 0, false);
 
 	ChangeAnimaion("Idle");
 
@@ -112,7 +112,7 @@ void Hand::Update(float _Delta)
 	}
 
 	ShadowRenderer->Transform.SetWorldPosition(FloorCheckPos + ShadowStandardPos);
-	ShadowVariableByHeight(FloorCheckPos);
+	ShadowVariableByHeightUpdate(FloorCheckPos);
 
 	if (true == GetLevel()->IsDebug)
 	{

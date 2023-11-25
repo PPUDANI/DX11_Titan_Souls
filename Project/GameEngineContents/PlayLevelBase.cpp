@@ -72,6 +72,7 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 	}
 	BackFadeInVolumeOn();
 	AmbienceFadeInVolumeOn();
+	EffectFadeInVolumeOn();
 }
 
 void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
@@ -182,6 +183,7 @@ void PlayLevelBase::ExitRoomTriggerFunc()
 {
 	BackFadeOutVolumeOn();
 	AmbienceFadeOutVolumeOn();
+	EffectFadeOutVolumeOn();
 }
 
 void PlayLevelBase::ReleaseBossName()

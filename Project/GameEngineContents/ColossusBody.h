@@ -87,7 +87,7 @@ private:
 	float Radian = GameEngineMath::PI / 2.0f;
 	float MovingHeight = 10.0f;
 
-	void Levitaion(float _Delta);
+	void Breathing(float _Delta);
 
 private:
 	void SoundLoad();

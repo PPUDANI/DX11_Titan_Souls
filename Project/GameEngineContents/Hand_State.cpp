@@ -52,8 +52,14 @@ void Hand::FallStart()
 
 void Hand::LandStart()
 {
+	ShakingEnd = false;
+	ScreenShakingTime = 1.0f;
+	ScreenShakingTimer = 0.0f;
+	ShakingPerFrame = 0.2f;
+	ShakingLerpValue = 15.0f;
+
 	FistAttackPlayer.RandomPlay();
-	SetHideCollision();
+	SetLandCollision();
 	LandTimer = 0.0f;
 }
 
@@ -84,6 +90,10 @@ void Hand::HideUpdate(float _Delta)
 	{
 		Transform.AddLocalPosition({ 0.0f, 100.0f * _Delta });
 	}
+	else if (false == Collision->IsUpdate())
+	{
+		Collision->On();
+	}
 
 	Levitaion(_Delta);
 	SetMoveDir(FloorCheckPos, HidePos);
@@ -110,6 +120,8 @@ void Hand::HoverUpdate(float _Delta)
 	HoverRotationUpdate(_Delta);
 	SetMoveDir(FloorCheckPos);
 	MoveToPlayer(_Delta, EnymePlayer->Transform.GetLocalPosition() + float4{0.0f, -8.0f});
+
+	ShakingScreen(_Delta);
 }
 
 void Hand::FallUpdate(float _Delta)
@@ -127,12 +139,14 @@ void Hand::LandUpdate(float _Delta)
 		if (false == AttackModeIsSwitch)
 		{
 			ChangeState(HAND_STATE::Hover);
+			return;
 		}
 	}
 	else
 	{
 		LandTimer += _Delta;
 	}
+	ShakingScreen(_Delta);
 }
 
 void Hand::HitUpdate(float _Delta)

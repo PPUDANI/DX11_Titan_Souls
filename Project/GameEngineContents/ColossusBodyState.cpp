@@ -25,7 +25,7 @@ void ColossusBody::ShoutingStart()
 	ShakingEnd = false;
 	ScreenShakingTime = 1.5f;
 	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.5f;
+	ShakingPerFrame = 0.3f;
 	ShakingLerpValue = 10.0f;
 
 	ZoomRatio = 1.0f;
@@ -57,8 +57,8 @@ void ColossusBody::HitStart()
 
 void ColossusBody::DeathStart()
 {
-	BodyCollision->Transform.SetLocalScale({ 128.0f, 32.0f, 1.0f });
-	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
+	BodyCollision->Transform.SetLocalScale({ 128.0f, 64.0f, 1.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 24.0f });
 	Collision->Off();
 	BodyLightRenderer->GetColorData().MulColor.A = 0.0f;
 	HeadRenderer->ChangeAnimation("Death");
@@ -72,7 +72,7 @@ void ColossusBody::SleepUpdate(float _Delta)
 		return;
 	}
 
-	Levitaion(_Delta);
+	Breathing(_Delta);
 }
 
 void ColossusBody::WakeUpUpdate(float _Delta)
@@ -110,7 +110,7 @@ void ColossusBody::IdleUpdate(float _Delta)
 		return;
 	}
 
-	Levitaion(_Delta);
+	Breathing(_Delta);
 	ShakingScreen(_Delta);
 }
 

@@ -80,6 +80,7 @@ private:
 	void OutputBossName();
 	void BossStateUpdate();
 
+	bool ShowtingProcessingIsEnd = false;
 	bool BossHitProcessingIsEnd = false;
 	void BossHitProcessing();
 

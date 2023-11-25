@@ -124,7 +124,7 @@ void Arrow::ChangeState(ARROW_STATE _State)
 
 void Arrow::MoveAndColCheck(const float4& _MovePos)
 {
-	float4 _MovePosUnit = FlyingDirectionBasis / 2.0f;
+	float4 _MovePosUnit = FlyingDirectionBasis;
 
 	int IndexInt = static_cast<int>(abs((abs(FlyingDirectionBasis.X) > abs(FlyingDirectionBasis.Y)) ? _MovePos.X / _MovePosUnit.X : _MovePos.Y / _MovePosUnit.Y));
 
@@ -132,6 +132,11 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 	{
 		float Index = static_cast<float>(i);
 		float4 MovePos = _MovePosUnit * Index;
+
+		if (true == ArrowColCheckByState(MovePos))
+		{
+			return;
+		}
 
 		if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + MovePos, TileColType))
 		{
@@ -153,11 +158,11 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 			}
 			return;
 		}
+	}
 
-		if (true == ArrowColCheckByState(MovePos))
-		{
-			return;
-		}
+	if (true == ArrowColCheckByState(_MovePos))
+	{
+		return;
 	}
 
 	if (true == CurMap->ArrowColCheck(Transform.GetLocalPosition() + ArrowheadCheckPos + _MovePos, TileColType))
@@ -177,11 +182,6 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 			IsBlocked = true;
 			ChangeState(ARROW_STATE::Fallen);
 		}
-		return;
-	}
-
-	if (true == ArrowColCheckByState(_MovePos))
-	{
 		return;
 	}
 
@@ -246,6 +246,7 @@ void Arrow::AdjustPosByCol()
 	{
 		Transform.AddLocalPosition(-FlyingDirectionBasis);
 	}
+	Transform.AddLocalPosition(-FlyingDirectionBasis);
 }
 
 void Arrow::DirSpecularReflection()
@@ -281,6 +282,11 @@ void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 	{
 		Transform.AddLocalPosition(_MovePos);
 		AdjustPosByCol();
+		if (ARROW_STATE::Flying == CurState)
+		{
+			ChangeState(ARROW_STATE::Fallen);
+		}
+		PullingForce /= 2.0f;
 	}
 }
 

@@ -37,12 +37,19 @@ void Sludge::Start()
 	BodyRenderer->SetImageScale({ 256.0f, 256.0f });
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
+
+	ShadowStandardPos = DefaultRenderPosBase;
+	ShadowStandardScale = { 128.0f, 128.0f };
+	ShadowStandardAlpha = 0.7f;
+	ShadowAlphaConstant = 2.0f;
+
+
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
-	ShadowRenderer->SetImageScale({ 128.0f, 128.0f });
-	ShadowRenderer->Transform.AddLocalPosition(RenderPosBase);
-
+	ShadowRenderer->SetImageScale(ShadowStandardScale);
+	ShadowRenderer->Transform.AddLocalPosition(ShadowStandardPos);
+	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha;
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBodyAttack);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
@@ -102,6 +109,7 @@ void Sludge::Update(float _Delta)
 	}
 
 	RendererSetting();
+	ShadowAlphaByHeightUpdate(JumpStartPos);
 	// Sludge 분열 (최대 3번)
 	if (false == MaxDivision)
 	{
@@ -144,8 +152,6 @@ void Sludge::Update(float _Delta)
 			}
 		}
 	}
-
-
 
 	JumpBoss::Update(_Delta);
 

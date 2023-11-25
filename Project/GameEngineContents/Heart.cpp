@@ -18,7 +18,7 @@ void Heart::Start()
 	SoundLoad();
 	GlobalLoad::LoadSpriteCut(7, 1, "Heart.png", "Resource\\Texture\\Boss\\SludgeHeart\\");
 	GlobalLoad::LoadSpriteSingle("Shadow.png", "Resource\\Texture\\Boss\\SludgeHeart");
-	RenderPosBase = { 0.0f, -24.0f };
+	RenderPosBase = { 0.0f, -28.0f };
 
 	// Renderer setting
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
@@ -31,11 +31,18 @@ void Heart::Start()
 	BodyRenderer->CreateAnimation("Death", "Heart.png", 10.0f, 6, 6, false);
 	BodyRenderer->Transform.AddLocalPosition(RenderPosBase);
 
+	ShadowStandardPos = { 0.0f, -32.0f };
+	ShadowStandardScale = { 70.0f, 35.0f };
+	ShadowStandardAlpha = 0.6f;
+	ShadowScaleConstant = 5.0f;
+	ShadowAlphaConstant = 2.0f;
+
 	ShadowRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Shadow);
 	ShadowRenderer->SetPivotType(PivotType::Bottom);
 	ShadowRenderer->SetSprite("Shadow.png");
-	ShadowRenderer->SetImageScale({ 60.0f, 20.0f });
-	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase + float4{ 0.0f, -4.0f });
+	ShadowRenderer->SetImageScale(ShadowStandardScale);
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + ShadowStandardPos);
+	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha;
 
 	// Collision setting
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
@@ -60,8 +67,8 @@ void Heart::Update(float _Delta)
 	PosUpdate();
 
 	JumpBoss::Update(_Delta);
-
-	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + RenderPosBase);
+	ShadowVariableByHeightUpdate(JumpStartPos);
+	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + ShadowStandardPos);
 }
 
 void Heart::SoundLoad()

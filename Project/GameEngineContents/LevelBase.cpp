@@ -40,6 +40,15 @@ void LevelBase::Update(float _Delta)
 	{
 		AmbienceFadeOutVolume(_Delta);
 	}
+
+	if (true == EffectFadeInVolumeValue)
+	{
+		EffectFadeInVolume(_Delta);
+	}
+	else if (true == EffectFadeOutVolumeValue)
+	{
+		EffectFadeOutVolume(_Delta);
+	}
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)

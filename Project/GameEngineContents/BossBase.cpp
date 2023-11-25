@@ -96,6 +96,11 @@ void BossBase::SetDirToDeg(float _Degree)
 
 void BossBase::ShakingScreen(float _Delta)
 {
+	if (true == ShakingEnd)
+	{
+		return;
+	}
+
 	if (ShakingFrame < FrameTimer)
 	{
 		if (false == ShakingEnd &&
@@ -123,9 +128,15 @@ void BossBase::ShakingScreen(float _Delta)
 	
 }
 
-void BossBase::ShadowVariableByHeight(const float4& _JumpStartPos)
+void BossBase::ShadowVariableByHeightUpdate(const float4& _JumpStartPos)
 {
 	float VariationRatio = std::abs(ShadowRenderer->Transform.GetLocalPosition().Y / _JumpStartPos.Y);
 	ShadowRenderer->SetImageScale(ShadowStandardScale * (1.0f - (ShadowScaleConstant * VariationRatio)));
+	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha * (1.0f - (ShadowAlphaConstant * VariationRatio));
+}
+
+void BossBase::ShadowAlphaByHeightUpdate(const float4& _JumpStartPos)
+{
+	float VariationRatio = std::abs(ShadowRenderer->Transform.GetLocalPosition().Y / _JumpStartPos.Y);
 	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha * (1.0f - (ShadowAlphaConstant * VariationRatio));
 }

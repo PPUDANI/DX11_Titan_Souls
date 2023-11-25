@@ -188,7 +188,7 @@ void Yeti::BlockedUpdate(float _Delta)
 	Transform.AddLocalPosition(MovePos);
 	JumpStartPos += MovePos;
 
-	ShadowVariableByHeight(JumpStartPos);
+	ShadowVariableByHeightUpdate(JumpStartPos);
 }
 
 void Yeti::HitUpdate(float _Delta)

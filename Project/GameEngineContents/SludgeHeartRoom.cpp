@@ -23,7 +23,6 @@ void SludgeHeartRoom::Start()
 		Window->AddDebugRenderTarget(1, "SludgeHeartRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
 
-
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
 
@@ -64,15 +63,16 @@ void SludgeHeartRoom::Update(float _Delta)
 			BossDeathProcessing();
 		}
 
-		if (nullptr != HeartActor &&
-			true == HeartActor->IsFirstHit() &&
-			false == BossFirstHitPrecessingIsEnd)
+		if (nullptr != HeartActor && 
+			false == BossFirstHitPrecessingIsEnd &&
+			true == HeartActor->IsFirstHit())
 		{
 			BossFirstHitPrecessingIsEnd = true;
 			BackgroundPlay("AcidNerve.ogg", 10000);
 			OutputBossName();
 		}
 	}
+
 	if (false == StartProcessingIsEnd)
 	{
 		StartProcessing();
@@ -81,6 +81,7 @@ void SludgeHeartRoom::Update(float _Delta)
 
 void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	SetBackgroundVolume(1.0f);
 	PlayLevelBase::LevelStart(_PrevLevel);
 	StartProcessingIsEnd = false;
 	if (false == BossIsDeath)
@@ -99,6 +100,7 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 
 void SludgeHeartRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	SetBackgroundVolume(0.5f);
 	PlayLevelBase::LevelEnd(_NextLevel);
 	BossFirstHitPrecessingIsEnd = false;
 	// 액터 레벨이동 구현 

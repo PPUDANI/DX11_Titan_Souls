@@ -44,18 +44,18 @@ void ColossusBody::Start()
 	LeftShoulderRenderer->SetPivotType(PivotType::Bottom);
 	LeftShoulderRenderer->SetSprite("ColossusShoulder.png", 0);
 	LeftShoulderRenderer->SetImageScale({ 128.0f, 128.0f, 1.0f });
-	LeftShoulderRenderer->Transform.SetLocalPosition({ -88.0f, 56.0f });
+	LeftShoulderRenderer->Transform.SetLocalPosition({ -88.0f, 40.0f });
 
 	RightShoulderRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_BACK);
 	RightShoulderRenderer->SetPivotType(PivotType::Bottom);
 	RightShoulderRenderer->SetSprite("ColossusShoulder.png", 0);
 	RightShoulderRenderer->SetImageScale({ 128.0f, 128.0f, 1.0f });
-	RightShoulderRenderer->Transform.SetLocalPosition({ 88.0f, 56.0f });
+	RightShoulderRenderer->Transform.SetLocalPosition({ 88.0f, 40.0f });
 
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
-	BodyCollision->Transform.SetLocalScale({ 128.0f, 32.0f, 1.0f });
-	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
+	BodyCollision->Transform.SetLocalScale({ 128.0f, 50.0f, 1.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 24.0f });
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
@@ -111,15 +111,19 @@ void ColossusBody::Update(float _Delta)
 		break;
 	}
 
+
 	switch (CurState)
 	{
 	case BODY_STATE::Idle:
 	case BODY_STATE::Hit:
-		CameraMoveRatio = std::lerp(CameraMoveRatio, 0.5f, 3.0f * _Delta);
+		CameraMoveRatio = std::lerp(CameraMoveRatio, 0.5f, 2.0f * _Delta);
 		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) * CameraMoveRatio;
-		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 3.0f * _Delta);
+		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f * _Delta);
 		CameraManager::AddCameraZoomFromBoss = ZoomRatio;
 		break;
+	case BODY_STATE::Death:
+		CameraMoveRatio = std::lerp(CameraMoveRatio, 0.0f, 3.0f * _Delta);
+		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) * CameraMoveRatio;
 	default:
 		break;
 	}
@@ -159,7 +163,7 @@ void ColossusBody::ChangeState(BODY_STATE _State)
 }
 
 
-void ColossusBody::Levitaion(float _Delta)
+void ColossusBody::Breathing(float _Delta)
 {
 	Radian += Speed * _Delta;
 

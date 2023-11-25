@@ -50,7 +50,7 @@ void Icicle::FallingUpdate(float _Delta)
 		ChangeState(ICICLE_STATE::Stuck);
 	}
 
-	ShadowVariableByHeight(TargetPos);
+	ShadowVariableByHeightUpdate(TargetPos);
 }
 
 void Icicle::StuckUpdate(float _Delta)

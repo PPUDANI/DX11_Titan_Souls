@@ -81,7 +81,7 @@ private:
 	{
 		Collision->Transform.SetLocalScale({ 80.0f, 32.0f });
 		Collision->Transform.SetLocalPosition({ 0.0f, 0.0f });
-		Collision->On();
+		Collision->Off();
 		AttackCollision->Off();
 	}
 

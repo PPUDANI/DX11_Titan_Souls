@@ -71,6 +71,7 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
 	StartProcessingIsEnd = false;
+
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
@@ -89,6 +90,7 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
+	SetBackgroundVolume(0.5f);
 	if (false == BossIsDeath)
 	{
 		ReleaseBoss();
@@ -181,6 +183,8 @@ void Floor1::SpawnBoss()
 	}
 
 	BossPageIsFight = false;
+	ShowtingProcessingIsEnd = false;
+	BossHitProcessingIsEnd = false;
 }
 
 void Floor1::SpawnTriggerBox()
@@ -350,7 +354,6 @@ void Floor1::SwitchToAttackModeRightHand()
 void Floor1::BossPageProcessing()
 {
 	OutputBossName();
-	Background2Play("Colossus.ogg", 10000);
 }
 
 
@@ -382,8 +385,8 @@ void Floor1::BossStateUpdate()
 			BossDeathProcessing();
 		}
 
-		if (BODY_STATE::Hit == BossBodyActor->GetCurState() ||
-			false == BossHitProcessingIsEnd)
+		if (false == BossHitProcessingIsEnd &&
+			BODY_STATE::Hit == BossBodyActor->GetCurState())
 		{
 			BossHitProcessingIsEnd = true;
 			BossHitProcessing();
@@ -395,8 +398,15 @@ void Floor1::BossStateUpdate()
 			SetBackgroundVolume(0.0f);
 		}
 
-		if (BODY_STATE::Idle == BossBodyActor->GetCurState() &&
-			false == BossPageIsFight)
+		if (false == ShowtingProcessingIsEnd && 
+			BODY_STATE::Shouting == BossBodyActor->GetCurState())
+		{
+			ShowtingProcessingIsEnd = true;
+			Background2Play("Colossus.ogg", 10000);
+		}
+
+		if (false == BossPageIsFight &&
+			BODY_STATE::Idle == BossBodyActor->GetCurState())
 		{
 			BossPageIsFight = true;
 			BossPageProcessing();
