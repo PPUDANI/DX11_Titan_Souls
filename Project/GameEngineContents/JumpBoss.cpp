@@ -41,6 +41,8 @@ void JumpBoss::Update(float _Delta)
 	case JUMPBOSS_STATE::OutOfSludge:
 		OutOfSludgeUpdate(_Delta);
 		break;
+	case JUMPBOSS_STATE::Hit:
+		HitUpdate(_Delta);
 	case JUMPBOSS_STATE::Death:
 		DeathUpdate(_Delta);
 		break;
@@ -103,10 +105,12 @@ void JumpBoss::ChangeState(JUMPBOSS_STATE _State)
 	case JUMPBOSS_STATE::OutOfSludge:
 		OutOfSludgeStart();
 		break;
+	case JUMPBOSS_STATE::Hit:
+		HitStart();
+		break;
 	case JUMPBOSS_STATE::Death:
 		DeathStart();
 		break;
-
 	default:
 		break;
 	}

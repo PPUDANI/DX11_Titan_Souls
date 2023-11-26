@@ -205,7 +205,7 @@ void Floor1::SpawnTriggerBox()
 	EnterTheColossusRoom->Transform.SetLocalPosition({ 1616.0f, -2512.0f });
 	EnterTheColossusRoom->SetPlaceScale({ 90.0f, 60.0f });
 	EnterTheColossusRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterColossusRoomTriggerFunc, this));
-
+	EnterTheColossusRoom->Off();
 }
 
 void Floor1::StaySludgeRoomTriggerFunc()
@@ -353,7 +353,7 @@ void Floor1::SwitchToAttackModeRightHand()
 
 void Floor1::BossPageProcessing()
 {
-	OutputBossName();
+	EnterTheColossusRoom->On();
 }
 
 
@@ -402,6 +402,7 @@ void Floor1::BossStateUpdate()
 			BODY_STATE::Shouting == BossBodyActor->GetCurState())
 		{
 			ShowtingProcessingIsEnd = true;
+			OutputBossName();
 			Background2Play("Colossus.ogg", 10000);
 		}
 
@@ -463,5 +464,18 @@ void Floor1::StartProcessing()
 
 void Floor1::EnterColossusRoomTriggerFunc()
 {
+	if (false == BossIsDeath)
+	{
+		BossBodyActor->ChangeState(BODY_STATE::Sleep);
+		LeftHandActor->ChangeState(HAND_STATE::Death);
+		RightHandActor->ChangeState(HAND_STATE::Death);
 
+		Background2Stop();
+		BossDeathProcessing();
+
+		BossPageIsFight = false;
+		ShowtingProcessingIsEnd = false;
+		BossHitProcessingIsEnd = false;
+		EnterTheColossusRoom->Off();
+	}
 }

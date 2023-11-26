@@ -121,6 +121,7 @@ void ColossusBody::Update(float _Delta)
 		ZoomRatio = std::lerp(ZoomRatio, 1.0f, 1.0f * _Delta);
 		CameraManager::AddCameraZoomFromBoss = ZoomRatio;
 		break;
+	case BODY_STATE::Sleep:
 	case BODY_STATE::Death:
 		CameraMoveRatio = std::lerp(CameraMoveRatio, 0.0f, 3.0f * _Delta);
 		CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) * CameraMoveRatio;

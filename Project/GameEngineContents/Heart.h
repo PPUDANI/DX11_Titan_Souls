@@ -40,6 +40,7 @@ private:
 	void FallStart() override;
 	void LandingStart() override;
 	void OutOfSludgeStart() override;
+	void HitStart();
 	void DeathStart() override;
 
 	void InSludgeUpdate(float _Delta) override;
@@ -48,6 +49,7 @@ private:
 	void FallUpdate(float _Delta) override;
 	void LandingUpdate(float _Delta) override;
 	void OutOfSludgeUpdate(float _Delta) override;
+	void HitUpdate(float _Delta);
 	void DeathUpdate(float _Delta) override;
 
 private:

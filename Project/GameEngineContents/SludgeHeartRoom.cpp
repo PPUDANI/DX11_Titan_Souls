@@ -51,7 +51,7 @@ void SludgeHeartRoom::Update(float _Delta)
 
 	if (false == BossIsDeath)
 	{
-		if (JUMPBOSS_STATE::Death == HeartActor->GetCurState())
+		if (JUMPBOSS_STATE::Hit == HeartActor->GetCurState())
 		{
 			BossIsDeath = true;
 			BackgroundStop();

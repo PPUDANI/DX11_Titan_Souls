@@ -19,7 +19,11 @@ void Hand::HideStart()
 	SetHideCollision();
 
 	MoveRatio = 0.0f;
-	ChangeAnimaion("InHide");
+	if ("InHover" == BodyRenderer->CurAnimation()->AnimationName ||
+		"Idle" == BodyRenderer->CurAnimation()->AnimationName)
+	{
+		ChangeAnimaion("InHide");
+	}
 
 	ShadowStandardScale = { 176.0f, 176.0f , 1.0f };
 	ShadowScaleConstant = 10.0f;
@@ -34,7 +38,7 @@ void Hand::HoverStart()
 	MoveRatio = 0.0f;
 	HoverTimer = 0.0f;
 	ModeSwitchIsAbleValue = false;
-	if (HAND_STATE::Hide == PrevState)
+	if ("InHide" == BodyRenderer->CurAnimation()->AnimationName)
 	{
 		ChangeAnimaion("InHover");
 	}

@@ -5,8 +5,16 @@
 void ColossusBody::SleepStart()
 {
 	Hand::ModeSwitchIsAbleValue = false;
+	IsBodyHitByArrow = false;
+
+	BodyCollision->Transform.SetLocalScale({ 128.0f, 64.0f, 1.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 24.0f });
 	Collision->Off();
+
 	HeadRenderer->ChangeAnimation("Sleep");
+
+	Speed = 2.0f;
+	MovingHeight = 10.0f;
 }
 
 void ColossusBody::WakeUpStart()

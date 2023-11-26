@@ -47,11 +47,15 @@ void Heart::OutOfSludgeStart()
 	Collision->Off();
 }
 
+void Heart::HitStart()
+{
+	BodyRenderer->ChangeAnimation("Death");
+	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
+}
+
 void Heart::DeathStart()
 {
 	Collision->Off();
-	BodyRenderer->ChangeAnimation("Death");
-	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
 }
 
 
@@ -118,6 +122,14 @@ void Heart::OutOfSludgeUpdate(float _Delta)
 
 	MoveToPlayer(_Delta);
 	Gravity(_Delta);
+}
+
+void Heart::HitUpdate(float _Delta)
+{
+	if (ARROW_STATE::PickUp == EnymeArrow->GetCurState())
+	{
+		ChangeState(JUMPBOSS_STATE::Death);
+	}
 }
 
 void Heart::DeathUpdate(float _Delta)

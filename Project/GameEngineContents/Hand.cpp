@@ -48,7 +48,7 @@ void Hand::Start()
 	BodyRenderer->SetImageScale({ 128.0f, 128.0f , 1.0f});
 	BodyRenderer->Transform.SetLocalPosition({ 0.0f , -40.0f });
 	BodyRenderer->CreateAnimation("Idle", "ColossusHand.png", 10.0f, 0, 0, true);
-	BodyRenderer->CreateAnimation("Hide", "ColossusHand.png", 10.0f, 2, 2, true);
+	//BodyRenderer->CreateAnimation("Hide", "ColossusHand.png", 10.0f, 2, 2, true);
 	BodyRenderer->CreateAnimation("InHide", "ColossusHand.png", 0.25f, 0, 2, false);
 	BodyRenderer->CreateAnimation("InHover", "ColossusHand.png", 0.25f, 2, 0, false);
 

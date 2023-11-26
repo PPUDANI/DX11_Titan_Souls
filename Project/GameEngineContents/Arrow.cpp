@@ -190,13 +190,15 @@ void Arrow::MoveAndColCheck(const float4& _MovePos)
 
 bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 {
-	bool Res = false;
+	bool WeakRes = false;
+	bool BodyRes = false;
 	switch (CurState)
 	{
 	case ARROW_STATE::Flying:
-		Res = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
-			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
-		return Res;
+		WeakRes = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		BodyRes = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
+
+		return WeakRes || BodyRes;
 
 	case ARROW_STATE::Fallen:
 		if (true == PickUpCollision->Collision(COLLISION_TYPE::Player, _MovePos))
@@ -207,9 +209,10 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		Res = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
-			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
-		return Res;
+		WeakRes = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		BodyRes = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
+
+		return WeakRes || BodyRes;
 
 	case ARROW_STATE::Returning:
 		if (true == PickUpCollision->Collision(COLLISION_TYPE::Player, _MovePos))
@@ -220,9 +223,10 @@ bool Arrow::ArrowColCheckByState(const float4& _MovePos)
 			return true;
 		}
 
-		Res = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos)) ||
-			Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
-		return Res;
+		WeakRes = Collision->Collision(COLLISION_TYPE::Weakness, std::bind(&Arrow::WeaknessCollisionEvent, this, std::placeholders::_1, _MovePos));
+		BodyRes = Collision->Collision(COLLISION_TYPE::BossBody, std::bind(&Arrow::BossBodyCollisionEvent, this, std::placeholders::_1, _MovePos));
+
+		return WeakRes || BodyRes;
 
 	default:
 		break;
@@ -285,6 +289,7 @@ void Arrow::WeaknessCollisionEvent(std::vector<GameEngineCollision*>& _Collision
 		if (ARROW_STATE::Flying == CurState)
 		{
 			ChangeState(ARROW_STATE::Fallen);
+			DirSpecularReflection();
 		}
 		PullingForce /= 2.0f;
 	}

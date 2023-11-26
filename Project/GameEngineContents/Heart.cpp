@@ -59,9 +59,10 @@ void Heart::Start()
 
 void Heart::Update(float _Delta)
 {
-	if (true == IsWeaknessHitByArrow)
+	if (JUMPBOSS_STATE::Death != CurState &&
+		true == IsWeaknessHitByArrow)
 	{
-		ChangeState(JUMPBOSS_STATE::Death);
+		ChangeState(JUMPBOSS_STATE::Hit);
 	}
 
 	PosUpdate();
@@ -69,6 +70,26 @@ void Heart::Update(float _Delta)
 	JumpBoss::Update(_Delta);
 	ShadowVariableByHeightUpdate(JumpStartPos);
 	ShadowRenderer->Transform.SetLocalPosition(JumpStartPos - Transform.GetLocalPosition() + ShadowStandardPos);
+
+
+	switch (CurState)
+	{
+	case JUMPBOSS_STATE::Idle:
+	case JUMPBOSS_STATE::Jump:
+	case JUMPBOSS_STATE::Fall:
+	case JUMPBOSS_STATE::Landing:
+	case JUMPBOSS_STATE::Hit:
+	case JUMPBOSS_STATE::OutOfSludge:
+		CameraPosLerpForce = 1.0f;
+		break;
+	case JUMPBOSS_STATE::Death:
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 0.0f, 3.0f * _Delta);
+		break;
+	default:
+		return;
+	}
+	
+	CameraManager::AddCameraPosFromBoss = ((Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
 }
 
 void Heart::SoundLoad()

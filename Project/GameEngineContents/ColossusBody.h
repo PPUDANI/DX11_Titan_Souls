@@ -83,9 +83,9 @@ private:
 
 private:
 	// Physical
-	float Speed = 2.0f;
+	float Speed = 0.0f;
 	float Radian = GameEngineMath::PI / 2.0f;
-	float MovingHeight = 10.0f;
+	float MovingHeight = 0.0f;
 
 	void Breathing(float _Delta);
 

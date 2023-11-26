@@ -10,6 +10,7 @@ enum class JUMPBOSS_STATE
 	Landing,
 	Division,
 	OutOfSludge,
+	Hit,
 	Death,
 };
 
@@ -46,7 +47,7 @@ protected:
 	virtual void LandingStart(){}
 	virtual void DivisionStart() {}
 	virtual void OutOfSludgeStart() {}
-	
+	virtual void HitStart() {}
 	virtual void DeathStart(){}
 
 	virtual void InSludgeUpdate(float _Delta){}
@@ -56,6 +57,7 @@ protected:
 	virtual void LandingUpdate(float _Delta){}
 	virtual void DivisionUpdate(float _Delta) {}
 	virtual void OutOfSludgeUpdate(float _Delta) {}
+	virtual void HitUpdate(float _Delta) {}
 	virtual void DeathUpdate(float _Delta){}
 
 protected:
