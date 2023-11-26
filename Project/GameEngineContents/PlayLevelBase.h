@@ -13,6 +13,13 @@ public:
 	PlayLevelBase& operator=(const PlayLevelBase& _Other) = delete;
 	PlayLevelBase& operator=(PlayLevelBase&& _Other) noexcept = delete;
 
+	bool PlayerIsDeath()
+	{
+		bool Res = PlayerIsDeathValue;
+		PlayerIsDeathValue = false;
+		return Res;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -36,8 +43,6 @@ protected:
 	std::shared_ptr<class AncientScript> BossDescriptionScript = nullptr;
 	std::shared_ptr<class FadeImage> BossNameBack = nullptr;
 
-
-
 	virtual void SpawnPlayer(GameEngineLevel* _PrevLevel) {}
 	virtual void SpawnBoss() {}
 	virtual void SpawnTriggerBox() {}
@@ -53,6 +58,13 @@ protected:
 	virtual void SoundLoad() {};
 
 	void ReleaseBossName();
+
+
+	void PlayerDeathProcessing(float _Delta);
+	bool PlayerIsDeathValue = false;
+	float DeathProcessingStartTime = 2.0f;
+	float DeathProcessingStartTimer = 0.0f;
+
 protected:
 	bool BossIsDeath = false;
 	bool SoundIsLoaded = false;

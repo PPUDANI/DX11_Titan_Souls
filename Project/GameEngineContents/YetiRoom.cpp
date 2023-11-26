@@ -87,17 +87,13 @@ void YetiRoom::Update(float _Delta)
 void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
+
 	StartProcessingIsEnd = false;
 	WakeUpProcessingIsEnd = false;
+
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
-	}
-
-	if (nullptr == FadeInActor)
-	{
-		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black, 1.5f);
 	}
 
 	AmbiencePlay("Dungeon.ogg");

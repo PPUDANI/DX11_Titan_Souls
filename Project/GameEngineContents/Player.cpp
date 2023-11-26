@@ -3,6 +3,8 @@
 #include "Arrow.h"
 
 bool Player::SoundIsLoaded = false;
+bool Player::InvincibilityMode = false;
+
 SoundRandomPlayer Player::StoneStepRandomPlayer(GlobalValue::PlayerStoneStepList);
 SoundRandomPlayer Player::GrassStepRandomPlayer(GlobalValue::PlayerGrassStepList);
 

@@ -19,6 +19,7 @@ void ColossusBody::SleepStart()
 
 void ColossusBody::WakeUpStart()
 {
+	GameEngineInput::InputObjectOff(EnymePlayer);
 	CameraManager::CalCameraPosFromArrowOff();
 	CameraManager::CalCameraZoomFromArrowOff();
 	CameraMoveRatio = 0.0f;
@@ -38,6 +39,7 @@ void ColossusBody::ShoutingStart()
 
 void ColossusBody::IdleStart()
 {
+	GameEngineInput::InputObjectOn(EnymePlayer);
 	CameraManager::CalCameraPosFromArrowOn();
 	CameraManager::CalCameraZoomFromArrowOn();
 

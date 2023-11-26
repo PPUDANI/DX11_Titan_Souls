@@ -77,12 +77,6 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 		SpawnBoss();
 	}
 
-	if (nullptr == FadeInActor)
-	{
-		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black, 1.5f);
-	}
-
 	BackgroundPlay("Overworld1.ogg", 10000);
 	AmbiencePlay("StillLake.ogg", 10000);
 }
@@ -102,34 +96,49 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 {
 	if (nullptr != _PrevLevel)
 	{
+		PlayLevelBase* DownCastingLevel = dynamic_cast<PlayLevelBase*>(_PrevLevel);
+		if (nullptr != DownCastingLevel)
+		{
+			if (true == DownCastingLevel->PlayerIsDeath())
+			{
+				PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3840.0f });
+				PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+				return;
+			}
+		}
+
 		if("00.TitleLevel" == _PrevLevel->GetName())
 		{
 			//PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
+			return;
 		}
 		else if ("02.SludgeHeartRoom" == _PrevLevel->GetName())
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::ExitLevel);
+			return;
 		}
 		else if ("03.YetiRoom" == _PrevLevel->GetName())
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::ExitLevel);
+			return;
 		}
 		else
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2670.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
+			return;
 		}
 	}
 	else
 	{
 		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2670.0f });
 		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+		return;
 	}
-	return;
 }
 
 void Floor1::SpawnBoss()

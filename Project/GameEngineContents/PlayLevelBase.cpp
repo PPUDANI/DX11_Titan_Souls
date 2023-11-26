@@ -23,9 +23,15 @@ void PlayLevelBase::Update(float _Delta)
 {
 	LevelBase::Update(_Delta);
 
-	if (true == GameEngineInput::IsDown('R', this))
+	//if (true == GameEngineInput::IsDown('R', this))
+	//{
+	//	SpawnPlayer(nullptr);
+	//}
+
+	if (PLAYER_STATE::Death == PlayerActor->GetCurState())
 	{
-		SpawnPlayer(nullptr);
+		PlayerDeathProcessing(_Delta);
+		return;
 	}
 
 	// TileMap ViewMode Change Key
@@ -70,6 +76,13 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 		PlayerActor->GetArrow();
 		ArrowActor->ChangeState(ARROW_STATE::Hold);
 	}
+
+	if (nullptr == FadeInActor)
+	{
+		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
+		FadeInActor->Init(FadeColor::Black, 1.5f);
+	}
+
 	BackFadeInVolumeOn();
 	AmbienceFadeInVolumeOn();
 	EffectFadeInVolumeOn();
@@ -184,6 +197,32 @@ void PlayLevelBase::ExitRoomTriggerFunc()
 	BackFadeOutVolumeOn();
 	AmbienceFadeOutVolumeOn();
 	EffectFadeOutVolumeOn();
+}
+
+void PlayLevelBase::PlayerDeathProcessing(float _Delta)
+{
+	PlayerIsDeathValue = true;
+	if (DeathProcessingStartTime < DeathProcessingStartTimer)
+	{
+		if (nullptr == FadeOutActor)
+		{
+			FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+			FadeOutActor->Init(FadeColor::Black, 1.5f);
+		}
+
+		if (true == FadeOutActor->FadeIsEnd())
+		{
+			GameEngineCore::ChangeLevel("01.Floor1");
+			DeathProcessingStartTimer = 0.0f;
+		}
+	}
+	else
+	{
+		DeathProcessingStartTimer += _Delta;
+		BackgroundStop();
+		Background2Stop();
+	}
+	
 }
 
 void PlayLevelBase::ReleaseBossName()

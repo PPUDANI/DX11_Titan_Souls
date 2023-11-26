@@ -89,12 +89,6 @@ void SludgeHeartRoom::LevelStart(GameEngineLevel* _PrevLevel)
 		SpawnBoss();
 	}
 
-	if (nullptr == FadeInActor)
-	{
-		FadeInActor = CreateActor<FadeIn>(UPDATE_ORDER::UI);
-		FadeInActor->Init(FadeColor::Black, 1.5f);
-	}
-
 	AmbiencePlay("Sewer.ogg", 10000);
 }
 

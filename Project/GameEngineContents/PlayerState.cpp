@@ -46,6 +46,7 @@ void Player::ReturningStart()
 
 void Player::DeathStart()
 {
+	BodyCollision->Off();
 	DecelerationValue = 1.0f;
 	SetAnimByDir("Death");
 }

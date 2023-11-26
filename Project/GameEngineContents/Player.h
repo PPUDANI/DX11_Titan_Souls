@@ -123,7 +123,7 @@ private:
 	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 	bool IsBlocked = false;
 	bool HasArrowValue = true;
-	bool InvincibilityMode = true;
+	static bool InvincibilityMode;
 public:
 	// FMS Functions
 	void ChangeState(PLAYER_STATE _State);
