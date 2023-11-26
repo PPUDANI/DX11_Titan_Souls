@@ -46,6 +46,11 @@ private:
 	std::shared_ptr<class TriggerBox> EnterTheColossusRoom = nullptr;
 	void EnterColossusRoomTriggerFunc();
 
+	std::shared_ptr<class TriggerBox> GameEndPlace = nullptr;
+	void OpenDoorFunc();
+
+	std::shared_ptr<class EndingDoor> EndingDoorActor = nullptr;
+
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
@@ -63,10 +68,12 @@ private:
 	void EnterLeftDetectionRange();
 	void EnterRightDetectionRange();
 
-	ATTACKHAND_DIR AttackDir = ATTACKHAND_DIR::NONE;
-
 	void SwitchToAttackModeLeftHand();
 	void SwitchToAttackModeRightHand();
+
+	ATTACKHAND_DIR AttackDir = ATTACKHAND_DIR::NONE;
+
+
 
 private:
 	void SoundLoad() override;
@@ -85,4 +92,5 @@ private:
 	void BossHitProcessing();
 
 	void BossDeathProcessing();
+
 };

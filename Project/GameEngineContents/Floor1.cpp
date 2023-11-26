@@ -3,7 +3,7 @@
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include "Hand.h"
 #include "ColossusBody.h"
-
+#include "EndingDoor.h"
 
 Floor1::Floor1()
 {
@@ -53,6 +53,8 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
+	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
+	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
 }
 
 void Floor1::Update(float _Delta)
@@ -89,7 +91,6 @@ void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		ReleaseBoss();
 	}
-
 }
 
 void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
@@ -128,7 +129,7 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 		}
 		else
 		{
-			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2670.0f });
+			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -1500.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 			return;
 		}
@@ -215,7 +216,14 @@ void Floor1::SpawnTriggerBox()
 	EnterTheColossusRoom->SetPlaceScale({ 96.0f, 32.0f });
 	EnterTheColossusRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterColossusRoomTriggerFunc, this));
 	EnterTheColossusRoom->Off();
+
+	GameEndPlace = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
+	GameEndPlace->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
+	GameEndPlace->SetPlaceScale({ 480.0f, 32.0f });
+	GameEndPlace->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
+	GameEndPlace->On();
 }
+
 
 void Floor1::StaySludgeRoomTriggerFunc()
 {
@@ -486,5 +494,14 @@ void Floor1::EnterColossusRoomTriggerFunc()
 		ShowtingProcessingIsEnd = false;
 		BossHitProcessingIsEnd = false;
 		EnterTheColossusRoom->Off();
+
+		PlayerActor->GetArrow();
+		ArrowActor->ChangeState(ARROW_STATE::Hold);
 	}
+}
+
+void Floor1::OpenDoorFunc()
+{
+	GameEndPlace->Off();
+	EndingDoorActor->OpenDoor();
 }

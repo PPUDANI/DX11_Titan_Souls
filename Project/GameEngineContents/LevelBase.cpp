@@ -5,6 +5,7 @@ float LevelBase::BackgroundVolume = 0.5f;
 float LevelBase::Background2Volume = 0.5f;
 float LevelBase::AmbienceVolume = 1.0f;
 float LevelBase::EffectVolume = 1.0f;
+
 LevelBase::LevelBase()
 {
 }

@@ -70,6 +70,8 @@ void PlayLevelBase::LevelStart(GameEngineLevel* _PrevLevel)
 	SpawnPlayer(_PrevLevel);
 	CameraManager::CameraValueReset();
 
+	PlayerIsDeathValue = false;
+
 	if (nullptr != PlayerActor &&
 		nullptr != ArrowActor)
 	{

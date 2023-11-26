@@ -15,9 +15,7 @@ public:
 
 	bool PlayerIsDeath()
 	{
-		bool Res = PlayerIsDeathValue;
-		PlayerIsDeathValue = false;
-		return Res;
+		return PlayerIsDeathValue;
 	}
 
 protected:
@@ -72,4 +70,6 @@ protected:
 private:
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect = nullptr;
+
+
 };

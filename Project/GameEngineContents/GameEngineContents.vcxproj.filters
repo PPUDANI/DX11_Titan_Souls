@@ -16,9 +16,6 @@
     <ClCompile Include="PlayLevelBase.cpp">
       <Filter>02. Level\00.  LevelBase</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>01. Actor\01. Map</Filter>
-    </ClCompile>
     <ClCompile Include="Floor1.cpp">
       <Filter>02. Level\02. Floor1 Level</Filter>
     </ClCompile>
@@ -169,6 +166,12 @@
     <ClCompile Include="CameraShakingObject.cpp">
       <Filter>05. Camera</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>01. Actor\01. Map\01. Tile Map</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingDoor.cpp">
+      <Filter>01. Actor\01. Map\02. Ending Door</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -188,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>01. Actor\02. Player Element\00. Player</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>01. Actor\01. Map</Filter>
     </ClInclude>
     <ClInclude Include="LevelBase.h">
       <Filter>02. Level\00.  LevelBase</Filter>
@@ -296,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="CameraShakingObject.h">
       <Filter>05. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>01. Actor\01. Map\01. Tile Map</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingDoor.h">
+      <Filter>01. Actor\01. Map\02. Ending Door</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -451,6 +457,12 @@
     </Filter>
     <Filter Include="07. Effect\02. ColossusMask">
       <UniqueIdentifier>{f40f200b-d402-4ef9-9790-1029da511fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Map\02. Ending Door">
+      <UniqueIdentifier>{58e78d0c-32ef-4dd7-8cd2-ea227f93fe69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Map\01. Tile Map">
+      <UniqueIdentifier>{6fed83a0-5df8-42e8-95fd-6ca7cfc125dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

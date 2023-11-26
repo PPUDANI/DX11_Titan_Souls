@@ -223,7 +223,7 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		}
 		for (size_t i = 0; i < BGATileMaps.size(); i++)
 		{
-			BGATileMaps[i]->On();
+			BGATileMaps[i]->Off();
 		}
 		for (size_t i = 0; i < WALLTileMaps.size(); i++)
 		{
@@ -231,7 +231,7 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		}
 		for (size_t i = 0; i < FGTileMaps.size(); i++)
 		{
-			FGTileMaps[i]->Off();
+			FGTileMaps[i]->On();
 		}
 		for (size_t i = 0; i < COLTileMaps.size(); i++)
 		{
