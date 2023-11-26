@@ -8,7 +8,7 @@ void ColossusBody::SleepStart()
 	IsBodyHitByArrow = false;
 
 	BodyCollision->Transform.SetLocalScale({ 128.0f, 64.0f, 1.0f });
-	BodyCollision->Transform.SetLocalPosition({ 0.0f, 24.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
 	Collision->Off();
 
 	HeadRenderer->ChangeAnimation("Sleep");
@@ -66,7 +66,7 @@ void ColossusBody::HitStart()
 void ColossusBody::DeathStart()
 {
 	BodyCollision->Transform.SetLocalScale({ 128.0f, 64.0f, 1.0f });
-	BodyCollision->Transform.SetLocalPosition({ 0.0f, 24.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
 	Collision->Off();
 	BodyLightRenderer->GetColorData().MulColor.A = 0.0f;
 	HeadRenderer->ChangeAnimation("Death");

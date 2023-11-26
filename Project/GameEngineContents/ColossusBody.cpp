@@ -55,7 +55,7 @@ void ColossusBody::Start()
 	BodyCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetLocalScale({ 128.0f, 50.0f, 1.0f });
-	BodyCollision->Transform.SetLocalPosition({ 0.0f, 24.0f });
+	BodyCollision->Transform.SetLocalPosition({ 0.0f, 32.0f });
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::AABBBOX2D);

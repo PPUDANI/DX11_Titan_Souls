@@ -191,19 +191,19 @@ void Floor1::SpawnTriggerBox()
 {
 	EnterTheSludgeRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToSludgeRoom");
 	EnterTheSludgeRoom->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
-	EnterTheSludgeRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheSludgeRoom->SetPlaceScale({ 96.0f, 60.0f });
 	EnterTheSludgeRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterRoomTriggerFunc, this));
 	EnterTheSludgeRoom->SetStayTriggerFunc(std::bind(&Floor1::StaySludgeRoomTriggerFunc, this));
 
 	EnterTheYetiRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToYetiRoom");
 	EnterTheYetiRoom->Transform.SetLocalPosition({ 1104.0f, -2882.0f });
-	EnterTheYetiRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheYetiRoom->SetPlaceScale({ 96.0f, 60.0f });
 	EnterTheYetiRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterRoomTriggerFunc, this));
 	EnterTheYetiRoom->SetStayTriggerFunc(std::bind(&Floor1::StayYetiRoomTriggerFunc, this));
 
 	EnterTheColossusRoom = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
-	EnterTheColossusRoom->Transform.SetLocalPosition({ 1616.0f, -2512.0f });
-	EnterTheColossusRoom->SetPlaceScale({ 90.0f, 60.0f });
+	EnterTheColossusRoom->Transform.SetLocalPosition({ 1616.0f, -2576.0f });
+	EnterTheColossusRoom->SetPlaceScale({ 96.0f, 32.0f });
 	EnterTheColossusRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterColossusRoomTriggerFunc, this));
 	EnterTheColossusRoom->Off();
 }
