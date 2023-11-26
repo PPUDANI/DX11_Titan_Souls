@@ -57,6 +57,9 @@ void Player::Start()
 	//		AdjustPosByBodyCollision();
 	//	};
 
+	CameraShakingObj.Init(1.0f, 0.2f, 5.0f);
+	CameraShakingObj.Reset();
+
 	SoundLoad();
 	
 	ChangeState(PLAYER_STATE::StandUp);

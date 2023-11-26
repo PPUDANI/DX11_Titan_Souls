@@ -30,11 +30,7 @@ void ColossusBody::ShoutingStart()
 	EffectSoundPlay("Roar.ogg");
 	HeadRenderer->ChangeAnimation("Shouting");
 
-	ShakingEnd = false;
-	ScreenShakingTime = 1.5f;
-	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.3f;
-	ShakingLerpValue = 10.0f;
+	CSObj.Reset();
 
 	ZoomRatio = 1.0f;
 	BodyLightRenderer->GetColorData().MulColor.A = 1.0f;
@@ -107,7 +103,7 @@ void ColossusBody::ShoutingUpdate(float _Delta)
 	ZoomRatio = std::lerp(ZoomRatio, 0.8f, 5.0f * _Delta);
 	CameraManager::AddCameraZoomFromBoss = ZoomRatio;
 	CameraManager::AddCameraPosFromBoss = (Transform.GetLocalPosition() - EnymePlayer->Transform.GetLocalPosition() + float4{ 0.0f, 20.0f });
-	ShakingScreen(_Delta);
+	CSObj.ShakingScreen(_Delta);
 }
 
 void ColossusBody::IdleUpdate(float _Delta)
@@ -119,7 +115,7 @@ void ColossusBody::IdleUpdate(float _Delta)
 	}
 
 	Breathing(_Delta);
-	ShakingScreen(_Delta);
+	CSObj.ShakingScreen(_Delta);
 }
 
 void ColossusBody::HitUpdate(float _Delta)

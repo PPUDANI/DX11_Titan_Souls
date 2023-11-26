@@ -76,19 +76,7 @@ protected:
 	bool RandomMoveValue = false;
 
 protected:
-	void ShakingScreen(float _Delta);
-
-	GameEngineRandom Inst;
-
-	float ShakingFrame = 1.0f / 60.0f;
-	float FrameTimer = 0.0f;
-
-	int ShakingSeedCount = 0;
-	float ScreenShakingTime = 0.0f;
-	float ScreenShakingTimer = 0.0f;
-	float ShakingPerFrame = 0.0f;
-	bool ShakingEnd = false;
-	float ShakingLerpValue = 0.0f;
+	CameraShakingObject CSObj;
 
 	float CameraPosLerpForce = 0.0f;
 

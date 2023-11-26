@@ -61,6 +61,8 @@ void Yeti::Start()
 
 	SetDirToDeg(270.0f);
 	DirectionUpdate();
+
+	CSObj.Init(1.0f, 0.2f, 15.0f);
 }
 
 void Yeti::Update(float _Delta)
@@ -505,15 +507,6 @@ void Yeti::DropIcicle()
 	float4 FirstTargetPos = Transform.GetLocalPosition() + float4{ 0.0f, 40.0f };
 	float4 IcicleMoveAngle = SetMoveDirReturn(FirstTargetPos);
 	dynamic_cast<YetiRoom*>(GetLevel())->SpawnIcicle(FirstTargetPos, IcicleMoveAngle);
-}
-
-void Yeti::ShakingScreenInit()
-{
-	ShakingEnd = false;
-	ScreenShakingTime = 1.0f;
-	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.2f;
-	ShakingLerpValue = 15.0f;
 }
 
 void Yeti::SoundLoad()

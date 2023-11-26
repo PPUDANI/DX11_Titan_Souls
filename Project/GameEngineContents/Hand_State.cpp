@@ -56,11 +56,7 @@ void Hand::FallStart()
 
 void Hand::LandStart()
 {
-	ShakingEnd = false;
-	ScreenShakingTime = 1.0f;
-	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.2f;
-	ShakingLerpValue = 10.0f;
+	CSObj.Reset();
 
 	FistAttackPlayer.RandomPlay();
 	SetLandCollision();
@@ -70,7 +66,6 @@ void Hand::LandStart()
 
 void Hand::HitStart()
 {
-	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 }
 
 void Hand::DeathStart()
@@ -125,7 +120,7 @@ void Hand::HoverUpdate(float _Delta)
 	SetMoveDir(FloorCheckPos);
 	MoveToPlayer(_Delta, EnymePlayer->Transform.GetLocalPosition() + float4{0.0f, -8.0f});
 
-	ShakingScreen(_Delta);
+	CSObj.ShakingScreen(_Delta);
 }
 
 void Hand::FallUpdate(float _Delta)
@@ -150,7 +145,7 @@ void Hand::LandUpdate(float _Delta)
 	{
 		LandTimer += _Delta;
 	}
-	ShakingScreen(_Delta);
+	CSObj.ShakingScreen(_Delta);
 }
 
 void Hand::HitUpdate(float _Delta)

@@ -88,6 +88,8 @@ void Sludge::Start()
 
 	ColPosInterval = { 64.0f, 64.0f };
 	ChangeState(JUMPBOSS_STATE::Idle);
+
+	CSObj.Init(1.0f, 0.2f, 15.0f);
 }
 
 void Sludge::Update(float _Delta)

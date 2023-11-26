@@ -48,6 +48,7 @@ void Heart::Start()
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Weakness);
 	Collision->SetCollisionType(ColType::SPHERE2D);
 	Collision->Transform.SetLocalScale({ 30.0f, 30.0f, 1.0f });
+	Collision->Transform.SetLocalPosition({ 0.0f, -5.0f });
 
 	GravityForce = 1200.0f;
 	MoveSpeed = 150.0f;

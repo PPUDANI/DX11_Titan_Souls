@@ -324,6 +324,10 @@ private:
 	}
 
 private:
+	// CameraShaking
+	CameraShakingObject CameraShakingObj;
+
+private:
 	static SoundRandomPlayer StoneStepRandomPlayer;
 	static SoundRandomPlayer GrassStepRandomPlayer;
 

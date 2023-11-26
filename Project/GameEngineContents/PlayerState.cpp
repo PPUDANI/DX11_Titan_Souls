@@ -18,8 +18,12 @@ void Player::MoveStart()
 void Player::RollingStart()
 {
 	EffectSoundPlay("Roll.ogg");
+
 	IsRollingBlocked = false;
 	DecelerationValue = 1.0f;
+
+	CameraShakingObj.Reset();
+
 	SetAnimByDir("Rolling");
 }
 
@@ -183,6 +187,7 @@ void Player::RollingUpdate(float _Delta)
 		// Specular Reflection 추가하기
 		DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 		MovePos *= DecelerationValue;
+		CameraShakingObj.ShakingScreen(_Delta);
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);

@@ -70,6 +70,8 @@ void ColossusBody::Start()
 	AttackRange->Off();
 
 	GameEngineInput::AddInputObject(this);
+
+	CSObj.Init(1.0f, 0.3f, 10.0f);
 }
 
 

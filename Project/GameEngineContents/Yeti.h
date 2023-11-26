@@ -169,8 +169,6 @@ private:
 
 	void ThrowSnowball();
 	void DropIcicle();
-private:
-	void ShakingScreenInit(); 
 
 private:
 	static bool SoundIsLoaded;

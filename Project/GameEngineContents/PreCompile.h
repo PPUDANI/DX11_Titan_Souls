@@ -45,6 +45,7 @@
 
 // Actor
 #include "CameraManager.h"
+#include "CameraShakingObject.h"
 #include "TileMap.h"
 #include "ActorBase.h"
 #include "Player.h"

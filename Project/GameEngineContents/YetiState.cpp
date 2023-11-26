@@ -44,7 +44,7 @@ void Yeti::RollingStart()
 void Yeti::LandingStart()
 {
 	LandPlayer.RandomPlay();
-	ShakingScreenInit();
+	CSObj.Reset();
 
 	LandingTimer = 0.0f;
 	BodyCollisionOn();
@@ -60,7 +60,9 @@ void Yeti::BlockedStart()
 	RollPlayer.Stop();
 	BlockedPlayer.RandomPlay();
 	DropIcicle();
-	ShakingScreenInit();
+
+	CSObj.Reset();
+
 	DirReflection();
 	GravityValue = 600.0f;
 }
@@ -167,7 +169,7 @@ void Yeti::RollingUpdate(float _Delta)
 
 void Yeti::LandingUpdate(float _Delta)
 {
-	ShakingScreen(_Delta);
+	CSObj.ShakingScreen(_Delta);
 
 	LandingTimer += _Delta;
 	if (LandingDelay < LandingTimer)
@@ -181,7 +183,7 @@ void Yeti::LandingUpdate(float _Delta)
 
 void Yeti::BlockedUpdate(float _Delta)
 {
-	ShakingScreen(_Delta);
+	CSObj.ShakingScreen(_Delta);
 
 	Gravity(_Delta);
 	float4 MovePos = MoveDirBasis * RollingSpeed * DecreaseByBlocked * _Delta;

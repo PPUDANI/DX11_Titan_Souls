@@ -57,11 +57,9 @@ void Sludge::LandingStart()
 	MinScale = 146.0f;
 
 	LerpRange = 0.97f;
-	ShakingEnd = false;
-	ScreenShakingTime = 0.5f;
-	ScreenShakingTimer = 0.0f;
-	ShakingPerFrame = 0.15f;
-	ShakingLerpValue = 10.0f - DividedCount;
+
+	CSObj.Reset();
+	CSObj.SetLerpMax(10.0f - DividedCount);
 }
 
 void Sludge::DivisionStart()
@@ -90,7 +88,7 @@ void Sludge::IdleUpdate(float _Delta)
 
 	if (2 >= DividedCount)
 	{
-		ShakingScreen(_Delta);
+		CSObj.ShakingScreen(_Delta);
 	}
 
 	if (SLUDGE_STATE::Increase == ExpandDir)
@@ -190,7 +188,7 @@ void Sludge::LandingUpdate(float _Delta)
 
 	if (2 >= DividedCount)
 	{
-		ShakingScreen(_Delta);
+		CSObj.ShakingScreen(_Delta);
 	}
 }
 

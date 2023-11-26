@@ -166,6 +166,9 @@
     <ClCompile Include="ColossusBodyState.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
+    <ClCompile Include="CameraShakingObject.cpp">
+      <Filter>05. Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -290,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="ColossusBodyMask.h">
       <Filter>07. Effect\02. ColossusMask</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraShakingObject.h">
+      <Filter>05. Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

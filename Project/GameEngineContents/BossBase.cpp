@@ -94,40 +94,6 @@ void BossBase::SetDirToDeg(float _Degree)
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
 }
 
-void BossBase::ShakingScreen(float _Delta)
-{
-	if (true == ShakingEnd)
-	{
-		return;
-	}
-
-	if (ShakingFrame < FrameTimer)
-	{
-		if (false == ShakingEnd &&
-			ScreenShakingTime > ScreenShakingTimer)
-		{
-			ScreenShakingTimer += FrameTimer;
-			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
-			ShakingLerpValue = std::lerp(ShakingLerpValue, 0.0f, (1.0f / ShakingPerFrame) * FrameTimer);
-			CameraManager::AddCameraPosFromShaking.X = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-			Inst.SetSeed(reinterpret_cast<__int64>(this) + ++ShakingSeedCount);
-			CameraManager::AddCameraPosFromShaking.Y = Inst.RandomInt(-1, 1) * ShakingLerpValue;
-		}
-		else
-		{ 
-			CameraManager::AddCameraPosFromShaking = float4::ZERO;
-			ShakingEnd = true;
-		}
-
-		FrameTimer -= ShakingFrame;
-	}
-	else
-	{
-		FrameTimer += _Delta;
-	}
-	
-}
-
 void BossBase::ShadowVariableByHeightUpdate(const float4& _JumpStartPos)
 {
 	float VariationRatio = std::abs(ShadowRenderer->Transform.GetLocalPosition().Y / _JumpStartPos.Y);
