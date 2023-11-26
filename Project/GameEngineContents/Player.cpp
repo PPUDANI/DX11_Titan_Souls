@@ -57,8 +57,8 @@ void Player::Start()
 	//		AdjustPosByBodyCollision();
 	//	};
 
-	CameraShakingObj.Init(1.0f, 0.2f, 5.0f);
-	CameraShakingObj.Reset();
+	CSObj.Init(0.3f, 0.15f, 5.0f);
+	CSObj.End();
 
 	SoundLoad();
 	
@@ -177,6 +177,7 @@ void Player::ChangeState(PLAYER_STATE _State)
 		return;
 	}
 
+	PrevState = CurState;
 	CurState = _State;
 
 	switch (CurState)

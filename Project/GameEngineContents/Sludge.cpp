@@ -90,6 +90,7 @@ void Sludge::Start()
 	ChangeState(JUMPBOSS_STATE::Idle);
 
 	CSObj.Init(1.0f, 0.2f, 15.0f);
+	CSObj.End();
 }
 
 void Sludge::Update(float _Delta)

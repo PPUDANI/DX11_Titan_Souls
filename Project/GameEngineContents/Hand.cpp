@@ -82,6 +82,7 @@ void Hand::Start()
 
 
 	CSObj.Init(0.5f, 0.15f, 10.0f);
+	CSObj.End();
 }
 
 void Hand::Update(float _Delta)

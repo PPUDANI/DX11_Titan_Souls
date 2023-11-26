@@ -63,6 +63,7 @@ void Yeti::Start()
 	DirectionUpdate();
 
 	CSObj.Init(1.0f, 0.2f, 15.0f);
+	CSObj.End();
 }
 
 void Yeti::Update(float _Delta)

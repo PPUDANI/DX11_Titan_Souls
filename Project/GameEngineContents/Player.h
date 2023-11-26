@@ -120,6 +120,7 @@ private:
 private:
 	// State Variables
 	PLAYER_STATE CurState = PLAYER_STATE::Idle;
+	PLAYER_STATE PrevState = PLAYER_STATE::Idle;
 	bool IsBlocked = false;
 	bool HasArrowValue = true;
 	bool InvincibilityMode = true;
@@ -226,6 +227,7 @@ private:
 	const float RunForce = 1.5f;
 	const float RollingForce = 2.5f;
 	const float4 DefaultRendererPos = { 0.0f, -16.0f };
+
 	// Move Functions
 	bool MoveCheckInIdle();
 	bool MoveCheck();
@@ -325,7 +327,7 @@ private:
 
 private:
 	// CameraShaking
-	CameraShakingObject CameraShakingObj;
+	CameraShakingObject CSObj;
 
 private:
 	static SoundRandomPlayer StoneStepRandomPlayer;

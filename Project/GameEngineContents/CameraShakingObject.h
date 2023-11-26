@@ -31,6 +31,10 @@ public:
 		ShakingLerpValue = ShakingLerpMax;
 	}
 
+	void End()
+	{
+		ShakingEnd = true;
+	}
 protected:
 
 private:

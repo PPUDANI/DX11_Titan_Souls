@@ -21,9 +21,7 @@ void Player::RollingStart()
 
 	IsRollingBlocked = false;
 	DecelerationValue = 1.0f;
-
-	CameraShakingObj.Reset();
-
+	CSObj.Reset();
 	SetAnimByDir("Rolling");
 }
 
@@ -187,7 +185,7 @@ void Player::RollingUpdate(float _Delta)
 		// Specular Reflection 추가하기
 		DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 		MovePos *= DecelerationValue;
-		CameraShakingObj.ShakingScreen(_Delta);
+		CSObj.ShakingScreen(_Delta);
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);
@@ -264,6 +262,7 @@ void Player::StopUpdate(float _Delta)
 			Transform.AddLocalPosition(MovePos * _Delta);
 		}
 	}
+
 }
 
 void Player::AimUpdate(float _Delta)

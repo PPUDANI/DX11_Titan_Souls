@@ -71,7 +71,7 @@ void ColossusBody::Start()
 
 	GameEngineInput::AddInputObject(this);
 
-	CSObj.Init(1.0f, 0.3f, 10.0f);
+	CSObj.Init(1.5f, 0.3f, 15.0f);
 }
 
 
