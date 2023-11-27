@@ -10,6 +10,7 @@
 #include "Floor1.h"
 #include "SludgeHeartRoom.h"
 #include "YetiRoom.h"
+#include "EndingLevel.h"
 #include "ContentsControlWindow.h"
 
 
@@ -50,6 +51,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<Floor1>("01.Floor1");
 	GameEngineCore::CreateLevel<SludgeHeartRoom>("02.SludgeHeartRoom");
 	GameEngineCore::CreateLevel<YetiRoom>("03.YetiRoom");
+	GameEngineCore::CreateLevel<EndingLevel>("04.Ending");
 
 	GameEngineCore::ChangeLevel("00.TitleLevel");
 

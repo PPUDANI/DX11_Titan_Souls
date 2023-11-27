@@ -175,6 +175,9 @@
     <ClCompile Include="OverlayLightMask.cpp">
       <Filter>07. Effect\02. ColossusMask</Filter>
     </ClCompile>
+    <ClCompile Include="EndingLevel.cpp">
+      <Filter>02. Level\05. Ending Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -308,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="OverlayLightMask.h">
       <Filter>07. Effect\02. ColossusMask</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingLevel.h">
+      <Filter>02. Level\05. Ending Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +478,9 @@
     </Filter>
     <Filter Include="01. Actor\01. Map\03. ClearLight">
       <UniqueIdentifier>{9305744f-e3ed-4378-a8a0-355173222cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Level\05. Ending Level">
+      <UniqueIdentifier>{96d1925a-7533-4585-8e84-7be1fc286092}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

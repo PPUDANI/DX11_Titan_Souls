@@ -104,7 +104,16 @@ void Floor1::Update(float _Delta)
 		EndingDoorActor->FocusOff();
 		EndingTrigger->On();
 	}
-
+	else
+	{
+		if (nullptr != FadeOutActor)
+		{
+			if (true == FadeOutActor->FadeIsEnd())
+			{
+				GameEngineCore::ChangeLevel("04.Ending");
+			}
+		}
+	}
 }
 
 
@@ -129,6 +138,12 @@ void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 	if (false == BossIsDeath)
 	{
 		ReleaseBoss();
+	}
+
+	if (true == EndingIsOn)
+	{
+		EndingIsOn = false;
+		AllBossClear = false;
 	}
 }
 
@@ -589,4 +604,6 @@ void Floor1::EndingFunc()
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
 		FadeOutActor->Init(FadeColor::Black, 4.0f);
 	}
+
+	EnterRoomTriggerFunc();
 }
