@@ -618,7 +618,7 @@ void Floor1::EndingFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black, 4.5f);
+		FadeOutActor->Init(FadeColor::Black, 4.4f);
 	}
 
 	BackFadeOutVolumeOn();
