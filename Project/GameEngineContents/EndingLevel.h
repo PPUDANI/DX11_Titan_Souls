@@ -21,4 +21,8 @@ private:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
+private:
+	std::shared_ptr<FadeImage> TitanSoulsRogo = nullptr;
+
+	std::shared_ptr<AncientScript> EndingText = nullptr;
 };

@@ -21,6 +21,11 @@ public:
 
 	void Init(std::string_view _ImageName, float _FadeSpeed = 1.0f, float _RestingTime = 1.0f);
 
+	void SetScale(const float4& _Scale)
+	{
+		Renderer->SetImageScale(_Scale);
+	}
+
 	inline bool FadeIsEnd() const
 	{
 		return FadeIsEndValue;

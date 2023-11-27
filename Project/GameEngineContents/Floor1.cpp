@@ -101,16 +101,19 @@ void Floor1::Update(float _Delta)
 		true == EndingDoorActor->OpenIsEnd())
 	{
 		DoorEndPrecessingIsEnd = true;
+		EffectStop();
+		EffectPlay("DoorEnd.ogg");
 		DoorEndPrecessing();
 	}
-	else
+
+	if (true == EndingIsOn)
 	{
-		if (nullptr != FadeOutActor)
+		if (nullptr != FadeOutActor && 
+			true == FadeOutActor->FadeIsEnd())
 		{
-			if (true == FadeOutActor->FadeIsEnd())
-			{
-				GameEngineCore::ChangeLevel("04.Ending");
-			}
+			EffectStop();
+			EffectPlay("DoorEnd.ogg");
+			GameEngineCore::ChangeLevel("04.Ending");
 		}
 	}
 }
@@ -119,7 +122,7 @@ void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
 	StartProcessingIsEnd = false;
-
+	GameEngineInput::InputObjectOn(PlayerActor.get());
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
@@ -138,11 +141,12 @@ void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
 		ReleaseBoss();
 	}
 
-	if (true == EndingIsOn)
-	{
-		EndingIsOn = false;
-		AllBossClear = false;
-	}
+	//if (true == EndingIsOn)
+	//{
+	//	EndingIsOn = false;
+	//	AllBossClear = false;
+	//	DoorEndPrecessingIsEnd = false;
+	//}
 }
 
 void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
@@ -379,6 +383,10 @@ void Floor1::SoundLoad()
 	GlobalLoad::LoadSound("Overworld1.ogg", "Resource\\Sound\\BGM\\");
 	GlobalLoad::LoadSound("Colossus.ogg", "Resource\\Sound\\BGM\\");
 
+	GlobalLoad::LoadSound("OpenBigDoor.ogg", "Resource\\Sound\\Effect\\Door\\");
+	GlobalLoad::LoadSound("CloseBigDoor.ogg", "Resource\\Sound\\Effect\\Door\\");
+	GlobalLoad::LoadSound("DoorEnd.ogg", "Resource\\Sound\\Effect\\Door\\");
+
 }
 
 void Floor1::EnterLeftDetectionRange()
@@ -590,8 +598,9 @@ void Floor1::EnterColossusRoomTriggerFunc()
 
 void Floor1::OpenDoorFunc()
 {
+	EffectPlay("OpenBigDoor.ogg");
 	OpenDoorTrigger->Off();
-	EndingOverlayActor->FadeOutOn(0.3f, 2.0f);
+	EndingOverlayActor->FadeOutOn(0.4f, 2.0f);
 	EndingDoorActor->FocusOn();
 	EndingDoorActor->OpenDoor();
 	GameEngineInput::InputObjectOff(PlayerActor.get());
@@ -601,6 +610,7 @@ void Floor1::EndingFunc()
 {
 	EndingIsOn = true;
 	EndingTrigger->Off();
+	EffectPlay("CloseBigDoor.ogg");
 	EndingDoorActor->CloseDoor();
 	PlayerActor->ChangeState(PLAYER_STATE::EndingLevel);
 	GameEngineInput::InputObjectOff(PlayerActor.get());
@@ -611,5 +621,6 @@ void Floor1::EndingFunc()
 		FadeOutActor->Init(FadeColor::Black, 4.5f);
 	}
 
-	EnterRoomTriggerFunc();
+	BackFadeOutVolumeOn();
+	AmbienceFadeOutVolumeOn();
 }

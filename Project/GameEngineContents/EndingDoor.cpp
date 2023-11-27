@@ -42,7 +42,6 @@ void EndingDoor::Start()
 	RightDoorLight->GetColorData().MulColor.A = 0.0f;
 	RightDoorLight->RenderBaseInfoValue.Target3 = 1;
 
-	GameEngineInput::AddInputObject(this);
 }
 
 void EndingDoor::Update(float _Delta)
@@ -116,7 +115,7 @@ void EndingDoor::Update(float _Delta)
 	{
 		if (0.0f < LightingTimer)
 		{
-			LightingTimer -= _Delta * 1.0f;
+			LightingTimer -= _Delta;
 
 			LeftDoorLight->GetColorData().MulColor.A = LightingTimer / LightingTime;
 			RightDoorLight->GetColorData().MulColor.A = LightingTimer / LightingTime;
@@ -130,12 +129,12 @@ void EndingDoor::FocusUpdate(float _Delta)
 {
 	if (true == FocusValue)
 	{
-		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, _Delta);
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, 2.0f * _Delta);
 		CameraManager::AddCameraPosFromActor = ((Transform.GetLocalPosition() + float4{ 0.0f, 448.0f } - PlayerActor->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
 	}
 	else
 	{
-		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 0.0f, _Delta);
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 0.0f, 2.0f *_Delta);
 		CameraManager::AddCameraPosFromActor = ((Transform.GetLocalPosition() + float4{ 0.0f, 448.0f } - PlayerActor->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
 	}
 }

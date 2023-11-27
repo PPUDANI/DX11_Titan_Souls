@@ -84,6 +84,7 @@ private:
 	ATTACKHAND_DIR AttackDir = ATTACKHAND_DIR::NONE;
 
 private:
+	// Colossus
 	void SoundLoad() override;
 
 	bool StartProcessingIsEnd = false;
@@ -100,6 +101,9 @@ private:
 	void BossHitProcessing();
 
 	void BossDeathProcessing();
+
+private:
+	// Ending Element
 	void BossDeathCheck();
 	bool AllBossClear = false;
 
@@ -107,4 +111,5 @@ private:
 	void DoorEndPrecessing();
 
 	bool EndingIsOn = false;
+
 };

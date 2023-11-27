@@ -42,9 +42,9 @@ void YetiRoom::Start()
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 
-	ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
-	ScreenOverlayActor->SetColor({ 0.8f, 0.8f, 0.8f });
-	ScreenOverlayActor->SetAlpha(0.1f);
+	//ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
+	//ScreenOverlayActor->SetColor({ 0.8f, 0.8f, 0.8f });
+	//ScreenOverlayActor->SetAlpha(0.1f);
 
 }
 

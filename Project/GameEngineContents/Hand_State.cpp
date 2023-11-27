@@ -67,6 +67,7 @@ void Hand::LandStart()
 
 void Hand::HitStart()
 {
+	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 }
 
 void Hand::DeathStart()
@@ -76,6 +77,7 @@ void Hand::DeathStart()
 	GravityForce = 1200.0f;
 	ShadowStandardScale = { 128.0f, 128.0f , 1.0f };
 	ShadowScaleConstant = 3.0f;
+	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
 }
 
 
