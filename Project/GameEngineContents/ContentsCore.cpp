@@ -103,8 +103,8 @@ void ContentsCore::ContentsShaderLoad()
 	}
 
 	{
-		std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("ColossusBodyMask");
-		Mat->SetVertexShader("ColossusBodyMask_VS");
-		Mat->SetPixelShader("ColossusBodyMask_PS");
+		std::shared_ptr<GameEngineMaterial> Mat = GameEngineMaterial::Create("OverlayLightMask");
+		Mat->SetVertexShader("OverlayLightMask_VS");
+		Mat->SetPixelShader("OverlayLightMask_PS");
 	}
 }

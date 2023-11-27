@@ -203,10 +203,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ColossusBodyMask.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="EndingDoor.cpp">
       <SubType>
       </SubType>
@@ -248,6 +244,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OverlayActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverlayLightMask.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -390,10 +390,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ColossusBodyMask.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="EndingDoor.h">
       <SubType>
       </SubType>
@@ -432,6 +428,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="OverlayActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OverlayLightMask.h">
       <SubType>
       </SubType>
     </ClInclude>

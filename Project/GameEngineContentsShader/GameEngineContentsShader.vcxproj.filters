@@ -9,7 +9,7 @@
     <FxCompile Include="PlayerMaskEffect.fx">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="ColossusBodyMask.fx">
+    <FxCompile Include="OverlayLightMask.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

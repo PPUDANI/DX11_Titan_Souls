@@ -29,15 +29,26 @@ public:
 		return;
 	}
 
-	bool OpenIsEnd()
+	inline bool OpenIsEnd()
 	{
 		return OpenEnd;
 	}
 
-	void SetPlayer(class Player* _PlayerPtr)
+	inline void SetPlayer(class Player* _PlayerPtr)
 	{
 		PlayerActor = _PlayerPtr;
 	}
+
+	inline void FocusOn()
+	{
+		FocusValue = true;
+	}
+
+	inline void FocusOff()
+	{
+		FocusValue = false;
+	}
+
 protected:
 
 private:
@@ -68,5 +79,8 @@ private:
 	bool OpenDoorValue = false;
 
 private:
+	bool FocusValue = false;
 	float CameraPosLerpForce = 0.0f;
+
+	void FocusUpdate(float _Delta);
 };

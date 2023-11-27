@@ -5,6 +5,7 @@
 #include "ColossusBody.h"
 #include "EndingDoor.h"
 #include "ClearLight.h"
+#include "OverlayLightMask.h"
 
 Floor1::Floor1()
 {
@@ -17,14 +18,18 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
-	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 
+	OverlayLightEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<OverlayLightMask>();
+
+	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 	if (nullptr != Window)
 	{
 		Window->AddDebugRenderTarget(0, "Floor1RenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
 
+
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
+
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
@@ -53,9 +58,8 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
-	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
-	EndingDoorActor->SetPlayer(PlayerActor.get());
+	EndingOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::Map);
+	EndingOverlayActor->SetAlpha(0.0f);
 
 	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	SludgeClearLight->Transform.SetLocalPosition({ 1616.0f, -3120.0f });
@@ -65,6 +69,11 @@ void Floor1::Start()
 
 	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	ColossusClearLight->Transform.SetLocalPosition({ 1616.0f, -2448.0f });
+
+	// Ending Element
+	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
+	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
+	EndingDoorActor->SetPlayer(PlayerActor.get());
 
 	EndingTrigger = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
 	EndingTrigger->Transform.SetLocalPosition({ 1616.0f, -848.0f });
@@ -91,6 +100,8 @@ void Floor1::Update(float _Delta)
 		true == EndingDoorActor->OpenIsEnd())
 	{
 		GameEngineInput::InputObjectOn(PlayerActor.get());
+		EndingOverlayActor->FadeInOn(0.0f, 2.0f);
+		EndingDoorActor->FocusOff();
 		EndingTrigger->On();
 	}
 
@@ -559,6 +570,8 @@ void Floor1::EnterColossusRoomTriggerFunc()
 void Floor1::OpenDoorFunc()
 {
 	OpenDoorTrigger->Off();
+	EndingOverlayActor->FadeOutOn(0.3f, 2.0f);
+	EndingDoorActor->FocusOn();
 	EndingDoorActor->OpenDoor();
 	GameEngineInput::InputObjectOff(PlayerActor.get());
 }
@@ -574,6 +587,6 @@ void Floor1::EndingFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black, 5.0f);
+		FadeOutActor->Init(FadeColor::Black, 4.0f);
 	}
 }

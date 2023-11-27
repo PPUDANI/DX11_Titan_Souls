@@ -1,15 +1,15 @@
 #include "PreCompile.h"
-#include "ColossusBodyMask.h"
+#include "OverlayLightMask.h"
 
-ColossusBodyMask::ColossusBodyMask()
+OverlayLightMask::OverlayLightMask()
 {
 }
 
-ColossusBodyMask::~ColossusBodyMask()
+OverlayLightMask::~OverlayLightMask()
 {
 }
 
-void ColossusBodyMask::Start()
+void OverlayLightMask::Start()
 {
 	std::shared_ptr<GameEngineRenderTarget> Target = GameEngineCore::GetCurLevel()->GetMainCamera()->GetCameraAllRenderTarget();
 
@@ -19,16 +19,18 @@ void ColossusBodyMask::Start()
 	}
 
 	EffectUnit.SetMesh("fullrect");
-	EffectUnit.SetMaterial("ColossusBodyMask");
+	EffectUnit.SetMaterial("OverlayLightMask");
 
 	EffectUnit.ShaderResHelper.SetTexture("Tex0", Target->GetTexture(3));
 	EffectUnit.ShaderResHelper.SetTexture("Tex1", Target->GetTexture(4));
+	EffectUnit.ShaderResHelper.SetTexture("Tex2", Target->GetTexture(2));
 
 	EffectUnit.ShaderResHelper.SetSampler("Tex0Sampler", "POINT");
 	EffectUnit.ShaderResHelper.SetSampler("Tex1Sampler", "POINT");
+	EffectUnit.ShaderResHelper.SetSampler("Tex2Sampler", "POINT");
 }
 
-void ColossusBodyMask::EffectProcess(float _DeltaTime)
+void OverlayLightMask::EffectProcess(float _DeltaTime)
 {
 	ResultTarget->Setting();
 	EffectUnit.Render();

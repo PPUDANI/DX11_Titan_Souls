@@ -157,9 +157,6 @@
     <ClCompile Include="Hand_State.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
-    <ClCompile Include="ColossusBodyMask.cpp">
-      <Filter>07. Effect\02. ColossusMask</Filter>
-    </ClCompile>
     <ClCompile Include="ColossusBodyState.cpp">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClCompile>
@@ -174,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="ClearLight.cpp">
       <Filter>01. Actor\01. Map\03. ClearLight</Filter>
+    </ClCompile>
+    <ClCompile Include="OverlayLightMask.cpp">
+      <Filter>07. Effect\02. ColossusMask</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -294,9 +294,6 @@
     <ClInclude Include="Hand.h">
       <Filter>01. Actor\03. Boss\03. Colossus</Filter>
     </ClInclude>
-    <ClInclude Include="ColossusBodyMask.h">
-      <Filter>07. Effect\02. ColossusMask</Filter>
-    </ClInclude>
     <ClInclude Include="CameraShakingObject.h">
       <Filter>05. Camera</Filter>
     </ClInclude>
@@ -308,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="ClearLight.h">
       <Filter>01. Actor\01. Map\03. ClearLight</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayLightMask.h">
+      <Filter>07. Effect\02. ColossusMask</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

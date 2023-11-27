@@ -23,6 +23,22 @@ public:
 		FadeRenderer->GetColorData().MulColor.A = _Alpha;
 	}
 
+	void FadeOutOn(float _MaxAlpha, float _Time)
+	{
+		MaxFadeAlpha = _MaxAlpha;
+		FadeOnValue = true;
+		FadeTime = _Time;
+		FadeRatio = 0.0f;
+	}
+
+	void FadeInOn(float _MaxAlpha, float _Time)
+	{
+		MaxFadeAlpha = _MaxAlpha;
+		FadeOnValue = true;
+		FadeTime = -_Time;
+		FadeRatio = 0.0f;
+	}
+
 protected:
 
 private:
@@ -32,4 +48,8 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> FadeRenderer = nullptr;
 
 private:
+	bool FadeOnValue = false;
+	float MaxFadeAlpha = 0.0f;
+	float FadeRatio = 0.0f;
+	float FadeTime = 0.0f;
 };

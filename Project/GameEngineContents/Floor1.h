@@ -58,9 +58,13 @@ private:
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
+	std::shared_ptr<class ScreenOverlay> EndingOverlayActor = nullptr;
+
 	std::shared_ptr<class ClearLight> SludgeClearLight = nullptr;
 	std::shared_ptr<class ClearLight> YetiClearLight = nullptr;
 	std::shared_ptr<class ClearLight> ColossusClearLight = nullptr;
+
+	std::shared_ptr<class Effect> OverlayLightEffect = nullptr;
 
 private:
 	std::shared_ptr<class ColossusBody> BossBodyActor = nullptr;
