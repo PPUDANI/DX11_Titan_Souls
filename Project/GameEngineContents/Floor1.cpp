@@ -4,6 +4,7 @@
 #include "Hand.h"
 #include "ColossusBody.h"
 #include "EndingDoor.h"
+#include "ClearLight.h"
 
 Floor1::Floor1()
 {
@@ -22,7 +23,6 @@ void Floor1::Start()
 	{
 		Window->AddDebugRenderTarget(0, "Floor1RenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
-
 
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
@@ -55,12 +55,22 @@ void Floor1::Start()
 
 	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
 	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
+
+	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	SludgeClearLight->Transform.SetLocalPosition({ 1616.0f, -3120.0f });
+
+	YetiClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	YetiClearLight->Transform.SetLocalPosition({ 1104.0f, -2832.0f });
+
+	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	ColossusClearLight->Transform.SetLocalPosition({ 1616.0f, -2448.0f });
 }
 
 void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 	BossStateUpdate();
+	BossDeathCheck();
 
 	if (false == StartProcessingIsEnd)
 	{
@@ -221,7 +231,7 @@ void Floor1::SpawnTriggerBox()
 	GameEndPlace->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
 	GameEndPlace->SetPlaceScale({ 480.0f, 32.0f });
 	GameEndPlace->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
-	GameEndPlace->On();
+	GameEndPlace->Off();
 }
 
 
@@ -399,6 +409,7 @@ void Floor1::BossStateUpdate()
 		if (BODY_STATE::Death == BossBodyActor->GetCurState())
 		{
 			BossIsDeath = true;
+			ColossusIsDeath = true;
 			BossDeathProcessing();
 		}
 
@@ -465,6 +476,33 @@ void Floor1::BossDeathProcessing()
 {
 	SetBackgroundVolume(0.5f);
 	BackFadeInVolumeOn();
+}
+
+void Floor1::BossDeathCheck()
+{
+	if (true == SludgeIsDeath)
+	{
+		SludgeClearLight->LightOn();
+	}
+
+	if (true == YetiIsDeath)
+	{
+		YetiClearLight->LightOn();
+	}
+
+	if (true == ColossusIsDeath)
+	{
+		ColossusClearLight->LightOn();
+	}
+
+	if (false == AllBossClear &&
+		true == SludgeIsDeath &&
+		true == YetiIsDeath &&
+		true == ColossusIsDeath)
+	{
+		AllBossClear = true;
+		GameEndPlace->On();
+	}
 }
 
 void Floor1::StartProcessing()

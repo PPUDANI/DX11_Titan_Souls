@@ -65,8 +65,12 @@ protected:
 
 protected:
 	bool BossIsDeath = false;
-	bool SoundIsLoaded = false;
+	static bool SludgeIsDeath;
+	static bool YetiIsDeath;
+	static bool ColossusIsDeath;
 
+	bool SoundIsLoaded = false;
+	
 private:
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect = nullptr;

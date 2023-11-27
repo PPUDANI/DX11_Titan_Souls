@@ -172,6 +172,9 @@
     <ClCompile Include="EndingDoor.cpp">
       <Filter>01. Actor\01. Map\02. Ending Door</Filter>
     </ClCompile>
+    <ClCompile Include="ClearLight.cpp">
+      <Filter>01. Actor\01. Map\03. ClearLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="EndingDoor.h">
       <Filter>01. Actor\01. Map\02. Ending Door</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearLight.h">
+      <Filter>01. Actor\01. Map\03. ClearLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +469,9 @@
     </Filter>
     <Filter Include="01. Actor\01. Map\01. Tile Map">
       <UniqueIdentifier>{6fed83a0-5df8-42e8-95fd-6ca7cfc125dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Map\03. ClearLight">
+      <UniqueIdentifier>{9305744f-e3ed-4378-a8a0-355173222cce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -55,8 +55,11 @@ private:
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
-private:
+	std::shared_ptr<class ClearLight> SludgeClearLight = nullptr;
+	std::shared_ptr<class ClearLight> YetiClearLight = nullptr;
+	std::shared_ptr<class ClearLight> ColossusClearLight = nullptr;
 
+private:
 	std::shared_ptr<class ColossusBody> BossBodyActor = nullptr;
 
 	std::shared_ptr<class Hand> LeftHandActor = nullptr;
@@ -72,8 +75,6 @@ private:
 	void SwitchToAttackModeRightHand();
 
 	ATTACKHAND_DIR AttackDir = ATTACKHAND_DIR::NONE;
-
-
 
 private:
 	void SoundLoad() override;
@@ -92,5 +93,6 @@ private:
 	void BossHitProcessing();
 
 	void BossDeathProcessing();
-
+	void BossDeathCheck();
+	bool AllBossClear = false;
 };

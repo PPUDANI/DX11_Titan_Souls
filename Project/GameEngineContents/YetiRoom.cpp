@@ -65,6 +65,7 @@ void YetiRoom::Update(float _Delta)
 		if (YETI_STATE::Hit == YetiActor->GetCurState())
 		{
 			BossIsDeath = true;
+			YetiIsDeath = true;
 			BackgroundStop();
 			ReleaseIcicle();
 			ReleaseSnowball();
