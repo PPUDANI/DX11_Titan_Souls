@@ -56,6 +56,7 @@
 #include "FadeIn.h"
 #include "FadeOut.h"
 #include "ScreenOverlay.h"
+#include "FadeScreenOverlay.h"
 #include "OverlayActor.h"
 #include "ImageActor.h"
 #include "FadeImage.h"

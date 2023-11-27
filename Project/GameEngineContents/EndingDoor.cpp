@@ -68,6 +68,7 @@ void EndingDoor::Update(float _Delta)
 			LeftDoorLight->Transform.SetLocalPosition({ -MovedDistance, 0.0f });
 			RightDoor->Transform.SetLocalPosition({ MovedDistance, 0.0f });
 			RightDoorLight->Transform.SetLocalPosition({ MovedDistance, 0.0f });
+			OpenDoorValue = false;
 			OpenEnd = true;
 		}
 		else
@@ -82,6 +83,16 @@ void EndingDoor::Update(float _Delta)
 	{
 		float MovePos = Speed * _Delta;
 		MovedDistance -= MovePos;
+
+		if (LightingTime > LightingTimer)
+		{
+			LightingTimer += _Delta;
+
+			LeftDoorLight->GetColorData().MulColor.A = LightingTimer / LightingTime;
+			RightDoorLight->GetColorData().MulColor.A = LightingTimer / LightingTime;
+			FocusUpdate(_Delta);
+		}
+
 		if (88.0f > MovedDistance)
 		{
 			MovedDistance = 88.0f;
@@ -97,6 +108,18 @@ void EndingDoor::Update(float _Delta)
 			LeftDoorLight->Transform.AddLocalPosition({ MovePos, 0.0f });
 			RightDoor->Transform.AddLocalPosition({ -MovePos, 0.0f });
 			RightDoorLight->Transform.AddLocalPosition({ -MovePos, 0.0f });
+		}
+	}
+
+	if (true == OpenEnd && 
+		false == CloseDoorValue)
+	{
+		if (0.0f < LightingTimer)
+		{
+			LightingTimer -= _Delta * 1.0f;
+
+			LeftDoorLight->GetColorData().MulColor.A = LightingTimer / LightingTime;
+			RightDoorLight->GetColorData().MulColor.A = LightingTimer / LightingTime;
 		}
 	}
 

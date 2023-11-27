@@ -58,7 +58,7 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	EndingOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::Map);
+	EndingOverlayActor = CreateActor<FadeScreenOverlay>(UPDATE_ORDER::Map);
 	EndingOverlayActor->SetAlpha(0.0f);
 
 	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
@@ -97,12 +97,11 @@ void Floor1::Update(float _Delta)
 	}
 
 	if (false == EndingIsOn &&
+		false == DoorEndPrecessingIsEnd &&
 		true == EndingDoorActor->OpenIsEnd())
 	{
-		GameEngineInput::InputObjectOn(PlayerActor.get());
-		EndingOverlayActor->FadeInOn(0.0f, 2.0f);
-		EndingDoorActor->FocusOff();
-		EndingTrigger->On();
+		DoorEndPrecessingIsEnd = true;
+		DoorEndPrecessing();
 	}
 	else
 	{
@@ -115,7 +114,6 @@ void Floor1::Update(float _Delta)
 		}
 	}
 }
-
 
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
@@ -549,6 +547,14 @@ void Floor1::BossDeathCheck()
 	}
 }
 
+void Floor1::DoorEndPrecessing()
+{
+	GameEngineInput::InputObjectOn(PlayerActor.get());
+	EndingOverlayActor->FadeInOn(2.0f);
+	EndingDoorActor->FocusOff();
+	EndingTrigger->On();
+}
+
 void Floor1::StartProcessing()
 {
 	if (nullptr != FadeInActor &&
@@ -602,7 +608,7 @@ void Floor1::EndingFunc()
 	if (nullptr == FadeOutActor)
 	{
 		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
-		FadeOutActor->Init(FadeColor::Black, 4.0f);
+		FadeOutActor->Init(FadeColor::Black, 4.5f);
 	}
 
 	EnterRoomTriggerFunc();

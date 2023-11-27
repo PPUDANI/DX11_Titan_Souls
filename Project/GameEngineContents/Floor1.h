@@ -58,7 +58,7 @@ private:
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
-	std::shared_ptr<class ScreenOverlay> EndingOverlayActor = nullptr;
+	std::shared_ptr<class FadeScreenOverlay> EndingOverlayActor = nullptr;
 
 	std::shared_ptr<class ClearLight> SludgeClearLight = nullptr;
 	std::shared_ptr<class ClearLight> YetiClearLight = nullptr;
@@ -103,6 +103,8 @@ private:
 	void BossDeathCheck();
 	bool AllBossClear = false;
 
+	bool DoorEndPrecessingIsEnd = false;
+	void DoorEndPrecessing();
 
 	bool EndingIsOn = false;
 };
