@@ -82,6 +82,17 @@ void Player::ExitLevelStart()
 }
 
 
+void Player::EndingLevelStart()
+{
+	EnterTimer = 0.0f;
+	BodyCollision->Off();
+	BodyRenderer->ChangeAnimation("EnterLevel");
+	BowRenderer->ChangeAnimation("EnterLevel");
+	ArrowInBagRenderer->ChangeAnimation("EnterLevel");
+
+	SetDirection(PLAYER_DIRECTION::Up);
+}
+
 ///////  Update  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::IdleUpdate(float _Delta)
 {
@@ -355,5 +366,23 @@ void Player::ExitLevelUpdate(float _Delta)
 
 	float4 MovePos = float4::ZERO;
 	MovePos.Y = -40.0f * _Delta;
+	Transform.AddLocalPosition(MovePos);
+}
+
+void Player::EndingLevelUpdate(float _Delta)
+{
+	StepSoundPlay();
+	if (5.0f < EnterTimer)
+	{
+		EnterTimer = 0.0f;
+		ChangeState(PLAYER_STATE::Idle);
+	}
+	else
+	{
+		EnterTimer += _Delta;
+	}
+
+	float4 MovePos = float4::ZERO;
+	MovePos.Y = 60.0f * _Delta;
 	Transform.AddLocalPosition(MovePos);
 }

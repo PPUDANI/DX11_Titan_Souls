@@ -46,8 +46,11 @@ private:
 	std::shared_ptr<class TriggerBox> EnterTheColossusRoom = nullptr;
 	void EnterColossusRoomTriggerFunc();
 
-	std::shared_ptr<class TriggerBox> GameEndPlace = nullptr;
+	std::shared_ptr<class TriggerBox> OpenDoorTrigger = nullptr;
 	void OpenDoorFunc();
+
+	std::shared_ptr<class TriggerBox> EndingTrigger = nullptr;
+	void EndingFunc();
 
 	std::shared_ptr<class EndingDoor> EndingDoorActor = nullptr;
 
@@ -95,4 +98,7 @@ private:
 	void BossDeathProcessing();
 	void BossDeathCheck();
 	bool AllBossClear = false;
+
+
+	bool EndingIsOn = false;
 };

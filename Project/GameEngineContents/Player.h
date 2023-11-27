@@ -13,6 +13,7 @@ enum class PLAYER_STATE
 	StandUp,
 	EnterLevel,
 	ExitLevel,
+	EndingLevel,
 };
 
 enum class PLAYER_DIRECTION
@@ -146,6 +147,7 @@ private:
 	void StandUpStart();
 	void EnterLevelStart();
 	void ExitLevelStart();
+	void EndingLevelStart();
 
 	// State Update Functions
 	void IdleUpdate(float _Delta);
@@ -159,6 +161,7 @@ private:
 	void StandUpUpdate(float _Delta);
 	void EnterLevelUpdate(float _Delta);
 	void ExitLevelUpdate(float _Delta);
+	void EndingLevelUpdate(float _Delta);
 
 private:
 	// Components

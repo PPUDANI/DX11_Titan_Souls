@@ -16,6 +16,7 @@ public:
 	static float4 AddCameraPosFromArrow;
 	static float4 AddCameraPosFromPlayer;
 	static float4 AddCameraPosFromBoss;
+	static float4 AddCameraPosFromActor;
 	static float4 AddCameraPosFromShaking;
 
 	static float AddCameraZoomFromArrow;
@@ -41,6 +42,10 @@ public:
 			CameraPos += AddCameraPosFromBoss;
 		}
 
+		if (true == CalCameraPosFromActor)
+		{
+			CameraPos += AddCameraPosFromActor;
+		}
 
 		if (TurmSize > CameraPos.X - GlobalValue::WindowScale.hX())
 		{
@@ -148,8 +153,10 @@ private:
 	static bool CalCameraPosFromArrow;
 	static bool CalCameraPosFromPlayer;
 	static bool CalCameraPosFromBoss;
+	static bool CalCameraPosFromActor;
 
 	static bool CalCameraZoomFromArrow;
 	static bool CalCameraZoomFromPlayer;
 	static bool CalCameraZoomFromBoss;
+	static bool CalCameraZoomFromActor;
 };

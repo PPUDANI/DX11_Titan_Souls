@@ -55,6 +55,7 @@ void Floor1::Start()
 
 	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
 	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
+	EndingDoorActor->SetPlayer(PlayerActor.get());
 
 	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	SludgeClearLight->Transform.SetLocalPosition({ 1616.0f, -3120.0f });
@@ -64,6 +65,12 @@ void Floor1::Start()
 
 	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	ColossusClearLight->Transform.SetLocalPosition({ 1616.0f, -2448.0f });
+
+	EndingTrigger = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+	EndingTrigger->Transform.SetLocalPosition({ 1616.0f, -848.0f });
+	EndingTrigger->SetPlaceScale({ 352.0f, 32.0f });
+	EndingTrigger->SetEnterTriggerFunc(std::bind(&Floor1::EndingFunc, this));
+	EndingTrigger->Off();
 }
 
 void Floor1::Update(float _Delta)
@@ -79,6 +86,14 @@ void Floor1::Update(float _Delta)
 	{
 		BossDeathCheck();
 	}
+
+	if (false == EndingIsOn &&
+		true == EndingDoorActor->OpenIsEnd())
+	{
+		GameEngineInput::InputObjectOn(PlayerActor.get());
+		EndingTrigger->On();
+	}
+
 }
 
 
@@ -230,11 +245,11 @@ void Floor1::SpawnTriggerBox()
 	EnterTheColossusRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterColossusRoomTriggerFunc, this));
 	EnterTheColossusRoom->Off();
 
-	GameEndPlace = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
-	GameEndPlace->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
-	GameEndPlace->SetPlaceScale({ 480.0f, 32.0f });
-	GameEndPlace->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
-	GameEndPlace->Off();
+	OpenDoorTrigger = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
+	OpenDoorTrigger->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
+	OpenDoorTrigger->SetPlaceScale({ 480.0f, 32.0f });
+	OpenDoorTrigger->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
+	OpenDoorTrigger->Off();
 }
 
 
@@ -504,7 +519,7 @@ void Floor1::BossDeathCheck()
 		true == ColossusIsDeath)
 	{
 		AllBossClear = true;
-		GameEndPlace->On();
+		OpenDoorTrigger->On();
 	}
 }
 
@@ -543,6 +558,22 @@ void Floor1::EnterColossusRoomTriggerFunc()
 
 void Floor1::OpenDoorFunc()
 {
-	GameEndPlace->Off();
+	OpenDoorTrigger->Off();
 	EndingDoorActor->OpenDoor();
+	GameEngineInput::InputObjectOff(PlayerActor.get());
+}
+
+void Floor1::EndingFunc()
+{
+	EndingIsOn = true;
+	EndingTrigger->Off();
+	EndingDoorActor->CloseDoor();
+	PlayerActor->ChangeState(PLAYER_STATE::EndingLevel);
+	GameEngineInput::InputObjectOff(PlayerActor.get());
+
+	if (nullptr == FadeOutActor)
+	{
+		FadeOutActor = CreateActor<FadeOut>(UPDATE_ORDER::UI);
+		FadeOutActor->Init(FadeColor::Black, 5.0f);
+	}
 }

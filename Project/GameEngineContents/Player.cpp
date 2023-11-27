@@ -156,6 +156,9 @@ void Player::Update(float _Delta)
 	case PLAYER_STATE::ExitLevel:
 		ExitLevelUpdate(_Delta);
 		break;
+	case PLAYER_STATE::EndingLevel:
+		EndingLevelUpdate(_Delta);
+		break;
 	default:
 		break;
 	}
@@ -216,6 +219,9 @@ void Player::ChangeState(PLAYER_STATE _State)
 		break;
 	case PLAYER_STATE::ExitLevel:
 		ExitLevelStart();
+		break;
+	case PLAYER_STATE::EndingLevel:
+		EndingLevelStart();
 		break;
 	default:
 		break;

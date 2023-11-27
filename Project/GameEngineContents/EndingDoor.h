@@ -16,8 +16,28 @@ public:
 	void OpenDoor()
 	{
 		OpenDoorValue = true;
+		CloseDoorValue = false;
 	}
 
+	void CloseDoor()
+	{
+		if (true == OpenEnd)
+		{
+			CloseDoorValue = true;
+			OpenDoorValue = false;
+		}
+		return;
+	}
+
+	bool OpenIsEnd()
+	{
+		return OpenEnd;
+	}
+
+	void SetPlayer(class Player* _PlayerPtr)
+	{
+		PlayerActor = _PlayerPtr;
+	}
 protected:
 
 private:
@@ -31,15 +51,22 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> LeftDoorLight = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> RightDoorLight = nullptr;
 
+	class Player* PlayerActor = nullptr;
+
 private:
 
-	float OpenSpeed = 10.0f;
-	float MaxOpenDistance = 176.0f;
+	float Speed = 20.0f;
+	float MaxOpenDistance = 88.0f;
 	float MovedDistance = 0.0f;
 
 	float LightingTime = 2.0f;
 	float LightingTimer = 0.0f;
 
+	bool CloseDoorValue = false;
 
+	bool OpenEnd = false;
 	bool OpenDoorValue = false;
+
+private:
+	float CameraPosLerpForce = 0.0f;
 };

@@ -39,6 +39,8 @@ void EndingDoor::Start()
 	RightDoorLight->SetImageScale({ 176.0f, 448.0f, 1.0f });
 	RightDoorLight->Transform.SetLocalPosition({ 88.0f, 0.0f });
 	RightDoorLight->GetColorData().MulColor.A = 0.0f;
+
+	GameEngineInput::AddInputObject(this);
 }
 
 void EndingDoor::Update(float _Delta)
@@ -55,7 +57,7 @@ void EndingDoor::Update(float _Delta)
 			return;
 		}
 
-		float MovePos = OpenSpeed * _Delta;
+		float MovePos = Speed * _Delta;
 		MovedDistance += MovePos;
 		if (MaxOpenDistance < MovedDistance)
 		{
@@ -64,7 +66,7 @@ void EndingDoor::Update(float _Delta)
 			LeftDoorLight->Transform.SetLocalPosition({ -MovedDistance, 0.0f });
 			RightDoor->Transform.SetLocalPosition({ MovedDistance, 0.0f });
 			RightDoorLight->Transform.SetLocalPosition({ MovedDistance, 0.0f });
-			OpenDoorValue = false;
+			OpenEnd = true;
 		}
 		else
 		{
@@ -73,5 +75,34 @@ void EndingDoor::Update(float _Delta)
 			RightDoor->Transform.AddLocalPosition({ MovePos, 0.0f });
 			RightDoorLight->Transform.AddLocalPosition({ MovePos, 0.0f });
 		}
+
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, 3.0f * _Delta);
+		CameraManager::AddCameraPosFromActor = ((Transform.GetLocalPosition() + float4{0.0f, 448.0f } - PlayerActor->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
 	}
+	else if (true == CloseDoorValue)
+	{
+		float MovePos = Speed * _Delta;
+		MovedDistance -= MovePos;
+		if (88.0f > MovedDistance)
+		{
+			MovedDistance = 88.0f;
+			LeftDoor->Transform.SetLocalPosition({ -MovedDistance, 0.0f });
+			LeftDoorLight->Transform.SetLocalPosition({ -MovedDistance, 0.0f });
+			RightDoor->Transform.SetLocalPosition({ MovedDistance, 0.0f });
+			RightDoorLight->Transform.SetLocalPosition({ MovedDistance, 0.0f });
+			OpenEnd = true;
+		}
+		else
+		{
+			LeftDoor->Transform.AddLocalPosition({ MovePos, 0.0f });
+			LeftDoorLight->Transform.AddLocalPosition({ MovePos, 0.0f });
+			RightDoor->Transform.AddLocalPosition({ -MovePos, 0.0f });
+			RightDoorLight->Transform.AddLocalPosition({ -MovePos, 0.0f });
+		}
+
+		CameraPosLerpForce = std::lerp(CameraPosLerpForce, 1.0f, _Delta);
+		CameraManager::AddCameraPosFromActor = ((Transform.GetLocalPosition() + float4{ 0.0f, 448.0f } - PlayerActor->Transform.GetLocalPosition()) / 2.0f) * CameraPosLerpForce;
+	}
+
+	
 }
