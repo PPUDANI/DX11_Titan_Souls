@@ -70,11 +70,14 @@ void Floor1::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 	BossStateUpdate();
-	BossDeathCheck();
 
 	if (false == StartProcessingIsEnd)
 	{
 		StartProcessing();
+	}
+	else
+	{
+		BossDeathCheck();
 	}
 }
 
