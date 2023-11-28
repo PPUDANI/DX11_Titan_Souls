@@ -34,7 +34,7 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> Renderer;
+	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
 
 private:
 	float Alpha = 1.0f;

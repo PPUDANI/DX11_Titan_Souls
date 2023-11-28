@@ -60,11 +60,17 @@ void Icicle::StuckUpdate(float _Delta)
 	LiveTimer += _Delta;
 
 	if (LiveTime < LiveTimer ||
-		true == Collision->Collision(COLLISION_TYPE::BossBodyAttack) ||
-		true == Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam))
+		true == Collision->Collision(COLLISION_TYPE::BossBodyAttack))
 	{
 		LandPlayer.RandomPlay();
 		IclcleParticle();
+		Death();
+	}
+	else if (true == Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam))
+	{
+		EffectSoundPlay("Impact.ogg");
+		IclcleParticle();
+		SnowSpreadParticle();
 		Death();
 	}
 }

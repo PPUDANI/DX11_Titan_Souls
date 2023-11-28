@@ -42,6 +42,8 @@ void EndingDoor::Start()
 	RightDoorLight->GetColorData().MulColor.A = 0.0f;
 	RightDoorLight->RenderBaseInfoValue.Target3 = 1;
 
+	CSObj.Init(10.0f, 5.0f, 1.0f);
+	CSObj.Reset();
 }
 
 void EndingDoor::Update(float _Delta)
@@ -68,6 +70,7 @@ void EndingDoor::Update(float _Delta)
 			RightDoor->Transform.SetLocalPosition({ MovedDistance, 0.0f });
 			RightDoorLight->Transform.SetLocalPosition({ MovedDistance, 0.0f });
 			OpenDoorValue = false;
+			CSObj.Reset();
 			OpenEnd = true;
 		}
 		else
@@ -77,6 +80,7 @@ void EndingDoor::Update(float _Delta)
 			RightDoor->Transform.AddLocalPosition({ MovePos, 0.0f });
 			RightDoorLight->Transform.AddLocalPosition({ MovePos, 0.0f });
 		}
+		CSObj.ShakingScreen(_Delta);
 	}
 	else if (true == CloseDoorValue)
 	{
@@ -108,6 +112,7 @@ void EndingDoor::Update(float _Delta)
 			RightDoor->Transform.AddLocalPosition({ -MovePos, 0.0f });
 			RightDoorLight->Transform.AddLocalPosition({ -MovePos, 0.0f });
 		}
+		CSObj.ShakingScreen(_Delta);
 	}
 
 	if (true == OpenEnd && 

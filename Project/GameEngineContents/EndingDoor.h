@@ -83,4 +83,7 @@ private:
 	float CameraPosLerpForce = 0.0f;
 
 	void FocusUpdate(float _Delta);
+
+private:
+	CameraShakingObject CSObj;
 };

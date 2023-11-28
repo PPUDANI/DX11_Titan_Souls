@@ -181,11 +181,14 @@
     <ClCompile Include="FadeScreenOverlay.cpp">
       <Filter>03. UI\02. Seceen Overlay\00. ScreenOverlay</Filter>
     </ClCompile>
-    <ClCompile Include="UpParticle.cpp">
-      <Filter>01. Actor\07. Particle</Filter>
-    </ClCompile>
     <ClCompile Include="GravityParticle.cpp">
-      <Filter>01. Actor\07. Particle</Filter>
+      <Filter>01. Actor\07. Particle\02. Gravity Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="UpParticle.cpp">
+      <Filter>01. Actor\07. Particle\01. Up Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="SpreadParticle.cpp">
+      <Filter>01. Actor\07. Particle\03. SpreadParticle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,11 +330,14 @@
     <ClInclude Include="FadeScreenOverlay.h">
       <Filter>03. UI\02. Seceen Overlay\00. ScreenOverlay</Filter>
     </ClInclude>
-    <ClInclude Include="UpParticle.h">
-      <Filter>01. Actor\07. Particle</Filter>
-    </ClInclude>
     <ClInclude Include="GravityParticle.h">
-      <Filter>01. Actor\07. Particle</Filter>
+      <Filter>01. Actor\07. Particle\02. Gravity Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="UpParticle.h">
+      <Filter>01. Actor\07. Particle\01. Up Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SpreadParticle.h">
+      <Filter>01. Actor\07. Particle\03. SpreadParticle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -502,6 +508,15 @@
     </Filter>
     <Filter Include="01. Actor\07. Particle">
       <UniqueIdentifier>{0b663e49-dcbb-43db-b75e-a7bdda0f9e05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\07. Particle\01. Up Particle">
+      <UniqueIdentifier>{4627e8d4-163d-4ed7-9f82-060dd4beb6de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\07. Particle\02. Gravity Particle">
+      <UniqueIdentifier>{7f965f5e-8682-4368-94bc-55fe4df81ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\07. Particle\03. SpreadParticle">
+      <UniqueIdentifier>{54b2077c-5a7a-4fae-9cb3-cf4071ae743c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

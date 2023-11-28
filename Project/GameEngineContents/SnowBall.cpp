@@ -42,6 +42,7 @@ void Snowball::Update(float _Delta)
 		{
 			EnymePlayer->ChangeState(PLAYER_STATE::Death);
 		}
+		SnowSpreadParticle();
 		Death();
 	}
 
@@ -50,12 +51,14 @@ void Snowball::Update(float _Delta)
 	if (true == TileColCheck())
 	{
 		EffectSoundPlay("Impact.ogg");
+		SnowSpreadParticle();
 		Death();
 	}
 
 	if (RollingSnowCoolTime < RollingSnowCoolTimer)
 	{
 		RollingSnowCoolTimer -= RollingSnowCoolTime;
+
 		SnowParticle();
 		SnowParticle();
 		SnowParticle();

@@ -2,6 +2,7 @@
 #include "YetiRoom.h"
 class Snowball : public ActorBase
 {
+	friend class Icicle;
 public:
 	// Constructor Destructor
 	Snowball();
@@ -66,5 +67,10 @@ private:
 	void SnowParticle()
 	{
 		dynamic_cast<YetiRoom*>(GetLevel())->CreateSnowParticle(Transform.GetLocalPosition(), AngleToPlayer.Z, 20.0f);
+	}
+
+	void SnowSpreadParticle()
+	{
+		dynamic_cast<YetiRoom*>(GetLevel())->CreateSpreadSnowParticle(Transform.GetLocalPosition());
 	}
 };

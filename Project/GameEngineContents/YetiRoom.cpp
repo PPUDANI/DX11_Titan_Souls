@@ -374,3 +374,20 @@ void YetiRoom::CreateIcicleParticle(const float4& _Pos)
 		--Count;
 	}
 }
+
+void YetiRoom::CreateSpreadSnowParticle(const float4& _Pos)
+{
+	int Count = 20;
+	while (Count)
+	{
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+		SpreadParticleActor = CreateActor<SpreadParticle>(UPDATE_ORDER::Particle);
+
+		float4 DirBasis = float4::GetUnitVectorFromDeg(Inst.RandomFloat(0.0f, 360.0f));
+
+		SpreadParticleActor->SetRenderer("Snow.png", Inst.RandomInt(0, 7), 32.0f, DirBasis, 1.0f, 0.5f);
+
+		SpreadParticleActor->Transform.SetLocalPosition(_Pos);
+		--Count;
+	}
+}

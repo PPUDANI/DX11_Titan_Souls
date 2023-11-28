@@ -73,4 +73,7 @@ public:
 
 	std::shared_ptr<class GravityParticle> GravityParticleActor = nullptr;
 	void CreateIcicleParticle(const float4& _Pos);
+
+	std::shared_ptr<class SpreadParticle> SpreadParticleActor = nullptr;
+	void CreateSpreadSnowParticle(const float4& _Pos);
 };

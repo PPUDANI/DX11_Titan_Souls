@@ -62,6 +62,7 @@
 #include "FadeImage.h"
 #include "UpParticle.h"
 #include "GravityParticle.h"
+#include "SpreadParticle.h"
 
 #include "TextActor.h"
 #include "SelectText.h"
