@@ -24,6 +24,7 @@ void LevelBase::Start()
 
 void LevelBase::Update(float _Delta)
 {
+	DeltaTime = _Delta;
 	if (true == BackFadeInVolumeValue)
 	{
 		BackFadeInVolume(_Delta);

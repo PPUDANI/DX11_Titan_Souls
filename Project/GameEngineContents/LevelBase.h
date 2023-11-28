@@ -324,4 +324,12 @@ private:
 
 	float BackFadeVolumeRatio = 0.0f;
 	float AmbienceFadeVolumeRatio = 0.0f;
+
+public:
+	float GetDelta() const
+	{
+		return DeltaTime;
+	}
+private:
+	float DeltaTime = 0.0f;
 };

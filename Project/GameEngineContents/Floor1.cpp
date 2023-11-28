@@ -18,9 +18,7 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
-
 	OverlayLightEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<OverlayLightMask>();
-	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 	if (nullptr != Window)
 	{
@@ -80,6 +78,7 @@ void Floor1::Start()
 	EndingTrigger->SetPlaceScale({ 352.0f, 32.0f });
 	EndingTrigger->SetEnterTriggerFunc(std::bind(&Floor1::EndingFunc, this));
 	EndingTrigger->Off();
+
 }
 
 void Floor1::Update(float _Delta)

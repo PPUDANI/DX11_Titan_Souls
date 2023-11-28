@@ -75,5 +75,10 @@ protected:
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect = nullptr;
 
-
+public:
+	// Particle
+	void CreateDust(const float4& _Pos, float _Dir);
+	std::shared_ptr<class UpParticle> UpParticleActor = nullptr;
+	GameEngineRandom Inst;
+	int RandomSeedCount = 0;
 };

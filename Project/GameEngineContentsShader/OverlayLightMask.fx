@@ -46,7 +46,7 @@ float4 OverlayLightMask_PS(PixelOutPut _Input) : SV_Target0
         }
         else
         {
-            return Color2;
+            return float4(0.0f, 0.0f, 0.0f, 0.0f);
         }
     }
     

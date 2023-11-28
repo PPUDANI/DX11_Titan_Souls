@@ -7,6 +7,7 @@ enum class UPDATE_ORDER
 	Boss,
 	Arrow,
 	Player,
+	Particle,
 	UI,
 };
 

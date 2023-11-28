@@ -181,6 +181,12 @@
     <ClCompile Include="FadeScreenOverlay.cpp">
       <Filter>03. UI\02. Seceen Overlay\00. ScreenOverlay</Filter>
     </ClCompile>
+    <ClCompile Include="UpParticle.cpp">
+      <Filter>01. Actor\07. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityParticle.cpp">
+      <Filter>01. Actor\07. Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -320,6 +326,12 @@
     </ClInclude>
     <ClInclude Include="FadeScreenOverlay.h">
       <Filter>03. UI\02. Seceen Overlay\00. ScreenOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="UpParticle.h">
+      <Filter>01. Actor\07. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityParticle.h">
+      <Filter>01. Actor\07. Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,8 +500,8 @@
     <Filter Include="02. Level\05. Ending Level">
       <UniqueIdentifier>{96d1925a-7533-4585-8e84-7be1fc286092}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. Contents Renderer">
-      <UniqueIdentifier>{90b4c340-aed1-4a7c-ba34-b7baa3e9d5c4}</UniqueIdentifier>
+    <Filter Include="01. Actor\07. Particle">
+      <UniqueIdentifier>{0b663e49-dcbb-43db-b75e-a7bdda0f9e05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

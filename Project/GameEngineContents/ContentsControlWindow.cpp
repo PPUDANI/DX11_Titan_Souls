@@ -12,8 +12,22 @@ void ContentsControlWindow::Start()
 void Information::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 	std::list<std::shared_ptr<GameEngineObject>> PlayerActorList = _Level->GetObjectGroup(UPDATE_ORDER::Player);
-	
-	
+
+
+	ImGui::Text("\nFPS");
+
+	if (FPSUpdateTime < FPSUpdateTimer)
+	{
+		FPSUpdateTimer -= FPSUpdateTime;
+		FramePerSecond = 1.0f / _DeltaTime;
+	}
+	else
+	{
+		FPSUpdateTimer += _DeltaTime;
+	}
+	ImGui::Text(std::to_string(FramePerSecond).c_str());
+
+
 	if (true != PlayerActorList.empty())
 	{
 		std::shared_ptr<GameEngineObject> PlayerActor = PlayerActorList.front();

@@ -201,6 +201,7 @@ void Player::RollingUpdate(float _Delta)
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);
+	DustPatricle();
 }
 
 void Player::BlockedUpdate(float _Delta)

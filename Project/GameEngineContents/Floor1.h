@@ -111,5 +111,4 @@ private:
 	void DoorEndPrecessing();
 
 	bool EndingIsOn = false;
-
 };

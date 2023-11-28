@@ -17,10 +17,12 @@ void PlayLevelBase::Start()
 {
 	LevelBase::Start();
 	CreatePlayerElement();
-	
+	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 
 	SoundLoad();
 	GlobalLoad::LoadSound("EnterDoor.ogg", "Resource\\Sound\\Effect\\Door\\");
+
+	GlobalLoad::LoadSpriteSingle("Dust.png", "Resource\\Texture\\Particle\\");
 }
 
 void PlayLevelBase::Update(float _Delta)
@@ -231,6 +233,7 @@ void PlayLevelBase::PlayerDeathProcessing(float _Delta)
 	
 }
 
+
 void PlayLevelBase::ReleaseBossName()
 {
 	if (nullptr != BossNameBack)
@@ -250,4 +253,15 @@ void PlayLevelBase::ReleaseBossName()
 		BossDescriptionScript->Death();
 		BossDescriptionScript = nullptr;
 	}
+}
+
+
+void PlayLevelBase::CreateDust(const float4& _Pos, float _Dir)
+{
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+	UpParticleActor = CreateActor<UpParticle>(UPDATE_ORDER::Particle);
+	UpParticleActor->SetRenderer("Dust.png", 16.0f, 0.5f);
+
+	float4 Basis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
+	UpParticleActor->Transform.SetLocalPosition(_Pos + Basis * Inst.RandomFloat(-5.0f, 5.0f));
 }

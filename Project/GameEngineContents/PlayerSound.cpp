@@ -75,4 +75,6 @@ void Player::StepSoundPlay()
 		StoneStepRandomPlayer.RandomPlay(0.5f);
 		break;
 	}
+
+	DustPatricle();
 }

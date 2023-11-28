@@ -329,28 +329,36 @@ void Player::SetDirection(PLAYER_DIRECTION _Dir)
 	switch (CurDir)
 	{
 	case PLAYER_DIRECTION::Right:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(0.0f);
+		PlayerDeg = 0.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::RightUp:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(45.0f);
+		PlayerDeg = 45.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::Up:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(90.0f);
+		PlayerDeg = 90.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::LeftUp:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(135.0f);
+		PlayerDeg = 135.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::Left:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(180.0f);
+		PlayerDeg = 180.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::LeftDown:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(225.0f);
+		PlayerDeg = 225.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::Down:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(270.0f);
+		PlayerDeg = 270.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	case PLAYER_DIRECTION::RightDown:
-		PlayerDirDeg = float4::GetUnitVectorFromDeg(315.0f);
+		PlayerDeg = 315.0f;
+		PlayerDirDeg = float4::GetUnitVectorFromDeg(PlayerDeg);
 		break;
 	default:
 		break;

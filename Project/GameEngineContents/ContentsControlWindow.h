@@ -29,6 +29,10 @@ public:
 		: Tab(_Name)
 	{
 	}
+private:
+	float FPSUpdateTime = 0.5f;
+	float FPSUpdateTimer = 0.0f;
+	float FramePerSecond = 0.0f;
 };
 
 class Setting : public Tab
@@ -66,5 +70,6 @@ public:
 
 	std::shared_ptr<Tab> CurTab = nullptr;
 	std::vector<std::shared_ptr<Tab>> Tabs;
+
 };
 

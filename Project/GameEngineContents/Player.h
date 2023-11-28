@@ -341,4 +341,10 @@ private:
 	void StepSoundPlay();
 
 	int PrevStepInex = 0;
+private:
+	float PlayerDeg = 0.0f;
+	void DustPatricle()
+	{
+		dynamic_cast<PlayLevelBase*>(GetLevel())->CreateDust(Transform.GetLocalPosition() + float4{ 0.0f, -16.0f }, PlayerDeg);
+	}
 };

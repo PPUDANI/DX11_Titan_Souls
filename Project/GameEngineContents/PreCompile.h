@@ -60,7 +60,8 @@
 #include "OverlayActor.h"
 #include "ImageActor.h"
 #include "FadeImage.h"
-
+#include "UpParticle.h"
+#include "GravityParticle.h"
 
 #include "TextActor.h"
 #include "SelectText.h"

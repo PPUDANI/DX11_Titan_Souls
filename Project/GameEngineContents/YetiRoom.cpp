@@ -16,7 +16,6 @@ YetiRoom::~YetiRoom()
 void YetiRoom::Start()
 {
 	PlayLevelBase::Start();
-	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 
 	if (nullptr != Window)
