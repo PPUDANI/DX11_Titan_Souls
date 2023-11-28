@@ -488,5 +488,8 @@
     <Filter Include="02. Level\05. Ending Level">
       <UniqueIdentifier>{96d1925a-7533-4585-8e84-7be1fc286092}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Contents Renderer">
+      <UniqueIdentifier>{90b4c340-aed1-4a7c-ba34-b7baa3e9d5c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

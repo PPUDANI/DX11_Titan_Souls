@@ -17,6 +17,8 @@ void MouseCursor::Start()
 	Renderer->SetImageScale({ 32.0f, 32.0f });
 	Renderer->CreateAnimation("Idle", "Cursor15.png", 1.0f, 0, 0, false);
 	Renderer->ChangeAnimation("Idle");
+	Renderer->RenderBaseInfoValue.Target4 = 1;
+
 }
 
 void MouseCursor::Update(float _Delta)

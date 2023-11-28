@@ -1,9 +1,9 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
-bool PlayLevelBase::SludgeIsDeath = false;
-bool PlayLevelBase::YetiIsDeath = false;
-bool PlayLevelBase::ColossusIsDeath = false;
+bool PlayLevelBase::SludgeIsDeath = true;
+bool PlayLevelBase::YetiIsDeath = true;
+bool PlayLevelBase::ColossusIsDeath = true;
 
 PlayLevelBase::PlayLevelBase()
 {
@@ -17,7 +17,7 @@ void PlayLevelBase::Start()
 {
 	LevelBase::Start();
 	CreatePlayerElement();
-	PlayerEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<PlayerMaskEffect>();
+	
 
 	SoundLoad();
 	GlobalLoad::LoadSound("EnterDoor.ogg", "Resource\\Sound\\Effect\\Door\\");

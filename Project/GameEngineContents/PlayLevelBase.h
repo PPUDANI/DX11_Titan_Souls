@@ -71,7 +71,7 @@ protected:
 
 	bool SoundIsLoaded = false;
 	
-private:
+protected:
 	// PostEffect
 	std::shared_ptr<class PlayerMaskEffect> PlayerEffect = nullptr;
 
