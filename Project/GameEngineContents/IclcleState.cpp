@@ -63,7 +63,7 @@ void Icicle::StuckUpdate(float _Delta)
 		true == Collision->Collision(COLLISION_TYPE::BossBodyAttack) ||
 		true == Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam))
 	{
-		//SmashPlayer.RandomPlay();
+		LandPlayer.RandomPlay();
 		IclcleParticle();
 		Death();
 	}
