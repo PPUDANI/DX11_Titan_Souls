@@ -52,6 +52,18 @@ void Snowball::Update(float _Delta)
 		EffectSoundPlay("Impact.ogg");
 		Death();
 	}
+
+	if (RollingSnowCoolTime < RollingSnowCoolTimer)
+	{
+		RollingSnowCoolTimer -= RollingSnowCoolTime;
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+	}
+	else
+	{
+		RollingSnowCoolTimer += _Delta;
+	}
 }
 
 bool Snowball::TileColCheck()

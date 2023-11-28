@@ -1,5 +1,5 @@
 #pragma once
-
+#include "YetiRoom.h"
 enum class YETI_STATE
 {
 	Sleep,
@@ -177,4 +177,13 @@ private:
 	static SoundRandomPlayer RollPlayer;
 	static SoundRandomPlayer BlockedPlayer;
 	static SoundRandomPlayer LandPlayer;
+
+private:
+	float RollingSnowCoolTime = 1.0f / 60.0f;
+	float RollingSnowCoolTimer = 0.0f;
+
+	void SnowParticle()
+	{
+		dynamic_cast<YetiRoom*>(GetLevel())->CreateSnowParticle(Transform.GetLocalPosition() + float4{0.0f, 40.0f}, MoveAngle.Z, 60.0f);
+	}
 };

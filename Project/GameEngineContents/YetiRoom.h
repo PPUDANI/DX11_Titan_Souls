@@ -67,4 +67,10 @@ private:
 private:
 	bool StartProcessingIsEnd = false;
 	void StartProcessing();
+
+public:
+	void CreateSnowParticle(const float4& _Pos, float _Dir, float _Range);
+
+	std::shared_ptr<class GravityParticle> GravityParticleActor = nullptr;
+	void CreateIcicleParticle(const float4& _Pos);
 };

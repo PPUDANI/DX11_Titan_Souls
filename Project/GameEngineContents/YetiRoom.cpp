@@ -18,6 +18,8 @@ void YetiRoom::Start()
 	PlayLevelBase::Start();
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 
+	GlobalLoad::LoadSpriteCut(8, 1, "Snow.png", "Resource\\Texture\\Particle\\");
+	GlobalLoad::LoadSpriteCut(6, 1, "IcicleParticle.png", "Resource\\Texture\\Particle\\");
 	if (nullptr != Window)
 	{
 		Window->AddDebugRenderTarget(2, "YetiRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
@@ -44,7 +46,7 @@ void YetiRoom::Start()
 	//ScreenOverlayActor = CreateActor<ScreenOverlay>(UPDATE_ORDER::UI);
 	//ScreenOverlayActor->SetColor({ 0.8f, 0.8f, 0.8f });
 	//ScreenOverlayActor->SetAlpha(0.1f);
-
+	
 }
 
 void YetiRoom::Update(float _Delta)
@@ -337,5 +339,38 @@ void YetiRoom::StartProcessing()
 		FadeInActor->Death();
 		FadeInActor = nullptr;
 		SpawnTriggerBox();
+	}
+}
+
+void YetiRoom::CreateSnowParticle(const float4& _Pos, float _Dir, float _Range)
+{
+	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+	UpParticleActor = CreateActor<UpParticle>(UPDATE_ORDER::Particle);
+
+	UpParticleActor->SetRenderer("Snow.png", Inst.RandomInt(0, 7), 32.0f, 1.0f, 2.0f);
+
+	float4 DirBasis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
+	float4 DirBasis2 = float4::GetUnitVectorFromDeg(_Dir);
+	UpParticleActor->Transform.SetLocalPosition(_Pos + DirBasis * Inst.RandomFloat(-_Range, _Range) + DirBasis2 * Inst.RandomFloat(-10.0f, 10.0f));
+}
+
+
+void YetiRoom::CreateIcicleParticle(const float4& _Pos)
+{
+	int Count = 15;
+	while (Count)
+	{
+		GravityParticleActor = CreateActor<GravityParticle>(UPDATE_ORDER::Particle);
+		GravityParticleActor->SetRenderer("IcicleParticle.png", Inst.RandomInt(0, 5), 32.0f, 1.0f, 0.7f);
+		GravityParticleActor->GravityInit(500.0f, 1500.0f);
+
+		float4 RandomPos;
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+		RandomPos.X = Inst.RandomFloat(-40.0f, 40.0f);
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+		RandomPos.Y = Inst.RandomFloat(-20.0f, 20.0f);
+
+		GravityParticleActor->Transform.SetLocalPosition(_Pos + RandomPos);
+		--Count;
 	}
 }

@@ -165,6 +165,23 @@ void Yeti::RollingUpdate(float _Delta)
 	{
 		Transform.AddLocalPosition(MovePos);
 	}
+
+	if (RollingSnowCoolTime < RollingSnowCoolTimer)
+	{
+		RollingSnowCoolTimer -= RollingSnowCoolTime;
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+		SnowParticle();
+	}
+	else
+	{
+		RollingSnowCoolTimer += _Delta;
+	}
 }
 
 void Yeti::LandingUpdate(float _Delta)

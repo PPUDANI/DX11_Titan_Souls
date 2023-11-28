@@ -342,7 +342,10 @@ private:
 
 	int PrevStepInex = 0;
 private:
+
 	float PlayerDeg = 0.0f;
+	float RollingDustCoolTime = 1.0f / 60.0f;
+	float RollingDustCoolTimer = 0.0f;
 	void DustPatricle()
 	{
 		dynamic_cast<PlayLevelBase*>(GetLevel())->CreateDust(Transform.GetLocalPosition() + float4{ 0.0f, -16.0f }, PlayerDeg);

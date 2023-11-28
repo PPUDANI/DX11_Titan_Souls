@@ -13,7 +13,7 @@ void Icicle::StuckStart()
 	ShadowRenderer->Transform.SetLocalPosition(ShadowStandardPos);
 
 	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
-	BodyRenderer->SetPivotType(PivotType::Center);
+	//BodyRenderer->SetPivotType(PivotType::Center);
 	BodyRenderer->SetSprite("Icicle.png", StuckAnimationIndex);
 	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
 
@@ -23,6 +23,8 @@ void Icicle::StuckStart()
 	LiveTimer = 0.0f;
 
 	LandPlayer.RandomPlay();
+
+	IclcleParticle();
 }
 
 
@@ -62,6 +64,7 @@ void Icicle::StuckUpdate(float _Delta)
 		true == Collision->CollisionEvent(COLLISION_TYPE::Snowball, BlockedColParam))
 	{
 		//SmashPlayer.RandomPlay();
+		IclcleParticle();
 		Death();
 	}
 }

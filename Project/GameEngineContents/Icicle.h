@@ -1,4 +1,5 @@
 #pragma once
+#include "YetiRoom.h"
 
 enum class ICICLE_STATE
 {
@@ -60,4 +61,8 @@ private:
 	static bool SoundIsLoaded;
 	void SoundLoad();
 
+	void IclcleParticle()
+	{
+		dynamic_cast<YetiRoom*>(GetLevel())->CreateIcicleParticle(Transform.GetLocalPosition());
+	}
 };

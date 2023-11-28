@@ -22,7 +22,7 @@ void PlayLevelBase::Start()
 	SoundLoad();
 	GlobalLoad::LoadSound("EnterDoor.ogg", "Resource\\Sound\\Effect\\Door\\");
 
-	GlobalLoad::LoadSpriteSingle("Dust.png", "Resource\\Texture\\Particle\\");
+	GlobalLoad::LoadSpriteCut(2, 1, "Dust.png", "Resource\\Texture\\Particle\\");
 }
 
 void PlayLevelBase::Update(float _Delta)
@@ -103,6 +103,7 @@ void PlayLevelBase::LevelEnd(GameEngineLevel* _NextLevel)
 	ReleaseBossName();
 
 	ReleaseTriggerBox();
+	ReleaseParticle();
 
 	if (nullptr != FadeOutActor)
 	{
@@ -233,6 +234,35 @@ void PlayLevelBase::PlayerDeathProcessing(float _Delta)
 	
 }
 
+void PlayLevelBase::ReleaseParticle()
+{
+	{
+		std::vector<std::shared_ptr<UpParticle>> ObjectType = GetObjectGroupConvert<UpParticle>(UPDATE_ORDER::Particle);
+		for (size_t i = 0; i < ObjectType.size(); ++i)
+		{
+			if (nullptr != ObjectType[i])
+			{
+				ObjectType[i]->Death();
+				ObjectType[i] = nullptr;
+			}
+		}
+		ObjectType.clear();
+	}
+
+	{
+		std::vector<std::shared_ptr<GravityParticle>> ObjectType = GetObjectGroupConvert<GravityParticle>(UPDATE_ORDER::Particle);
+		for (size_t i = 0; i < ObjectType.size(); ++i)
+		{
+			if (nullptr != ObjectType[i])
+			{
+				ObjectType[i]->Death();
+				ObjectType[i] = nullptr;
+			}
+		}
+		ObjectType.clear();
+	}
+}
+	
 
 void PlayLevelBase::ReleaseBossName()
 {
@@ -259,9 +289,12 @@ void PlayLevelBase::ReleaseBossName()
 void PlayLevelBase::CreateDust(const float4& _Pos, float _Dir)
 {
 	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
-	UpParticleActor = CreateActor<UpParticle>(UPDATE_ORDER::Particle);
-	UpParticleActor->SetRenderer("Dust.png", 16.0f, 0.5f);
 
-	float4 Basis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
-	UpParticleActor->Transform.SetLocalPosition(_Pos + Basis * Inst.RandomFloat(-5.0f, 5.0f));
+	UpParticleActor = CreateActor<UpParticle>(UPDATE_ORDER::Particle);
+	UpParticleActor->SetRenderer("Dust.png", Inst.RandomInt(0, 1), 16.0f, 0.5f);
+
+	float4 DirBasis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
+	float4 DirBasis2 = float4::GetUnitVectorFromDeg(_Dir);
+	
+	UpParticleActor->Transform.SetLocalPosition(_Pos + DirBasis * Inst.RandomFloat(-10.0f, 10.0f) + DirBasis2 * Inst.RandomFloat(-3.0f, 3.0f));
 }

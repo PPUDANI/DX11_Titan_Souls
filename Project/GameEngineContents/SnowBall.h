@@ -1,5 +1,5 @@
 #pragma once
-
+#include "YetiRoom.h"
 class Snowball : public ActorBase
 {
 public:
@@ -39,6 +39,7 @@ private:
 
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> Renderer = nullptr;
+
 	std::shared_ptr<GameEngineCollision> Collision = nullptr;
 
 	bool SoundIsPlay = false;
@@ -58,4 +59,12 @@ private:
 	static bool SoundIsLoaded;
 	void SoundLoad();
 
+private:
+	float RollingSnowCoolTime = 1.0f / 60.0f;
+	float RollingSnowCoolTimer = 0.0f;
+
+	void SnowParticle()
+	{
+		dynamic_cast<YetiRoom*>(GetLevel())->CreateSnowParticle(Transform.GetLocalPosition(), AngleToPlayer.Z, 20.0f);
+	}
 };

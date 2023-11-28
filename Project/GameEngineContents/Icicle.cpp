@@ -30,6 +30,7 @@ void Icicle::Start()
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	BodyRenderer->SetPivotType(PivotType::Bottom);
+	BodyRenderer->Transform.SetLocalPosition({0.0f, -12.0f});
 	GameEngineRandom Inst;
 	Inst.SetSeed(reinterpret_cast<__int64>(this));
 	RandomIndex = Inst.RandomInt(0, 3);

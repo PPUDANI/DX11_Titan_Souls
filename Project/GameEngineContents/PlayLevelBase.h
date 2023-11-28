@@ -81,4 +81,6 @@ public:
 	std::shared_ptr<class UpParticle> UpParticleActor = nullptr;
 	GameEngineRandom Inst;
 	int RandomSeedCount = 0;
+
+	void ReleaseParticle();
 };

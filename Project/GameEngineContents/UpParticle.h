@@ -13,12 +13,13 @@ public:
 	UpParticle& operator=(const UpParticle& _Other) = delete;
 	UpParticle& operator=(UpParticle&& _Other) noexcept = delete;
 
-	void SetRenderer(std::string_view SpriteName, float _StartScale, float _StartAlpha = 0.0f)
+	void SetRenderer(std::string_view SpriteName, int _Index, float _StartScale, float _StartAlpha = 0.0f, float _DeathTime = 1.0f)
 	{
-		Renderer->SetSprite(SpriteName);
+		Renderer->SetSprite(SpriteName, _Index);
 		Scale = { _StartScale , _StartScale };
 		Alpha = _StartAlpha;
 		Renderer->GetColorData().MulColor.A = Alpha;
+		DeathTime = _DeathTime;
 	}
 
 protected:
@@ -37,5 +38,6 @@ private:
 	float Alpha = 0.0f;
 
 private:
-	float DeathTimer = 1.0f;
+	float DeathTime = 1.0f;
+	float UpdateRatio = 1.0f;
 };

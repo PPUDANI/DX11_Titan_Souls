@@ -201,7 +201,16 @@ void Player::RollingUpdate(float _Delta)
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);
-	DustPatricle();
+
+	if (RollingDustCoolTime < RollingDustCoolTimer)
+	{
+		RollingDustCoolTimer -= RollingDustCoolTime;
+		DustPatricle();
+	}
+	else
+	{
+		RollingDustCoolTimer += _Delta;
+	}
 }
 
 void Player::BlockedUpdate(float _Delta)
