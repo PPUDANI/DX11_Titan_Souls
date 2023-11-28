@@ -49,13 +49,14 @@ void Heart::OutOfSludgeStart()
 
 void Heart::HitStart()
 {
+	Collision->Off();
 	BodyRenderer->ChangeAnimation("Death");
 	Transform.SetLocalPosition(Transform.GetLocalPosition().RoundUpReturn());
 }
 
 void Heart::DeathStart()
 {
-	Collision->Off();
+	
 }
 
 

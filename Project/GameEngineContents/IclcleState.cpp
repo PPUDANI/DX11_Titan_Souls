@@ -37,7 +37,7 @@ void Icicle::FallingUpdate(float _Delta)
 
 		Transform.SetLocalPosition(TargetPos + Height);
 		ShadowRenderer->Transform.SetLocalPosition(-Height + ShadowStandardPos);
-		if (20.0f > abs(TargetPos.Y - Transform.GetLocalPosition().Y) )
+		if (50.0f > abs(TargetPos.Y - Transform.GetLocalPosition().Y) )
 		{	
 			if (false == EnymePlayer->InvincibilityModeIsOn() &&
 				true == FallingCollision->Collision(COLLISION_TYPE::Player))
