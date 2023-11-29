@@ -35,6 +35,14 @@ public:
 		return FadeIsEndValue;
 	}
 
+	inline void SetCamera() const
+	{
+		for (int i = 0; i < TextNum; ++i)
+		{
+			Renderers[i]->SetCameraOrder(ECAMERAORDER::Main);
+		}
+	}
+
 private:
 	void Start() override;
 	void Update(float _Delta) override;

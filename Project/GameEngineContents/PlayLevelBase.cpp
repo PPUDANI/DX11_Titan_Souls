@@ -296,5 +296,5 @@ void PlayLevelBase::CreateDust(const float4& _Pos, float _Dir)
 	float4 DirBasis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
 	float4 DirBasis2 = float4::GetUnitVectorFromDeg(_Dir);
 	
-	UpParticleActor->Transform.SetLocalPosition(_Pos + DirBasis * Inst.RandomFloat(-10.0f, 10.0f) + DirBasis2 * Inst.RandomFloat(-3.0f, 3.0f));
+	UpParticleActor->Transform.SetLocalPosition(_Pos + DirBasis * Inst.RandomFloat(-5.0f, 5.0f) + DirBasis2 * Inst.RandomFloat(-5.0f, 5.0f));
 }

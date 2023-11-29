@@ -5,7 +5,6 @@
 void Hand::SleepStart()
 {
 	AttackCollision->Off();
-	ModeSwitchIsAbleValue = false;
 	FloorCheckPos = Transform.GetLocalPosition();
 
 	if (HAND_STATE::Death != PrevState)

@@ -6,6 +6,7 @@
 #include "EndingDoor.h"
 #include "ClearLight.h"
 #include "OverlayLightMask.h"
+#include "CrystalBall.h"
 
 Floor1::Floor1()
 {
@@ -59,8 +60,15 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	EndingOverlayActor = CreateActor<FadeScreenOverlay>(UPDATE_ORDER::Map);
-	EndingOverlayActor->SetAlpha(0.0f);
+
+	// Map Actor
+	SpaceBarText = CreateActor<TextActor>(UPDATE_ORDER::Map);
+	SpaceBarText->Init("SPACE", float4{ 0.13f, 0.15f, 0.22f, 1.0f }, 25.0f);
+	SpaceBarText->Transform.SetLocalPosition({ 1638.0f, -4913.0f });
+
+	ShiftText = CreateActor<TextActor>(UPDATE_ORDER::Map);
+	ShiftText->Init("SHIFT", float4{ 0.13f, 0.15f, 0.22f, 1.0f }, 25.0f);
+	ShiftText->Transform.SetLocalPosition({ 2064.0f, -4726.0f });
 
 	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	SludgeClearLight->Transform.SetLocalPosition({ 1616.0f, -3120.0f });
@@ -70,6 +78,9 @@ void Floor1::Start()
 
 	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	ColossusClearLight->Transform.SetLocalPosition({ 1616.0f, -2448.0f });
+
+	CrystalBallActor = CreateActor<CrystalBall>(UPDATE_ORDER::Map);
+	CrystalBallActor->Transform.SetLocalPosition({ 1616.0f, -5696.0f });
 
 	// Ending Element
 	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
@@ -82,6 +93,14 @@ void Floor1::Start()
 	EndingTrigger->SetEnterTriggerFunc(std::bind(&Floor1::EndingFunc, this));
 	EndingTrigger->Off();
 
+	LightEffectOverlayActor = CreateActor<FadeScreenOverlay>(UPDATE_ORDER::Map);
+	LightEffectOverlayActor->SetAlpha(0.0f);
+
+	OpenDoorTrigger = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
+	OpenDoorTrigger->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
+	OpenDoorTrigger->SetPlaceScale({ 480.0f, 32.0f });
+	OpenDoorTrigger->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
+	OpenDoorTrigger->Off();
 }
 
 void Floor1::Update(float _Delta)
@@ -98,25 +117,10 @@ void Floor1::Update(float _Delta)
 		BossDeathCheck();
 	}
 
-	if (false == EndingIsOn &&
-		false == DoorEndPrecessingIsEnd &&
-		true == EndingDoorActor->OpenIsEnd())
-	{
-		DoorEndPrecessingIsEnd = true;
-		EffectStop();
-		EffectPlay("DoorEnd.ogg");
-		DoorEndPrecessing();
-	}
 
-	if (true == EndingIsOn)
+	if (true == EndingDoorStart)
 	{
-		if (nullptr != FadeOutActor && 
-			true == FadeOutActor->FadeIsEnd())
-		{
-			EffectStop();
-			EffectPlay("DoorEnd.ogg");
-			GameEngineCore::ChangeLevel("04.Ending");
-		}
+		EndingProcessing();
 	}
 }
 
@@ -168,8 +172,9 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 
 		if("00.TitleLevel" == _PrevLevel->GetName())
 		{
+			// 마지막에 이걸로 바꿔야함
 			//PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
-			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3270.0f });
+			PlayerActor->Transform.SetLocalPosition({ 1638.0f, -5950.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 			return;
 		}
@@ -275,11 +280,6 @@ void Floor1::SpawnTriggerBox()
 	EnterTheColossusRoom->SetEnterTriggerFunc(std::bind(&Floor1::EnterColossusRoomTriggerFunc, this));
 	EnterTheColossusRoom->Off();
 
-	OpenDoorTrigger = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
-	OpenDoorTrigger->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
-	OpenDoorTrigger->SetPlaceScale({ 480.0f, 32.0f });
-	OpenDoorTrigger->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
-	OpenDoorTrigger->Off();
 }
 
 
@@ -463,6 +463,7 @@ void Floor1::BossStateUpdate()
 			BossIsDeath = true;
 			ColossusIsDeath = true;
 			BossDeathProcessing();
+			EnterTheColossusRoom->Off();
 		}
 
 		if (false == BossHitProcessingIsEnd &&
@@ -486,8 +487,8 @@ void Floor1::BossStateUpdate()
 			Background2Play("Colossus.ogg", 10000);
 		}
 
-		if (false == BossPageIsFight &&
-			BODY_STATE::Idle == BossBodyActor->GetCurState())
+		if (BODY_STATE::Idle == BossBodyActor->GetCurState() &&
+			false == BossPageIsFight)
 		{
 			BossPageIsFight = true;
 			BossPageProcessing();
@@ -560,9 +561,33 @@ void Floor1::BossDeathCheck()
 void Floor1::DoorEndPrecessing()
 {
 	GameEngineInput::InputObjectOn(PlayerActor.get());
-	EndingOverlayActor->FadeInOn(2.0f);
+	LightEffectOverlayActor->FadeInOn(2.0f);
 	EndingDoorActor->FocusOff();
 	EndingTrigger->On();
+}
+
+void Floor1::EndingProcessing()
+{
+	if (false == EndingIsOn &&
+		false == DoorEndPrecessingIsEnd &&
+		true == EndingDoorActor->OpenIsEnd())
+	{
+		DoorEndPrecessingIsEnd = true;
+		EffectStop();
+		EffectPlay("DoorEnd.ogg");
+		DoorEndPrecessing();
+	}
+
+	if (true == EndingIsOn)
+	{
+		if (nullptr != FadeOutActor &&
+			true == FadeOutActor->FadeIsEnd())
+		{
+			EffectStop();
+			EffectPlay("DoorEnd.ogg");
+			GameEngineCore::ChangeLevel("04.Ending");
+		}
+	}
 }
 
 
@@ -601,9 +626,10 @@ void Floor1::EnterColossusRoomTriggerFunc()
 
 void Floor1::OpenDoorFunc()
 {
+	EndingDoorStart = true;
 	EffectPlay("OpenBigDoor.ogg");
 	OpenDoorTrigger->Off();
-	EndingOverlayActor->FadeOutOn(0.4f, 2.0f);
+	LightEffectOverlayActor->FadeOutOn(0.4f, 2.0f);
 	EndingDoorActor->FocusOn();
 	EndingDoorActor->OpenDoor();
 	GameEngineInput::InputObjectOff(PlayerActor.get());
@@ -655,7 +681,7 @@ void Floor1::CreateSpreadDust2Particle(const float4& _Pos, int _Num)
 
 		float4 DirBasis = float4::GetUnitVectorFromDeg(Inst.RandomFloat(0.0f, 360.0f));
 
-		SpreadParticleActor->SetRenderer("Dust.png", Inst.RandomInt(0, 1), 8.0f, DirBasis, 1.0f, 0.5f);
+		SpreadParticleActor->SetRenderer("Dust.png", Inst.RandomInt(0, 1), 8.0f, DirBasis, 1.0f, 0.6f);
 		SpreadParticleActor->SetSpeed(100.0f, 400.0f);
 		SpreadParticleActor->Transform.SetLocalPosition(_Pos);
 		--Count;

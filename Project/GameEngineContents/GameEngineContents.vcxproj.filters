@@ -190,6 +190,15 @@
     <ClCompile Include="SpreadParticle.cpp">
       <Filter>01. Actor\07. Particle\03. SpreadParticle</Filter>
     </ClCompile>
+    <ClCompile Include="BossSample.cpp">
+      <Filter>01. Actor\03. Boss\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CrystalBall.cpp">
+      <Filter>01. Actor\01. Map\04. StartDoor</Filter>
+    </ClCompile>
+    <ClCompile Include="StartDoor.cpp">
+      <Filter>01. Actor\01. Map\04. StartDoor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -338,6 +347,15 @@
     </ClInclude>
     <ClInclude Include="SpreadParticle.h">
       <Filter>01. Actor\07. Particle\03. SpreadParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="BossSample.h">
+      <Filter>01. Actor\03. Boss\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CrystalBall.h">
+      <Filter>01. Actor\01. Map\04. StartDoor</Filter>
+    </ClInclude>
+    <ClInclude Include="StartDoor.h">
+      <Filter>01. Actor\01. Map\04. StartDoor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -517,6 +535,9 @@
     </Filter>
     <Filter Include="01. Actor\07. Particle\03. SpreadParticle">
       <UniqueIdentifier>{54b2077c-5a7a-4fae-9cb3-cf4071ae743c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Map\04. StartDoor">
+      <UniqueIdentifier>{e43bc707-ab04-4f7a-9aed-2b09f69da3a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

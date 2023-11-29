@@ -15,7 +15,6 @@ void TextActor::Init(std::string_view _Text, const float4& _Color,float _FontSca
 	Color = _Color;
 	FontScale = _FontScale;
 	FontRenderer->SetText("TSfont", Text, FontScale, Color, FW1_CENTER);
-
 }
 
 void TextActor::SetColor(const float4& _Color)

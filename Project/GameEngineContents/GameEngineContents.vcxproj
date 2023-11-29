@@ -182,6 +182,10 @@
     </ClCompile>
     <ClCompile Include="ArrowSound.cpp" />
     <ClCompile Include="ArrowState.cpp" />
+    <ClCompile Include="BossSample.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CameraShakingObject.cpp">
       <SubType>
       </SubType>
@@ -200,6 +204,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ColossusBody.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CrystalBall.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -264,6 +272,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="SpreadParticle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StartDoor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -394,6 +406,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BossSample.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraManager.h">
       <SubType>
       </SubType>
@@ -407,6 +423,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ColossusBody.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CrystalBall.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -468,6 +488,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="SpreadParticle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StartDoor.h">
       <SubType>
       </SubType>
     </ClInclude>

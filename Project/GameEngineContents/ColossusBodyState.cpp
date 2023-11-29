@@ -43,7 +43,6 @@ void ColossusBody::IdleStart()
 	CameraManager::CalCameraPosFromArrowOn();
 	CameraManager::CalCameraZoomFromArrowOn();
 
-
 	BodyCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 
 	Collision->On();
@@ -97,6 +96,7 @@ void ColossusBody::ShoutingUpdate(float _Delta)
 {
 	if (true == HeadRenderer->IsCurAnimationEnd())
 	{
+		Hand::AttackModeIsSwitch = true;
 		Hand::ModeSwitchIsAbleValue = true;
 		ChangeState(BODY_STATE::Idle);
 		return;

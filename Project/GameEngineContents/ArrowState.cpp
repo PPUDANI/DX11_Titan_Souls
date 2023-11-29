@@ -86,7 +86,8 @@ void Arrow::HoldUpdate(float _Delta)
 
 void Arrow::AimUpdate(float _Delta)
 {
-	if (true == GameEngineInput::IsPress(VK_RBUTTON, this))
+	if (true == GameEngineInput::IsPress(VK_RBUTTON, this) ||
+		PLAYER_STATE::Idle == OwnerPlayer->GetCurState())
 	{
 		ChangeState(ARROW_STATE::Hold);
 		return;

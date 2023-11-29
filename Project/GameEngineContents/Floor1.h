@@ -58,7 +58,7 @@ private:
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
 
-	std::shared_ptr<class FadeScreenOverlay> EndingOverlayActor = nullptr;
+	std::shared_ptr<class FadeScreenOverlay> LightEffectOverlayActor = nullptr;
 
 	std::shared_ptr<class ClearLight> SludgeClearLight = nullptr;
 	std::shared_ptr<class ClearLight> YetiClearLight = nullptr;
@@ -110,11 +110,22 @@ private:
 	bool DoorEndPrecessingIsEnd = false;
 	void DoorEndPrecessing();
 
+	bool EndingDoorStart = false;
 	bool EndingIsOn = false;
+	void EndingProcessing();
 
 public:
 	std::shared_ptr<class SpreadParticle> SpreadParticleActor = nullptr;
 	void CreateSpreadDustParticle(const float4& _Pos, int _Num);
 
 	void CreateSpreadDust2Particle(const float4& _Pos, int _Num);
+
+private:
+	// Map Actor
+	std::shared_ptr<class TextActor> SpaceBarText = nullptr;
+	std::shared_ptr<class TextActor> ShiftText = nullptr;
+
+	std::shared_ptr<class CrystalBall> CrystalBallActor = nullptr;
+
+
 };
