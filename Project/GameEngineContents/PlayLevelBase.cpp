@@ -1,9 +1,9 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
-bool PlayLevelBase::SludgeIsDeath = true;
-bool PlayLevelBase::YetiIsDeath = true;
-bool PlayLevelBase::ColossusIsDeath = true;
+bool PlayLevelBase::SludgeIsDeath = false;
+bool PlayLevelBase::YetiIsDeath = false;
+bool PlayLevelBase::ColossusIsDeath = false;
 
 PlayLevelBase::PlayLevelBase()
 {

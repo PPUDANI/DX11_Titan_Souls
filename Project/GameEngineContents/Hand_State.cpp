@@ -57,7 +57,7 @@ void Hand::FallStart()
 void Hand::LandStart()
 {
 	CSObj.Reset();
-	SnowSpreadParticle();
+	DustSpreadParticle();
 	FistAttackPlayer.RandomPlay();
 	SetLandCollision();
 	LandTimer = 0.0f;
@@ -162,7 +162,7 @@ void Hand::DeathUpdate(float _Delta)
 		float4 MovePos = Transform.GetLocalPosition();
 		MovePos.Y = FloorCheckPos.Y;
 		Transform.SetLocalPosition(MovePos);
-
+		DustSpreadParticle();
 		ChangeState(HAND_STATE::Sleep);
 		return;
 	}

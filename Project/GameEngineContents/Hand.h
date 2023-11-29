@@ -181,7 +181,7 @@ private:
 
 private:
 
-	void SnowSpreadParticle()
+	void DustSpreadParticle()
 	{
 		dynamic_cast<Floor1*>(GetLevel())->CreateSpreadDustParticle(FloorCheckPos, 30);
 		dynamic_cast<Floor1*>(GetLevel())->CreateSpreadDust2Particle(FloorCheckPos, 30);

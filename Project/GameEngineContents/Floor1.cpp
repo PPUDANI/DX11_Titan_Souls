@@ -46,6 +46,7 @@ void Floor1::Start()
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
 
+
 	// TileMap Setting
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
@@ -59,6 +60,7 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
+
 
 
 	// Map Actor
@@ -81,6 +83,8 @@ void Floor1::Start()
 
 	CrystalBallActor = CreateActor<CrystalBall>(UPDATE_ORDER::Map);
 	CrystalBallActor->Transform.SetLocalPosition({ 1616.0f, -5696.0f });
+
+
 
 	// Ending Element
 	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
@@ -117,10 +121,16 @@ void Floor1::Update(float _Delta)
 		BossDeathCheck();
 	}
 
-
 	if (true == EndingDoorStart)
 	{
 		EndingProcessing();
+	}
+
+	if (true == GameEngineInput::IsDown('J', this))
+	{
+		PlayLevelBase::ColossusIsDeath = true;
+		PlayLevelBase::SludgeIsDeath = true;
+		PlayLevelBase::YetiIsDeath = true;
 	}
 }
 
