@@ -59,9 +59,6 @@ void Player::Start()
 	//		AdjustPosByBodyCollision();
 	//	};
 
-	CSObj.Init(0.3f, 0.15f, 5.0f);
-	CSObj.End();
-
 	SoundLoad();
 	
 	ChangeState(PLAYER_STATE::StandUp);

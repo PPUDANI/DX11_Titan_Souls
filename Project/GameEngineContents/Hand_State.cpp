@@ -164,6 +164,7 @@ void Hand::DeathUpdate(float _Delta)
 		Transform.SetLocalPosition(MovePos);
 		DustSpreadParticle();
 		ChangeState(HAND_STATE::Sleep);
+		FistAttackPlayer.RandomPlay();
 		return;
 	}
 

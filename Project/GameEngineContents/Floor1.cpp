@@ -5,8 +5,10 @@
 #include "ColossusBody.h"
 #include "EndingDoor.h"
 #include "ClearLight.h"
+#include "ClearLight2.h"
 #include "OverlayLightMask.h"
 #include "CrystalBall.h"
+#include "StartDoor.h"
 
 Floor1::Floor1()
 {
@@ -81,15 +83,35 @@ void Floor1::Start()
 	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	ColossusClearLight->Transform.SetLocalPosition({ 1616.0f, -2448.0f });
 
+	EmptyClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	EmptyClearLight->Transform.SetLocalPosition({ 2128.0f, -2832.0f });
+	EmptyClearLight->LightOn();
+
+	SludgeClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	SludgeClearLight2->Transform.SetLocalPosition({ 1616.0f, -1008.0f });
+
+	YetiClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	YetiClearLight2->Transform.SetLocalPosition({ 1520.0f, -1104.0f });
+
+	ColossusClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	ColossusClearLight2->Transform.SetLocalPosition({ 1616.0f, -1200.0f  });
+
+	EmptyClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	EmptyClearLight2->Transform.SetLocalPosition({ 1712.0f, -1104.0f });
+	EmptyClearLight2->LightOn();
+
 	CrystalBallActor = CreateActor<CrystalBall>(UPDATE_ORDER::Map);
 	CrystalBallActor->Transform.SetLocalPosition({ 1616.0f, -5696.0f });
 
-
+	StartDoorActor = CreateActor<StartDoor>(UPDATE_ORDER::Map);
+	StartDoorActor->Transform.SetLocalPosition({ 1616.0f, -5408.0f });
+	StartDoorActor->SetTileMap(TileMapActor.get());
 
 	// Ending Element
 	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
 	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
 	EndingDoorActor->SetPlayer(PlayerActor.get());
+	EndingDoorActor->SetTileMap(TileMapActor.get());
 
 	EndingTrigger = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
 	EndingTrigger->Transform.SetLocalPosition({ 1616.0f, -848.0f });
@@ -126,11 +148,20 @@ void Floor1::Update(float _Delta)
 		EndingProcessing();
 	}
 
+	StartDoorProcessing();
+
 	if (true == GameEngineInput::IsDown('J', this))
 	{
 		PlayLevelBase::ColossusIsDeath = true;
 		PlayLevelBase::SludgeIsDeath = true;
 		PlayLevelBase::YetiIsDeath = true;
+	}
+
+	if (true == GameEngineInput::IsDown('0', this))
+	{
+		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -1480.0f });
+		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
+		return;
 	}
 }
 
@@ -179,16 +210,8 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 				return;
 			}
 		}
-
-		if("00.TitleLevel" == _PrevLevel->GetName())
-		{
-			// 마지막에 이걸로 바꿔야함
-			//PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
-			PlayerActor->Transform.SetLocalPosition({ 1638.0f, -5950.0f });
-			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
-			return;
-		}
-		else if ("02.SludgeHeartRoom" == _PrevLevel->GetName())
+		
+		if ("02.SludgeHeartRoom" == _PrevLevel->GetName())
 		{
 			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3170.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::ExitLevel);
@@ -202,16 +225,10 @@ void Floor1::SpawnPlayer(GameEngineLevel* _PrevLevel)
 		}
 		else
 		{
-			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -1500.0f });
+			PlayerActor->Transform.SetLocalPosition({ 1616.0f, -6560.0f });
 			PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
 			return;
 		}
-	}
-	else
-	{
-		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -2670.0f });
-		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
-		return;
 	}
 }
 
@@ -546,16 +563,19 @@ void Floor1::BossDeathCheck()
 	if (true == SludgeIsDeath)
 	{
 		SludgeClearLight->LightOn();
+		SludgeClearLight2->LightOn();
 	}
 
 	if (true == YetiIsDeath)
 	{
 		YetiClearLight->LightOn();
+		YetiClearLight2->LightOn();
 	}
 
 	if (true == ColossusIsDeath)
 	{
 		ColossusClearLight->LightOn();
+		ColossusClearLight2->LightOn();
 	}
 
 	if (false == AllBossClear &&
@@ -570,7 +590,6 @@ void Floor1::BossDeathCheck()
 
 void Floor1::DoorEndPrecessing()
 {
-	GameEngineInput::InputObjectOn(PlayerActor.get());
 	LightEffectOverlayActor->FadeInOn(2.0f);
 	EndingDoorActor->FocusOff();
 	EndingTrigger->On();
@@ -579,13 +598,22 @@ void Floor1::DoorEndPrecessing()
 void Floor1::EndingProcessing()
 {
 	if (false == EndingIsOn &&
-		false == DoorEndPrecessingIsEnd &&
+		false == DoorEndProcessingIsEnd &&
 		true == EndingDoorActor->OpenIsEnd())
 	{
-		DoorEndPrecessingIsEnd = true;
+		DoorEndProcessingIsEnd = true;
 		EffectStop();
 		EffectPlay("DoorEnd.ogg");
 		DoorEndPrecessing();
+	}
+
+	if (false == ClearlightEffectOffProcessing &&
+		true == DoorEndProcessingIsEnd &&
+		true == LightEffectOverlayActor->FadeInIsEnd())
+	{
+		ClearLight2EffectOff();
+		ClearlightEffectOffProcessing = true;
+		GameEngineInput::InputObjectOn(PlayerActor.get());
 	}
 
 	if (true == EndingIsOn)
@@ -598,6 +626,14 @@ void Floor1::EndingProcessing()
 			GameEngineCore::ChangeLevel("04.Ending");
 		}
 	}
+}
+
+void Floor1::ClearLight2EffectOff()
+{
+	SludgeClearLight2->EffectOff();
+	YetiClearLight2->EffectOff();
+	ColossusClearLight2->EffectOff();
+	EmptyClearLight2->EffectOff();
 }
 
 
@@ -642,6 +678,12 @@ void Floor1::OpenDoorFunc()
 	LightEffectOverlayActor->FadeOutOn(0.4f, 2.0f);
 	EndingDoorActor->FocusOn();
 	EndingDoorActor->OpenDoor();
+
+	SludgeClearLight2->EffectOn();
+	YetiClearLight2->EffectOn();
+	ColossusClearLight2->EffectOn();
+	EmptyClearLight2->EffectOn();
+
 	GameEngineInput::InputObjectOff(PlayerActor.get());
 }
 
@@ -695,5 +737,15 @@ void Floor1::CreateSpreadDust2Particle(const float4& _Pos, int _Num)
 		SpreadParticleActor->SetSpeed(100.0f, 400.0f);
 		SpreadParticleActor->Transform.SetLocalPosition(_Pos);
 		--Count;
+	}
+}
+
+void Floor1::StartDoorProcessing()
+{
+	if (false == StartDoorIsOpen &&
+		true == CrystalBallActor->IsHitArrow())
+	{
+		StartDoorIsOpen = true;
+		StartDoorActor->OpenDoor();
 	}
 }

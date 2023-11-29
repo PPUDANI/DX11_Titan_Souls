@@ -783,3 +783,17 @@ TILE_MATERIAL_TYPE TileMap::GetCurTileMatIndex(const float4& _Pos)
 	}
 	return MatIndex;
 }
+
+void TileMap::SetColTile(const float4& _Pos, int _MinXTile, int _MaxXTile, TILE_COLLISION_TYPE _Type)
+{
+	if (nullptr != COLTileMaps[0])
+	{
+		float4 CheckIndex = COLTileMaps[0]->PosToIndex(_Pos);
+		CheckIndex.Y = -CheckIndex.Y;
+
+		for (int i = _MinXTile; i <= _MaxXTile; ++i)
+		{
+			COLTileMapInfos[0][CheckIndex.iY()][CheckIndex.iX() + i] = static_cast<int>(_Type);
+		}
+	}
+}

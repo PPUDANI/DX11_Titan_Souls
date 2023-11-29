@@ -49,6 +49,17 @@ public:
 		FocusValue = false;
 	}
 
+	void SetTileMap(TileMap* _Map)
+	{
+		CurMap = _Map;
+		CollisionOn();
+	}
+
+private:
+	TileMap* CurMap = nullptr;
+	void CollisionOn();
+	void CollisionOff();
+
 protected:
 
 private:

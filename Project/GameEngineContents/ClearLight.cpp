@@ -21,6 +21,7 @@ void ClearLight::Start()
 	LightRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI_BACK);
 	LightRenderer->SetSprite("Player.png", 810);
 	LightRenderer->SetImageScale({ 32.0f, 32.0f, 1.0f });
+	LightRenderer->RenderBaseInfoValue.Target3 = 1;
 	LightRenderer->Off();
 }
 

@@ -194,6 +194,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ClearLight2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ColossusBodyState.cpp" />
     <ClCompile Include="BossBase.cpp">
       <SubType>
@@ -419,6 +423,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ClearLight.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ClearLight2.h">
       <SubType>
       </SubType>
     </ClInclude>

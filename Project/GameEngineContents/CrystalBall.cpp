@@ -12,6 +12,7 @@ CrystalBall::~CrystalBall()
 void CrystalBall::Start()
 {
 	GlobalLoad::LoadSpriteCut(2, 1, "Player.png", "Resource\\Texture\\PlayerElement\\");
+	GlobalLoad::LoadSound("AvariceEntrance.ogg", "Resource\\Sound\\Effect\\Door\\");
 
 	BodyRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY_FRONT);
 	BodyRenderer->SetSprite("Player.png", 777);
@@ -20,8 +21,6 @@ void CrystalBall::Start()
 	LightRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI_BACK);
 	LightRenderer->SetSprite("Player.png", 778);
 	LightRenderer->SetImageScale(LightDefaultScale);
-	
-	LightRenderer->RenderBaseInfoValue.Target3 = 1;
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	Collision->SetCollisionType(ColType::SPHERE2D);
@@ -76,8 +75,10 @@ void CrystalBall::IdleStart()
 
 void CrystalBall::HitStart()
 {
+	EffectSoundPlay("AvariceEntrance.ogg");
 	LightScaleRatio = 1.0f;
 	LightAlphaRatio = 0.5f;
+	HitArrow = true;
 	LightRenderer->GetColorData().MulColor.A = LightAlphaRatio;
 }
 
@@ -94,7 +95,7 @@ void CrystalBall::IdleUpdate(float _Delta)
 		return;
 	}
 
-	if (0.5f < LightAlphaRatio)
+	if (0.3f < LightAlphaRatio)
 	{
 		AddAlphaDir = -1.0f;
 	}
@@ -111,7 +112,7 @@ void CrystalBall::IdleUpdate(float _Delta)
 
 void CrystalBall::HitUpdate(float _Delta)
 {
-	LightScaleRatio = std::lerp(LightScaleRatio, 4.0f, _Delta * 5.0f);
+	LightScaleRatio = std::lerp(LightScaleRatio, 4.0f, _Delta * 3.0f);
 	LightAlphaRatio -= _Delta * 0.4f;
 	if (0.0f > LightAlphaRatio)
 	{
@@ -123,7 +124,7 @@ void CrystalBall::HitUpdate(float _Delta)
 	LightRenderer->SetImageScale(LightDefaultScale * LightScaleRatio);
 }
 
-void  CrystalBall::DeathUpdate(float _Delta)
+void CrystalBall::DeathUpdate(float _Delta)
 {
 
 }

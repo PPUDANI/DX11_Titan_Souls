@@ -21,7 +21,6 @@ void Player::RollingStart()
 
 	IsRollingBlocked = false;
 	DecelerationValue = 1.0f;
-	CSObj.Reset();
 	SetAnimByDir("Rolling");
 }
 
@@ -46,7 +45,6 @@ void Player::ReturningStart()
 
 void Player::DeathStart()
 {
-	BodyCollision->Off();
 	DecelerationValue = 1.0f;
 	SetAnimByDir("Death");
 }
@@ -197,7 +195,6 @@ void Player::RollingUpdate(float _Delta)
 		// Specular Reflection 추가하기
 		DecelerationValue = std::lerp(DecelerationValue, 0.0f, 1.0f - std::pow(0.5f, 5.0f * _Delta));
 		MovePos *= DecelerationValue;
-		CSObj.ShakingScreen(_Delta);
 	}
 
 	Transform.AddLocalPosition(MovePos * _Delta);

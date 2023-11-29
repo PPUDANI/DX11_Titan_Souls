@@ -9,6 +9,16 @@ EndingDoor::~EndingDoor()
 {
 }
 
+void EndingDoor::CollisionOn()
+{
+	CurMap->SetColTile(Transform.GetLocalPosition() + float4{ 0.0f, 8.0f }, -5, 5, TILE_COLLISION_TYPE::RECT);
+}
+
+void EndingDoor::CollisionOff()
+{
+	CurMap->SetColTile(Transform.GetLocalPosition() + float4{ 0.0f, 8.0f }, -5, 5, TILE_COLLISION_TYPE::EMPTY);
+}
+
 void EndingDoor::Start()
 {
 	GlobalLoad::LoadSpriteCut(2, 1, "EndingDoor.png", "Resource\\Texture\\Map\\");
@@ -71,6 +81,7 @@ void EndingDoor::Update(float _Delta)
 			RightDoorLight->Transform.SetLocalPosition({ MovedDistance, 0.0f });
 			OpenDoorValue = false;
 			CSObj.Reset();
+			CollisionOff();
 			OpenEnd = true;
 		}
 		else

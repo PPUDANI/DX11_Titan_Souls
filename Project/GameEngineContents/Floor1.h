@@ -60,10 +60,6 @@ private:
 
 	std::shared_ptr<class FadeScreenOverlay> LightEffectOverlayActor = nullptr;
 
-	std::shared_ptr<class ClearLight> SludgeClearLight = nullptr;
-	std::shared_ptr<class ClearLight> YetiClearLight = nullptr;
-	std::shared_ptr<class ClearLight> ColossusClearLight = nullptr;
-
 	std::shared_ptr<class Effect> OverlayLightEffect = nullptr;
 
 private:
@@ -107,12 +103,16 @@ private:
 	void BossDeathCheck();
 	bool AllBossClear = false;
 
-	bool DoorEndPrecessingIsEnd = false;
+	bool DoorEndProcessingIsEnd = false;
 	void DoorEndPrecessing();
 
 	bool EndingDoorStart = false;
 	bool EndingIsOn = false;
 	void EndingProcessing();
+
+	bool ClearlightEffectOffProcessing = false;
+
+	void ClearLight2EffectOff();
 
 public:
 	std::shared_ptr<class SpreadParticle> SpreadParticleActor = nullptr;
@@ -126,6 +126,19 @@ private:
 	std::shared_ptr<class TextActor> ShiftText = nullptr;
 
 	std::shared_ptr<class CrystalBall> CrystalBallActor = nullptr;
+	std::shared_ptr<class StartDoor> StartDoorActor = nullptr;
 
+	std::shared_ptr<class ClearLight> SludgeClearLight = nullptr;
+	std::shared_ptr<class ClearLight> YetiClearLight = nullptr;
+	std::shared_ptr<class ClearLight> ColossusClearLight = nullptr;
+	std::shared_ptr<class ClearLight> EmptyClearLight = nullptr;
 
+	std::shared_ptr<class ClearLight2> SludgeClearLight2 = nullptr;
+	std::shared_ptr<class ClearLight2> YetiClearLight2 = nullptr;
+	std::shared_ptr<class ClearLight2> ColossusClearLight2 = nullptr;
+	std::shared_ptr<class ClearLight2> EmptyClearLight2 = nullptr;
+
+	void StartDoorProcessing();
+
+	bool StartDoorIsOpen = false;
 };

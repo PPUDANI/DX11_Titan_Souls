@@ -199,6 +199,9 @@
     <ClCompile Include="StartDoor.cpp">
       <Filter>01. Actor\01. Map\04. StartDoor</Filter>
     </ClCompile>
+    <ClCompile Include="ClearLight2.cpp">
+      <Filter>01. Actor\01. Map\03. ClearLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -356,6 +359,9 @@
     </ClInclude>
     <ClInclude Include="StartDoor.h">
       <Filter>01. Actor\01. Map\04. StartDoor</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearLight2.h">
+      <Filter>01. Actor\01. Map\03. ClearLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

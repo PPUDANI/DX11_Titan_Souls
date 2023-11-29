@@ -45,6 +45,16 @@ public:
 		FadeInTime = _Time;
 	}
 
+	inline bool FadeOutIsEnd() const
+	{
+		return !FadeOutOnValue;
+	}
+
+	inline bool FadeInIsEnd() const
+	{
+		return !FadeInOnValue;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

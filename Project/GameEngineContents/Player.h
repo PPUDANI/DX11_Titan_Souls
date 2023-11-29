@@ -329,10 +329,6 @@ private:
 	}
 
 private:
-	// CameraShaking
-	CameraShakingObject CSObj;
-
-private:
 	static SoundRandomPlayer StoneStepRandomPlayer;
 	static SoundRandomPlayer GrassStepRandomPlayer;
 

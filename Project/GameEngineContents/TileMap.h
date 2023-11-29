@@ -53,6 +53,8 @@ public:
 
 	TILE_MATERIAL_TYPE GetCurTileMatIndex(const float4& _Pos);
 
+	void SetColTile(const float4& _Pos, int _MinXTile, int _MaxXTile, TILE_COLLISION_TYPE _Type);
+
 	float4 GetTileMapSize() const
 	{
 		return TileMapSize;
