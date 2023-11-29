@@ -23,6 +23,11 @@ public:
 		BasisVec = _BasisVec;
 	}
 
+	void SetSpeed(float _Min, float _Max)
+	{
+		Speed = Inst.RandomFloat(_Min, _Max);
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

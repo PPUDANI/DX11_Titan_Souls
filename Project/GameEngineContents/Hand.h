@@ -1,4 +1,5 @@
 #pragma once
+#include "Floor1.h"
 
 enum class HAND_STATE
 {
@@ -177,4 +178,12 @@ private:
 
 	bool SoundIsLoaded = false;
 	void SoundLoad();
+
+private:
+
+	void SnowSpreadParticle()
+	{
+		dynamic_cast<Floor1*>(GetLevel())->CreateSpreadDustParticle(FloorCheckPos, 30);
+		dynamic_cast<Floor1*>(GetLevel())->CreateSpreadDust2Particle(FloorCheckPos, 30);
+	}
 };

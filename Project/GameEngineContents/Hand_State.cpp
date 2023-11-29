@@ -58,7 +58,7 @@ void Hand::FallStart()
 void Hand::LandStart()
 {
 	CSObj.Reset();
-
+	SnowSpreadParticle();
 	FistAttackPlayer.RandomPlay();
 	SetLandCollision();
 	LandTimer = 0.0f;

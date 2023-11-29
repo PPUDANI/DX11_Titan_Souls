@@ -60,8 +60,6 @@ void Snowball::Update(float _Delta)
 		RollingSnowCoolTimer -= RollingSnowCoolTime;
 
 		SnowParticle();
-		SnowParticle();
-		SnowParticle();
 	}
 	else
 	{

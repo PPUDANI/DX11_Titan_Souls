@@ -18,6 +18,9 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
+
+	GlobalLoad::LoadSpriteCut(6, 1, "BossDust.png", "Resource\\Texture\\Particle\\");
+
 	OverlayLightEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<OverlayLightMask>();
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 	if (nullptr != Window)
@@ -562,6 +565,7 @@ void Floor1::DoorEndPrecessing()
 	EndingTrigger->On();
 }
 
+
 void Floor1::StartProcessing()
 {
 	if (nullptr != FadeInActor &&
@@ -622,4 +626,38 @@ void Floor1::EndingFunc()
 
 	BackFadeOutVolumeOn();
 	AmbienceFadeOutVolumeOn();
+}
+
+void Floor1::CreateSpreadDustParticle(const float4& _Pos, int _Num)
+{
+	int Count = _Num;
+	while (0 < Count)
+	{
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+		SpreadParticleActor = CreateActor<SpreadParticle>(UPDATE_ORDER::Particle);
+
+		float4 DirBasis = float4::GetUnitVectorFromDeg(Inst.RandomFloat(0.0f, 360.0f));
+
+		SpreadParticleActor->SetRenderer("BossDust.png", Inst.RandomInt(0, 5), 64.0f, DirBasis, 1.0f, 0.5f);
+		SpreadParticleActor->SetSpeed(100.0f, 400.0f);
+		SpreadParticleActor->Transform.SetLocalPosition(_Pos);
+		--Count;
+	}
+}
+
+void Floor1::CreateSpreadDust2Particle(const float4& _Pos, int _Num)
+{
+	int Count = _Num;
+	while (0 < Count)
+	{
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+		SpreadParticleActor = CreateActor<SpreadParticle>(UPDATE_ORDER::Particle);
+
+		float4 DirBasis = float4::GetUnitVectorFromDeg(Inst.RandomFloat(0.0f, 360.0f));
+
+		SpreadParticleActor->SetRenderer("Dust.png", Inst.RandomInt(0, 1), 8.0f, DirBasis, 1.0f, 0.5f);
+		SpreadParticleActor->SetSpeed(100.0f, 400.0f);
+		SpreadParticleActor->Transform.SetLocalPosition(_Pos);
+		--Count;
+	}
 }

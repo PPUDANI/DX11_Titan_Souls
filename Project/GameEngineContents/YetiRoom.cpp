@@ -342,23 +342,29 @@ void YetiRoom::StartProcessing()
 	}
 }
 
-void YetiRoom::CreateSnowParticle(const float4& _Pos, float _Dir, float _Range)
+void YetiRoom::CreateSnowParticle(const float4& _Pos, float _Dir, float _Range, int _Num)
 {
-	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
-	UpParticleActor = CreateActor<UpParticle>(UPDATE_ORDER::Particle);
+	int Count = _Num;
+	while (0 < Count)
+	{
+		UpParticleActor = CreateActor<UpParticle>(UPDATE_ORDER::Particle);
+		UpParticleActor->SetRenderer("Snow.png", Inst.RandomInt(0, 7), 32.0f, 1.0f, 2.0f);
 
-	UpParticleActor->SetRenderer("Snow.png", Inst.RandomInt(0, 7), 32.0f, 1.0f, 2.0f);
+		float4 DirBasis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
+		float4 DirBasis2 = float4::GetUnitVectorFromDeg(_Dir);
 
-	float4 DirBasis = float4::GetUnitVectorFromDeg(_Dir - 90.0f);
-	float4 DirBasis2 = float4::GetUnitVectorFromDeg(_Dir);
-	UpParticleActor->Transform.SetLocalPosition(_Pos + DirBasis * Inst.RandomFloat(-_Range, _Range) + DirBasis2 * Inst.RandomFloat(-10.0f, 10.0f));
+		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
+		UpParticleActor->Transform.SetLocalPosition(_Pos + DirBasis * Inst.RandomFloat(-_Range, _Range) + DirBasis2 * Inst.RandomFloat(-_Range, _Range));
+		--Count;
+	}
 }
 
 
-void YetiRoom::CreateIcicleParticle(const float4& _Pos)
+
+void YetiRoom::CreateIcicleParticle(const float4& _Pos, int _Num)
 {
-	int Count = 15;
-	while (Count)
+	int Count = _Num;
+	while (0 < Count)
 	{
 		GravityParticleActor = CreateActor<GravityParticle>(UPDATE_ORDER::Particle);
 		GravityParticleActor->SetRenderer("IcicleParticle.png", Inst.RandomInt(0, 5), 32.0f, 1.0f, 0.7f);
@@ -375,10 +381,10 @@ void YetiRoom::CreateIcicleParticle(const float4& _Pos)
 	}
 }
 
-void YetiRoom::CreateSpreadSnowParticle(const float4& _Pos)
+void YetiRoom::CreateSpreadSnowParticle(const float4& _Pos, int _Num)
 {
-	int Count = 20;
-	while (Count)
+	int Count = _Num;
+	while (0 < Count)
 	{
 		Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
 		SpreadParticleActor = CreateActor<SpreadParticle>(UPDATE_ORDER::Particle);
@@ -386,7 +392,7 @@ void YetiRoom::CreateSpreadSnowParticle(const float4& _Pos)
 		float4 DirBasis = float4::GetUnitVectorFromDeg(Inst.RandomFloat(0.0f, 360.0f));
 
 		SpreadParticleActor->SetRenderer("Snow.png", Inst.RandomInt(0, 7), 32.0f, DirBasis, 1.0f, 0.5f);
-
+		SpreadParticleActor->SetSpeed(200.0f, 500.0f);
 		SpreadParticleActor->Transform.SetLocalPosition(_Pos);
 		--Count;
 	}

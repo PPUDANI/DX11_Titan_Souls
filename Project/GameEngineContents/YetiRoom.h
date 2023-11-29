@@ -69,11 +69,11 @@ private:
 	void StartProcessing();
 
 public:
-	void CreateSnowParticle(const float4& _Pos, float _Dir, float _Range);
+	void CreateSnowParticle(const float4& _Pos, float _Dir, float _Range, int _Num);
 
 	std::shared_ptr<class GravityParticle> GravityParticleActor = nullptr;
-	void CreateIcicleParticle(const float4& _Pos);
+	void CreateIcicleParticle(const float4& _Pos, int _Num);
 
 	std::shared_ptr<class SpreadParticle> SpreadParticleActor = nullptr;
-	void CreateSpreadSnowParticle(const float4& _Pos);
+	void CreateSpreadSnowParticle(const float4& _Pos, int _Num);
 };

@@ -14,7 +14,7 @@ void SpreadParticle::Start()
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::Y_SORT_ENTITY);
 
 	Inst.SetSeed(reinterpret_cast<__int64>(this) + ++RandomSeedCount);
-	Speed = Inst.RandomFloat(200.0f, 500.0f);
+
 }
 
 void SpreadParticle::Update(float _Delta)

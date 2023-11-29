@@ -111,4 +111,10 @@ private:
 	void DoorEndPrecessing();
 
 	bool EndingIsOn = false;
+
+public:
+	std::shared_ptr<class SpreadParticle> SpreadParticleActor = nullptr;
+	void CreateSpreadDustParticle(const float4& _Pos, int _Num);
+
+	void CreateSpreadDust2Particle(const float4& _Pos, int _Num);
 };

@@ -170,13 +170,7 @@ void Yeti::RollingUpdate(float _Delta)
 	{
 		RollingSnowCoolTimer -= RollingSnowCoolTime;
 		SnowParticle();
-		SnowParticle();
-		SnowParticle();
-		SnowParticle();
-		SnowParticle();
-		SnowParticle();
-		SnowParticle();
-		SnowParticle();
+
 	}
 	else
 	{
