@@ -57,6 +57,7 @@ private:
 	// OverlayActor
 	std::shared_ptr<class OverlayActor> SludgeRoomEntranceOverlayActor = nullptr;
 	std::shared_ptr<class OverlayActor> YetiRoomEntranceOverlayActor = nullptr;
+	std::shared_ptr<class OverlayActor> EmptyRoomEntranceOverlayActor = nullptr;
 
 	std::shared_ptr<class FadeScreenOverlay> LightEffectOverlayActor = nullptr;
 

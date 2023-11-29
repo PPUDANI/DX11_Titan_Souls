@@ -63,7 +63,10 @@ void Floor1::Start()
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-
+	EmptyRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	EmptyRoomEntranceOverlayActor->Transform.SetLocalPosition({ 2128.0f, -2944.0f });
+	EmptyRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
+	EmptyRoomEntranceOverlayActor->SetAlpha(0.4f);
 
 	// Map Actor
 	SpaceBarText = CreateActor<TextActor>(UPDATE_ORDER::Map);
