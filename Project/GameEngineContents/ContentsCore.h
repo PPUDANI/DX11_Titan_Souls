@@ -31,6 +31,9 @@ public:
 	ContentsCore& operator=(const ContentsCore& _Other) = delete;
 	ContentsCore& operator=(ContentsCore&& _Other) noexcept = delete;
 
+	static void CursorOff();
+	static void CursorOn();
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -38,5 +41,6 @@ protected:
 
 private:
 	void ContentsShaderLoad();
+
 };
 

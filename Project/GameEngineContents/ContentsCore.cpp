@@ -110,3 +110,28 @@ void ContentsCore::ContentsShaderLoad()
 		Mat->SetPixelShader("OverlayLightMask_PS");
 	}
 }
+
+void ContentsCore::CursorOff()
+{
+	CURSORINFO CursorInfo = { sizeof(CursorInfo) };
+	GetCursorInfo(&CursorInfo);
+
+	if (0 == CursorInfo.flags)
+	{
+		return;
+	}
+
+	ShowCursor(FALSE);
+}
+
+void ContentsCore::CursorOn()
+{
+	CURSORINFO CursorInfo = { sizeof(CursorInfo) };
+	GetCursorInfo(&CursorInfo);
+
+	if (1 == CursorInfo.flags)
+	{
+		return;
+	}
+	ShowCursor(TRUE);
+}

@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "ContentsControlWindow.h"
-
+#include "ContentsCore.h"
 void ContentsControlWindow::Start()
 {
 	Tabs.push_back(std::make_shared<LevelChangeTab>("LevelChangeTab"));
@@ -11,6 +11,11 @@ void ContentsControlWindow::Start()
 
 void Information::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
+	if (true == ImGui::IsWindowFocused(4))
+	{
+		ContentsCore::CursorOn();
+	}
+
 	std::list<std::shared_ptr<GameEngineObject>> PlayerActorList = _Level->GetObjectGroup(UPDATE_ORDER::Player);
 
 

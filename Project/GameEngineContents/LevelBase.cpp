@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "LevelBase.h"
-
+#include "ContentsCore.h"
 float LevelBase::BackgroundVolume = 0.5f;
 float LevelBase::Background2Volume = 0.5f;
 float LevelBase::AmbienceVolume = 1.0f;
@@ -51,6 +51,12 @@ void LevelBase::Update(float _Delta)
 	{
 		EffectFadeOutVolume(_Delta);
 	}
+
+	if (true == GameEngineCore::MainWindow.IsFocus())
+	{
+		ContentsCore::CursorOff();
+	}
+
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)
