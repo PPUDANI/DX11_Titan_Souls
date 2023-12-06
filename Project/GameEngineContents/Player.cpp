@@ -7,6 +7,7 @@ bool Player::InvincibilityMode = false;
 
 SoundRandomPlayer Player::StoneStepRandomPlayer(GlobalValue::PlayerStoneStepList);
 SoundRandomPlayer Player::GrassStepRandomPlayer(GlobalValue::PlayerGrassStepList);
+SoundRandomPlayer Player::SnowStepRandomPlayer(GlobalValue::PlayerSnowStepList);
 
 Player::Player()
 {

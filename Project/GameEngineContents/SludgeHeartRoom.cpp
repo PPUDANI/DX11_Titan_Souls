@@ -232,7 +232,7 @@ void SludgeHeartRoom::OutputBossName()
 	BossNameBack->Transform.SetLocalPosition({ 0.0f, -305.0f });
 
 	BossNameScript = CreateActor<AncientScript>(UPDATE_ORDER::UI);
-	BossNameScript->Init("SLUDGEHEART", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
+	BossNameScript->Init("SLUDGE HEART", FONT_TYPE::ANCIENT, { 32.0f, 32.0f }, 2.0f);
 	BossNameScript->FadeInit();
 	BossNameScript->Transform.SetLocalPosition({ 5.0f, -290.0f });
 	

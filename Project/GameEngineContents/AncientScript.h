@@ -35,6 +35,11 @@ public:
 		return FadeIsEndValue;
 	}
 
+	inline FADE_STATE GetCurState() const
+	{
+		return CurState;
+	}
+
 	inline void SetCamera() const
 	{
 		for (int i = 0; i < TextNum; ++i)

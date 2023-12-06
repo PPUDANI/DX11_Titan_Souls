@@ -11,7 +11,7 @@ FadeScreenOverlay::~FadeScreenOverlay()
 
 void FadeScreenOverlay::Start()
 {
-	GlobalLoad::LoadSpriteSingle("FadeTexture.png", "Resource\\Texture\\UI\\Fade");
+	GlobalLoad::LoadSpriteSingle("FadeTexture.png", "Resource\\Texture\\UI\\");
 	FadeRenderer = CreateComponent<GameEngineSpriteRenderer>(RENDERING_ORDER::UI);
 	FadeRenderer->SetSprite("FadeTexture.png");
 	FadeRenderer->SetImageScale({ GlobalValue::WindowScale.X + 10.0f, GlobalValue::WindowScale.Y + 10.0f });

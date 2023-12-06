@@ -160,6 +160,21 @@ void Floor1::Update(float _Delta)
 		PlayLevelBase::YetiIsDeath = true;
 	}
 
+	if (true == GameEngineInput::IsDown('N', this))
+	{
+		PlayerActor->GetArrow();
+		ArrowActor->ChangeState(ARROW_STATE::Hold);
+		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -3300.0f });
+		PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
+	}
+
+	if (true == GameEngineInput::IsDown('M', this))
+	{
+		PlayerActor->GetArrow();
+		ArrowActor->ChangeState(ARROW_STATE::Hold);
+		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -1500.0f });
+		PlayerActor->ChangeStateFromLevel(PLAYER_STATE::StandUp);
+	}
 }
 
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)

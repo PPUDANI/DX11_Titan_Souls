@@ -77,7 +77,10 @@ void ContentsCore::Update(float _Delta)
 	{
 		GameEngineCore::ChangeLevel("03.YetiRoom");
 	}
-
+	if (true == GameEngineInput::IsDown(VK_F5, this))
+	{
+		GameEngineCore::ChangeLevel("04.Ending");
+	}
 }
 
 void ContentsCore::Release()

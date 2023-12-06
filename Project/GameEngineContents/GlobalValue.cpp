@@ -28,6 +28,18 @@ std::vector<std::string_view> GlobalValue::PlayerGrassStepList
 	"Grass_Step7.ogg",
 	"Grass_Step8.ogg"
 };
+
+std::vector<std::string_view> GlobalValue::PlayerSnowStepList
+{
+	"Snow_Step1.ogg",
+	"Snow_Step2.ogg",
+	"Snow_Step3.ogg",
+	"Snow_Step4.ogg",
+	"Snow_Step5.ogg",
+	"Snow_Step6.ogg",
+	"Snow_Step7.ogg",
+	"Snow_Step8.ogg"
+};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

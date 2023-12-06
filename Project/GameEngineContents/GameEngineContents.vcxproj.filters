@@ -80,7 +80,7 @@
       <Filter>03. UI\02. Seceen Overlay\01. Fade Actor</Filter>
     </ClCompile>
     <ClCompile Include="OverlayActor.cpp">
-      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
+      <Filter>01. Actor\01. Map\05. Overlay</Filter>
     </ClCompile>
     <ClCompile Include="TextActor.cpp">
       <Filter>03. UI\01. Text\00. Base</Filter>
@@ -89,10 +89,10 @@
       <Filter>03. UI\01. Text\01. Select</Filter>
     </ClCompile>
     <ClCompile Include="AncientScript.cpp">
-      <Filter>03. UI\01. Text\03. AncientScript</Filter>
+      <Filter>03. UI\01. Text\02. AncientScript</Filter>
     </ClCompile>
     <ClCompile Include="AncientScriptState.cpp">
-      <Filter>03. UI\01. Text\03. AncientScript</Filter>
+      <Filter>03. UI\01. Text\02. AncientScript</Filter>
     </ClCompile>
     <ClCompile Include="Yeti.cpp">
       <Filter>01. Actor\03. Boss\02. Yeti\00. Yeti</Filter>
@@ -265,7 +265,7 @@
       <Filter>03. UI\02. Seceen Overlay\01. Fade Actor</Filter>
     </ClInclude>
     <ClInclude Include="OverlayActor.h">
-      <Filter>01. Actor\06. Versatile Actor\Overlay</Filter>
+      <Filter>01. Actor\01. Map\05. Overlay</Filter>
     </ClInclude>
     <ClInclude Include="TextActor.h">
       <Filter>03. UI\01. Text\00. Base</Filter>
@@ -274,7 +274,7 @@
       <Filter>03. UI\01. Text\01. Select</Filter>
     </ClInclude>
     <ClInclude Include="AncientScript.h">
-      <Filter>03. UI\01. Text\03. AncientScript</Filter>
+      <Filter>03. UI\01. Text\02. AncientScript</Filter>
     </ClInclude>
     <ClInclude Include="Yeti.h">
       <Filter>01. Actor\03. Boss\02. Yeti\00. Yeti</Filter>
@@ -461,9 +461,6 @@
     <Filter Include="00. Global\03. Global Value">
       <UniqueIdentifier>{8dd2b722-0ca9-403c-844a-19ee5d95f26f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor\Overlay">
-      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. UI\01. Text">
       <UniqueIdentifier>{80c2b80b-3ad0-4fa0-9073-28e2c4d100c0}</UniqueIdentifier>
     </Filter>
@@ -472,12 +469,6 @@
     </Filter>
     <Filter Include="03. UI\01. Text\01. Select">
       <UniqueIdentifier>{5be8e43f-afe3-4b65-b2b3-c01924736ae4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. UI\01. Text\02. QuestionText">
-      <UniqueIdentifier>{e01db052-25e4-4f6d-8b57-36b535f24be9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. UI\01. Text\03. AncientScript">
-      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. UI\02. Seceen Overlay">
       <UniqueIdentifier>{32e8e412-db45-48f3-894d-dd6fad796792}</UniqueIdentifier>
@@ -544,6 +535,12 @@
     </Filter>
     <Filter Include="07. Effect\02. OverlayMask">
       <UniqueIdentifier>{f40f200b-d402-4ef9-9790-1029da511fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Text\02. AncientScript">
+      <UniqueIdentifier>{4961d934-11d5-4ce0-9241-dba65dce2df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\01. Map\05. Overlay">
+      <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

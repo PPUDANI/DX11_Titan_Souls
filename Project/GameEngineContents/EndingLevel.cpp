@@ -12,6 +12,7 @@ EndingLevel::~EndingLevel()
 void EndingLevel::Start()
 {
 	GlobalLoad::LoadSpriteSingle("TitleLogo.png", "Resource\\Texture\\Title");
+	GlobalLoad::LoadSound("Credits.ogg", "Resource\\Sound\\BGM\\");
 	TitanSoulsRogo = CreateActor<FadeImage>(UPDATE_ORDER::UI);
 	TitanSoulsRogo->Init("TitleLogo.png", 2.0f, 2.0f);
 	TitanSoulsRogo->SetScale({ 546.0f, 254.0f, 1.0f });
@@ -22,6 +23,8 @@ void EndingLevel::Start()
 
 void EndingLevel::Update(float _Delta)
 {
+	LevelBase::Update(_Delta);
+
 	if (DelayTime < DelayTimer)
 	{
 		if (false == TitanSoulsRogo->IsUpdate())
@@ -39,6 +42,13 @@ void EndingLevel::Update(float _Delta)
 		EndingText->FadeInit(2.0f, 2.0f);
 	}
 
+	if (false == StartFadeOutBGM &&
+		FADE_STATE::FADE_OUT == EndingText->GetCurState())
+	{
+		StartFadeOutBGM = true;
+		BackFadeOutVolumeOn();
+	}
+
 	if (true == EndingText->FadeIsEnd())
 	{
 		GameEngineCore::ChangeLevel("00.TitleLevel");
@@ -47,10 +57,10 @@ void EndingLevel::Update(float _Delta)
 
 void EndingLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-
+	BackgroundPlay("Credits.ogg");
 }
 
 void EndingLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-
+	BackgroundStop();
 }

@@ -17,6 +17,7 @@ public:
 	// Player
 	static std::vector<std::string_view> PlayerStoneStepList;
 	static std::vector<std::string_view> PlayerGrassStepList;
+	static std::vector<std::string_view> PlayerSnowStepList;
 
 	// Sludge
 	static std::vector<std::string_view> SludgeDivision0List;

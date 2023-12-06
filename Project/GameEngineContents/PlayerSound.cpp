@@ -11,23 +11,24 @@ void Player::SoundLoad()
 	SoundIsLoaded = true;
 
 	// Stone Step
-	GlobalLoad::LoadSound("Stone_Step1.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step2.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step3.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step4.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step5.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step6.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step7.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
-	GlobalLoad::LoadSound("Stone_Step8.ogg", "Resource\\Sound\\Player\\Step\\Stone\\");
 
-    GlobalLoad::LoadSound("Grass_Step1.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step2.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step3.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step4.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step5.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step6.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step7.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
-    GlobalLoad::LoadSound("Grass_Step8.ogg", "Resource\\Sound\\Player\\Step\\Grass\\");
+	size_t Index = GlobalValue::PlayerStoneStepList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::PlayerStoneStepList[i], "Resource\\Sound\\Player\\Step\\Stone\\");
+	}
+
+	Index = GlobalValue::PlayerGrassStepList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::PlayerGrassStepList[i], "Resource\\Sound\\Player\\Step\\Grass\\");
+	}
+
+	Index = GlobalValue::PlayerSnowStepList.size();
+	for (size_t i = 0; i < Index; ++i)
+	{
+		GlobalLoad::LoadSound(GlobalValue::PlayerSnowStepList[i], "Resource\\Sound\\Player\\Step\\Snow\\");
+	}
 
 	// Roll
 	GlobalLoad::LoadSound("Roll.ogg", "Resource\\Sound\\Player\\Roll\\");
@@ -64,13 +65,8 @@ void Player::StepSoundPlay()
 		GrassStepRandomPlayer.RandomPlay(0.5f);
 		break;
 	case TILE_MATERIAL_TYPE::Snow:
+		SnowStepRandomPlayer.RandomPlay(0.5f);
 		break;
-	case TILE_MATERIAL_TYPE::Vine:
-		break;
-	case TILE_MATERIAL_TYPE::Floor1Tile:
-	case TILE_MATERIAL_TYPE::YetiRock:
-	case TILE_MATERIAL_TYPE::SludgeTile:
-	case TILE_MATERIAL_TYPE::Empty:
 	default:
 		StoneStepRandomPlayer.RandomPlay(0.5f);
 		break;
