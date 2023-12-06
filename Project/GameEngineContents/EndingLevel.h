@@ -25,7 +25,6 @@ private:
 	std::shared_ptr<FadeImage> TitanSoulsRogo = nullptr;
 	std::shared_ptr<AncientScript> EndingText = nullptr;
 
-	bool StartFadeOutBGM = false;
 	float DelayTime = 3.0f;
 	float DelayTimer = 0.0f;
 };
