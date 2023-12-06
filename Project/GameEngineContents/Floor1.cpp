@@ -21,21 +21,18 @@ Floor1::~Floor1()
 void Floor1::Start()
 {
 	PlayLevelBase::Start();
-
 	GlobalLoad::LoadSpriteCut(6, 1, "BossDust.png", "Resource\\Texture\\Particle\\");
-
 	OverlayLightEffect = GetMainCamera()->GetCameraAllRenderTarget()->CreateEffect<OverlayLightMask>();
+
 	std::shared_ptr<GameEngineCoreWindow> Window = GameEngineGUI::FindGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
 	if (nullptr != Window)
 	{
 		Window->AddDebugRenderTarget(0, "Floor1RenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
 
-
+	// Create TileMap
 	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
-
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
-
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::FG, "FG.tmd");
@@ -44,15 +41,14 @@ void Floor1::Start()
 	TileMapActor->CreateTileMap(TILE_TYPE::TCOL, "TCOL.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::ACOL, "ACOL.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::MAT, "MAT.tmd");
-
 	TileMapActor->TileTexureSetting();
 	TileMapActor->SetViewMode(VIEW_MODE::DEFAULT_MODE);
-
 
 	// TileMap Setting
 	PlayerActor->TileMapSetting(TileMapActor);
 	ArrowActor->TileMapSetting(TileMapActor);
 
+	// MapActor : Overlay
 	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
 	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1616.0f, -3232.0f });
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
@@ -68,7 +64,7 @@ void Floor1::Start()
 	EmptyRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	EmptyRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	// Map Actor
+	// MapActor : Text
 	SpaceBarText = CreateActor<TextActor>(UPDATE_ORDER::Map);
 	SpaceBarText->Init("SPACE", float4{ 0.13f, 0.15f, 0.22f, 1.0f }, 25.0f);
 	SpaceBarText->Transform.SetLocalPosition({ 1638.0f, -4913.0f });
@@ -77,6 +73,8 @@ void Floor1::Start()
 	ShiftText->Init("SHIFT", float4{ 0.13f, 0.15f, 0.22f, 1.0f }, 25.0f);
 	ShiftText->Transform.SetLocalPosition({ 2064.0f, -4726.0f });
 
+
+	// MapActor : ClearLight
 	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
 	SludgeClearLight->Transform.SetLocalPosition({ 1616.0f, -3120.0f });
 
@@ -103,6 +101,7 @@ void Floor1::Start()
 	EmptyClearLight2->Transform.SetLocalPosition({ 1712.0f, -1104.0f });
 	EmptyClearLight2->LightOn();
 
+	// MapActors : StartDoor
 	CrystalBallActor = CreateActor<CrystalBall>(UPDATE_ORDER::Map);
 	CrystalBallActor->Transform.SetLocalPosition({ 1616.0f, -5696.0f });
 
@@ -110,11 +109,17 @@ void Floor1::Start()
 	StartDoorActor->Transform.SetLocalPosition({ 1616.0f, -5408.0f });
 	StartDoorActor->SetTileMap(TileMapActor.get());
 
-	// Ending Element
+	// MapActors : EndingDoor
 	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
 	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
 	EndingDoorActor->SetPlayer(PlayerActor.get());
 	EndingDoorActor->SetTileMap(TileMapActor.get());
+
+	OpenDoorTrigger = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
+	OpenDoorTrigger->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
+	OpenDoorTrigger->SetPlaceScale({ 480.0f, 32.0f });
+	OpenDoorTrigger->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
+	OpenDoorTrigger->Off();
 
 	EndingTrigger = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
 	EndingTrigger->Transform.SetLocalPosition({ 1616.0f, -848.0f });
@@ -124,12 +129,6 @@ void Floor1::Start()
 
 	LightEffectOverlayActor = CreateActor<FadeScreenOverlay>(UPDATE_ORDER::Map);
 	LightEffectOverlayActor->SetAlpha(0.0f);
-
-	OpenDoorTrigger = CreateActor<TriggerBox>(static_cast<int>(UPDATE_ORDER::TriggerBox), "EnterPlaceToColossusRoom");
-	OpenDoorTrigger->Transform.SetLocalPosition({ 1616.0f ,-1100.0f });
-	OpenDoorTrigger->SetPlaceScale({ 480.0f, 32.0f });
-	OpenDoorTrigger->SetEnterTriggerFunc(std::bind(&Floor1::OpenDoorFunc, this));
-	OpenDoorTrigger->Off();
 }
 
 void Floor1::Update(float _Delta)
@@ -143,7 +142,7 @@ void Floor1::Update(float _Delta)
 	}
 	else
 	{
-		BossDeathCheck();
+		AllBossDeathCheck();
 	}
 
 	if (true == EndingDoorStart)
@@ -153,6 +152,7 @@ void Floor1::Update(float _Delta)
 
 	StartDoorProcessing();
 
+	// Boss All Clear Key
 	if (true == GameEngineInput::IsDown('J', this))
 	{
 		PlayLevelBase::ColossusIsDeath = true;
@@ -160,26 +160,24 @@ void Floor1::Update(float _Delta)
 		PlayLevelBase::YetiIsDeath = true;
 	}
 
-	if (true == GameEngineInput::IsDown('0', this))
-	{
-		PlayerActor->Transform.SetLocalPosition({ 1616.0f, -1480.0f });
-		PlayerActor->ChangeState(PLAYER_STATE::StandUp);
-		return;
-	}
 }
 
 void Floor1::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayLevelBase::LevelStart(_PrevLevel);
-	StartProcessingIsEnd = false;
 	GameEngineInput::InputObjectOn(PlayerActor.get());
+
 	if (false == BossIsDeath)
 	{
 		SpawnBoss();
 	}
 
+	// BGM On
 	BackgroundPlay("Overworld1.ogg", 10000);
 	AmbiencePlay("StillLake.ogg", 10000);
+
+	// Default Setting
+	StartProcessingIsEnd = false;
 }
 
 void Floor1::LevelEnd(GameEngineLevel* _NextLevel)
@@ -269,20 +267,20 @@ void Floor1::SpawnBoss()
 		RightHandActor->SetBodyActor(BossBodyActor.get());
 	}
 
-	if (nullptr == LeftHandPlayerDetectionRange)
+	if (nullptr == LeftHandDetectionRange)
 	{
-		LeftHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
-		LeftHandPlayerDetectionRange->Transform.SetLocalPosition({ 1386.0f, -2140.0f });
-		LeftHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
-		LeftHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterLeftDetectionRange, this));
+		LeftHandDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+		LeftHandDetectionRange->Transform.SetLocalPosition({ 1386.0f, -2140.0f });
+		LeftHandDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
+		LeftHandDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterLeftDetectionRange, this));
 	}
 
-	if (nullptr == RightHandPlayerDetectionRange)
+	if (nullptr == RightHandDetectionRange)
 	{
-		RightHandPlayerDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
-		RightHandPlayerDetectionRange->Transform.SetLocalPosition({ 1846.0f, -2140.0f });
-		RightHandPlayerDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
-		RightHandPlayerDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
+		RightHandDetectionRange = CreateActor<TriggerBox>(UPDATE_ORDER::TriggerBox);
+		RightHandDetectionRange->Transform.SetLocalPosition({ 1846.0f, -2140.0f });
+		RightHandDetectionRange->SetPlaceScale({ 410.0f, 524.0f });
+		RightHandDetectionRange->SetEnterTriggerFunc(std::bind(&Floor1::EnterRightDetectionRange, this));
 	}
 
 	BossPageIsFight = false;
@@ -388,16 +386,16 @@ void Floor1::ReleaseBoss()
 		RightHandActor = nullptr;
 	}
 
-	if (nullptr != LeftHandPlayerDetectionRange)
+	if (nullptr != LeftHandDetectionRange)
 	{
-		LeftHandPlayerDetectionRange->Death();
-		LeftHandPlayerDetectionRange = nullptr;
+		LeftHandDetectionRange->Death();
+		LeftHandDetectionRange = nullptr;
 	}
 
-	if (nullptr != RightHandPlayerDetectionRange)
+	if (nullptr != RightHandDetectionRange)
 	{
-		RightHandPlayerDetectionRange->Death();
-		RightHandPlayerDetectionRange = nullptr;
+		RightHandDetectionRange->Death();
+		RightHandDetectionRange = nullptr;
 	}
 }
 
@@ -561,7 +559,7 @@ void Floor1::BossDeathProcessing()
 	BackFadeInVolumeOn();
 }
 
-void Floor1::BossDeathCheck()
+void Floor1::AllBossDeathCheck()
 {
 	if (true == SludgeIsDeath)
 	{

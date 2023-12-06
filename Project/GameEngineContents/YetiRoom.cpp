@@ -53,31 +53,7 @@ void YetiRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
-	if (false == BossIsDeath)
-	{
-		if (false == WakeUpProcessingIsEnd &&
-			nullptr != YetiActor &&
-			true == YetiActor->YetiIsWakeUp())
-		{
-			BossWakeUpProcessing();
-			WakeUpProcessingIsEnd = true;
-		}
-
-		if (YETI_STATE::Hit == YetiActor->GetCurState())
-		{
-			BossIsDeath = true;
-			YetiIsDeath = true;
-			BackgroundStop();
-			ReleaseIcicle();
-			ReleaseSnowball();
-		}
-
-		if (true == BossIsDeath &&
-			false == BossDeathPrecessingIsEnd)
-		{
-			BossDeathProcessing();
-		}
-	}
+	BossStateUpdate();
 
 	if (false == StartProcessingIsEnd)
 	{
@@ -317,17 +293,33 @@ void YetiRoom::ReleaseTriggerBox()
 	}
 }
 
-void YetiRoom::SoundLoad()
+void YetiRoom::BossStateUpdate()
 {
-	if (true == SoundIsLoaded)
+	if (false == BossIsDeath)
 	{
-		return;
+		if (false == WakeUpProcessingIsEnd &&
+			nullptr != YetiActor &&
+			true == YetiActor->YetiIsWakeUp())
+		{
+			BossWakeUpProcessing();
+			WakeUpProcessingIsEnd = true;
+		}
+
+		if (YETI_STATE::Hit == YetiActor->GetCurState())
+		{
+			BossIsDeath = true;
+			YetiIsDeath = true;
+			BackgroundStop();
+			ReleaseIcicle();
+			ReleaseSnowball();
+		}
+
+		if (true == BossIsDeath &&
+			false == BossDeathPrecessingIsEnd)
+		{
+			BossDeathProcessing();
+		}
 	}
-
-	SoundIsLoaded = true;
-
-	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
-	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
 }
 
 void YetiRoom::StartProcessing()
@@ -360,6 +352,18 @@ void YetiRoom::CreateSnowParticle(const float4& _Pos, float _Dir, float _Range, 
 }
 
 
+void YetiRoom::SoundLoad()
+{
+	if (true == SoundIsLoaded)
+	{
+		return;
+	}
+
+	SoundIsLoaded = true;
+
+	GlobalLoad::LoadSound("Yeti.ogg", "Resource\\Sound\\BGM\\");
+	GlobalLoad::LoadSound("Dungeon.ogg", "Resource\\Sound\\Ambience\\");
+}
 
 void YetiRoom::CreateIcicleParticle(const float4& _Pos, int _Num)
 {

@@ -48,30 +48,7 @@ void SludgeHeartRoom::Update(float _Delta)
 {
 	PlayLevelBase::Update(_Delta);
 
-	if (false == BossIsDeath)
-	{
-		if (JUMPBOSS_STATE::Hit == HeartActor->GetCurState())
-		{
-			BossIsDeath = true;
-			SludgeIsDeath = true;
-			BackgroundStop();
-		}
-
-		if (true == BossIsDeath &&
-			false == BossDeathPrecessingIsEnd)
-		{
-			BossDeathProcessing();
-		}
-
-		if (nullptr != HeartActor && 
-			false == BossFirstHitPrecessingIsEnd &&
-			true == HeartActor->IsFirstHit())
-		{
-			BossFirstHitPrecessingIsEnd = true;
-			BackgroundPlay("AcidNerve.ogg", 10000);
-			OutputBossName();
-		}
-	}
+	BossStateUpdate();
 
 	if (false == StartProcessingIsEnd)
 	{
@@ -161,6 +138,7 @@ void SludgeHeartRoom::PutTheHeartInSludge()
 	HeartActor->SetOwnerSludge(SludgeActor.get());
 	SludgeActor->SetHeart(HeartActor.get());
 }
+
 void SludgeHeartRoom::ReleaseBoss()
 {
 	if (nullptr != HeartActor)
@@ -169,6 +147,35 @@ void SludgeHeartRoom::ReleaseBoss()
 		HeartActor = nullptr;
 	}
 	ReleaseSludges();
+}
+
+void SludgeHeartRoom::BossStateUpdate()
+{
+	// The Process When Boss is alive
+	if (false == BossIsDeath)
+	{
+		if (JUMPBOSS_STATE::Hit == HeartActor->GetCurState())
+		{
+			BossIsDeath = true;
+			SludgeIsDeath = true;
+			BackgroundStop();
+		}
+
+		if (true == BossIsDeath &&
+			false == BossDeathPrecessingIsEnd)
+		{
+			BossDeathProcessing();
+		}
+
+		if (nullptr != HeartActor &&
+			false == BossFirstHitPrecessingIsEnd &&
+			true == HeartActor->IsFirstHit())
+		{
+			BossFirstHitPrecessingIsEnd = true;
+			BackgroundPlay("AcidNerve.ogg", 10000);
+			OutputBossName();
+		}
+	}
 }
 
 void SludgeHeartRoom::BossDeathProcessing()

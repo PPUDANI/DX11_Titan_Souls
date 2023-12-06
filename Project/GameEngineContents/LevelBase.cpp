@@ -56,7 +56,6 @@ void LevelBase::Update(float _Delta)
 	{
 		ContentsCore::CursorOff();
 	}
-
 }
 
 void LevelBase::LevelStart(GameEngineLevel* _PrevLevel)

@@ -69,8 +69,8 @@ private:
 	std::shared_ptr<class Hand> LeftHandActor = nullptr;
 	std::shared_ptr<class Hand> RightHandActor = nullptr;
 
-	std::shared_ptr<class TriggerBox> LeftHandPlayerDetectionRange = nullptr;
-	std::shared_ptr<class TriggerBox> RightHandPlayerDetectionRange = nullptr;
+	std::shared_ptr<class TriggerBox> LeftHandDetectionRange = nullptr;
+	std::shared_ptr<class TriggerBox> RightHandDetectionRange = nullptr;
 
 	void EnterLeftDetectionRange();
 	void EnterRightDetectionRange();
@@ -101,7 +101,7 @@ private:
 
 private:
 	// Ending Element
-	void BossDeathCheck();
+	void AllBossDeathCheck();
 	bool AllBossClear = false;
 
 	bool DoorEndProcessingIsEnd = false;

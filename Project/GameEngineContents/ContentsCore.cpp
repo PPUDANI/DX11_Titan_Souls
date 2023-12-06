@@ -35,7 +35,7 @@ void ContentsCore::Start()
 
 	// Clear Color Setting
 	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
-	GameEngineCore::MainWindow.CursorOff();
+	CursorOff();
 
 	// Map Texture Load
 	GlobalLoad::LoadSpriteCut(16, 16, "Spectiles.png", "Resource\\Texture\\Map\\");
@@ -56,7 +56,6 @@ void ContentsCore::Start()
 	GameEngineCore::ChangeLevel("00.TitleLevel");
 
 	GameEngineInput::AddInputObject(this);
-
 }
 
 void ContentsCore::Update(float _Delta)
@@ -113,7 +112,9 @@ void ContentsCore::ContentsShaderLoad()
 
 void ContentsCore::CursorOff()
 {
-	CURSORINFO CursorInfo = { sizeof(CursorInfo) };
+	CURSORINFO CursorInfo;
+	CursorInfo.cbSize = sizeof(CURSORINFO);
+
 	GetCursorInfo(&CursorInfo);
 
 	if (0 == CursorInfo.flags)
@@ -126,7 +127,9 @@ void ContentsCore::CursorOff()
 
 void ContentsCore::CursorOn()
 {
-	CURSORINFO CursorInfo = { sizeof(CursorInfo) };
+	CURSORINFO CursorInfo;
+	CursorInfo.cbSize = sizeof(CURSORINFO);
+
 	GetCursorInfo(&CursorInfo);
 
 	if (1 == CursorInfo.flags)

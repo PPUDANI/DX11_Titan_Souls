@@ -43,6 +43,8 @@ private:
 	std::shared_ptr<class Sludge> SludgeActor = nullptr;
 	std::shared_ptr<class Heart> HeartActor = nullptr;
 
+	void BossStateUpdate();
+
 	bool BossDeathPrecessingIsEnd = false;
 	bool BossFirstHitPrecessingIsEnd = false;
 	void BossDeathProcessing();
