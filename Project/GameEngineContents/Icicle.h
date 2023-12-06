@@ -54,6 +54,7 @@ private:
 	float LiveTime = 10.0f;
 	float LiveTimer = 0.0f;
 
+	bool HitPlayer = false;
 private:
 	static SoundRandomPlayer LandPlayer;
 	static SoundRandomPlayer SmashPlayer;

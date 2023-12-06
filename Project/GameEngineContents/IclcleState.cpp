@@ -40,11 +40,13 @@ void Icicle::FallingUpdate(float _Delta)
 		if (50.0f > abs(TargetPos.Y - Transform.GetLocalPosition().Y) )
 		{	
 			FallingCollision->On();
-			if (false == EnymePlayer->InvincibilityModeIsOn() &&
+			if (false == HitPlayer &&
+				false == EnymePlayer->InvincibilityModeIsOn() &&
 				true == FallingCollision->Collision(COLLISION_TYPE::Player))
 			{
 				EffectSoundPlay("Crush.ogg");
 				EnymePlayer->ChangeState(PLAYER_STATE::Death);
+				return;
 			}
 		}
 	}
