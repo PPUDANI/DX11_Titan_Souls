@@ -42,5 +42,7 @@ protected:
 private:
 	void ContentsShaderLoad();
 
+	std::shared_ptr<class GameEngineCoreWindow> RenderTargetGUI = nullptr;
+	std::shared_ptr<class ContentsControlWindow> SettingGUI = nullptr;
 };
 

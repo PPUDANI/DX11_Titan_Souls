@@ -146,6 +146,41 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		}
 		break;
 
+	case VIEW_MODE::FG_MODE:
+		for (size_t i = 0; i < BGTileMaps.size(); i++)
+		{
+			BGTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < BGATileMaps.size(); i++)
+		{
+			BGATileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < WALLTileMaps.size(); i++)
+		{
+			WALLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < FGTileMaps.size(); i++)
+		{
+			FGTileMaps[i]->On();
+		}
+		for (size_t i = 0; i < COLTileMaps.size(); i++)
+		{
+			COLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < TCOLTileMaps.size(); i++)
+		{
+			TCOLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < ACOLTileMaps.size(); i++)
+		{
+			ACOLTileMaps[i]->Off();
+		}
+		for (size_t i = 0; i < MATTileMaps.size(); i++)
+		{
+			MATTileMaps[i]->Off();
+		}
+		break;
+
 	case VIEW_MODE::COLLISION_MODE:
 		for (size_t i = 0; i < BGTileMaps.size(); i++)
 		{
@@ -181,7 +216,7 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		}
 
 		break;
-	case VIEW_MODE::MATERIAL_MODE1:
+	case VIEW_MODE::MATERIAL_MODE:
 		for (size_t i = 0; i < BGTileMaps.size(); i++)
 		{
 			BGTileMaps[i]->Off();
@@ -213,41 +248,6 @@ void TileMap::SetViewMode(VIEW_MODE _Mode)
 		for (size_t i = 0; i < MATTileMaps.size(); i++)
 		{
 			MATTileMaps[i]->On();
-		}
-		break;
-
-	case VIEW_MODE::MATERIAL_MODE2:
-		for (size_t i = 0; i < BGTileMaps.size(); i++)
-		{
-			BGTileMaps[i]->Off();
-		}
-		for (size_t i = 0; i < BGATileMaps.size(); i++)
-		{
-			BGATileMaps[i]->Off();
-		}
-		for (size_t i = 0; i < WALLTileMaps.size(); i++)
-		{
-			WALLTileMaps[i]->Off();
-		}
-		for (size_t i = 0; i < FGTileMaps.size(); i++)
-		{
-			FGTileMaps[i]->On();
-		}
-		for (size_t i = 0; i < COLTileMaps.size(); i++)
-		{
-			COLTileMaps[i]->Off();
-		}
-		for (size_t i = 0; i < TCOLTileMaps.size(); i++)
-		{
-			TCOLTileMaps[i]->Off();
-		}
-		for (size_t i = 0; i < ACOLTileMaps.size(); i++)
-		{
-			ACOLTileMaps[i]->Off();
-		}
-		for (size_t i = 0; i < MATTileMaps.size(); i++)
-		{
-			MATTileMaps[i]->Off();
 		}
 		break;
 	default:

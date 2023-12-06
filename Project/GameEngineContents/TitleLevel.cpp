@@ -14,7 +14,7 @@ void TitleLevel::Start()
 	GetMainCamera()->SetYSort(RENDERING_ORDER::UI_FRONT);
 
 	// TileMap
-	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::TileMap), "TileMap");
 	TileMapActor->BaseSetting(71, 71, "Title", "Overworld2.png", {16.0f, 16.0f });
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");

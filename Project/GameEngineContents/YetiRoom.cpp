@@ -25,7 +25,7 @@ void YetiRoom::Start()
 		Window->AddDebugRenderTarget(2, "YetiRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
 
-	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::TileMap), "TileMap");
 	TileMapActor->BaseSetting(60, 60, "Yeti", "Underworld.png");
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");

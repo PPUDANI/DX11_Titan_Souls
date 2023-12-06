@@ -51,11 +51,11 @@ void PlayLevelBase::Update(float _Delta)
 	}
 	if (true == GameEngineInput::IsDown('3', this))
 	{
-		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE1);
+		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE);
 	}
 	if (true == GameEngineInput::IsDown('4', this))
 	{
-		TileMapActor->SetViewMode(VIEW_MODE::MATERIAL_MODE2);
+		TileMapActor->SetViewMode(VIEW_MODE::FG_MODE);
 	}
 
 	if (true == GameEngineInput::IsDown('I', this))

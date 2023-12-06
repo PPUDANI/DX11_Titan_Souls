@@ -35,7 +35,7 @@ private:
 	float FramePerSecond = 0.0f;
 };
 
-class Setting : public Tab
+class ViewMode : public Tab
 {
 	// TestLevelMemeber
 	int Select = 0;
@@ -44,7 +44,26 @@ class Setting : public Tab
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime);
 
 public:
-	Setting(std::string_view _Name)
+	ViewMode(std::string_view _Name)
+		: Tab(_Name)
+	{
+	}
+private:
+	float FPSUpdateTime = 0.5f;
+	float FPSUpdateTimer = 0.0f;
+	float FramePerSecond = 0.0f;
+};
+
+class SoundSetting : public Tab
+{
+	// TestLevelMemeber
+	int Select = 0;
+	std::shared_ptr<GameEngineObject> SelectObject = nullptr;
+
+	void OnGUI(GameEngineLevel* _Level, float _DeltaTime);
+
+public:
+	SoundSetting(std::string_view _Name)
 		: Tab(_Name)
 	{
 	}

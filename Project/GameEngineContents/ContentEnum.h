@@ -2,7 +2,8 @@
 
 enum class UPDATE_ORDER
 {
-	Map,
+	TileMap,
+	MapEliment,
 	TriggerBox,
 	Boss,
 	Arrow,

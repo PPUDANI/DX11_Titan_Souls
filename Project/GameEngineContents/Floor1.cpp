@@ -31,7 +31,7 @@ void Floor1::Start()
 	}
 
 	// Create TileMap
-	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::TileMap), "TileMap");
 	TileMapActor->BaseSetting(101, 219, "Floor1", "Overworld.png");
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
 	TileMapActor->CreateTileMap(TILE_TYPE::BGA, "BGA.tmd");
@@ -49,68 +49,68 @@ void Floor1::Start()
 	ArrowActor->TileMapSetting(TileMapActor);
 
 	// MapActor : Overlay
-	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	SludgeRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::MapEliment);
 	SludgeRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1616.0f, -3232.0f });
 	SludgeRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	SludgeRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	YetiRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	YetiRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::MapEliment);
 	YetiRoomEntranceOverlayActor->Transform.SetLocalPosition({ 1104.0f, -2944.0f });
 	YetiRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	YetiRoomEntranceOverlayActor->SetAlpha(0.4f);
 
-	EmptyRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::Map);
+	EmptyRoomEntranceOverlayActor = CreateActor<OverlayActor>(UPDATE_ORDER::MapEliment);
 	EmptyRoomEntranceOverlayActor->Transform.SetLocalPosition({ 2128.0f, -2944.0f });
 	EmptyRoomEntranceOverlayActor->SetScale({ 96.0f, 96.0f });
 	EmptyRoomEntranceOverlayActor->SetAlpha(0.4f);
 
 	// MapActor : Text
-	SpaceBarText = CreateActor<TextActor>(UPDATE_ORDER::Map);
+	SpaceBarText = CreateActor<TextActor>(UPDATE_ORDER::MapEliment);
 	SpaceBarText->Init("SPACE", float4{ 0.13f, 0.15f, 0.22f, 1.0f }, 25.0f);
 	SpaceBarText->Transform.SetLocalPosition({ 1638.0f, -4913.0f });
 
-	ShiftText = CreateActor<TextActor>(UPDATE_ORDER::Map);
+	ShiftText = CreateActor<TextActor>(UPDATE_ORDER::MapEliment);
 	ShiftText->Init("SHIFT", float4{ 0.13f, 0.15f, 0.22f, 1.0f }, 25.0f);
 	ShiftText->Transform.SetLocalPosition({ 2064.0f, -4726.0f });
 
 
 	// MapActor : ClearLight
-	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	SludgeClearLight = CreateActor<ClearLight>(UPDATE_ORDER::MapEliment);
 	SludgeClearLight->Transform.SetLocalPosition({ 1616.0f, -3120.0f });
 
-	YetiClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	YetiClearLight = CreateActor<ClearLight>(UPDATE_ORDER::MapEliment);
 	YetiClearLight->Transform.SetLocalPosition({ 1104.0f, -2832.0f });
 
-	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	ColossusClearLight = CreateActor<ClearLight>(UPDATE_ORDER::MapEliment);
 	ColossusClearLight->Transform.SetLocalPosition({ 1616.0f, -2448.0f });
 
-	EmptyClearLight = CreateActor<ClearLight>(UPDATE_ORDER::Map);
+	EmptyClearLight = CreateActor<ClearLight>(UPDATE_ORDER::MapEliment);
 	EmptyClearLight->Transform.SetLocalPosition({ 2128.0f, -2832.0f });
 	EmptyClearLight->LightOn();
 
-	SludgeClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	SludgeClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
 	SludgeClearLight2->Transform.SetLocalPosition({ 1616.0f, -1008.0f });
 
-	YetiClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	YetiClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
 	YetiClearLight2->Transform.SetLocalPosition({ 1520.0f, -1104.0f });
 
-	ColossusClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	ColossusClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
 	ColossusClearLight2->Transform.SetLocalPosition({ 1616.0f, -1200.0f  });
 
-	EmptyClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::Map);
+	EmptyClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
 	EmptyClearLight2->Transform.SetLocalPosition({ 1712.0f, -1104.0f });
 	EmptyClearLight2->LightOn();
 
 	// MapActors : StartDoor
-	CrystalBallActor = CreateActor<CrystalBall>(UPDATE_ORDER::Map);
+	CrystalBallActor = CreateActor<CrystalBall>(UPDATE_ORDER::MapEliment);
 	CrystalBallActor->Transform.SetLocalPosition({ 1616.0f, -5696.0f });
 
-	StartDoorActor = CreateActor<StartDoor>(UPDATE_ORDER::Map);
+	StartDoorActor = CreateActor<StartDoor>(UPDATE_ORDER::MapEliment);
 	StartDoorActor->Transform.SetLocalPosition({ 1616.0f, -5408.0f });
 	StartDoorActor->SetTileMap(TileMapActor.get());
 
 	// MapActors : EndingDoor
-	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::Map);
+	EndingDoorActor = CreateActor<EndingDoor>(UPDATE_ORDER::MapEliment);
 	EndingDoorActor->Transform.SetLocalPosition({ 1616.0f ,-896.0f });
 	EndingDoorActor->SetPlayer(PlayerActor.get());
 	EndingDoorActor->SetTileMap(TileMapActor.get());
@@ -127,7 +127,7 @@ void Floor1::Start()
 	EndingTrigger->SetEnterTriggerFunc(std::bind(&Floor1::EndingFunc, this));
 	EndingTrigger->Off();
 
-	LightEffectOverlayActor = CreateActor<FadeScreenOverlay>(UPDATE_ORDER::Map);
+	LightEffectOverlayActor = CreateActor<FadeScreenOverlay>(UPDATE_ORDER::MapEliment);
 	LightEffectOverlayActor->SetAlpha(0.0f);
 }
 

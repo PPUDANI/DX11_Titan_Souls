@@ -30,8 +30,11 @@ void ContentsCore::Start()
 	GameEngineFont::Load("TSfont");
 
 	// Create IMGUI
-	GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("ContentsControlWindow");
-	GameEngineGUI::CreateGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
+	RenderTargetGUI = GameEngineGUI::CreateGUIWindow<GameEngineCoreWindow>("GameEngineCoreWindow");
+	RenderTargetGUI->Off();
+
+	SettingGUI = GameEngineGUI::CreateGUIWindow<ContentsControlWindow>("Information & Control");
+	SettingGUI->Off();
 
 	// Clear Color Setting
 	GameEngineCore::GetBackBufferRenderTarget()->SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
@@ -80,6 +83,21 @@ void ContentsCore::Update(float _Delta)
 	if (true == GameEngineInput::IsDown(VK_F5, this))
 	{
 		GameEngineCore::ChangeLevel("04.Ending");
+	}
+
+
+	if (true == GameEngineInput::IsDown(VK_F6, this))
+	{
+		if (true == SettingGUI->IsUpdate())
+		{
+			SettingGUI->Off();
+			RenderTargetGUI->Off();
+		}
+		else
+		{
+			SettingGUI->On();
+			RenderTargetGUI->On();
+		}
 	}
 }
 

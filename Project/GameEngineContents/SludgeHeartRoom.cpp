@@ -22,7 +22,7 @@ void SludgeHeartRoom::Start()
 		Window->AddDebugRenderTarget(1, "SludgeHeartRoomRenderTarget", GetMainCamera()->GetCameraAllRenderTarget());
 	}
 
-	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::Map), "TileMap");
+	TileMapActor = CreateActor<TileMap>(static_cast<int>(UPDATE_ORDER::TileMap), "TileMap");
 	TileMapActor->BaseSetting(60, 80, "SludgeHeart", "Underworld.png");
 
 	TileMapActor->CreateTileMap(TILE_TYPE::BG, "BG.tmd");
