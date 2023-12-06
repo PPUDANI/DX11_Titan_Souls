@@ -81,7 +81,6 @@ void YetiRoom::LevelStart(GameEngineLevel* _PrevLevel)
 void YetiRoom::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	PlayLevelBase::LevelEnd(_NextLevel);
-
 	CameraManager::CalCameraPosFromArrowOn();
 	CameraManager::AddCameraPosFromBoss = float4::ZERO;
 

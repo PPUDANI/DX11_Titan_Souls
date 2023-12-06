@@ -71,9 +71,10 @@ void Icicle::Start()
 	ShadowRenderer->GetColorData().MulColor.A = ShadowStandardAlpha;
 
 	FallingCollision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::Icicle);
-	FallingCollision->SetCollisionType(ColType::SPHERE2D);
-	FallingCollision->Transform.SetLocalScale({ 16.0f, 16.0f });
+	FallingCollision->SetCollisionType(ColType::AABBBOX2D);
+	FallingCollision->Transform.SetLocalScale({ 28.0f, 20.0f });
 	FallingCollision->Transform.SetLocalPosition({ 0.0f, -4.0f });
+	FallingCollision->Off();
 
 	Collision = CreateComponent<GameEngineCollision>(COLLISION_TYPE::BossBody);
 	Collision->SetCollisionType(ColType::AABBBOX2D);
@@ -110,7 +111,7 @@ void Icicle::Update(float _Delta)
 		TData.SetLocalScale({ 5.0f, 5.0f });
 
 		TData.SetLocalPosition(TargetPos);
-		GameEngineDebug::DrawBox2D(TData, { 0, 1, 1, 1 });
+		GameEngineDebug::DrawBox2D(TData, { 1, 0, 0, 1 });
 	}
 }
 
