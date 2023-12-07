@@ -43,9 +43,6 @@
     <ClCompile Include="Sludge.cpp">
       <Filter>01. Actor\03. Boss\01. Sludge Heart\02. Sludge</Filter>
     </ClCompile>
-    <ClCompile Include="Debris.cpp">
-      <Filter>01. Actor\03. Boss\01. Sludge Heart\03. Debris</Filter>
-    </ClCompile>
     <ClCompile Include="SludgeState.cpp">
       <Filter>01. Actor\03. Boss\01. Sludge Heart\02. Sludge</Filter>
     </ClCompile>
@@ -202,6 +199,9 @@
     <ClCompile Include="ClearLight2.cpp">
       <Filter>01. Actor\01. Map\03. ClearLight</Filter>
     </ClCompile>
+    <ClCompile Include="WeaknessActor.cpp">
+      <Filter>01. Actor\06. Weakness Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -236,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="Sludge.h">
       <Filter>01. Actor\03. Boss\01. Sludge Heart\02. Sludge</Filter>
-    </ClInclude>
-    <ClInclude Include="Debris.h">
-      <Filter>01. Actor\03. Boss\01. Sludge Heart\03. Debris</Filter>
     </ClInclude>
     <ClInclude Include="JumpBoss.h">
       <Filter>01. Actor\03. Boss\01. Sludge Heart\00. GravityActor</Filter>
@@ -363,6 +360,9 @@
     <ClInclude Include="ClearLight2.h">
       <Filter>01. Actor\01. Map\03. ClearLight</Filter>
     </ClInclude>
+    <ClInclude Include="WeaknessActor.h">
+      <Filter>01. Actor\06. Weakness Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Global">
@@ -430,12 +430,6 @@
     </Filter>
     <Filter Include="02. Level\00.  LevelBase">
       <UniqueIdentifier>{be58b8bb-a8d7-41a6-94a7-56f724e56ef2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\03. Boss\01. Sludge Heart\03. Debris">
-      <UniqueIdentifier>{6726e26a-21d3-4ad7-a36f-8fa9d22b8e93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Actor\06. Versatile Actor">
-      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Actor\05. Trigger Box">
       <UniqueIdentifier>{1f01acbb-a0d6-4c3c-a9dd-19e2727c9dac}</UniqueIdentifier>
@@ -541,6 +535,9 @@
     </Filter>
     <Filter Include="01. Actor\01. Map\05. Overlay">
       <UniqueIdentifier>{d3d38ea0-eda3-486c-9105-9c8dd3ee387b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Actor\06. Weakness Actor">
+      <UniqueIdentifier>{436e51e0-ab4c-466e-a43f-01b1a0110e50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

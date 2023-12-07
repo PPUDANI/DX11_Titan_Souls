@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "ContentsControlWindow.h"
 #include "ContentsCore.h"
+#include "Floor1.h"
+
 void ContentsControlWindow::Start()
 {
 	Tabs.push_back(std::make_shared<LevelChangeTab>("LevelChangeTab"));
@@ -17,6 +19,7 @@ void Information::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		ContentsCore::CursorOn();
 	}
 
+	ImGui::SeparatorText("Position");
 	std::list<std::shared_ptr<GameEngineObject>> PlayerActorList = _Level->GetObjectGroup(UPDATE_ORDER::Player);
 
 	if (true != PlayerActorList.empty())
@@ -62,16 +65,26 @@ void Information::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	FPSStr += std::to_string(static_cast<int>(FramePerSecond));
 	ImGui::Text(FPSStr.c_str());
 
-	ImGui::Text("\n");
+	ImGui::SeparatorText("Controller");
+
 	static bool CollisionDebug = false;
+
+	CollisionDebug = GameEngineLevel::IsDebug;
 	ImGui::Checkbox("Collision Debug", &CollisionDebug);
-	if (true == CollisionDebug)
+	
+	ImGui::Text("\n");
+	Floor1* FloorLevel = dynamic_cast<Floor1*>(_Level);
+	if (nullptr != FloorLevel)
 	{
-		GameEngineLevel::IsDebug = true;
-	}
-	else
-	{
-		GameEngineLevel::IsDebug = false;
+		if (ImGui::Button("Create Weakness"))
+		{
+			FloorLevel->CreateWeaknessActor();
+		}
+
+		if (ImGui::Button("Death Weakness"))
+		{
+			FloorLevel->DeathWeaknessActor();
+		}
 	}
 }
 

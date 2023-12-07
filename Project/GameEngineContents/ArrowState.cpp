@@ -7,6 +7,7 @@ void Arrow::HoldStart()
 	EffectSoundStop();
 	PullingForce = 0.0f;
 	Renderer->ChangeAnimation("Idle");
+	Renderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
 	Renderer->Off();
 	Collision->Off();
 	PickUpCollision->Off();

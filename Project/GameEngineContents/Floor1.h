@@ -142,4 +142,13 @@ private:
 	void StartDoorProcessing();
 
 	bool StartDoorIsOpen = false;
+
+private:
+	std::shared_ptr<class WeaknessActor> WeaknessActor1 = nullptr;
+
+public:
+	void CreateWeaknessActor();
+	void DeathWeaknessActor();
+
+private:
 };

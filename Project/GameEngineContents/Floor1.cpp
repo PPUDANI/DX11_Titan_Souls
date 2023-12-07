@@ -9,6 +9,7 @@
 #include "OverlayLightMask.h"
 #include "CrystalBall.h"
 #include "StartDoor.h"
+#include "WeaknessActor.h"
 
 Floor1::Floor1()
 {
@@ -89,13 +90,13 @@ void Floor1::Start()
 	EmptyClearLight->LightOn();
 
 	SludgeClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
-	SludgeClearLight2->Transform.SetLocalPosition({ 1616.0f, -1008.0f });
+	SludgeClearLight2->Transform.SetLocalPosition({ 1616.0f, -1200.0f });
 
 	YetiClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
 	YetiClearLight2->Transform.SetLocalPosition({ 1520.0f, -1104.0f });
 
 	ColossusClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
-	ColossusClearLight2->Transform.SetLocalPosition({ 1616.0f, -1200.0f  });
+	ColossusClearLight2->Transform.SetLocalPosition({ 1616.0f, -1008.0f  });
 
 	EmptyClearLight2 = CreateActor<ClearLight2>(UPDATE_ORDER::MapEliment);
 	EmptyClearLight2->Transform.SetLocalPosition({ 1712.0f, -1104.0f });
@@ -763,5 +764,23 @@ void Floor1::StartDoorProcessing()
 	{
 		StartDoorIsOpen = true;
 		StartDoorActor->OpenDoor();
+	}
+}
+
+void Floor1::CreateWeaknessActor()
+{
+	if (nullptr == WeaknessActor1)
+	{
+		WeaknessActor1 = CreateActor<WeaknessActor>(UPDATE_ORDER::Boss);
+		WeaknessActor1->Transform.SetLocalPosition({ 1808.0f, -5984.0f });
+	}
+}
+
+void Floor1::DeathWeaknessActor()
+{
+	if (nullptr != WeaknessActor1)
+	{
+		WeaknessActor1->Death();
+		WeaknessActor1 = nullptr;
 	}
 }

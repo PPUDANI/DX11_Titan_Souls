@@ -10,13 +10,11 @@ void Icicle::FallingStart()
 void Icicle::StuckStart()
 {
 	Transform.SetLocalPosition(TargetPos);
-	float4 PivotSetting = { 0.0f, 16.0f };
-	ShadowRenderer->Transform.SetLocalPosition(ShadowStandardPos + PivotSetting);
+	ShadowRenderer->Transform.SetLocalPosition(ShadowStandardPos);
 
 	BodyRenderer->SetRenderOrder(RENDERING_ORDER::Y_SORT_ENTITY);
 	BodyRenderer->SetSprite("Icicle.png", StuckAnimationIndex);
 	BodyRenderer->SetImageScale({ 64.0f, 64.0f });
-	BodyRenderer->Transform.AddLocalPosition(PivotSetting);
 	FallingCollision->Off();
 	Collision->On();
 
