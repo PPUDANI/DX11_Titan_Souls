@@ -191,7 +191,7 @@ void JumpBoss::AdjustLeftPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::RIGHT;
 	}
-	_MovePos += float4::LEFT;
+	//_MovePos += float4::LEFT;
 }
 
 void JumpBoss::AdjustRightPosByTileCol(float4& _MovePos)
@@ -200,7 +200,7 @@ void JumpBoss::AdjustRightPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::LEFT;
 	}
-	_MovePos += float4::RIGHT;
+	//_MovePos += float4::RIGHT;
 }
 
 void JumpBoss::AdjustUpPosByTileCol(float4& _MovePos)
@@ -209,7 +209,7 @@ void JumpBoss::AdjustUpPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::DOWN;
 	}
-	_MovePos += float4::UP;
+	//_MovePos += float4::UP;
 }
 
 void JumpBoss::AdjustDownPosByTileCol(float4& _MovePos)
@@ -218,7 +218,7 @@ void JumpBoss::AdjustDownPosByTileCol(float4& _MovePos)
 	{
 		_MovePos += float4::UP;
 	}
-	_MovePos += float4::DOWN;
+	//_MovePos += float4::DOWN;
 }
 
 void JumpBoss::SetMoveDirRandom(const float4& _CheckPos, float _RandomRange)
