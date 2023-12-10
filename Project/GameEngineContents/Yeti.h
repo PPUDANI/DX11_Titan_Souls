@@ -186,4 +186,9 @@ private:
 	{
 		dynamic_cast<YetiRoom*>(GetLevel())->CreateSnowParticle(Transform.GetLocalPosition() + float4{0.0f, 40.0f}, MoveAngle.Z, 60.0f, 10);
 	}
+
+	void SnowSpreadParticle()
+	{
+		dynamic_cast<YetiRoom*>(GetLevel())->CreateSpreadSnowParticle(Transform.GetLocalPosition(), 0.75f, 100.0f, 300.0f, 40);
+	}
 };

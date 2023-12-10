@@ -77,5 +77,5 @@ public:
 	void CreateIcicleParticle(const float4& _Pos, int _Num);
 
 	std::shared_ptr<class SpreadParticle> SpreadParticleActor = nullptr;
-	void CreateSpreadSnowParticle(const float4& _Pos, int _Num);
+	void CreateSpreadSnowParticle(const float4& _Pos, float _LiveTime, float MinSpeed, float MaxSpeed, int _Num);
 };

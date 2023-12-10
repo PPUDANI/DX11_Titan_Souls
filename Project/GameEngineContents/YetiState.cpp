@@ -53,6 +53,8 @@ void Yeti::LandingStart()
 	SetAnimByDir("Landing");
 
 	ShadowRenderer->SetImageScale(ShadowStandardScale);
+
+	SnowSpreadParticle();
 }
 
 void Yeti::BlockedStart()
