@@ -163,10 +163,6 @@ void PlayLevelBase::ArrowDirRotation()
 		float4 PlayerFromArrow = PlayerActor->Transform.GetLocalPosition() - ArrowActor->Transform.GetLocalPosition();
 		float4 Angle = float4::ZERO;
 		Angle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
-		if (0.0f > Angle.Z)
-		{
-			Angle.Z += 360.0f;
-		}
 
 		PlayerActor->SetArrowAngleDeg(Angle.Z + 180.0f);
 		Angle.Z += 90.0f;
