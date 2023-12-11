@@ -143,21 +143,11 @@ void PlayLevelBase::CursorDirRotation()
 	// Arrow Direction Rotation
 	float4 PlayerFromArrow = CursorActor->Transform.GetLocalPosition() - PlayerActor->Transform.GetLocalPosition();
 	CursorAngle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
-
 	if (0.0f > CursorAngle.Z)
 	{
-		while (0.0f > CursorAngle.Z)
-		{
-			CursorAngle.Z += 360.0f;
-		}
+		CursorAngle.Z += 360.0f;
 	}
-	else if (360.0f < CursorAngle.Z)
-	{
-		while (360.0f < CursorAngle.Z)
-		{
-			CursorAngle.Z -= 360.0f;
-		}
-	}
+
 
 	PlayerActor->SetArrowAngleDeg(CursorAngle.Z);
 	CursorAngle.Z += 90.0f;
@@ -173,6 +163,10 @@ void PlayLevelBase::ArrowDirRotation()
 		float4 PlayerFromArrow = PlayerActor->Transform.GetLocalPosition() - ArrowActor->Transform.GetLocalPosition();
 		float4 Angle = float4::ZERO;
 		Angle.Z = DirectX::XMConvertToDegrees(atan2f(PlayerFromArrow.Y, PlayerFromArrow.X));
+		if (0.0f > Angle.Z)
+		{
+			Angle.Z += 360.0f;
+		}
 
 		PlayerActor->SetArrowAngleDeg(Angle.Z + 180.0f);
 		Angle.Z += 90.0f;
@@ -251,6 +245,19 @@ void PlayLevelBase::ReleaseParticle()
 
 	{
 		std::vector<std::shared_ptr<GravityParticle>> ObjectType = GetObjectGroupConvert<GravityParticle>(UPDATE_ORDER::Particle);
+		for (size_t i = 0; i < ObjectType.size(); ++i)
+		{
+			if (nullptr != ObjectType[i])
+			{
+				ObjectType[i]->Death();
+				ObjectType[i] = nullptr;
+			}
+		}
+		ObjectType.clear();
+	}
+
+	{
+		std::vector<std::shared_ptr<SpreadParticle>> ObjectType = GetObjectGroupConvert<SpreadParticle>(UPDATE_ORDER::Particle);
 		for (size_t i = 0; i < ObjectType.size(); ++i)
 		{
 			if (nullptr != ObjectType[i])

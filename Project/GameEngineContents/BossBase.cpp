@@ -25,17 +25,7 @@ void BossBase::SetMoveDir(const float4& _CheckPos)
 
 	if (0.0f > MoveAngle.Z)
 	{
-		while (0.0f > MoveAngle.Z)
-		{
-			MoveAngle.Z += 360.0f;
-		}
-	}
-	else if (360.0f < MoveAngle.Z)
-	{
-		while (360.0f < MoveAngle.Z)
-		{
-			MoveAngle.Z -= 360.0f;
-		}
+		MoveAngle.Z += 360.0f;
 	}
 
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
@@ -48,17 +38,7 @@ void BossBase::SetMoveDir(const float4& _CheckPos, const float4& EndPos)
 
 	if (0.0f > MoveAngle.Z)
 	{
-		while (0.0f > MoveAngle.Z)
-		{
-			MoveAngle.Z += 360.0f;
-		}
-	}
-	else if (360.0f < MoveAngle.Z)
-	{
-		while (360.0f < MoveAngle.Z)
-		{
-			MoveAngle.Z -= 360.0f;
-		}
+		MoveAngle.Z += 360.0f;
 	}
 
 	MoveDirBasis = float4::GetUnitVectorFromDeg(MoveAngle.Z);
@@ -70,19 +50,9 @@ float4 BossBase::SetMoveDirReturn(const float4& _CheckPos)
 	float4 MoveAngleRes = float4::ZERO;
 	MoveAngleRes.Z = DirectX::XMConvertToDegrees(atan2f(BossToPlayer.Y, BossToPlayer.X));
 
-	if (0.0f > MoveAngleRes.Z)
+	if (0.0f > MoveAngle.Z)
 	{
-		while (0.0f > MoveAngleRes.Z)
-		{
-			MoveAngleRes.Z += 360.0f;
-		}
-	}
-	else if (360.0f < MoveAngleRes.Z)
-	{
-		while (360.0f < MoveAngleRes.Z)
-		{
-			MoveAngleRes.Z -= 360.0f;
-		}
+		MoveAngle.Z += 360.0f;
 	}
 
 	return MoveAngleRes;
