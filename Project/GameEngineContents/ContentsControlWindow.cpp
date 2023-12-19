@@ -68,9 +68,19 @@ void Information::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	ImGui::SeparatorText("Controller");
 
 	static bool CollisionDebug = false;
-
-	CollisionDebug = GameEngineLevel::IsDebug;
-	ImGui::Checkbox("Collision Debug", &CollisionDebug);
+	if (true == ImGui::Checkbox("Collision Debug", &CollisionDebug))
+	{
+		if (true == CollisionDebug &&
+			false == GameEngineLevel::IsDebug)
+		{
+			GameEngineLevel::IsDebug = CollisionDebug;
+		}
+		else if (false == CollisionDebug &&
+			true == GameEngineLevel::IsDebug)
+		{
+			GameEngineLevel::IsDebug = CollisionDebug;
+		}
+	}
 	
 	ImGui::Text("\n");
 	Floor1* FloorLevel = dynamic_cast<Floor1*>(_Level);
@@ -171,7 +181,7 @@ void SoundSetting::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	static float BackgroundVolume = 1.0f;
 	if (ImGui::SliderFloat("BackgroundVolume", &BackgroundVolume, 0.0f, 2.0f))
 	{
-		dynamic_cast<LevelBase*>(_Level)->SetBackgroundVolume(BackgroundVolume);
+		dynamic_cast<LevelBase*>(_Level)->SetBackgroundVolume(BackgroundVolume * 0.5f);
 	}
 	static float AmbienceVolume = 1.0f;
 	if (ImGui::SliderFloat("AmbienceVolume", &AmbienceVolume, 0.0f, 2.0f))
