@@ -38,17 +38,15 @@ float4 OverlayLightMask_PS(PixelOutPut _Input) : SV_Target0
     // Foreground
     float4 Color2 = Tex2.Sample(Tex2Sampler, _Input.TEXCOORD.xy);
     
-
+    if (Color2.a != 0)
+    {
+        return Color1;
+    }
+    
     if (Color0.a != 0)
     {
-        if (Color2.a != 0)
-        {
-            return Color1;
-        }
-        else
-        {
-            return Color0;
-        }
+        return Color0;
     }
+    
     return Color1;
 }
