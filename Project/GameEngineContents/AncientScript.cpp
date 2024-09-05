@@ -73,7 +73,7 @@ void AncientScript::Update(float _Delta)
 
 int AncientScript::ChangeAsciiToIndex(int _AsciiNum)
 {
-	int Result = _AsciiNum - 65;
+	int Result = _AsciiNum - 'A';
 	if (0 <= Result)
 	{
 		if (FONT_TYPE::ANCIENT == Type)

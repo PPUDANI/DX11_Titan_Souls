@@ -26,10 +26,10 @@ SamplerState Tex1Sampler : register(s1);
 
 float4 PlayerMaskEffect_PS(PixelOutPut _Input) : SV_Target0
 {
-    // 플레이어
+    // Player
     float4 Color0 = Tex0.Sample(Tex0Sampler, _Input.TEXCOORD.xy);
     
-    // 벽
+    // Foreground
     float4 Color1 = Tex1.Sample(Tex1Sampler, _Input.TEXCOORD.xy);
     
     if (Color0.a != 0 && Color1.a != 0)

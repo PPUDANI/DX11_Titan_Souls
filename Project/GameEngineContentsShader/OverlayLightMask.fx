@@ -21,10 +21,8 @@ PixelOutPut OverlayLightMask_VS(GameEngineVertex2D _Input)
 
 Texture2D Tex0 : register(t0);
 Texture2D Tex1 : register(t1);
-Texture2D Tex2 : register(t2);
 SamplerState Tex0Sampler : register(s0);
 SamplerState Tex1Sampler : register(s1);
-SamplerState Tex2Sampler : register(s2);
 
 
 float4 OverlayLightMask_PS(PixelOutPut _Input) : SV_Target0
@@ -35,21 +33,6 @@ float4 OverlayLightMask_PS(PixelOutPut _Input) : SV_Target0
     // Overlay
     float4 Color1 = Tex1.Sample(Tex1Sampler, _Input.TEXCOORD.xy);
    
-    // Overlay
-    float4 Color2 = Tex2.Sample(Tex2Sampler, _Input.TEXCOORD.xy);
-   
-    if (Color2.a != 0)
-    {
-        if (Color1.a != 0)
-        {
-            return Color1;
-        }
-        else
-        {
-            return float4(0.0f, 0.0f, 0.0f, 0.0f);
-        }
-    }
-    
     if (Color0.a != 0)
     {
         return Color0;
