@@ -23,9 +23,11 @@ void OverlayLightMask::Start()
 
 	EffectUnit.ShaderResHelper.SetTexture("Tex0", Target->GetTexture(3));
 	EffectUnit.ShaderResHelper.SetTexture("Tex1", Target->GetTexture(4));
+	EffectUnit.ShaderResHelper.SetTexture("Tex2", Target->GetTexture(2));
 
 	EffectUnit.ShaderResHelper.SetSampler("Tex0Sampler", "POINT");
 	EffectUnit.ShaderResHelper.SetSampler("Tex1Sampler", "POINT");
+	EffectUnit.ShaderResHelper.SetSampler("Tex2Sampler", "POINT");
 }
 
 void OverlayLightMask::EffectProcess(float _DeltaTime)
