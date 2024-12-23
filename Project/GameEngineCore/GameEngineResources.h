@@ -86,7 +86,7 @@ protected:
 	static std::shared_ptr<ResourcesType> CreateRes(std::string_view _Name, std::string_view _Path)
 	{
 		std::string UpperName = GameEngineString::ToUpperReturn(_Name);
-		std::shared_ptr<ResourcesType> NewRes = std::make_shared<ResourcesType>(ResourcesType);
+		std::shared_ptr<ResourcesType> NewRes = std::make_shared<ResourcesType>();
 		NewRes->Name = UpperName;
 		NewRes->Path = _Path.data();
 		NameRes.insert(UpperName, NewRes);
